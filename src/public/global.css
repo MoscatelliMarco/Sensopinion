@@ -1,6 +1,6 @@
 .text-primary-gradient {
     /* Define the gradient */
-    background-image: linear-gradient(to right, blue, rgb(255,0,0));
+    background-image: linear-gradient(to right, rgb(0,0,255), rgb(255,0,0));
 
     /* Set the text color to transparent */
     color: transparent;
@@ -14,5 +14,13 @@
 }
 
 .bg-primary-gradient {
-    background: linear-gradient(to right, blue, rgb(255,0,0));
+    background: linear-gradient(to right, rgb(0,0,255), rgb(255,0,0));
+}
+
+.bg-primary-gradient-opacity {
+    background: linear-gradient(to right, rgba(0, 0, 255, 0.7), rgba(255, 0, 0, 0.7));
+}
+
+.bg-primary-gradient-opacity-hover:hover {
+    background: linear-gradient(to right, rgba(0, 0, 255, 0.8), rgba(255, 0, 0, 0.6));
 }

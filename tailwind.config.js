@@ -8,11 +8,26 @@ module.exports = {
     themes: [
       {
         main: {
-          "primary": "rgb(255,0,0)",
-          "secondary": "rgb(0,0,255)",
-          neutral: "#D1D1D1"
+          red: "rgb(255,0,0)",
+          blue: "rgb(0,0,255)",
+          "neutral-light": "#c7c7c7",
+          neutral: "#939393",
+          "neutral-dark": "#6E6E6E",
+          white: "#F2F2F2",
+          black: "#0F0F0F",
         }
       }
     ]
+  },
+  theme: {
+    colors: {
+      red: "rgb(255,0,0)",
+      blue: "rgb(0,0,255)",
+      "neutral-light": "#c7c7c7",
+      neutral: "#939393",
+      "neutral-dark": "#6E6E6E",
+      white: "#F2F2F2",
+      black: "#0F0F0F",
+    }
   }
 }

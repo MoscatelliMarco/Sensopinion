@@ -1,0 +1,18 @@
+.text-primary-gradient {
+    /* Define the gradient */
+    background-image: linear-gradient(to right, blue, rgb(255,0,0));
+
+    /* Set the text color to transparent */
+    color: transparent;
+
+    /* Clip the background to the text */
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* Ensuring text is displayed */
+    -webkit-text-fill-color: transparent; 
+}
+
+.bg-primary-gradient {
+    background: linear-gradient(to right, blue, rgb(255,0,0));
+}

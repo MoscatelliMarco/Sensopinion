@@ -6,6 +6,9 @@
                 <a href="#">Sentiment Screener</a>
             </li>
             <li class="hover:font-medium text-sm flex flex-col justify-center">
+                <a href="#">Analyze your text</a>
+            </li>
+            <li class="hover:font-medium text-sm flex flex-col justify-center">
                 <a href="#">About us</a>
             </li>
         </ul>

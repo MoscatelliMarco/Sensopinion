@@ -21,6 +21,9 @@
     background: linear-gradient(to right, rgba(0, 0, 255, 0.7), rgba(255, 0, 0, 0.7));
 }
 
-.bg-primary-gradient-opacity-hover:hover {
-    background: linear-gradient(to right, rgba(0, 0, 255, 0.8), rgba(255, 0, 0, 0.6));
+.bg-primary-gradient-opacity-inter:hover {
+    background: linear-gradient(to right, rgba(0, 0, 255, 0.8), rgba(255, 0, 0, 0.8));
+}
+.bg-primary-gradient-opacity-inter:focus {
+    background: linear-gradient(to right, rgba(0, 0, 255, 0.8), rgba(255, 0, 0, 0.8));
 }

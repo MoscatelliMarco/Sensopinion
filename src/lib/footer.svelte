@@ -18,6 +18,12 @@
             <li class="font-medium">·</li>
             <li class="hover:font-medium">
                 <a href="#">
+                    Analyze your text
+                </a>
+            </li>
+            <li class="font-medium">·</li>
+            <li class="hover:font-medium">
+                <a href="#">
                     Where do we find news
                 </a>
             </li>

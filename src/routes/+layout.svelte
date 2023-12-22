@@ -26,6 +26,6 @@
     </body>
 {:else}
     <div class="bg-white flex justify-center items-center h-screen">
-        <span class="loading loading-infinity w-16"></span>
+        <span class="loading loading-infinity w-12 md:w-14 lg:w-16 xl:w-20"></span>
     </div>
 {/if}

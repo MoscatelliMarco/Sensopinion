@@ -19,8 +19,8 @@
     let dropdown_main_active = false;
 
     // Function to handle click outside the dropdown
-    function handleClickOutside(event) {
-        if (dropdown && !dropdown.contains(event.target) && dropdown_main_active) {
+    function handleClickDropdown(event) {
+        if (dropdown && dropdown_main_active) {
             dropdown_main_active = false;
         }
     }
@@ -33,12 +33,12 @@
 
     // Listen for clicks on the entire window
     onMount(() => {
-        window.addEventListener('click', handleClickOutside);
+        window.addEventListener('click', handleClickDropdown);
     });
 
     // Cleanup the event listener when the component is destroyed
     onDestroy(() => {
-        window.removeEventListener('click', handleClickOutside);
+        window.removeEventListener('click', handleClickDropdown);
     });
 </script>
 
@@ -57,11 +57,12 @@
             <div class="flex gap-8">
                 <button class="w-48 py-3 text-sm rounded-md bg-primary-gradient font-semibold text-white hover:brightness-105 focus:hover:brightness-105 btn shadow-md hover:shadow-lg">TRY OUR SCREENER</button>
                 <div class="relative">
-                    <button on:click={toggleDropdown} class="shadow-md hover:shadow-lg w-48 py-3 text-sm rounded-md border-2 border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light text-md">Try a different emotion></button>
+                    <button on:click={toggleDropdown} class="shadow-md hover:shadow-lg w-48 py-3 text-sm rounded-md border-2 border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light text-md">Try a different emotion</button>
                     <ul bind:this={dropdown} class:hidden={!dropdown_main_active} class:absolute={dropdown_main_active} class="w-48 bg-white rounded-md mt-2 shadow-md px-4 py-2 flex flex-col gap-0.5">
                         <li><button class="bg-primary-gradient-opacity bg-primary-gradient-opacity-inter text-white text-sm py-0.5 w-full rounded-sm">👍 Positivity 👍</button></li>
                         <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">👎 Negativity 👎</button></li>
-                        <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">✊ Neutrality ✊</button></li>
+                        <li style="margin: -2px 0px -2px 0px;" class="w-full text-center font-thin text-neutral text-sm">--------</li>
+                        <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">✊ Subjectivity ✊</button></li>
                         <li style="margin: -2px 0px -2px 0px;" class="w-full text-center font-thin text-neutral text-sm">--------</li>
                         <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">😃 Happiness 😃</button></li>
                         <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">😢 Sadness 😢</button></li>  
@@ -73,7 +74,7 @@
         </div>
         <div class="flex flex-col justify-center gap-3 mt-6">
             <RadialProgress run_anim=true name="all" value=78.4 font_size=48 font_weight=700 size=420 thickness=28/>
-            <h5 class="text-center text-sm font-light">*Positivity on news</h5>
+            <h5 class="text-center font-light">*Positivity on news</h5>
         </div>
     </section>
     

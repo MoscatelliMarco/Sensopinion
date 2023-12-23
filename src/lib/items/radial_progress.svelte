@@ -7,29 +7,6 @@
     export let name = "test";
     export let run_anim = false;
 
-    // Because I couldn't add a dynamic value for the animation I had to insert the property using script and not style
-    import { onMount } from 'svelte';
-    onMount(() => {
-        const style = document.createElement('style');
-        style.type = 'text/css';
-        let stroke_offset_value = 2 * Math.PI * (size / 2 - thickness / 2) - 2 * Math.PI * (size / 2 - thickness / 2) * (value / 100) + 'px'
-        const keyFrames = `
-            @keyframes ${name} {
-                100% {
-                    stroke-dashoffset: ${stroke_offset_value};
-                }
-            }
-        `;
-        // If your browser supports style.sheet.insertRule
-        if (style.sheet) {
-            style.sheet.insertRule(keyFrames, 0);
-        } else {
-            style.appendChild(document.createTextNode(keyFrames));
-        }
-
-        document.head.appendChild(style);
-    });
-
     $: if (run_anim) {        
         try {
             const style = document.createElement('style');
@@ -79,8 +56,8 @@ height: {size}px;
     <svg xlmns="http://www.w3.org/2000/svg" version="1.1" width="{size}" height="{size}">
         <defs>
             <linearGradient id="GradientColor"  x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#0000ff"/>
-                <stop offset="100%" stop-color="#ff0000"/>
+                <stop offset="0%" stop-color="rgb(33, 135, 219)"/>
+                <stop offset="100%" stop-color="rgb(112, 46, 219)"/>
             </linearGradient>
         </defs>
         <circle style="

@@ -1,33 +1,43 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: [
     './src/**/*.svelte', 
-    './public/index.html'
+    './src/**/*.html'
   ],
   plugins: [require('daisyui')],
   daisyui: {
     themes: [
       {
         main: {
-          red: "rgb(255,0,0)",
-          blue: "rgb(0,0,255)",
-          "neutral-light": "#c7c7c7",
-          neutral: "#939393",
-          "neutral-dark": "#6E6E6E",
+          blue: "rgb(33, 135, 219)",
+          purple: "rgb(112, 46, 219)",
+          "neutral-light": "#E0E0E0",
+          neutral: "#878787",
+          "neutral-dark": "#616161",
           white: "#F2F2F2",
-          black: "#0F0F0F",
+          black: "#0F0F0F"
         }
       }
     ]
   },
   theme: {
-    colors: {
-      red: "rgb(255,0,0)",
-      blue: "rgb(0,0,255)",
-      "neutral-light": "#c7c7c7",
-      neutral: "#939393",
-      "neutral-dark": "#6E6E6E",
-      white: "#F2F2F2",
-      black: "#0F0F0F",
+    extend: {
+      fontFamily: {
+        "main": ["Roboto", ...defaultTheme.fontFamily.sans]
+      },
+      colors: {
+        blue: "rgb(33, 135, 219)",
+        purple: "rgb(112, 46, 219)",
+        "neutral-light": "#E0E0E0",
+        neutral: "#878787",
+        "neutral-dark": "#616161",
+        white: "#F2F2F2",
+        black: "#0F0F0F",
+      },
+      spacing: {
+        '18': '4.5rem',
+      }
     }
   }
 }

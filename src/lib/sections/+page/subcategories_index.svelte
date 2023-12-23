@@ -1,5 +1,5 @@
 <script>
-    import RadialProgress from "../items/radial_progress.svelte";
+    import RadialProgress from "../../items/radial_progress.svelte";
     export let category_type = null;
     let data;
     $: if (category_type == 'politics') {
@@ -38,7 +38,7 @@
             "Natural Disasters",
             "Agriculture",
             "Water Resources",
-            "Evironment Laws",
+            "Environment Laws",
             "Biodiversity"
         ]
     } else{
@@ -46,9 +46,9 @@
     }
 </script>
 
-<div class="grid grid-cols-5 gap-x-4 gap-y-8">
+<div class="grid grid-cols-5 gap-x-4 gap-y-9">
     {#each data as category}
-        <a href="#" class="flex flex-col items-center gap-4">
+        <a href="#" class="flex flex-col items-center gap-3">
             <h4 class="text-center font-medium">{category}</h4>
             <RadialProgress name="{category.toLowerCase().replaceAll(" ", "_")}" run_anim=true font_size=20 value=89.4 size=140 thickness=10/>
         </a>

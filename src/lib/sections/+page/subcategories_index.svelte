@@ -13,7 +13,7 @@
             "Local Governance",
             "Politics Scandals",
             "Public Opinion",
-            "Political Parties",
+            "Others"
         ]
     } else if (category_type == 'economy') {
         data = [
@@ -22,11 +22,11 @@
             "Banking",
             "Real Estate",
             "Cryptocurrencies",
-            "Personal Finance",
             "Insurance",
             "Taxation",
             "Corporate Finance",
             "Economic Policies",
+            "Others"
         ]
     } else if (category_type == 'environment') {
         data = [
@@ -34,12 +34,12 @@
             "Renewable Energy",
             "Wildlife",
             "Pollution",
-            "Sustainable Living",
             "Natural Disasters",
             "Agriculture",
             "Water Resources",
             "Environment Laws",
-            "Biodiversity"
+            "Biodiversity",
+            "Others"
         ]
     } else{
         new Error("Subcategory type not recognized")

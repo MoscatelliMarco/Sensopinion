@@ -1,6 +1,6 @@
 import logging
 date_format = "%Y-%m-%d %H:%M:%S"
-logging.basicConfig(level=logging.DEBUG, 
+logging.basicConfig(level=logging.INFO, 
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', 
                     datefmt=date_format)
 logger = logging.getLogger(__name__)
@@ -12,15 +12,21 @@ from variables import categories, subcategories
 from textblob import TextBlob
 import copy
 import nltk
+import numpy as np
+
+# Set transformers' logging level to WARNING to suppress debug logs
+logging.getLogger('newsplease').setLevel(logging.WARNING)
+
+nltk.download('punkt')  # Required for the first time
 
 # Load the classifiers
 emotion_model_path = './models/emotions_classifier'
 categories_model_path = './models/classes_classifier'
-logger.debug("Load emotion classifier")
+logger.info("Load emotion classifier")
 emotion_tokenizer = AutoTokenizer.from_pretrained(emotion_model_path)
 emotion_model = AutoModelForSequenceClassification.from_pretrained(emotion_model_path)
 emotions_classifier = pipeline("text-classification", model=emotion_model, tokenizer=emotion_tokenizer, top_k=None)
-logger.debug("Load category classifier")
+logger.info("Load category classifier")
 categories_tokenizer = AutoTokenizer.from_pretrained(categories_model_path)
 categories_model = AutoModelForSequenceClassification.from_pretrained(categories_model_path)
 categories_classifier = pipeline("zero-shot-classification", model=categories_model, tokenizer=categories_tokenizer)
@@ -28,36 +34,43 @@ categories_classifier = pipeline("zero-shot-classification", model=categories_mo
 def process_article(url):
     article = NewsPlease.from_url(url)
 
+    # If article is a dict that means that the request was negative
+    if isinstance(article, dict):
+        raise Exception(f"Error scraping a website: {url}")
+
     article_text = article.maintext
     article_description = article.description
     article_date_publish = article.date_publish
     article_image = article.image_url
 
     if not article_description:
-        logger.debug("Article invalid no description")
+        logger.info(f"Article invalid no description: {article.url}")
         return None
 
+    if not article_text:
+        logger.info(f"Article invalid no maintext: {article.url}")
+        return None
     # Emotions
     try:
         clusters = process_text(article_text)
     except:
-        logger.debug("A sentence or more in the article exceed the max amount of 512 chars")
+        logger.info("A sentence or more in the article exceed the max amount of 512 chars")
         return
 
-    logger.debug("Analyzing emotions")
+    logger.info("Analyzing emotions")
     clusters_dict = []
-    for i, cluster in enumerate(clusters_dict, 1):
+    for i, cluster in enumerate(clusters, 1):
         words = cluster.split()
         dict_append = {
             'chars': len(cluster), 
             'words': len(words), 
-            'content': sentence,
+            'content': cluster,
             'emotions': {}
         }
-        for item in emotions_class(cluster)[0]:
+        for item in emotions_classifier(cluster)[0]:
             dict_append['emotions'][item['label']] = item['score']
 
-        sentence_dict.append(dict_append)
+        clusters_dict.append(dict_append)
 
     # Take weighted everage of emotions
     emotion_sum_char = 0
@@ -76,16 +89,16 @@ def process_article(url):
     del emotions_percentage['joy']
 
     # Sentiment
-    logger.debug("Analyzing sentiment")
+    logger.info("Analyzing sentiment")
     blob = TextBlob(article_text)
     sentiment = blob.sentiment
     sentiment = {
-        "polarity": (sentiment['polarity'] + 1) / 2, # Here the polarity is scaled from 0 to 1
-        "subjectivity": sentiment['subjectivity']
+        "polarity": (sentiment.polarity + 1) / 2, # Here the polarity is scaled from 0 to 1
+        "subjectivity": sentiment.subjectivity
     }
 
     # Categories
-    logger.debug("Analyzing categories")
+    logger.info("Analyzing categories")
     valid_categories, valid_subcategories = pick_categories(article_description)
 
     return emotions_percentage, sentiment, valid_categories, valid_subcategories, article_date_publish
@@ -95,7 +108,7 @@ def pick_categories(text, max_selectable_subcategories=5):
     categories_an = copy.deepcopy(categories)
     categories_an.append("Others")
 
-    output = categories_classifier(text, candidate_labels, multi_label=True)
+    output = categories_classifier(text, categories, multi_label=True)
 
     # Apply kmeans
     data_train = np.array(output['scores']).reshape(-1, 1)
@@ -114,12 +127,13 @@ def pick_categories(text, max_selectable_subcategories=5):
             if label != "Others":
                 valid_categories.append(label)
             else:
+                logger.info("Label == Others")
                 break
 
     valid_subcategories = []
 
     for category in valid_categories:
-        category_index = np.where(np.array(categories == category))[0]
+        category_index = np.where(np.array(categories) == category)[0][0]
         output = categories_classifier(text, subcategories[category_index], multi_label=True)
 
         # Apply kmeans
@@ -148,7 +162,6 @@ def pick_categories(text, max_selectable_subcategories=5):
     return valid_categories, valid_subcategories
 
 def split_into_sentences(text):
-    nltk.download('punkt')  # Required for the first time
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     sentences = tokenizer.tokenize(text)
     return sentences

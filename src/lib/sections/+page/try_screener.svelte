@@ -4,7 +4,7 @@
             Control Everything With Our <span class="text-primary-gradient">Screener</span>
         </h3>
         <h6 class="font-light text-sm xl:text-lg sub">
-            We love having understanding what people are thinking without reading tons of boring articles, that's why we provide our screener for <b>FREE</b>.
+            We love understanding what people are thinking without reading tons of boring articles, that's why we provide our screener for <b>FREE</b>.
         </h6>
     </div>
     <div class="flex justify-center">

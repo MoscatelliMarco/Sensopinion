@@ -1,3 +1,10 @@
+import logging
+date_format = "%Y-%m-%d %H:%M:%S"
+logging.basicConfig(level=logging.INFO, 
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', 
+                    datefmt=date_format)
+logger = logging.getLogger(__name__)
+
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, parse_qs
@@ -13,6 +20,7 @@ def scrape_news():
         response = requests.get(url_to_scrape, headers=headers)
         soup = BeautifulSoup(response.text, 'html.parser')
 
+
         for link in soup.find_all('article'):
             a_tag = link.find('a', href=True)
             if a_tag and 'href' in a_tag.attrs:
@@ -21,11 +29,16 @@ def scrape_news():
                 # Construct the full Google News URL
                 google_news_url = f'https://news.google.com{partial_url}'
 
-                response = requests.get(google_news_url, allow_redirects=True, timeout=10)
+                try:
+                    response = requests.get(google_news_url, allow_redirects=True, timeout=15)
+                except:
+                    continue
                 
                 # Get the final URL after redirection
                 final_url = response.url
 
+                logger.info(f"Appending {final_url}")
+
                 urls.append(final_url)
 
-    return set(urls)
+    return list(set(urls))

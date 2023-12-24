@@ -1,10 +1,9 @@
 # Schedule in async way
 from apscheduler.schedulers.background import BackgroundScheduler
+from functions.scheduler import scheduler_function
 import asyncio
 
-from functions.scheduler import scheduler_function
-
-if __name__ == 'main':
+if __name__ == '__main__':
     scheduler_function()
     # scheduler = BackgroundScheduler()
     # scheduler.add_job(scheduler_function, 'interval', hours=1)

@@ -1,8 +1,16 @@
+# Debug
+import logging
+date_format = "%Y-%m-%d %H:%M:%S"
+logging.basicConfig(level=logging.DEBUG, 
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', 
+                    datefmt=date_format)
+logger = logging.getLogger(__name__)
 from pymongo import MongoClient
 
 class DBClient():
     def __init__(self, mongo_connection_string: str):
         # Initiate MongoDB client
+        logger.debug(f"Initializing MongoClient with {mongo_connection_string}")
         client = MongoClient(mongo_connection_string)
         db = client['news_database']
         collection = db['news_collection']

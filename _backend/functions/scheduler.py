@@ -27,6 +27,9 @@ def scheduler_function():
             article_text = scrape_news(url)
 
             emotions_percentage, sentiment, valid_categories, valid_subcategories, article_date_publish = process_article(url)
+            if not len(valid_categories):
+                print(f"The article analyze is not recognized in any category: {url}")
+                continue
             client.insert_article(url, emotions_percentage, valid_categories, valid_subcategories, article_date_publish)
 
     # except Exception as e:

@@ -1,17 +1,26 @@
+import logging
+date_format = "%Y-%m-%d %H:%M:%S"
+logging.basicConfig(level=logging.DEBUG, 
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', 
+                    datefmt=date_format)
+logger = logging.getLogger(__name__)
+
 from newsplease import NewsPlease
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
+from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
 from sklearn.cluster import KMeans
-from variables import categories, subcategory_1, subcategory_2, subcategory_3
-from text_blob import TextBlob
+from variables import categories, subcategories
+from textblob import TextBlob
 import copy
 import nltk
 
 # Load the classifiers
 emotion_model_path = './models/emotions_classifier'
 categories_model_path = './models/classes_classifier'
+logger.debug("Load emotion classifier")
 emotion_tokenizer = AutoTokenizer.from_pretrained(emotion_model_path)
 emotion_model = AutoModelForSequenceClassification.from_pretrained(emotion_model_path)
-emotions_classifier = pipeline("text-classification", model=emotion_model, tokenizer=emotion_tokenizer, return_all_scores=True)
+emotions_classifier = pipeline("text-classification", model=emotion_model, tokenizer=emotion_tokenizer, top_k=None)
+logger.debug("Load category classifier")
 categories_tokenizer = AutoTokenizer.from_pretrained(categories_model_path)
 categories_model = AutoModelForSequenceClassification.from_pretrained(categories_model_path)
 categories_classifier = pipeline("zero-shot-classification", model=categories_model, tokenizer=categories_tokenizer)
@@ -25,16 +34,17 @@ def process_article(url):
     article_image = article.image_url
 
     if not article_description:
-        print("Article invalid no description")
+        logger.debug("Article invalid no description")
         return None
 
     # Emotions
     try:
         clusters = process_text(article_text)
     except:
-        print("A sentence or more in the article exceed the max amount of 512 chars")
+        logger.debug("A sentence or more in the article exceed the max amount of 512 chars")
         return
 
+    logger.debug("Analyzing emotions")
     clusters_dict = []
     for i, cluster in enumerate(clusters_dict, 1):
         words = cluster.split()
@@ -66,6 +76,7 @@ def process_article(url):
     del emotions_percentage['joy']
 
     # Sentiment
+    logger.debug("Analyzing sentiment")
     blob = TextBlob(article_text)
     sentiment = blob.sentiment
     sentiment = {
@@ -74,6 +85,7 @@ def process_article(url):
     }
 
     # Categories
+    logger.debug("Analyzing categories")
     valid_categories, valid_subcategories = pick_categories(article_description)
 
     return emotions_percentage, sentiment, valid_categories, valid_subcategories, article_date_publish
@@ -128,6 +140,8 @@ def pick_categories(text, max_selectable_subcategories=5):
                     if label != "Others":
                         valid_subcategories_append.append(label)
                     else:
+                        if i == 0:
+                            valid_subcategories_append.append('Others')
                         break
         valid_subcategories.append(valid_subcategories_append)
 

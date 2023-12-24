@@ -46,11 +46,15 @@
     }
 </script>
 
-<div class="grid grid-cols-5 gap-x-4 gap-y-9">
-    {#each data as category}
-        <a href="#" class="flex flex-col items-center gap-3">
+<div class="grid grid-cols-4 xl:grid-cols-5 gap-y-8 xl:gap-y-9 xl:mx-14">
+    {#each data as category, index}
+        {#if (index == 8)}
+            <!-- div to have the other two elements centered when grid-cols-4 -->
+            <div class="block xl:hidden"></div>
+        {/if}
+        <a href="#" class="flex flex-col items-center gap-2 xl:gap-3">
             <h4 class="text-center font-medium">{category}</h4>
-            <RadialProgress name="{category.toLowerCase().replaceAll(" ", "_")}" run_anim=true font_size=20 value=89.4 size=140 thickness=10/>
+            <RadialProgress name="{category.toLowerCase().replaceAll(" ", "_")}" run_anim=true value=89.4 dimension='small'/>
         </a>
     {/each}
 </div>

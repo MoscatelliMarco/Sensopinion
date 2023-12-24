@@ -1,8 +1,8 @@
 <section class="flex flex-col gap-8">
     <div class="flex justify-center">
-        <h4 class="text-3xl font-semibold">Recent News</h4>
+        <h4 class="text-2xl xl:text-3xl font-semibold">Recent News</h4>
     </div>
-    <div class="grid grid-cols-2 gap-8">
+    <div class="grid grid-cols-2 xl:grid-cols-3 gap-8">
         <div class="card shadow-md">
             <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="car!"/></figure>
             <div class="card-body">

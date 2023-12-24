@@ -1,11 +1,130 @@
 <script>
-    export let size = 160;
-    export let thickness = 20;
-    export let value = 65;
-    export let font_weight = 600;
-    export let font_size = 28;
+  import { onMount } from "svelte";
+
+    export let dimension = 'medium'
     export let name = "test";
     export let run_anim = false;
+    export let value;
+
+    let size;
+    let thickness;
+    let font_weight;
+    let font_size;
+    
+    /* Responsive sizes of the radiant */
+    let dimensions = {
+        'big': {
+            1280: {
+                font_size: 48,
+                font_weight: 700,
+                size: 420,
+                thickness: 28
+            },
+            1024: {
+                font_size: 40,
+                font_weight: 700,
+                size: 340,
+                thickness: 20
+            },
+            768: {
+                font_size: 48,
+                font_weight: 700,
+                size: 420,
+                thickness: 28
+            },
+            mobile: {
+                font_size: 48,
+                font_weight: 700,
+                size: 420,
+                thickness: 28
+            }
+        },
+        'medium': {
+            1280: {
+                font_size: 32,
+                font_weight: 700,
+                size: 250,
+                thickness: 18
+            },
+            1024: {
+                font_size: 26,
+                font_weight: 700,
+                size: 220,
+                thickness: 14
+            },
+            768: {
+                font_size: 32,
+                font_weight: 700,
+                size: 250,
+                thickness: 18
+            },
+            mobile: {
+                font_size: 32,
+                font_weight: 700,
+                size: 250,
+                thickness: 18
+            }
+        },
+        'small': {
+            1280: {
+                font_size: 20,
+                font_weight: 700,
+                size: 140,
+                thickness: 10
+            },
+            1024: {
+                font_size: 18,
+                font_weight: 700,
+                size: 140,
+                thickness: 9
+            },
+            768: {
+                font_size: 20,
+                font_weight: 700,
+                size: 140,
+                thickness: 10
+            },
+            mobile: {
+                font_size: 20,
+                font_weight: 700,
+                size: 140,
+                thickness: 10
+            }
+        }
+    }
+
+    /* Because doing this in only CSS would be too complex I am using JS*/
+    function updateWidth () {
+        if (window.innerWidth > 1280){
+            font_size = dimensions[dimension][1280]['font_size']
+            font_weight = dimensions[dimension][1280]['font_weight']
+            size = dimensions[dimension][1280]['size']
+            thickness = dimensions[dimension][1280]['thickness']  
+        } else if (window.innerWidth > 1024){
+            font_size = dimensions[dimension][1024]['font_size']
+            font_weight = dimensions[dimension][1024]['font_weight']
+            size = dimensions[dimension][1024]['size']
+            thickness = dimensions[dimension][1024]['thickness']   
+        }else if (window.innerWidth > 768){
+            font_size = dimensions[dimension][768]['font_size']
+            font_weight = dimensions[dimension][768]['font_weight']
+            size = dimensions[dimension][768]['size']
+            thickness = dimensions[dimension][768]['thickness']   
+        } else {
+            font_size = dimensions[dimension]['mobile']['font_size']
+            font_weight = dimensions[dimension]['mobile']['font_weight']
+            size = dimensions[dimension]['mobile']['size']
+            thickness = dimensions[dimension]['mobile']['thickness'] 
+        }
+    }
+    updateWidth()
+    onMount(() => {
+        window.addEventListener('resize', updateWidth)
+
+        return () => {
+            window.removeEventListener('resize', updateWidth);
+        };
+    })
 
     $: if (run_anim) {        
         try {

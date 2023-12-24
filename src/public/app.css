@@ -768,19 +768,9 @@ html{
   color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity)));
 }
 
-.\!dropdown{
-  position: relative !important;
-  display: inline-block !important;
-}
-
 .dropdown{
   position: relative;
   display: inline-block;
-}
-
-.\!dropdown > *:not(summary):focus{
-  outline: 2px solid transparent !important;
-  outline-offset: 2px !important;
 }
 
 .dropdown > *:not(summary):focus{
@@ -788,27 +778,8 @@ html{
   outline-offset: 2px;
 }
 
-.\!dropdown .dropdown-content{
-  position: absolute !important;
-}
-
 .dropdown .dropdown-content{
   position: absolute;
-}
-
-.\!dropdown:is(:not(details)) .dropdown-content{
-  visibility: hidden !important;
-  opacity: 0 !important;
-  transform-origin: top !important;
-  --tw-scale-x: .95 !important;
-  --tw-scale-y: .95 !important;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter !important;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter !important;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter !important;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1) !important;
-  transition-duration: 200ms !important;
 }
 
 .dropdown:is(:not(details)) .dropdown-content{
@@ -826,13 +797,6 @@ html{
   transition-duration: 200ms;
 }
 
-.\!dropdown.dropdown-open .dropdown-content,
-.\!dropdown:not(.dropdown-hover):focus .dropdown-content,
-.\!dropdown:focus-within .dropdown-content{
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
 .dropdown.dropdown-open .dropdown-content,
 .dropdown:not(.dropdown-hover):focus .dropdown-content,
 .dropdown:focus-within .dropdown-content{
@@ -840,19 +804,7 @@ html{
   opacity: 1;
 }
 
-.\!dropdown.dropdown-open .dropdown-content,
-.\!dropdown:not(.dropdown-hover):focus .dropdown-content,
-.\!dropdown:focus-within .dropdown-content{
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
 @media (hover: hover){
-  .\!dropdown.dropdown-hover:hover .dropdown-content{
-    visibility: visible !important;
-    opacity: 1 !important;
-  }
-
   .dropdown.dropdown-hover:hover .dropdown-content{
     visibility: visible;
     opacity: 1;
@@ -909,21 +861,11 @@ html{
     }
   }
 
-  .\!dropdown.dropdown-hover:hover .dropdown-content{
-    --tw-scale-x: 1 !important;
-    --tw-scale-y: 1 !important;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
-  }
-
   .dropdown.dropdown-hover:hover .dropdown-content{
     --tw-scale-x: 1;
     --tw-scale-y: 1;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
-}
-
-.\!dropdown:is(details) summary::-webkit-details-marker{
-  display: none !important;
 }
 
 .dropdown:is(details) summary::-webkit-details-marker{
@@ -958,22 +900,10 @@ html{
   }
 }
 
-.join .\!dropdown .join-item:first-child:not(:last-child),
-  .join *:first-child:not(:last-child) .\!dropdown .join-item{
-  border-start-end-radius: inherit !important;
-  border-end-end-radius: inherit !important;
-}
-
 .join .dropdown .join-item:first-child:not(:last-child),
   .join *:first-child:not(:last-child) .dropdown .join-item{
   border-start-end-radius: inherit;
   border-end-end-radius: inherit;
-}
-
-.join .\!dropdown .join-item:first-child:not(:last-child),
-  .join *:first-child:not(:last-child) .\!dropdown .join-item{
-  border-start-end-radius: inherit !important;
-  border-end-end-radius: inherit !important;
 }
 
 .link{
@@ -1135,28 +1065,12 @@ html{
   }
 }
 
-.\!dropdown.dropdown-open .dropdown-content,
-.\!dropdown:focus .dropdown-content,
-.\!dropdown:focus-within .dropdown-content{
-  --tw-scale-x: 1 !important;
-  --tw-scale-y: 1 !important;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
-}
-
 .dropdown.dropdown-open .dropdown-content,
 .dropdown:focus .dropdown-content,
 .dropdown:focus-within .dropdown-content{
   --tw-scale-x: 1;
   --tw-scale-y: 1;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.\!dropdown.dropdown-open .dropdown-content,
-.\!dropdown:focus .dropdown-content,
-.\!dropdown:focus-within .dropdown-content{
-  --tw-scale-x: 1 !important;
-  --tw-scale-y: 1 !important;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
 }
 
 .link:focus{
@@ -1360,6 +1274,26 @@ html{
   margin-bottom: 1.5rem;
 }
 
+.mx-6{
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.mx-1{
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.mx-4{
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.my-2{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .mb-12{
   margin-bottom: 3rem;
 }
@@ -1386,6 +1320,14 @@ html{
 
 .mt-auto{
   margin-top: auto;
+}
+
+.mt-4{
+  margin-top: 1rem;
+}
+
+.block{
+  display: block;
 }
 
 .flex{
@@ -1424,6 +1366,22 @@ html{
   height: 100vh;
 }
 
+.h-12{
+  height: 3rem;
+}
+
+.h-16{
+  height: 4rem;
+}
+
+.h-8{
+  height: 2rem;
+}
+
+.h-11{
+  height: 2.75rem;
+}
+
 .min-h-0{
   min-height: 0px;
 }
@@ -1448,6 +1406,10 @@ html{
   width: 100%;
 }
 
+.w-44{
+  width: 11rem;
+}
+
 .max-w-2xl{
   max-width: 42rem;
 }
@@ -1460,8 +1422,20 @@ html{
   max-width: 32rem;
 }
 
+.max-w-sm{
+  max-width: 24rem;
+}
+
+.max-w-md{
+  max-width: 28rem;
+}
+
 .transform{
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.resize{
+  resize: both;
 }
 
 .grid-cols-2{
@@ -1472,8 +1446,16 @@ html{
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
+.grid-cols-4{
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .flex-col{
   flex-direction: column;
+}
+
+.place-items-center{
+  place-items: center;
 }
 
 .items-center{
@@ -1544,6 +1526,38 @@ html{
   gap: 2.25rem;
 }
 
+.gap-4{
+  gap: 1rem;
+}
+
+.gap-5{
+  gap: 1.25rem;
+}
+
+.gap-52{
+  gap: 13rem;
+}
+
+.gap-14{
+  gap: 3.5rem;
+}
+
+.gap-1{
+  gap: 0.25rem;
+}
+
+.gap-1\.5{
+  gap: 0.375rem;
+}
+
+.gap-7{
+  gap: 1.75rem;
+}
+
+.gap-48{
+  gap: 12rem;
+}
+
 .gap-x-4{
   -moz-column-gap: 1rem;
        column-gap: 1rem;
@@ -1551,6 +1565,37 @@ html{
 
 .gap-y-9{
   row-gap: 2.25rem;
+}
+
+.gap-x-6{
+  -moz-column-gap: 1.5rem;
+       column-gap: 1.5rem;
+}
+
+.gap-x-8{
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
+}
+
+.gap-x-10{
+  -moz-column-gap: 2.5rem;
+       column-gap: 2.5rem;
+}
+
+.gap-y-7{
+  row-gap: 1.75rem;
+}
+
+.gap-y-8{
+  row-gap: 2rem;
+}
+
+.place-self-center{
+  place-self: center;
+}
+
+.justify-self-center{
+  justify-self: center;
 }
 
 .rounded-2xl{
@@ -1655,8 +1700,30 @@ html{
   padding-bottom: 1.25rem;
 }
 
+.py-2\.5{
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+}
+
+.px-8{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
 .pt-8{
   padding-top: 2rem;
+}
+
+.pt-4{
+  padding-top: 1rem;
+}
+
+.pt-2{
+  padding-top: 0.5rem;
+}
+
+.pt-0{
+  padding-top: 0px;
 }
 
 .text-center{
@@ -1675,6 +1742,11 @@ html{
 .text-4xl{
   font-size: 2.25rem;
   line-height: 2.5rem;
+}
+
+.text-5xl{
+  font-size: 3rem;
+  line-height: 1;
 }
 
 .text-6xl{
@@ -1700,6 +1772,11 @@ html{
 .text-xs{
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-2xl{
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .font-black{
@@ -1816,6 +1893,15 @@ html{
   .lg\:w-16{
     width: 4rem;
   }
+
+  .lg\:gap-y-9{
+    row-gap: 2.25rem;
+  }
+
+  .lg\:text-6xl{
+    font-size: 3.75rem;
+    line-height: 1;
+  }
 }
 
 @media (min-width: 1280px){
@@ -1824,7 +1910,152 @@ html{
     margin-right: 4rem;
   }
 
+  .xl\:mx-8{
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
+  .xl\:mx-10{
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+  }
+
+  .xl\:mx-14{
+    margin-left: 3.5rem;
+    margin-right: 3.5rem;
+  }
+
+  .xl\:my-6{
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .xl\:hidden{
+    display: none;
+  }
+
+  .xl\:h-12{
+    height: 3rem;
+  }
+
+  .xl\:h-8{
+    height: 2rem;
+  }
+
+  .xl\:h-10{
+    height: 2.5rem;
+  }
+
   .xl\:w-20{
     width: 5rem;
+  }
+
+  .xl\:w-48{
+    width: 12rem;
+  }
+
+  .xl\:max-w-lg{
+    max-width: 32rem;
+  }
+
+  .xl\:grid-cols-5{
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .xl\:grid-cols-2{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .xl\:grid-cols-3{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .xl\:gap-10{
+    gap: 2.5rem;
+  }
+
+  .xl\:gap-24{
+    gap: 6rem;
+  }
+
+  .xl\:gap-6{
+    gap: 1.5rem;
+  }
+
+  .xl\:gap-56{
+    gap: 14rem;
+  }
+
+  .xl\:gap-8{
+    gap: 2rem;
+  }
+
+  .xl\:gap-18{
+    gap: 4.5rem;
+  }
+
+  .xl\:gap-3{
+    gap: 0.75rem;
+  }
+
+  .xl\:gap-12{
+    gap: 3rem;
+  }
+
+  .xl\:gap-2{
+    gap: 0.5rem;
+  }
+
+  .xl\:gap-x-4{
+    -moz-column-gap: 1rem;
+         column-gap: 1rem;
+  }
+
+  .xl\:gap-x-6{
+    -moz-column-gap: 1.5rem;
+         column-gap: 1.5rem;
+  }
+
+  .xl\:gap-y-9{
+    row-gap: 2.25rem;
+  }
+
+  .xl\:py-3{
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .xl\:px-10{
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  .xl\:pt-8{
+    padding-top: 2rem;
+  }
+
+  .xl\:text-6xl{
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+
+  .xl\:text-lg{
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .xl\:text-base{
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .xl\:text-xl{
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  .xl\:text-3xl{
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 }

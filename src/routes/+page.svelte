@@ -59,16 +59,24 @@
                 <div class="relative">
                     <button on:click={toggleDropdown} class="w-44 xl:w-48 h-11 xl:h-12 min-h-0 shadow-md hover:shadow-lg text-sm rounded-md border-2 border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light text-md">Try a different emotion</button>
                     <ul bind:this={dropdown} class:hidden={!dropdown_main_active} class:absolute={dropdown_main_active} 
-                    class="w-44 xl:w-48 bg-white rounded-md mt-2 shadow-md px-4 py-2 flex flex-col gap-0.5">
-                        <li><button class="bg-primary-gradient-opacity bg-primary-gradient-opacity-inter text-white text-sm py-0.5 w-full rounded-sm">👍 Positivity 👍</button></li>
-                        <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">👎 Negativity 👎</button></li>
-                        <li style="margin: -2px 0px -2px 0px;" class="w-full text-center font-thin text-neutral text-sm">--------</li>
-                        <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">✊ Subjectivity ✊</button></li>
-                        <li style="margin: -2px 0px -2px 0px;" class="w-full text-center font-thin text-neutral text-sm">--------</li>
-                        <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">😃 Happiness 😃</button></li>
-                        <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">😢 Sadness 😢</button></li>  
-                        <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">😱 Fear 😱</button></li>  
-                        <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">🤮 Disgust 🤮</button></li>    
+                    class="w-112 xl:w-124 bg-white rounded-md mt-2 shadow-md px-4 py-2 grid grid-cols-3 gap-0.5 z-50">
+                        <div class="flex flex-col gap-0.5">
+                            <li><button class="bg-primary-gradient-opacity bg-primary-gradient-opacity-inter text-white text-sm py-0.5 w-full rounded-sm">👍 Positivity 👍</button></li>
+                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">👎 Negativity 👎</button></li>
+                            <li class="w-full text-center font-thin text-neutral text-sm py-0.5">--------</li>
+                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">✊ Subjectivity ✊</button></li>
+                        </div>
+                        <div class="flex flex-col gap-0.5">
+                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">😃 Happiness 😃</button></li>
+                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">😢 Sadness 😢</button></li>
+                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">😱 Fear 😱</button></li>
+                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">🤬 Anger 🤬</button></li>
+                        </div>
+                        <div class="flex flex-col gap-0.5">
+                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">🤮 Disgust 🤮</button></li>
+                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">😲 Surprise 😲</button></li>
+                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">😐 Neutral 😐</button></li>
+                        </div> 
                     </ul>
                 </div>
             </div>

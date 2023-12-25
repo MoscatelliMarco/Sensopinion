@@ -1,26 +1,9 @@
-<script context="module">
-    // This runs on the server during SSR and on the client after navigation
-    export async function load({ fetch }) {
-      const url = '/api/news'; // The URL of your endpoint
-      const res = await fetch(url);
-      if (res.ok) {
-        const { data } = await res.json();
-        return { props: { news } }; // Pass the data as props to the component
-      }
-  
-      // Handle errors or situations where data couldn't be fetched
-      return { props: { news: [] } };
-    }
-  </script>
-
 <script>
-    export let news = [];
-    console.log(news)
-
     import RadialProgress from "$lib/items/radial_progress.svelte"
     import SubCategories from "$lib/sections/+page/subcategories_index.svelte"
     import TryScreener from "$lib/sections/+page/try_screener.svelte"
     import NewsDisplay from "$lib/sections/+page/news_display.svelte"
+    import FactorDropdownButton  from "$lib/items/factor_dropdown_button.svelte";
 
     let category_type = null;
     function show_more (event) {
@@ -58,6 +41,23 @@
     onDestroy(() => {
         window.removeEventListener('click', handleClickDropdown);
     });
+
+    // News and Factor logic
+    let factor = 'positivity';
+    function handleClickFactor(event) {
+        const factor_value = event.target.dataset['factorValue'];
+        factor = factor_value
+    }
+
+    export let news_articles;
+    let all_metric_value;
+    let sum_all_metric = 0;
+    let denominator_all_metric = 0;
+    // for (let news of news_articles) {
+    //     console.log(news)
+    //     sum_all_metric = sum_all_metric + 3
+    //     break
+    // }
 </script>
 
 <div class="flex flex-col gap-48 xl:gap-56">
@@ -79,21 +79,21 @@
                     <ul bind:this={dropdown} class:hidden={!dropdown_main_active} class:absolute={dropdown_main_active} 
                     class="w-112 xl:w-124 bg-white rounded-md mt-2 shadow-md px-4 py-2 grid grid-cols-3 gap-0.5 z-50">
                         <div class="flex flex-col gap-0.5">
-                            <li><button class="bg-primary-gradient-opacity bg-primary-gradient-opacity-inter text-white text-sm py-0.5 w-full rounded-sm">👍 Positivity 👍</button></li>
-                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">👎 Negativity 👎</button></li>
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="👍 Positivity 👍" factorValue="positivity" currentFactor={factor} />
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="👎 Negativity 👎" factorValue="negativity" currentFactor={factor} />
                             <li class="w-full text-center font-thin text-neutral text-sm py-0.5">--------</li>
-                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">✊ Subjectivity ✊</button></li>
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="✊ Subjectivity ✊" factorValue="subjectivity" currentFactor={factor} />
                         </div>
                         <div class="flex flex-col gap-0.5">
-                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">😃 Happiness 😃</button></li>
-                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">😢 Sadness 😢</button></li>
-                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">😱 Fear 😱</button></li>
-                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">🤬 Anger 🤬</button></li>
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="😃 Happiness 😃" factorValue="happiness" currentFactor={factor} />
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="😢 Sadness 😢" factorValue="sadness" currentFactor={factor} />
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="😱 Fear 😱" factorValue="fear" currentFactor={factor} />
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="🤬 Anger 🤬" factorValue="anger" currentFactor={factor} />
                         </div>
                         <div class="flex flex-col gap-0.5">
-                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">🤮 Disgust 🤮</button></li>
-                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">😲 Surprise 😲</button></li>
-                            <li><button class="hover:bg-neutral-light focus:bg-neutral-light text-sm w-full rounded-sm py-0.5">😐 Neutral 😐</button></li>
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="🤮 Disgust 🤮" factorValue="digust" currentFactor={factor} />
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="😲 Surprise 😲" factorValue="surprise" currentFactor={factor} />
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="😐 Neutral 😐" factorValue="neutral" currentFactor={factor} />
                         </div> 
                     </ul>
                 </div>
@@ -101,7 +101,7 @@
         </div>
         <div class="flex flex-col justify-center gap-3 mt-6">
             <RadialProgress run_anim=true name="all" value=78.4 dimension='big'/>
-            <h5 class="text-center font-light text-sm xl:text-base">*Positivity on news</h5>
+            <h5 class="text-center font-light text-sm xl:text-base">*{factor.charAt(0).toUpperCase() + factor.slice(1)} on news</h5>
         </div>
     </section>
     

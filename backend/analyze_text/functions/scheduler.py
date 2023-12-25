@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 
 load_dotenv()  # take environment variables from .env.
 
-client = DBClient(os.environ.get("MONGODB_CLIENT_URL"))
+client = DBClient(os.environ.get("MONGODB_CLIENT_URL"), int(os.environ.get("ACCEPTED_DAYS_NEWS")))
 
 def scheduler_function():
     try:

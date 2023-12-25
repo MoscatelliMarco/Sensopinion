@@ -1,6 +1,6 @@
 import logging
 date_format = "%Y-%m-%d %H:%M:%S"
-logging.basicConfig(level=logging.DEBUG, 
+logging.basicConfig(level=logging.INFO, 
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', 
                     datefmt=date_format)
 logger = logging.getLogger(__name__)
@@ -47,9 +47,12 @@ def scrape_process_news(mongo_client):
         try:
             response = requests.get(google_news_url, allow_redirects=True, timeout=15)
             final_url = response.url
-            emotions_percentage, sentiment, valid_categories, valid_subcategories, article_date_publish = process_article(final_url)
-            logger.info(f"Added article: {final_url}")
-            mongo_client.insert_article(final_url, google_news_url, emotions_percentage, valid_categories, valid_subcategories, article_date_publish)
+            factors, valid_categories, valid_subcategories, article_date_publish = process_article(final_url)
+            if factors and valid_categories and valid_subcategories and article_date_publish:
+                logger.info(f"Added article: {final_url}")
+                mongo_client.insert_article(final_url, google_news_url, factors, valid_categories, valid_subcategories, article_date_publish)
+            else:
+                logger.debug(f"Not added article: {final_url}")
         except:
             logger.debug(f"Couldn't go through fetch and/or analyze {google_news_url}")
             continue

@@ -10,9 +10,14 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipe
 from sklearn.cluster import KMeans
 from variables import categories, subcategories, black_listed_domains
 from textblob import TextBlob
+from datetime import datetime, timedelta
+import numpy as np
 import copy
 import nltk
-import numpy as np
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Set transformers' logging level to WARNING to suppress debug logs
 logging.getLogger('newsplease').setLevel(logging.WARNING)
@@ -52,11 +57,16 @@ def process_article(url):
     if not article_description:
         logger.debug(f"Article invalid no description: {article.url}")
         return
-
     if not article_text:
         logger.debug(f"Article invalid no maintext: {article.url}")
         return
-    # Emotions
+    if not article_date_publish:
+        logger.debug(f"Article invalid no date_publish: {article.url}")
+        return
+    if article_date_publish < datetime.now() - timedelta(days=int(os.environ.get("ACCEPTED_DAYS_NEWS"))):
+        logger.debug(f"Article invalid date publish older than 7 days: {article.url}")
+        return
+
     try:
         clusters = process_text(article_text)
     except:
@@ -98,16 +108,14 @@ def process_article(url):
     logger.debug("Analyzing sentiment")
     blob = TextBlob(article_text)
     sentiment = blob.sentiment
-    sentiment = {
-        "polarity": (sentiment.polarity + 1) / 2, # Here the polarity is scaled from 0 to 1
-        "subjectivity": sentiment.subjectivity
-    }
+    emotions_percentage['polarity'] = (sentiment.polarity + 1) / 2
+    emotions_percentage['subjectivity'] = sentiment.subjectivity
 
     # Categories
     logger.debug("Analyzing categories")
     valid_categories, valid_subcategories = pick_categories(article_description)
 
-    return emotions_percentage, sentiment, valid_categories, valid_subcategories, article_date_publish
+    return emotions_percentage, valid_categories, valid_subcategories, article_date_publish
 
     
 def pick_categories(text, max_selectable_subcategories=5):
@@ -133,7 +141,7 @@ def pick_categories(text, max_selectable_subcategories=5):
             if label != "Others":
                 valid_categories.append(label)
             else:
-                logger.info("Label == Others")
+                logger.debug("Label == Others")
                 break
 
     valid_subcategories = []

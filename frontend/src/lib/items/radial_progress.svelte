@@ -3,7 +3,6 @@
 
     export let dimension = 'medium'
     export let name = "test";
-    export let run_anim = false;
     export let value;
 
     let size;
@@ -126,13 +125,20 @@
         };
     })
 
-    $: if (run_anim) {        
+    let code = ''
+    let el = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+    $: if (value) {
         try {
             const style = document.createElement('style');
             style.type = 'text/css';
             let stroke_offset_value = 2 * Math.PI * (size / 2 - thickness / 2) - 2 * Math.PI * (size / 2 - thickness / 2) * (value / 100) + 'px'
+            for (let i = 0; i < String(value).length; i++) {
+                if (String(value)[i] != '.'){
+                    code = code + el[String(value)[i]]
+                }
+            }
             const keyFrames = `
-                @keyframes ${name} {
+                @keyframes ${name}_${code} {
                     100% {
                         stroke-dashoffset: ${stroke_offset_value};
                     }
@@ -149,7 +155,6 @@
             console.log(name)
         }
     }
-
 </script>
 
 <div style="
@@ -181,7 +186,7 @@ height: {size}px;
         </defs>
         <circle style="
             stroke-width: {thickness};
-            animation: {name} 0.3s ease-in forwards;
+            animation: {name}_{code} 0.3s ease-in forwards;
             stroke-dasharray: {2 * Math.PI * (size / 2 - thickness / 2) + "px"};
             stroke-dashoffset: {2 * Math.PI * (size / 2 - thickness / 2) + "px"};
         " transform="rotate(270 {size / 2} {size / 2})" cx="{size / 2}" cy="{size / 2}" r="{size / 2 - thickness / 2}" stroke-linecap="round" id="{name}"/>

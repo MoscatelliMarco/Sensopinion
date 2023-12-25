@@ -54,7 +54,7 @@
         {/if}
         <a href="#" class="flex flex-col items-center gap-2 xl:gap-3">
             <h4 class="text-center font-medium">{category}</h4>
-            <RadialProgress name="{category.toLowerCase().replaceAll(" ", "_") + '_' + category_type}" run_anim=true value=89.4 dimension='small'/>
+            <RadialProgress name="{category.toLowerCase().replaceAll(" ", "_") + '_' + category_type}" value=89.4 dimension='small'/>
         </a>
     {/each}
 </div>

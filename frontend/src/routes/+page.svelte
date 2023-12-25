@@ -49,15 +49,23 @@
         factor = factor_value
     }
 
-    export let news_articles;
+    export let data;
+    let news_articles = data['props']['data'];
     let all_metric_value;
-    let sum_all_metric = 0;
-    let denominator_all_metric = 0;
-    // for (let news of news_articles) {
-    //     console.log(news)
-    //     sum_all_metric = sum_all_metric + 3
-    //     break
-    // }
+    let sum_all_metric;
+    let denominator_all_metric = news_articles.length;
+    $: if (factor) {
+        all_metric_value = 0;
+        sum_all_metric = 0;
+        for (let news of news_articles) {
+            if (factor == 'positivity' || factor == 'negativity') {
+                sum_all_metric = sum_all_metric + ((factor == 'positivity') ? (news['factors']['polarity']) : (1 - news['factors']['polarity']))
+            } else{
+                sum_all_metric = sum_all_metric + news['factors'][factor]
+            }
+        }
+        all_metric_value = Math.round(sum_all_metric / denominator_all_metric * 1000) / 10
+    }
 </script>
 
 <div class="flex flex-col gap-48 xl:gap-56">
@@ -91,7 +99,7 @@
                             <FactorDropdownButton clickFunction={handleClickFactor} content="🤬 Anger 🤬" factorValue="anger" currentFactor={factor} />
                         </div>
                         <div class="flex flex-col gap-0.5">
-                            <FactorDropdownButton clickFunction={handleClickFactor} content="🤮 Disgust 🤮" factorValue="digust" currentFactor={factor} />
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="🤮 Disgust 🤮" factorValue="disgust" currentFactor={factor} />
                             <FactorDropdownButton clickFunction={handleClickFactor} content="😲 Surprise 😲" factorValue="surprise" currentFactor={factor} />
                             <FactorDropdownButton clickFunction={handleClickFactor} content="😐 Neutral 😐" factorValue="neutral" currentFactor={factor} />
                         </div> 
@@ -100,7 +108,7 @@
             </div>
         </div>
         <div class="flex flex-col justify-center gap-3 mt-6">
-            <RadialProgress run_anim=true name="all" value=78.4 dimension='big'/>
+            <RadialProgress name="all" value={all_metric_value} dimension='big'/>
             <h5 class="text-center font-light text-sm xl:text-base">*{factor.charAt(0).toUpperCase() + factor.slice(1)} on news</h5>
         </div>
     </section>
@@ -112,7 +120,7 @@
                 <div class="flex flex-col justify-center gap-6">
                     <a href="#" class="flex flex-col gap-2">
                         <h4 class="font-medium text-center text-lg xl:text-xl">Politics</h4>
-                        <RadialProgress run_anim=true name="politics" dimension='medium' value='87.8'/>
+                        <RadialProgress name="politics" dimension='medium' value='87.8'/>
                     </a>
                     <div class="flex justify-center">
                         <button on:click={show_more} data-category_type="politics" 
@@ -125,7 +133,7 @@
                 <div class="flex flex-col justify-center gap-6">
                     <a href="#" class="flex flex-col gap-2">
                         <h4 class="font-medium text-center text-lg xl:text-xl">Economy</h4>
-                        <RadialProgress run_anim=true name="economics" dimension='medium' value='56.2'/>
+                        <RadialProgress name="economics" dimension='medium' value='56.2'/>
                     </a>
                     <div class="flex justify-center">
                         <button on:click={show_more} data-category_type="economy" 
@@ -138,7 +146,7 @@
                 <div class="flex flex-col justify-center gap-6">
                     <a href="#" class="flex flex-col gap-2">
                         <h4 class="font-medium text-center text-lg xl:text-xl">Environment</h4>
-                        <RadialProgress run_anim=true name="environment" dimension='medium' value='6.5'/>
+                        <RadialProgress name="environment" dimension='medium' value='6.5'/>
                     </a>
                     <div class="flex justify-center">
                         <div class="flex justify-center">

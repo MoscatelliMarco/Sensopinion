@@ -20,8 +20,8 @@ logging.getLogger('newsplease').setLevel(logging.WARNING)
 nltk.download('punkt')  # Required for the first time
 
 # Load the classifiers
-emotion_model_path = './models/emotions_classifier'
-categories_model_path = './models/classes_classifier'
+emotion_model_path = '../models/emotions_classifier'
+categories_model_path = '../models/classes_classifier'
 logger.info("Load emotion classifier")
 emotion_tokenizer = AutoTokenizer.from_pretrained(emotion_model_path)
 emotion_model = AutoModelForSequenceClassification.from_pretrained(emotion_model_path)

@@ -11,8 +11,8 @@ vite.config.ts.timestamp-*
 
 _TODO.txt
 
-_backend/venv
-_backend/models
+backend/venv
+backend/models
 __pycache__/
 */__pycache__/
 **/__pycache__/

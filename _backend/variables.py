@@ -1,8 +1,12 @@
 urls_to_scrape = [
     "https://news.google.com/topstories?hl=en-US&gl=US&ceid=US:en",
     "https://news.google.com/topics/CAAqIQgKIhtDQkFTRGdvSUwyMHZNRFZ4ZERBU0FtVnVLQUFQAQ?hl=en-US&gl=US&ceid=US%3Aen",
-    # "https://news.google.com/u/1/topics/CAAqIggKIhxDQkFTRHdvSkwyMHZNR2RtY0hNekVnSmxiaWdBUAE?hl=en-US&gl=US&ceid=US%3Aen",
-    # "https://news.google.com/u/1/topics/CAAqIggKIhxDQkFTRHdvSkwyMHZNREp3ZVRBNUVnSmxiaWdBUAE?hl=en-US&gl=US&ceid=US%3Aen"
+    "https://news.google.com/u/1/topics/CAAqIggKIhxDQkFTRHdvSkwyMHZNR2RtY0hNekVnSmxiaWdBUAE?hl=en-US&gl=US&ceid=US%3Aen",
+    "https://news.google.com/u/1/topics/CAAqIggKIhxDQkFTRHdvSkwyMHZNREp3ZVRBNUVnSmxiaWdBUAE?hl=en-US&gl=US&ceid=US%3Aen"
+]
+black_listed_domains = [
+    "bloomberg.com",
+    "nytimes.com"
 ]
 
 categories = ['Politics', 'Economy', 'Environment']

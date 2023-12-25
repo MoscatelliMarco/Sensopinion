@@ -1,4 +1,22 @@
+<script context="module">
+    // This runs on the server during SSR and on the client after navigation
+    export async function load({ fetch }) {
+      const url = '/api/news'; // The URL of your endpoint
+      const res = await fetch(url);
+      if (res.ok) {
+        const { data } = await res.json();
+        return { props: { news } }; // Pass the data as props to the component
+      }
+  
+      // Handle errors or situations where data couldn't be fetched
+      return { props: { news: [] } };
+    }
+  </script>
+
 <script>
+    export let news = [];
+    console.log(news)
+
     import RadialProgress from "$lib/items/radial_progress.svelte"
     import SubCategories from "$lib/sections/+page/subcategories_index.svelte"
     import TryScreener from "$lib/sections/+page/try_screener.svelte"
@@ -51,7 +69,7 @@
                     Analyze <span class="text-primary-gradient">Sentiment</span> and <span class="text-primary-gradient">Emotions</span> At The Speed Of Light
                 </h1>
                 <h3 class="max-w-sm xl:max-w-lg text-sm xl:text-base">
-                    We hate reading boring articles just to understand what is happening around us, that's why we created WPTAT
+                    We hate reading boring articles just to understand what's happening around us, that's why we created WPTAT
                 </h3>
             </div>
             <div class="flex gap-8">

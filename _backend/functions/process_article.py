@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 from newsplease import NewsPlease
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
 from sklearn.cluster import KMeans
-from variables import categories, subcategories
+from variables import categories, subcategories, black_listed_domains
 from textblob import TextBlob
 import copy
 import nltk
@@ -34,6 +34,12 @@ categories_classifier = pipeline("zero-shot-classification", model=categories_mo
 def process_article(url):
     article = NewsPlease.from_url(url)
 
+    for black_listed_domain in black_listed_domains:
+        if black_listed_domain in url:
+            return
+
+    logger.info(url)
+    
     # If article is a dict that means that the request was negative
     if isinstance(article, dict):
         raise Exception(f"Error scraping a website: {url}")
@@ -44,12 +50,12 @@ def process_article(url):
     article_image = article.image_url
 
     if not article_description:
-        logger.info(f"Article invalid no description: {article.url}")
-        return None
+        logger.debug(f"Article invalid no description: {article.url}")
+        return
 
     if not article_text:
-        logger.info(f"Article invalid no maintext: {article.url}")
-        return None
+        logger.debug(f"Article invalid no maintext: {article.url}")
+        return
     # Emotions
     try:
         clusters = process_text(article_text)
@@ -57,7 +63,7 @@ def process_article(url):
         logger.info("A sentence or more in the article exceed the max amount of 512 chars")
         return
 
-    logger.info("Analyzing emotions")
+    logger.debug("Analyzing emotions")
     clusters_dict = []
     for i, cluster in enumerate(clusters, 1):
         words = cluster.split()
@@ -89,7 +95,7 @@ def process_article(url):
     del emotions_percentage['joy']
 
     # Sentiment
-    logger.info("Analyzing sentiment")
+    logger.debug("Analyzing sentiment")
     blob = TextBlob(article_text)
     sentiment = blob.sentiment
     sentiment = {
@@ -98,7 +104,7 @@ def process_article(url):
     }
 
     # Categories
-    logger.info("Analyzing categories")
+    logger.debug("Analyzing categories")
     valid_categories, valid_subcategories = pick_categories(article_description)
 
     return emotions_percentage, sentiment, valid_categories, valid_subcategories, article_date_publish

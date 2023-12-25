@@ -23,7 +23,17 @@
               </div>
             </div>
         </div>
-        <div class="col-span-2">
+        <div class="card shadow-md">
+          <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="car!"/></figure>
+          <div class="card-body">
+            <h2 class="card-title">Life hack</h2>
+            <p>How to park your car at your garage?</p>
+            <div class="card-actions justify-end">
+              <button class="btn">Learn now!</button>
+            </div>
+          </div>
+      </div>
+        <div class="col-span-3">
             <div class="h-32 bg-purple items-center flex justify-center rounded-xl bg-opacity-50 shadow-md">ADS</div>
         </div>
     </div>

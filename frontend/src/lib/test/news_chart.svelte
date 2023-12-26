@@ -256,19 +256,26 @@
     height: {size}px;
     " class="shadow-md hover:shadow-lg relative rounded-full border-4">
         <div class="flex justify-center items-center h-full">
-            <div class="flex flex-col px-2 py-1 rounded-md bg-white bg-opacity-75 text-center">
+            <div class="flex flex-col w-52 py-1 rounded-md bg-white bg-opacity-90 text-center">
                 {#if (!emotion_analyze)}
                     <p class="text-sm">Top emotion:</p>
-                    <p class="text-lg font-medium">
-                        {emotion_dict[highest_emotion['type']]} {highest_emotion['type'].charAt(0).toUpperCase() + highest_emotion['type'].slice(1)} 
-                        - <span class="font-extrabold">{highest_emotion['score']}%</span>
+                    <p class="text-lg font-medium flex justify-center">
+                        <span class="flex flex-col justify-center">
+                            {emotion_dict[highest_emotion['type']]} 
+                            {highest_emotion['type'].charAt(0).toUpperCase() + highest_emotion['type'].slice(1)} 
+                            -&nbsp;
+                        </span>
+                        <span class="font-extrabold text-xl text-primary-gradient">{highest_emotion['score']}%</span>
                     </p>
                 {:else}
                     <p class="text-sm">Score emotion:</p>
-                        <p class="text-lg font-medium">
-                            {emotion_analyze} 
-                            {getKeysByValue(emotion_dict, emotion_analyze).charAt(0).toUpperCase() + getKeysByValue(emotion_dict, emotion_analyze).slice(1)}
-                            - <span class="font-extrabold">{value[getKeysByValue(emotion_dict, emotion_analyze)]}%</span>
+                        <p class="text-lg font-medium flex justify-center">
+                            <span class="flex flex-col justify-center">
+                                {emotion_analyze} 
+                                {getKeysByValue(emotion_dict, emotion_analyze).charAt(0).toUpperCase() + getKeysByValue(emotion_dict, emotion_analyze).slice(1)}
+                                -&nbsp;
+                            </span>
+                        <span class="font-extrabold text-xl text-primary-gradient">{value[getKeysByValue(emotion_dict, emotion_analyze)]}%</span>
                     </p>
                 {/if}
             </div>

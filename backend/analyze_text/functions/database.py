@@ -21,14 +21,17 @@ class DBClient():
         # Fetch recent news entries
         return list(self.collection.find({}))
 
-    def insert_article(self, url, google_news_url, factors, category, subcategories, time_of_the_article):
+    def insert_article(self, url, google_news_url, image_url, article_description, article_title, emotions, sentiment, category, subcategories, time_of_the_article):
         # TODO save also description, top_image
         doc = {
             "url": url,
             "google_news_url": google_news_url,
-            "factors": factors,
-            "category": category,
-            "subcategories": subcategories,
+            "image": image_url,
+            "title": article_title,
+            "description": article_description,
+            "emotions": emotions,
+            "sentiment": sentiment,
+            "categories": dict(zip(category, subcategories)),
             "time_analyze": datetime.datetime.utcnow(),
             "time_of_the_article": time_of_the_article if time_of_the_article else None
         }

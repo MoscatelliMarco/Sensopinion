@@ -50,6 +50,7 @@ def process_article(url):
         raise Exception(f"Error scraping a website: {url}")
 
     article_text = article.maintext
+    article_title = article.title
     article_description = article.description
     article_date_publish = article.date_publish
     article_image = article.image_url
@@ -66,6 +67,12 @@ def process_article(url):
     if article_date_publish < datetime.now() - timedelta(days=int(os.environ.get("ACCEPTED_DAYS_NEWS"))):
         logger.debug(f"Article invalid date publish older than 7 days: {article.url}")
         return
+    if not article_title:
+        logger.debug(f"Article invalid no title: {article.url}")
+        return
+    if not article_image:
+        logger.debug(f"Article invalid no image_url: {article.url}")
+        return
 
     try:
         clusters = process_text(article_text)
@@ -73,7 +80,7 @@ def process_article(url):
         logger.info("A sentence or more in the article exceed the max amount of 512 chars")
         return
 
-    logger.debug("Analyzing emotions")
+    logger.debug("Clustering")
     clusters_dict = []
     for i, cluster in enumerate(clusters, 1):
         words = cluster.split()
@@ -81,13 +88,19 @@ def process_article(url):
             'chars': len(cluster), 
             'words': len(words), 
             'content': cluster,
-            'emotions': {}
+            'emotions': {},
+            'sentiment': {}
         }
         for item in emotions_classifier(cluster)[0]:
             dict_append['emotions'][item['label']] = item['score']
+        blob = TextBlob(article_text)
+        sentiment = blob.sentiment
+        dict_append['sentiment']['polarity'] = sentiment.polarity
+        dict_append['sentiment']['subjectivity'] = sentiment.subjectivity
 
         clusters_dict.append(dict_append)
 
+    logger.debug("Analyzing emotions")
     # Take weighted everage of emotions
     emotion_sum_char = 0
     emotion_value = 0
@@ -105,17 +118,23 @@ def process_article(url):
     del emotions_percentage['joy']
 
     # Sentiment
-    logger.debug("Analyzing sentiment")
-    blob = TextBlob(article_text)
-    sentiment = blob.sentiment
-    emotions_percentage['polarity'] = (sentiment.polarity + 1) / 2
-    emotions_percentage['subjectivity'] = sentiment.subjectivity
+    sentiment = {}
+    item_value = 0
+    item_sum_char = 0
+    for item in ['polarity', 'subjectivity']:
+        for cluster in clusters_dict:
+            item_value += cluster['chars'] * cluster['sentiment'][item]
+            item_sum_char += cluster['chars']
+            sentiment[item] = item_value / item_sum_char
+            item_value = 0
+            item_sum_char = 0
+    sentiment['polarity'] = (sentiment['polarity'] + 1) / 2
 
     # Categories
     logger.debug("Analyzing categories")
     valid_categories, valid_subcategories = pick_categories(article_description)
 
-    return emotions_percentage, valid_categories, valid_subcategories, article_date_publish
+    return emotions_percentage, sentiment, valid_categories, valid_subcategories, article_date_publish, article_image, article_description, article_title
 
     
 def pick_categories(text, max_selectable_subcategories=5):

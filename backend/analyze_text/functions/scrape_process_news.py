@@ -47,10 +47,10 @@ def scrape_process_news(mongo_client):
         try:
             response = requests.get(google_news_url, allow_redirects=True, timeout=15)
             final_url = response.url
-            factors, valid_categories, valid_subcategories, article_date_publish = process_article(final_url)
-            if factors and valid_categories and valid_subcategories and article_date_publish:
+            emotions, sentiment, valid_categories, valid_subcategories, article_date_publish, image_url, article_description, article_title = process_article(final_url)
+            if emotions and sentiment and valid_categories and valid_subcategories and article_date_publish:
                 logger.info(f"Added article: {final_url}")
-                mongo_client.insert_article(final_url, google_news_url, factors, valid_categories, valid_subcategories, article_date_publish)
+                mongo_client.insert_article(final_url, google_news_url, image_url, article_description, article_title, emotions, sentiment, valid_categories, valid_subcategories, article_date_publish)
             else:
                 logger.debug(f"Not added article: {final_url}")
         except:

@@ -10,8 +10,7 @@
 
     onMount(() => {
         // Simulating a loading process
-        isLoaded = true;
-    });
+        isLoaded = true;    });
 </script>
 
 {#if isLoaded}
@@ -26,6 +25,6 @@
     </body>
 {:else}
     <div class="bg-white flex justify-center items-center h-screen">
-        <span class="loading loading-infinity w-12 md:w-14 lg:w-16 xl:w-18"></span>
+        <span class="loading loading-infinity w-12 md:w-13 lg:w-15 xl:w-16"></span>
     </div>
 {/if}

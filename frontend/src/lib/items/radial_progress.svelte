@@ -125,13 +125,15 @@
         };
     })
 
-    let code = ''
-    let el = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+    let code;
+    let el = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
+    let circle;
     $: if (value) {
         try {
             const style = document.createElement('style');
             style.type = 'text/css';
             let stroke_offset_value = 2 * Math.PI * (size / 2 - thickness / 2) - 2 * Math.PI * (size / 2 - thickness / 2) * (value / 100) + 'px'
+            code = ''
             for (let i = 0; i < String(value).length; i++) {
                 if (String(value)[i] != '.'){
                     code = code + el[String(value)[i]]
@@ -151,6 +153,11 @@
                 style.appendChild(document.createTextNode(keyFrames));
             }
             document.head.appendChild(style);
+            setTimeout(() => {
+                if (circle) {
+                    circle.style['stroke-dashoffset'] = stroke_offset_value
+                }
+            }, 1200)
         } catch (error){
             console.log(name)
         }
@@ -173,7 +180,7 @@ height: {size}px;
                 font-weight: {font_weight};
                 font-size: {font_size}px;
             " class="text-primary-gradient">
-                {value}%
+                {Number(value) ? value + '%' : value}
             </div>
         </div>
     </div>
@@ -184,9 +191,9 @@ height: {size}px;
                 <stop offset="100%" stop-color="rgb(112, 46, 219)"/>
             </linearGradient>
         </defs>
-        <circle style="
+        <circle bind:this={circle} style="
             stroke-width: {thickness};
-            animation: {name}_{code} 0.3s ease-in forwards;
+            animation: {name}_{code} 0.12s ease-in forwards;
             stroke-dasharray: {2 * Math.PI * (size / 2 - thickness / 2) + "px"};
             stroke-dashoffset: {2 * Math.PI * (size / 2 - thickness / 2) + "px"};
         " transform="rotate(270 {size / 2} {size / 2})" cx="{size / 2}" cy="{size / 2}" r="{size / 2 - thickness / 2}" stroke-linecap="round" id="{name}"/>

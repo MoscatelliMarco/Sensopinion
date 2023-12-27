@@ -12,33 +12,38 @@ module.exports = {
         main: {
           blue: "rgb(33, 135, 219)",
           purple: "rgb(112, 46, 219)",
-          "neutral-light": "#E0E0E0",
+          "neutral-light": "#E7E7E7",
           neutral: "#878787",
           "neutral-dark": "#616161",
-          white: "#F2F2F2",
-          black: "#0F0F0F"
+          white: "#F6F6F6",
+          black: "#0F0F0F",
+          "real-white": "#FFFFFF"
         }
       }
     ]
   },
   theme: {
+    colors: {
+      blue: "rgb(33, 135, 219)",
+      purple: "rgb(112, 46, 219)",
+      "neutral-light": "#E7E7E7",
+      neutral: "#878787",
+      "neutral-dark": "#616161",
+      white: "#F6F6F6",
+      black: "#0F0F0F",
+      "real-white": "#FFFFFF"
+    },
     extend: {
+      borderWidth: {
+        "3": "3px"
+      },
       fontFamily: {
         "main": ["Roboto", ...defaultTheme.fontFamily.sans]
       },
-      colors: {
-        blue: "rgb(33, 135, 219)",
-        purple: "rgb(112, 46, 219)",
-        "neutral-light": "#E0E0E0",
-        neutral: "#878787",
-        "neutral-dark": "#616161",
-        white: "#F2F2F2",
-        black: "#0F0F0F",
-      },
       spacing: {
-        '18': '4.5rem',
-        '112': '27rem',
-        '124': '30rem',
+        "13": "3.25rem",
+        "18": "4.5rem",
+        "88": "22rem"
       }
     }
   }

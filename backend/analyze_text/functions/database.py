@@ -22,7 +22,6 @@ class DBClient():
         return list(self.collection.find({}))
 
     def insert_article(self, url, google_news_url, image_url, article_description, article_title, emotions, sentiment, category, subcategories, time_of_the_article):
-        # TODO save also description, top_image
         doc = {
             "url": url,
             "google_news_url": google_news_url,

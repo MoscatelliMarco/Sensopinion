@@ -9,6 +9,11 @@
                     Sentiment Screener
                 </a>
             </li>
+            <li class="hover:font-medium">
+                <a href="#">
+                    Analyze Your News
+                </a>
+            </li>
             <li class="font-medium">·</li>
             <li class="hover:font-medium">
                 <a href="#">
@@ -16,11 +21,6 @@
                 </a>
             </li>
             <li class="font-medium">·</li>
-            <li class="hover:font-medium">
-                <a href="#">
-                    Analyze your text
-                </a>
-            </li>
             <li class="font-medium">·</li>
             <li class="hover:font-medium">
                 <a href="#">

@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { fade } from "svelte/transition";
+    import { globalStore } from '../../stores.js';
 
     export let dimension = 'medium'
     export let name = "test";
@@ -175,16 +176,10 @@
             }
         }
     }
-
-    let emotion_dict = {
-        'anger': "🤬",
-        'disgust': "🤢",
-        'fear': "😨",
-        'neutral': "😐",
-        'sadness': "😭",
-        'surprise': "😲",
-        'happiness': "😀"
-    }
+    let emotion_dict;
+    globalStore.subscribe(value => {
+        emotion_dict = value.emotion_dict;
+    });
 
     function getKeysByValue(object, value) {
         return String(Object.keys(object).filter(key => object[key] === value));
@@ -227,7 +222,7 @@
                         stroke-dasharray: {2 * Math.PI * (size / 2 - thickness / 2) + "px"};
                         stroke-dashoffset: {2 * Math.PI * (size / 2 - thickness / 2) + "px"};
                         " transform="rotate(270 {size / 2} {size / 2})" cx="{size / 2}" cy="{size / 2}" r="{size / 2 - thickness / 2}" 
-                    stroke-linecap="round" id="{name}"/>
+                    stroke-linecap="round"/>
                 </svg>
             </div>
         </div>

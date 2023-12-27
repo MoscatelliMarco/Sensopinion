@@ -9,3 +9,4 @@ textblob==0.17.1
 scikit-learn==1.2.2
 news-please==1.5.40
 schedule==1.2.1
+torch==2.0.1

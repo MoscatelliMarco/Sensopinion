@@ -16,6 +16,7 @@ load_dotenv()  # take environment variables from .env.
 client = DBClient(os.environ.get("MONGODB_CLIENT_URL"), int(os.environ.get("ACCEPTED_DAYS_NEWS")))
 
 def scheduler_function():
+    logger.info("STARTED SCHEDULED PROCESS")
     try:
         scrape_process_news(client)
         logger.info("FINISHED ANALYZING")

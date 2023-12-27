@@ -45,7 +45,7 @@ def scrape_process_news(mongo_client):
             continue
 
         try:
-            response = requests.get(google_news_url, allow_redirects=True, timeout=15)
+            response = requests.get(google_news_url, allow_redirects=True, timeout=25)
             final_url = response.url
             emotions, sentiment, valid_categories, valid_subcategories, article_date_publish, image_url, article_description, article_title = process_article(final_url)
             if emotions and sentiment and valid_categories and valid_subcategories and article_date_publish:

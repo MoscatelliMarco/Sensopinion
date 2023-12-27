@@ -56,22 +56,25 @@ def process_article(url):
     article_image = article.image_url
 
     if not article_description:
-        logger.debug(f"Article invalid no description: {article.url}")
+        logger.info(f"Article invalid no description: {article.url}")
         return
     if not article_text:
-        logger.debug(f"Article invalid no maintext: {article.url}")
+        logger.info(f"Article invalid no maintext: {article.url}")
         return
     if not article_date_publish:
-        logger.debug(f"Article invalid no date_publish: {article.url}")
+        logger.info(f"Article invalid no date_publish: {article.url}")
         return
     if article_date_publish < datetime.now() - timedelta(days=int(os.environ.get("ACCEPTED_DAYS_NEWS"))):
-        logger.debug(f"Article invalid date publish older than 7 days: {article.url}")
+        logger.info(f"Article invalid date publish older than 7 days: {article.url}")
         return
     if not article_title:
-        logger.debug(f"Article invalid no title: {article.url}")
+        logger.info(f"Article invalid no title: {article.url}")
         return
     if not article_image:
-        logger.debug(f"Article invalid no image_url: {article.url}")
+        logger.info(f"Article invalid no image_url: {article.url}")
+        return
+    if 'news.google.com' in url:
+        logger.info(f"Article invalid url news.google.com domain: {article.url}")
         return
 
     try:

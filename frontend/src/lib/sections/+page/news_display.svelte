@@ -1,5 +1,7 @@
 <script>
   import { fade, slide } from "svelte/transition";
+  import RadialProgressSmall from "../../items/radial_progress_small.svelte";
+  import { globalStore } from "../../../stores";
 
   export let news_articles;
   let sorted_news_articles = [...news_articles]
@@ -12,7 +14,7 @@
       return dateB - dateA; // Use dateA - dateB for ascending order.
   });
 
-  let n_load = 4
+  let n_load = 2
   let loading = false
   function loadNews() {
     loading = true
@@ -21,39 +23,55 @@
       loading = false
     }, 250)
   }
+
+  let emotion_dict;
+  globalStore.subscribe(value => {
+      emotion_dict = value.emotion_dict;
+  });
 </script>
 
 <section class="flex flex-col gap-12">
     <div class="flex justify-center">
         <h4 class="text-2xl xl:text-3xl font-semibold">Recent <span class="text-primary-gradient">News</span></h4>
     </div>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 xl:gap-6">
+    <div class="grid grid-cols-2 gap-5 xl:gap-6">
         {#each sorted_news_articles.slice(0, n_load) as news, index}
           <div transition:slide={{duration: 150}} class="bg-real-white rounded-lg overflow-hidden shadow-md hover:shadow-lg">
-            <div transition:fade={{duration: 300}} class="flex flex-col justify-between gap-2.5 overflow-hidden h-88 xl:h-80">
-              <a href="{news.url}" target="_blank" class="overflow-hidden w-full h-32">
+            <div transition:fade={{duration: 300}} class="flex flex-col justify-between gap-2.5 overflow-hidden h-96">
+              <a href="{news.url}" target="_blank" class="overflow-hidden w-full h-52">
                 <img src="{news['image']}" alt="thumbnail of news article" class="object-cover w-full h-full"/>
               </a>
               <div class="px-4 flex flex-col gap-1.5">
-                <h6 class="font-medium text-sm">
-                  {news['title'].slice(0, 80).replace(/\s$/, '')}{news['title'].length > 80 ? "..." : ""}
-                </h6>
-                <p class="text-xs">
-                  {news['description'].slice(0, 160).replace(/\s$/, '')}{news['description'].length > 160 ? "..." : ""}
+                <div class="flex justify-between gap-4">
+                  <h6 class="font-medium text-lg">
+                    {news['title'].slice(0, 100).replace(/\s$/, '')}{news['title'].length > 100 ? "..." : ""}
+                  </h6>
+                  <div class=" flex gap-2">
+                    <RadialProgressSmall news={news}/>
+                    <!-- <div class="radial-progress text-xs text-black" 
+                    style="--value:{Math.round(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1]))[Object.keys(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1])))[0]] * 100)}; --size:2rem; --thickness: 6px;" role="progressbar">
+                    {emotion_dict[Object.keys(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1])))[0]]}</div>
+                    <div class="radial-progress text-xs text-black" 
+                    style="--value:{Math.round(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1]))[Object.keys(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1])))[1]] * 100)}; --size:2rem; --thickness: 6px;" role="progressbar">
+                    {emotion_dict[Object.keys(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1])))[1]]}</div> -->
+                  </div>
+                </div>
+                <p class="text-sm">
+                  {news['description'].slice(0, 250).replace(/\s$/, '')}{news['description'].length > 250 ? "..." : ""}
                 </p>
               </div>
               <div class="flex justify-between mt-auto items-center">
-                <p class="text-xxs font-medium px-2.5 h-8 bg-neutral-light rounded-tr-md bg-opacity-50 grid place-content-center">
+                <p class="text-sm font-medium px-4 h-7 bg-neutral-light rounded-tr-md bg-opacity-50 grid place-content-center">
                   {news['time_of_the_article'].split('T')[0]}
                 </p>
-                <a href="{news['url']}" target="_blank" class="bg-neutral px-4 h-8 grid place-content-center text-white text-sm rounded-tl-md font-medium">
+                <a href="{news['url']}" target="_blank" class="bg-neutral px-8 h-7 grid place-content-center text-white rounded-tl-md font-medium">
                   Read
                 </a>
               </div>
             </div>
           </div>
-          {#if (index + 1) % 8 == 0}
-            <div class="col-span-2 lg:col-span-4 h-24 xl:h-28 bg-primary-gradient-opacity bg-opacity-50 grid place-content-center text-semibold text-lg shadow-md hover:shadow-lg rounded-md">
+          {#if (index + 1) % 6 == 0}
+            <div class="col-span-2 h-20 xl:h-24 bg-primary-gradient-opacity bg-opacity-50 grid place-content-center text-semibold text-lg shadow-md hover:shadow-lg rounded-md">
               ADS
             </div>
           {/if}

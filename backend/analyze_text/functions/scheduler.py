@@ -18,5 +18,6 @@ client = DBClient(os.environ.get("MONGODB_CLIENT_URL"), int(os.environ.get("ACCE
 def scheduler_function():
     try:
         scrape_process_news(client)
+        logger.info("FINISHED ANALYZING")
     except Exception as e:
         logger.error(f"Could not scrape and process the news: {e}")

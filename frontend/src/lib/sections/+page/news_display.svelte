@@ -36,7 +36,7 @@
     </div>
     <div class="grid grid-cols-2 gap-5 xl:gap-6">
         {#each sorted_news_articles.slice(0, n_load) as news, index}
-          <div transition:slide={{duration: 150}} class="bg-real-white rounded-lg overflow-hidden shadow-md hover:shadow-lg">
+          <div transition:slide={{duration: 150}} class="rounded-lg overflow-hidden shadow-md hover:shadow-lg">
             <div transition:fade={{duration: 300}} class="flex flex-col justify-between gap-2.5 overflow-hidden h-96">
               <a href="{news.url}" target="_blank" class="overflow-hidden w-full h-52">
                 <img src="{news['image']}" alt="thumbnail of news article" class="object-cover w-full h-full"/>
@@ -46,15 +46,13 @@
                   <h6 class="font-medium text-lg">
                     {news['title'].slice(0, 100).replace(/\s$/, '')}{news['title'].length > 100 ? "..." : ""}
                   </h6>
-                  <div class=" flex gap-2">
-                    <RadialProgressSmall news={news}/>
+                  <RadialProgressSmall news={news}/>
                     <!-- <div class="radial-progress text-xs text-black" 
                     style="--value:{Math.round(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1]))[Object.keys(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1])))[0]] * 100)}; --size:2rem; --thickness: 6px;" role="progressbar">
                     {emotion_dict[Object.keys(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1])))[0]]}</div>
                     <div class="radial-progress text-xs text-black" 
                     style="--value:{Math.round(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1]))[Object.keys(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1])))[1]] * 100)}; --size:2rem; --thickness: 6px;" role="progressbar">
                     {emotion_dict[Object.keys(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1])))[1]]}</div> -->
-                  </div>
                 </div>
                 <p class="text-sm">
                   {news['description'].slice(0, 250).replace(/\s$/, '')}{news['description'].length > 250 ? "..." : ""}

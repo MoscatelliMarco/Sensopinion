@@ -16,3 +16,4 @@ backend/models
 __pycache__/
 */__pycache__/
 **/__pycache__/
+delete_pycache.py

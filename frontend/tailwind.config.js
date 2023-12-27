@@ -34,6 +34,9 @@ module.exports = {
       "real-white": "#FFFFFF"
     },
     extend: {
+      fontSize: {
+        "xxs":  ["0.625rem", "0.75rem"]
+      },
       borderWidth: {
         "3": "3px"
       },

@@ -43,10 +43,10 @@
                 </p>
               </div>
               <div class="flex justify-between mt-auto items-center">
-                <p class="text-xs pl-4">
+                <p class="text-xxs font-medium px-2.5 h-8 bg-neutral-light rounded-tr-md bg-opacity-50 grid place-content-center">
                   {news['time_of_the_article'].split('T')[0]}
                 </p>
-                <a href="{news['url']}" target="_blank" class="bg-neutral px-4 py-1.5 text-white text-sm rounded-tl-md">
+                <a href="{news['url']}" target="_blank" class="bg-neutral px-4 h-8 grid place-content-center text-white text-sm rounded-tl-md font-medium">
                   Read
                 </a>
               </div>

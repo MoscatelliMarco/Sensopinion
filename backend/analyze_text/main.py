@@ -1,11 +1,15 @@
-# Schedule in async way
-from apscheduler.schedulers.background import BackgroundScheduler
+import schedule
+import time
 from functions.scheduler import scheduler_function
-import asyncio
+
+# Schedule the function to run every 4 hours
+schedule.every(4).hours.do(scheduler_function)
 
 if __name__ == '__main__':
+    # Run the code instantly
     scheduler_function()
-    # scheduler = BackgroundScheduler()
-    # scheduler.add_job(scheduler_function, 'interval', hours=1)
-    # scheduler.start()
-    # asyncio.get_event_loop().run_forever()
+
+    # Run the code every 4 hours
+    while True:
+        schedule.run_pending()
+        time.sleep(60)

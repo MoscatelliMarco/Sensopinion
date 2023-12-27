@@ -14,7 +14,7 @@
       return dateB - dateA; // Use dateA - dateB for ascending order.
   });
 
-  let n_load = 2
+  let n_load = 4
   let loading = false
   function loadNews() {
     loading = true

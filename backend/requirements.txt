@@ -1,0 +1,11 @@
+pymongo==4.6.1
+python-dotenv==1.0.0
+bs4==0.0.1
+urllib3==1.26.16
+transformers==4.36.2
+numpy==1.25.0
+nltk==3.8.1
+textblob==0.17.1
+scikit-learn==1.2.2
+news-please==1.5.40
+schedule==1.2.1

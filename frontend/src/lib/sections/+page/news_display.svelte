@@ -47,12 +47,6 @@
                     {news['title'].slice(0, 100).replace(/\s$/, '')}{news['title'].length > 100 ? "..." : ""}
                   </h6>
                   <RadialProgressSmall news={news}/>
-                    <!-- <div class="radial-progress text-xs text-black" 
-                    style="--value:{Math.round(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1]))[Object.keys(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1])))[0]] * 100)}; --size:2rem; --thickness: 6px;" role="progressbar">
-                    {emotion_dict[Object.keys(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1])))[0]]}</div>
-                    <div class="radial-progress text-xs text-black" 
-                    style="--value:{Math.round(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1]))[Object.keys(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1])))[1]] * 100)}; --size:2rem; --thickness: 6px;" role="progressbar">
-                    {emotion_dict[Object.keys(Object.fromEntries(Object.entries(news['emotions']).sort((a, b) => b[1] - a[1])))[1]]}</div> -->
                 </div>
                 <p class="text-sm">
                   {news['description'].slice(0, 250).replace(/\s$/, '')}{news['description'].length > 250 ? "..." : ""}
@@ -62,7 +56,7 @@
                 <p class="text-sm font-medium px-4 h-7 bg-neutral-light rounded-tr-md bg-opacity-50 grid place-content-center">
                   {news['time_of_the_article'].split('T')[0]}
                 </p>
-                <a href="{news['url']}" target="_blank" class="bg-neutral px-8 h-7 grid place-content-center text-white rounded-tl-md font-medium">
+                <a href="{news['url']}" target="_blank" class="bg-neutral px-12 h-7 grid place-content-center text-white rounded-tl-md font-medium">
                   Read
                 </a>
               </div>

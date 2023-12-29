@@ -11,6 +11,12 @@ from urllib.parse import urlparse, parse_qs
 from variables import urls_to_scrape
 from functions.process_article import process_article
 import random
+import time
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def scrape_process_news(mongo_client):
     # Headers to simulate a real user visit
@@ -53,6 +59,7 @@ def scrape_process_news(mongo_client):
                 mongo_client.insert_article(final_url, google_news_url, image_url, article_description, article_title, emotions, sentiment, valid_categories, valid_subcategories, article_date_publish)
             else:
                 logger.debug(f"Not added article: {final_url}")
+            time.sleep(int(os.environ.get("SECOND_WAIT_REDUCE_USAGE")))
         except:
-            logger.debug(f"Couldn't go through fetch and/or analyze {google_news_url}")
+            logger.error(f"Couldn't go through fetch and/or analyze {google_news_url}")
             continue

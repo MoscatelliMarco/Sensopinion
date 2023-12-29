@@ -65,7 +65,7 @@ def process_article(url):
         logger.info(f"Article invalid no date_publish: {article.url}")
         return
     if article_date_publish < datetime.now() - timedelta(days=int(os.environ.get("ACCEPTED_DAYS_NEWS"))):
-        logger.info(f"Article invalid date publish older than 7 days: {article.url}")
+        logger.info(f"Article invalid date publish older than {int(os.environ.get("ACCEPTED_DAYS_NEWS"))} days: {article.url}")
         return
     if not article_title:
         logger.info(f"Article invalid no title: {article.url}")

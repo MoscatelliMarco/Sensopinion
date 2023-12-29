@@ -2,7 +2,7 @@
 export async function load({ fetch }) {
     let res;
     try {
-        res = await fetch("http://127.0.0.1:8000/api/news");
+        res = await fetch(`${import.meta.env.VITE_BACKEND_SERVER_IP}/api/news`);
     } catch {
         return {
             status: 500,

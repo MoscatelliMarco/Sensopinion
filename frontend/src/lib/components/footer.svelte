@@ -1,9 +1,9 @@
-<footer class="mt-auto flex justify-center lg:mt-neg-4 xl:mt-0 pt-0 xl:pt-8 mx-2 md:mx-4 lg:mx-6">
-    <div class="max-w-6xl flex flex-col gap-9 shadow-lg rounded-2xl mb-8 py-10 px-14 w-full">
+<footer class="mt-auto flex justify-center lg:pt-0 xl:pt-8 mx-2 md:mx-4 lg:mx-6">
+    <div class="max-w-6xl flex flex-col gap-5 lg:gap-9 shadow-lg rounded-2xl mb-4 lg:mb-6 xl:mb-8 py-7 lg:py-8 xl:py-10 px-6 lg:px-14 w-full mt-neg-8 lg:mt-neg-4">
         <div class="flex justify-center">
-            <h2 class="text-primary-gradient font-black text-3xl">WPTAT</h2>
+            <h2 class="text-primary-gradient font-black text-2xl lg:text-3xl">WPTAT</h2>
         </div>
-        <ul class="flex justify-center gap-10">
+        <ul class="flex justify-center gap-5 lg:gap-8 xl:gap-10">
             <li class="hover:font-medium">
                 <a href="#">
                     Sentiment Screener

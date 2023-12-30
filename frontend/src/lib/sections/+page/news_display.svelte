@@ -30,23 +30,25 @@
   });
 </script>
 
-<section class="flex flex-col gap-7 xl:gap-12">
+<section class="flex flex-col gap-4 lg:gap-7 xl:gap-12">
     <div class="flex justify-center">
         <h4 class="text-2xl xl:text-3xl font-semibold">Recent <span class="text-primary-gradient">News</span></h4>
     </div>
-    <div class="grid grid-cols-2 gap-5 xl:gap-6">
+    <div class="grid grid-cols-2 gap-3 lg:gap-5 xl:gap-6">
         {#each sorted_news_articles.slice(0, n_load) as news, index}
           <div transition:slide={{duration: 150}} class="rounded-lg overflow-hidden shadow-md hover:shadow-lg">
-            <div transition:fade={{duration: 300}} class="flex flex-col justify-between gap-2.5 overflow-hidden h-96">
-              <a href="{news.url}" target="_blank" class="overflow-hidden w-full h-52">
+            <div transition:fade={{duration: 300}} class="flex flex-col justify-between gap-1.5 lg:gap-2.5 overflow-hidden h-100 lg:h-96">
+              <a href="{news.url}" target="_blank" class="overflow-hidden w-full h-44 lg:h-52">
                 <img src="{news['image']}" alt="thumbnail of news article" class="object-cover w-full h-full"/>
               </a>
-              <div class="px-4 flex flex-col gap-1.5">
-                <div class="flex justify-between gap-4">
+              <div class="px-3 lg:px-4 flex flex-col gap-1 lg:gap-1.5">
+                <div class="flex justify-between gap-2 lg:gap-4">
                   <h6 class="font-medium text-lg">
                     {news['title'].slice(0, 100).replace(/\s$/, '')}{news['title'].length > 100 ? "..." : ""}
                   </h6>
-                  <RadialProgressSmall news={news}/>
+                  <div class="mt-0.5">
+                    <RadialProgressSmall news={news}/>
+                  </div>
                 </div>
                 <p class="text-sm">
                   {news['description'].slice(0, 250).replace(/\s$/, '')}{news['description'].length > 250 ? "..." : ""}

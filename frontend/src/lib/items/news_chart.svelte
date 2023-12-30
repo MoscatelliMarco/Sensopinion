@@ -30,10 +30,10 @@
                 thickness: 22
             },
             768: {
-                font_size: 48,
+                font_size: 36,
                 font_weight: 700,
-                size: 420,
-                thickness: 28
+                size: 280,
+                thickness: 20
             },
             mobile: {
                 font_size: 48,
@@ -52,14 +52,14 @@
             1024: {
                 font_size: 26,
                 font_weight: 700,
-                size: 220,
-                thickness: 14
+                size: 240,
+                thickness: 16
             },
             768: {
-                font_size: 32,
+                font_size: 22,
                 font_weight: 700,
-                size: 250,
-                thickness: 18
+                size: 200,
+                thickness: 14
             },
             mobile: {
                 font_size: 32,
@@ -82,10 +82,10 @@
                 thickness: 9
             },
             768: {
-                font_size: 20,
+                font_size: 16,
                 font_weight: 700,
-                size: 140,
-                thickness: 10
+                size: 130,
+                thickness: 9
             },
             mobile: {
                 font_size: 20,

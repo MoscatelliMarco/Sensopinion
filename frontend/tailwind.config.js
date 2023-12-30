@@ -47,7 +47,9 @@ module.exports = {
         "13": "3.25rem",
         "18": "4.5rem",
         "88": "22rem",
-        "neg-4": "-1rem"
+        "neg-4": "-1rem",
+        "neg-8": "-2rem",
+        "100": "25rem"
       }
     }
   }

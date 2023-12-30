@@ -6,7 +6,7 @@
 </script>
 
 <li><button on:click={clickFunction} data-factor-value="{factorValue}" 
-    class="text-sm py-0.5 w-full rounded-sm"
+    class="text-xs lg:text-sm py-0.5 w-full rounded-sm"
     class:bg-primary-gradient-opacity = {currentFactor==factorValue}
     class:bg-primary-gradient-opacity-inter = {currentFactor==factorValue}
     class:text-white = {currentFactor==factorValue}

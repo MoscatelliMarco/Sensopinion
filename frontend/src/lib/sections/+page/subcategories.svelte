@@ -53,15 +53,15 @@
     }
 </script>
 
-<div transition:slide={{duration: 500}} class="mt-14 xl:mt-18">
-    <div transition:fade={{duration: 400}} class="grid grid-cols-4 xl:grid-cols-5 gap-y-6 xl:gap-y-9 xl:mx-14">
+<div transition:slide={{duration: 500}} class="mt-2 md:mt-14 xl:mt-18">
+    <div transition:fade={{duration: 400}} class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-x-3 md:gap-x-0 gap-y-3 md:gap-y-6 xl:gap-y-9 xl:mx-14">
         {#each data as category, index}
             {#if (index == 8)}
                 <!-- div to have the other two elements centered when grid-cols-4 -->
-                <div class="block xl:hidden"></div>
+                <div class="hidden md:block xl:hidden"></div>
             {/if}
             <a href="#" class="flex flex-col items-center gap-2 xl:gap-3">
-                <h4 class="text-center font-medium">{category}</h4>
+                <h4 class="text-xs md:text-base text-center font-medium">{category}</h4>
                 <NewsChart name="{category.toLowerCase().replaceAll(" ", "_") + '_' + category_type}" value={
                     (category.toLowerCase().replaceAll(" ", "_") + '_' + category_type) in metrics ? 
                     metrics[(category.toLowerCase().replaceAll(" ", "_") + '_' + category_type)][factor]

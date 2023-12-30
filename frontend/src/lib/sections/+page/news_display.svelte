@@ -34,10 +34,10 @@
     <div class="flex justify-center">
         <h4 class="text-2xl xl:text-3xl font-semibold">Recent <span class="text-primary-gradient">News</span></h4>
     </div>
-    <div class="grid grid-cols-2 gap-3 lg:gap-5 xl:gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-5 xl:gap-6">
         {#each sorted_news_articles.slice(0, n_load) as news, index}
           <div transition:slide={{duration: 150}} class="rounded-lg overflow-hidden shadow-md hover:shadow-lg">
-            <div transition:fade={{duration: 300}} class="flex flex-col justify-between gap-1.5 lg:gap-2.5 overflow-hidden h-100 lg:h-96">
+            <div transition:fade={{duration: 300}} class="flex flex-col justify-between gap-1.5 lg:gap-2.5 overflow-hidden h-104 md:h-100 lg:h-96">
               <a href="{news.url}" target="_blank" class="overflow-hidden w-full h-44 lg:h-52">
                 <img src="{news['image']}" alt="thumbnail of news article" class="object-cover w-full h-full"/>
               </a>
@@ -54,7 +54,7 @@
                   {news['description'].slice(0, 250).replace(/\s$/, '')}{news['description'].length > 250 ? "..." : ""}
                 </p>
               </div>
-              <div class="flex justify-between mt-auto items-center">
+              <div class="flex justify-between items-center mt-auto">
                 <p class="text-sm font-medium px-4 h-7 bg-neutral-light rounded-tr-md bg-opacity-50 grid place-content-center">
                   {news['time_of_the_article'].split('T')[0]}
                 </p>
@@ -77,6 +77,6 @@
       </div>
     {/if}
     <div class="flex justify-center mt-2">
-        <button on:click={loadNews} class="btn bg-primary-gradient-opacity bg-primary-gradient-opacity-inter hover:brightness-105 focus:brightness-105 px-5 h-9 min-h-0 border-0 text-white shadow-md hover:shadow-lg">Load more</button>
+        <button on:click={loadNews} class="btn bg-primary-gradient-opacity bg-primary-gradient-opacity-inter hover:brightness-105 focus:brightness-105 px-6 md:px-5 h-8 md:h-9 min-h-0 border-0 text-white shadow-md hover:shadow-lg">Load more</button>
     </div>
 </section>

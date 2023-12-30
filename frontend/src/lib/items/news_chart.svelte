@@ -36,10 +36,10 @@
                 thickness: 20
             },
             mobile: {
-                font_size: 48,
+                font_size: 38,
                 font_weight: 700,
-                size: 420,
-                thickness: 28
+                size: 280,
+                thickness: 18
             }
         },
         'medium': {
@@ -62,10 +62,10 @@
                 thickness: 14
             },
             mobile: {
-                font_size: 32,
+                font_size: 28,
                 font_weight: 700,
-                size: 250,
-                thickness: 18
+                size: 230,
+                thickness: 16
             }
         },
         'small': {
@@ -88,10 +88,10 @@
                 thickness: 9
             },
             mobile: {
-                font_size: 20,
+                font_size: 16,
                 font_weight: 700,
-                size: 140,
-                thickness: 10
+                size: 120,
+                thickness: 8
             }
         }
     }

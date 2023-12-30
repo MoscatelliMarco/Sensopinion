@@ -70,7 +70,7 @@
 </script>
 
 <nav class="flex justify-center mx-2 md:mx-4 lg:mx-6">
-    <div bind:this={navbar} class="max-w-6xl w-full flex justify-between rounded-2xl shadow-lg bg-white py-4 lg:py-5 px-4 md:px-8 lg:px-12 xl:px-14 mb-8 xl:mb-12 mt-4 z-50">
+    <div bind:this={navbar} class="max-w-6xl w-full flex justify-between rounded-2xl shadow-lg bg-white py-4 lg:py-5 px-4 md:px-8 lg:px-12 xl:px-14 mb-4 md:mb-8 xl:mb-12 mt-4 z-50">
         <h2 class="text-primary-gradient font-black text-xl">WPTAT</h2>
         <ul class="gap-16 hidden lg:flex">
             <li class="hover:font-medium text-sm flex flex-col justify-center">

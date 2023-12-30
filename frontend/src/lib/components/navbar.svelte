@@ -86,16 +86,16 @@
 <div bind:this={drawer} class={`fixed top-0 left-0 w-full h-screen z-30 ${openMenu ? 'backdrop-blur-md' : ''}`} style="transition: backdrop-filter 0.3s;">
     <div class={`w-full h-full bg-white fixed z-40 ${openMenu ? 'drawer-enter' : 'drawer-exit drawer-hidden'}`}>
         <ul class="flex flex-col gap-4 px-4 pt-6">
-            <li class="hover:font-medium flex flex-col justify-center bg-neutral-light px-4 py-3 rounded-md">
+            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md">
                 <a href="#">Sentiment Screener</a>
             </li>
-            <li class="hover:font-medium flex flex-col justify-center bg-neutral-light px-4 py-3 rounded-md">
+            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md">
                 <a href="#">Analyze Your News</a>
             </li>
-            <li class="hover:font-medium flex flex-col justify-center bg-neutral-light px-4 py-3 rounded-md">
+            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md">
                 <a href="#">About us</a>
             </li>
-            <li class="hover:font-medium flex flex-col justify-center bg-neutral-light px-4 py-3 rounded-md">
+            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md">
                 <a href="#">Where do we find news</a>
             </li>
         </ul>

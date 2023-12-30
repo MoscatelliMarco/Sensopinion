@@ -1,4 +1,4 @@
-<section class="h-64 flex flex-col gap-8 xl:gap-12 my-2 xl:my-6">
+<section class="h-64 flex flex-col gap-8 xl:gap-12 lg:mt-10 lg:mb-6">
     <div class="flex flex-col justify-center items-center gap-1.5 xl:gap-2 text-center">
         <h3 class="font-semibold text-5xl xl:text-6xl leading-snug main">
             Control Everything With Our <span class="text-primary-gradient">Screener</span>

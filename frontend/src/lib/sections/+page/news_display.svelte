@@ -30,7 +30,7 @@
   });
 </script>
 
-<section class="flex flex-col gap-12">
+<section class="flex flex-col gap-7 xl:gap-12">
     <div class="flex justify-center">
         <h4 class="text-2xl xl:text-3xl font-semibold">Recent <span class="text-primary-gradient">News</span></h4>
     </div>
@@ -74,7 +74,7 @@
         <span transition:fade={{duration: 150}} class="loading loading-dots loading-md text-neutral"></span>
       </div>
     {/if}
-    <div class="flex justify-center">
+    <div class="flex justify-center mt-2">
         <button on:click={loadNews} class="btn bg-primary-gradient-opacity bg-primary-gradient-opacity-inter hover:brightness-105 focus:brightness-105 px-5 h-9 min-h-0 border-0 text-white shadow-md hover:shadow-lg">Load more</button>
     </div>
 </section>

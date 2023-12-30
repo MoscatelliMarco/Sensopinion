@@ -872,69 +872,6 @@ html{
   text-decoration-line: underline;
 }
 
-.radial-progress{
-  position: relative;
-  display: inline-grid;
-  height: var(--size);
-  width: var(--size);
-  place-content: center;
-  border-radius: 9999px;
-  background-color: transparent;
-  vertical-align: middle;
-  box-sizing: content-box;
-  --value: 0;
-  --size: 5rem;
-  --thickness: calc(var(--size) / 10);
-}
-
-.radial-progress::-moz-progress-bar{
-  -moz-appearance: none;
-       appearance: none;
-  background-color: transparent;
-}
-
-.radial-progress::-webkit-progress-value{
-  -webkit-appearance: none;
-          appearance: none;
-  background-color: transparent;
-}
-
-.radial-progress::-webkit-progress-bar{
-  -webkit-appearance: none;
-          appearance: none;
-  background-color: transparent;
-}
-
-.radial-progress:before,
-.radial-progress:after{
-  position: absolute;
-  border-radius: 9999px;
-  content: "";
-}
-
-.radial-progress:before{
-  inset: 0px;
-  background: radial-gradient(farthest-side, currentColor 98%, #0000) top/var(--thickness) var(--thickness)
-      no-repeat,
-    conic-gradient(currentColor calc(var(--value) * 1%), #0000 0);
-  -webkit-mask: radial-gradient(
-    farthest-side,
-    #0000 calc(99% - var(--thickness)),
-    #000 calc(100% - var(--thickness))
-  );
-  mask: radial-gradient(
-    farthest-side,
-    #0000 calc(99% - var(--thickness)),
-    #000 calc(100% - var(--thickness))
-  );
-}
-
-.radial-progress:after{
-  inset: calc(50% - var(--thickness) / 2);
-  transform: rotate(calc(var(--value) * 3.6deg - 90deg)) translate(calc(var(--size) / 2 - 50%));
-  background-color: currentColor;
-}
-
 .toggle{
   flex-shrink: 0;
   --tglbg: var(--fallback-b1,oklch(var(--b1)/1));
@@ -1254,17 +1191,20 @@ html{
   margin-right: 3rem;
 }
 
-.my-2{
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
 .mb-48{
   margin-bottom: 12rem;
 }
 
 .mb-8{
   margin-bottom: 2rem;
+}
+
+.mt-0{
+  margin-top: 0px;
+}
+
+.mt-0\.5{
+  margin-top: 0.125rem;
 }
 
 .mt-12{
@@ -1295,12 +1235,8 @@ html{
   margin-top: auto;
 }
 
-.mt-0{
-  margin-top: 0px;
-}
-
-.mt-0\.5{
-  margin-top: 0.125rem;
+.mt-1{
+  margin-top: 0.25rem;
 }
 
 .block{
@@ -1343,6 +1279,10 @@ html{
   height: 13rem;
 }
 
+.h-6{
+  height: 1.5rem;
+}
+
 .h-64{
   height: 16rem;
 }
@@ -1371,10 +1311,6 @@ html{
   height: 100vh;
 }
 
-.h-6{
-  height: 1.5rem;
-}
-
 .min-h-0{
   min-height: 0px;
 }
@@ -1399,16 +1335,16 @@ html{
   width: 13rem;
 }
 
+.w-6{
+  width: 1.5rem;
+}
+
 .w-64{
   width: 16rem;
 }
 
 .w-full{
   width: 100%;
-}
-
-.w-6{
-  width: 1.5rem;
 }
 
 .max-w-6xl{
@@ -1481,10 +1417,6 @@ html{
 
 .gap-10{
   gap: 2.5rem;
-}
-
-.gap-12{
-  gap: 3rem;
 }
 
 .gap-16{
@@ -1607,11 +1539,6 @@ html{
   background-color: rgb(231 231 231 / var(--tw-bg-opacity));
 }
 
-.bg-real-white{
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
 .bg-white{
   --tw-bg-opacity: 1;
   background-color: rgb(246 246 246 / var(--tw-bg-opacity));
@@ -1630,9 +1557,9 @@ html{
      object-fit: cover;
 }
 
-.px-10{
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
+.px-12{
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 .px-14{
@@ -1708,16 +1635,6 @@ html{
 .py-5{
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
-}
-
-.px-1{
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-}
-
-.px-12{
-  padding-left: 3rem;
-  padding-right: 3rem;
 }
 
 .pb-8{
@@ -1840,12 +1757,6 @@ html{
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.shadow-sm{
-  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
 .filter{
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
@@ -1913,6 +1824,29 @@ html{
   }
 }
 
+@media (min-width: 1024px){
+  .lg\:mx-6{
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+  .lg\:mb-8{
+    margin-bottom: 2rem;
+  }
+
+  .lg\:mt-10{
+    margin-top: 2.5rem;
+  }
+
+  .lg\:mt-neg-4{
+    margin-top: -1rem;
+  }
+
+  .lg\:mb-6{
+    margin-bottom: 1.5rem;
+  }
+}
+
 @media (min-width: 1280px){
   .xl\:mx-14{
     margin-left: 3.5rem;
@@ -1924,13 +1858,12 @@ html{
     margin-right: 4rem;
   }
 
-  .xl\:my-6{
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
   .xl\:mb-12{
     margin-bottom: 3rem;
+  }
+
+  .xl\:mt-0{
+    margin-top: 0px;
   }
 
   .xl\:mt-14{

@@ -17,11 +17,11 @@
 {#if isLoaded}
     <body class="flex flex-col min-h-screen bg-white text-black">
         <Navbar />
-            <main class="flex justify-center mb-48">
-                <div class="max-w-6xl mx-4 lg:mx-6">
-                    <slot></slot>
-                </div>
-            </main>
+        <main class="flex justify-center mb-48">
+            <div class="max-w-6xl mx-4 lg:mx-6">
+                <slot></slot>
+            </div>
+        </main>
         <Footer />
     </body>
 {:else}

@@ -27,7 +27,7 @@
                 font_size: 40,
                 font_weight: 700,
                 size: 360,
-                thickness: 20
+                thickness: 22
             },
             768: {
                 font_size: 48,

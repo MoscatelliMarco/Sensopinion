@@ -88,7 +88,7 @@
                 thickness: 9
             },
             mobile: {
-                font_size: 16,
+                font_size: 12,
                 font_weight: 700,
                 size: 120,
                 thickness: 8
@@ -256,7 +256,8 @@
                         <p class="font-medium flex justify-center"
                             class:text-lg={dimension == 'medium' || dimension == 'big'}
                             class:xl:text-xl={dimension == 'medium' || dimension == 'big'}
-                            class:text-base={dimension == 'small'}>
+                            class:md:text-base={dimension == 'small'}
+                            class:text-sm={dimension == 'small'}>
                             <span class="flex flex-col justify-center">
                                 {emotion_dict[highest_emotion['type']]} 
                                 {dimension == 'big' ? highest_emotion['type'].charAt(0).toUpperCase() + highest_emotion['type'].slice(1) : ''} 
@@ -267,15 +268,16 @@
                     {:else}
                         <p class="text-sm"
                         class:hidden={dimension == 'medium' || dimension == 'small'}>Emotion:</p>
-                            <p class="font-medium flex justify-center"
+                        <p class="font-medium flex justify-center"
                             class:text-lg={dimension == 'medium' || dimension == 'big'}
                             class:xl:text-xl={dimension == 'medium' || dimension == 'big'}
-                            class:text-base={dimension == 'small'}>
-                                <span class="flex flex-col justify-center">
-                                    {emotion_analyze}
-                                    {dimension == 'big' ? getKeysByValue(emotion_dict, emotion_analyze).charAt(0).toUpperCase() + getKeysByValue(emotion_dict, emotion_analyze).slice(1) : ''}
-                                    -&nbsp;
-                                </span>
+                            class:md:text-base={dimension == 'small'}
+                            class:text-sm={dimension == 'small'}>
+                            <span class="flex flex-col justify-center">
+                                {emotion_analyze}
+                                {dimension == 'big' ? getKeysByValue(emotion_dict, emotion_analyze).charAt(0).toUpperCase() + getKeysByValue(emotion_dict, emotion_analyze).slice(1) : ''}
+                                -&nbsp;
+                            </span>
                             <span class="font-extrabold text-primary-gradient">{value[getKeysByValue(emotion_dict, emotion_analyze)]}%</span>
                         </p>
                     {/if}

@@ -199,7 +199,7 @@
                         We hate reading boring articles just to understand what's happening around us, that's why we created WPTAT
                     </h3>
                 </div>
-                <div class="flex md:justify-start w-full gap-2 lg:gap-5 xl:gap-6">
+                <div class="hidden md:flex md:justify-start w-full gap-2 lg:gap-5 xl:gap-6">
                     <button 
                     class="w-1/2 md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 text-xs uppercase lg:text-sm rounded-md bg-primary-gradient font-semibold text-white hover:brightness-105 focus:hover:brightness-105 btn shadow-md hover:shadow-lg">
                         Try our screener
@@ -244,6 +244,23 @@
                         </div>
                     {/if}
                 </div>
+                <div class="flex md:hidden md:justify-start w-full gap-2 lg:gap-5 xl:gap-6 mt-14">
+                    <button 
+                    class="w-1/2 md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 text-xs uppercase lg:text-sm rounded-md bg-primary-gradient font-semibold text-white hover:brightness-105 focus:hover:brightness-105 btn shadow-md hover:shadow-lg">
+                        Try our screener
+                    </button>
+                    <div class="relative w-1/2 md:w-full">
+                        <button on:click={toggleDropdown} class="w-full md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 shadow-md hover:shadow-lg text-xs lg:text-sm rounded-md bordeTr border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light">
+                            Explore <span class="hidden md:inline-block">New </span>Analysis
+                        </button>
+                        <ul bind:this={dropdown} class:hidden={!dropdown_main_active} class:absolute={dropdown_main_active} 
+                        class="w-38 md:w-40 lg:w-48 xl:w-52 bg-white rounded-md mt-1 md:mt-1.5 lg:mt-2 shadow-md px-1.5 py-1 md:px-3 md:py-2.5 flex flex-col gap-0.5 z-20">
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="👎👍 Positivity 👍👎" factorValue="positivity" currentFactor={factor} />
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="🤜✊ Subjectivity ✊🤛" factorValue="subjectivity" currentFactor={factor} />
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="🤬😃 Emotions 😃🤬" factorValue="emotions" currentFactor={factor} />
+                        </ul>
+                    </div>
+                </div>
             </div>
         </section>
         
@@ -264,7 +281,9 @@
                             class:text-white = {category_type == 'politics'}>{#if category_type == 'politics'}Show less{:else}Show more{/if}</button>
                         </div>
                         {#if category_type == 'politics'}
-                            <SubCategories category_type={category_type} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors} metrics={metrics} factor={factor} />
+                            <div class="block md:hidden">
+                                <SubCategories category_type={category_type} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors} metrics={metrics} factor={factor} />
+                            </div>
                         {/if}
                     </div>
                     <div class="flex flex-col justify-center gap-4 md:gap-5 lg:gap-6 w-full items-center">
@@ -280,7 +299,9 @@
                             class:text-white = {category_type == 'economy'}>{#if category_type == 'economy'}Show less{:else}Show more{/if}</button>
                         </div>
                         {#if category_type == 'economy'}
-                            <SubCategories category_type={category_type} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors} metrics={metrics} factor={factor} />
+                            <div class="block md:hidden">
+                                <SubCategories category_type={category_type} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors} metrics={metrics} factor={factor} />
+                            </div>
                         {/if}
                     </div>
                     <div class="flex flex-col justify-center gap-4 md:gap-5 lg:gap-6 w-full items-center">
@@ -298,7 +319,9 @@
                             </div>
                         </div>
                         {#if category_type == 'environment'}
-                            <SubCategories category_type={category_type} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors} metrics={metrics} factor={factor} />
+                            <div class="block md:hidden">
+                                <SubCategories category_type={category_type} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors} metrics={metrics} factor={factor} />
+                            </div>
                         {/if}
                     </div>
                 </div>

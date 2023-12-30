@@ -9,6 +9,7 @@
                     Sentiment Screener
                 </a>
             </li>
+            <li class="font-medium">·</li>
             <li class="hover:font-medium">
                 <a href="#">
                     Analyze Your News
@@ -20,7 +21,6 @@
                     About us
                 </a>
             </li>
-            <li class="font-medium">·</li>
             <li class="font-medium">·</li>
             <li class="hover:font-medium">
                 <a href="#">

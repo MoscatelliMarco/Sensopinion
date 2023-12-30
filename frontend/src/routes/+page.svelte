@@ -206,7 +206,7 @@
                             Explore New Analysis
                         </button>
                         <ul bind:this={dropdown} class:hidden={!dropdown_main_active} class:absolute={dropdown_main_active} 
-                        class="w-48 xl:w-52 bg-white rounded-md mt-2 shadow-md px-3 py-2.5 flex flex-col gap-0.5 z-50">
+                        class="w-48 xl:w-52 bg-white rounded-md mt-2 shadow-md px-3 py-2.5 flex flex-col gap-0.5 z-20">
                             <FactorDropdownButton clickFunction={handleClickFactor} content="👎👍 Positivity 👍👎" factorValue="positivity" currentFactor={factor} />
                             <FactorDropdownButton clickFunction={handleClickFactor} content="🤜✊ Subjectivity ✊🤛" factorValue="subjectivity" currentFactor={factor} />
                             <FactorDropdownButton clickFunction={handleClickFactor} content="🤬😃 Emotions 😃🤬" factorValue="emotions" currentFactor={factor} />
@@ -299,7 +299,7 @@
                             Change Analysis
                         </button>
                         <ul bind:this={dropdown_small} class:hidden={!dropdown_small_active} class:absolute={dropdown_small_active} 
-                        class="w-48 xl:w-52 bg-white rounded-md mt-2 shadow-md px-3 py-2.5 flex flex-col gap-0.5 z-50">
+                        class="w-48 xl:w-52 bg-white rounded-md mt-2 shadow-md px-3 py-2.5 flex flex-col gap-0.5 z-20">
                             <FactorDropdownButton clickFunction={handleClickFactor} content="👎👍 Positivity 👍👎" factorValue="positivity" currentFactor={factor} />
                             <FactorDropdownButton clickFunction={handleClickFactor} content="🤜✊ Subjectivity ✊🤛" factorValue="subjectivity" currentFactor={factor} />
                             <FactorDropdownButton clickFunction={handleClickFactor} content="🤬😃 Emotions 😃🤬" factorValue="emotions" currentFactor={factor} />

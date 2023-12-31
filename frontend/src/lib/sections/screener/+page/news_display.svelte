@@ -50,8 +50,8 @@
   });
 </script>
 <div class="grid grid-cols-3 gap-5">
-    {#each sorted_news_articles.slice(0, n_load) as news, index}
-      <div transition:slide={{duration: 150}} class="rounded-lg overflow-hidden shadow-md hover:shadow-lg h-auto">
+    {#each sorted_news_articles.slice(0, n_load) as news}
+      <div transition:slide={{duration: 150}} class="rounded-md overflow-hidden shadow-sm hover:shadow-md h-auto">
         <div transition:fade={{duration: 300}} class="flex flex-col justify-between gap-2 lg:gap-3 overflow-hidden h-full">
           <a href="{news.url}" target="_blank" class="overflow-hidden w-full h-44 lg:h-52">
             <img src="{news['image']}" alt="thumbnail of news article" class="object-cover w-full h-full"/>

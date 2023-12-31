@@ -3,6 +3,10 @@
     import Footer from "$lib/components/footer.svelte";
     import "../public/app.css"
     import "../public/global.css"
+    
+    // Vercel speed insights to check the metrics of the website
+    import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit"
+    injectSpeedInsights()
 
     import { onMount } from 'svelte';
 

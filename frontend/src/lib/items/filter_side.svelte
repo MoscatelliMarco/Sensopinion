@@ -54,9 +54,26 @@
     });
 </script>
 
-<h6 class="font-semibold text-lg">Topics</h6>
-<div class="flex flex-col gap-5 mt-6">
-    <FilterTopics dict_params={dict_params} topic="Politics"/>
-    <FilterTopics dict_params={dict_params} topic="Economy"/>
-    <FilterTopics dict_params={dict_params} topic="Environment"/>
+<div class="absolute top-0 left-0 flex flex-col gap-8 p-5 w-64">
+    <div class="flex flex-col gap-5">
+        <h6 class="font-semibold text-lg">Topics</h6>
+        <div class="flex flex-col gap-4">
+            <FilterTopics dict_params={dict_params} topic="Politics"/>
+            <FilterTopics dict_params={dict_params} topic="Economy"/>
+            <FilterTopics dict_params={dict_params} topic="Environment"/>
+        </div>
+    </div>
+    <div class="flex flex-col gap-1">
+        <p class="font-semibold text-lg">Sort</p>
+        <div class="flex justify-between">
+            <select class="w-36 text-sm bg-white rounded-none p-0">
+                <option>By</option>
+                <option>Anger</option>
+                <option>Neutral</option>
+                <option>Subjectivity</option>
+                <option>Sentiment</option>
+            </select>
+            <button>UP</button>
+        </div>
+    </div>
 </div>

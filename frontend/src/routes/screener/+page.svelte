@@ -22,9 +22,7 @@
                 </svg>
             </button>
             <div class="h-full bg-white filter-menu overflow-hidden relative" class:w-0={!filterActive} class:w-64={filterActive}>
-                <div class="absolute top-0 left-0 flex flex-col p-5 w-64">
-                    <FilterSide />
-                </div>
+                <FilterSide />
             </div>
         </div>
     <div>
@@ -35,6 +33,6 @@
 
 <style>
     .filter-menu {
-        transition: width 1s;
+        transition: width 0.3s;
     }
 </style>

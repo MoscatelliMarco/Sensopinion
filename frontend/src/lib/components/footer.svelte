@@ -5,7 +5,7 @@
         </div>
         <ul class="flex flex-col md:flex-row items-center justify-center gap-0 md:gap-5 lg:gap-8 xl:gap-10">
             <li class="hover:font-medium">
-                <a href="#">
+                <a href="/screener">
                     Sentiment Screener
                 </a>
             </li>

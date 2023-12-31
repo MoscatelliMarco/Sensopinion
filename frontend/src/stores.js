@@ -10,6 +10,44 @@ export const globalStore = writable({
         'sadness': "😭",
         'surprise': "😲",
         'happiness': "😀"
+    },
+    categories: {
+      "politics": [
+        "Elections",
+        "International Relations",
+        "Policy Reforms",
+        "Legislation",
+        "Civil Right",
+        "Defense And Security",
+        "Local Governance",
+        "Politics Scandals",
+        "Public Opinion",
+        "Others"
+    ],
+      "economy": [
+        "Global Economy",
+        "Stock Market",
+        "Banking",
+        "Real Estate",
+        "Cryptocurrencies",
+        "Insurance",
+        "Taxation",
+        "Corporate Finance",
+        "Economic Policies",
+        "Others"
+    ],
+      "environment": [
+        "Climate Change",
+        "Renewable Energy",
+        "Wildlife",
+        "Pollution",
+        "Natural Disasters",
+        "Agriculture",
+        "Water Resources",
+        "Environment Laws",
+        "Biodiversity",
+        "Others"
+    ]
     }
   // ...other shared states
 });

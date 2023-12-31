@@ -1506,6 +1506,14 @@ html{
   margin-top: -2rem;
 }
 
+.mt-5{
+  margin-top: 1.25rem;
+}
+
+.mt-8{
+  margin-top: 2rem;
+}
+
 .block{
   display: block;
 }
@@ -1570,6 +1578,10 @@ html{
   height: 100vh;
 }
 
+.h-auto{
+  height: auto;
+}
+
 .min-h-0{
   min-height: 0px;
 }
@@ -1616,6 +1628,22 @@ html{
 
 .w-full{
   width: 100%;
+}
+
+.w-4{
+  width: 1rem;
+}
+
+.w-16{
+  width: 4rem;
+}
+
+.w-5{
+  width: 1.25rem;
+}
+
+.w-3{
+  width: 0.75rem;
 }
 
 .max-w-6xl{
@@ -1820,6 +1848,15 @@ html{
   background-color: rgb(246 246 246 / var(--tw-bg-opacity));
 }
 
+.bg-transparent{
+  background-color: transparent;
+}
+
+.bg-purple{
+  --tw-bg-opacity: 1;
+  background-color: rgb(112 46 219 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-50{
   --tw-bg-opacity: 0.5;
 }
@@ -1945,8 +1982,16 @@ html{
   padding-top: 2rem;
 }
 
+.pt-4{
+  padding-top: 1rem;
+}
+
 .pt-2{
   padding-top: 0.5rem;
+}
+
+.pt-2\.5{
+  padding-top: 0.625rem;
 }
 
 .text-center{
@@ -2018,6 +2063,10 @@ html{
 
 .uppercase{
   text-transform: uppercase;
+}
+
+.italic{
+  font-style: italic;
 }
 
 .leading-tight{
@@ -2140,10 +2189,6 @@ html{
 
   .md\:mt-1\.5{
     margin-top: 0.375rem;
-  }
-
-  .md\:mt-14{
-    margin-top: 3.5rem;
   }
 
   .md\:mt-6{
@@ -2571,10 +2616,6 @@ html{
     margin-top: 3.5rem;
   }
 
-  .xl\:mt-18{
-    margin-top: 4.5rem;
-  }
-
   .xl\:hidden{
     display: none;
   }
@@ -2671,12 +2712,12 @@ html{
     padding-bottom: 2.5rem;
   }
 
-  .xl\:pt-8{
-    padding-top: 2rem;
-  }
-
   .xl\:pt-18{
     padding-top: 4.5rem;
+  }
+
+  .xl\:pt-8{
+    padding-top: 2rem;
   }
 
   .xl\:text-3xl{

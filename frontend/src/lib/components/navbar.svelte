@@ -74,7 +74,7 @@
         <h2 class="text-primary-gradient font-black text-xl">WPTAT</h2>
         <ul class="gap-16 hidden lg:flex">
             <li class="hover:font-medium text-sm flex flex-col justify-center">
-                <a href="#">Sentiment Screener</a>
+                <a href="/screener">Sentiment Screener</a>
             </li>
             <li class="hover:font-medium text-sm flex flex-col justify-center">
                 <a href="#">Analyze Your News</a>
@@ -96,7 +96,7 @@
     <div class={`w-full h-full bg-white fixed z-40 ${openMenu ? 'drawer-enter' : 'drawer-exit drawer-hidden'}`}>
         <ul class="flex flex-col gap-4 px-4 pt-6">
             <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md">
-                <a href="#">Sentiment Screener</a>
+                <a href="/screener">Sentiment Screener</a>
             </li>
             <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md">
                 <a href="#">Analyze Your News</a>

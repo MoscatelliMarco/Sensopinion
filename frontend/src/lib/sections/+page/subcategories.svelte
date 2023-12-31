@@ -1,61 +1,23 @@
 <script>
     import { fade, slide } from "svelte/transition";
     import NewsChart from "../../items/news_chart.svelte";
+    import { globalStore } from '../../../stores.js';
+
+    let categories;
+    globalStore.subscribe(value => {
+        categories = value.categories;
+    });
 
     export let category_type = null;
     export let emotion_analyze;
     export let cake_chart_colors;
     export let metrics;
     export let factor;
-
-    let data;
-    $: if (category_type == 'politics') {
-        data = [
-            "Elections",
-            "International Relations",
-            "Policy Reforms",
-            "Legislation",
-            "Civil Right",
-            "Defense And Security",
-            "Local Governance",
-            "Politics Scandals",
-            "Public Opinion",
-            "Others"
-        ]
-    } else if (category_type == 'economy') {
-        data = [
-            "Global Economy",
-            "Stock Market",
-            "Banking",
-            "Real Estate",
-            "Cryptocurrencies",
-            "Insurance",
-            "Taxation",
-            "Corporate Finance",
-            "Economic Policies",
-            "Others"
-        ]
-    } else if (category_type == 'environment') {
-        data = [
-            "Climate Change",
-            "Renewable Energy",
-            "Wildlife",
-            "Pollution",
-            "Natural Disasters",
-            "Agriculture",
-            "Water Resources",
-            "Environment Laws",
-            "Biodiversity",
-            "Others"
-        ]
-    } else{
-        new Error("Subcategory type not recognized")
-    }
 </script>
 
-<div transition:slide={{duration: 600}} class="pt-6 md:pt-14 xl:pt-18">
-    <div transition:fade={{duration: 250}} class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-x-3 md:gap-x-0 gap-y-3 md:gap-y-6 xl:gap-y-9 xl:mx-14">
-        {#each data as category, index}
+<div transition:slide={{duration: 700}} class="pt-6 md:pt-14 xl:pt-18">
+    <div transition:fade={{duration: 200}} class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-x-3 md:gap-x-0 gap-y-3 md:gap-y-6 xl:gap-y-9 xl:mx-14">
+        {#each categories[category_type] as category, index}
             {#if (index == 8)}
                 <!-- div to have the other two elements centered when grid-cols-4 -->
                 <div class="hidden md:block xl:hidden"></div>
@@ -71,9 +33,3 @@
         {/each}
     </div>
 </div>
-
-<!-- {
-    category.toLowerCase().replaceAll(" ", "_") + '_' + category_type in metrics ? 
-    metrics[category.toLowerCase().replaceAll(" ", "_") + '_' + category_type][factor] : 
-    "5"
-} -->

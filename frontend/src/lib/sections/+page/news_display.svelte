@@ -36,8 +36,8 @@
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-5 xl:gap-6">
         {#each sorted_news_articles.slice(0, n_load) as news, index}
-          <div transition:slide={{duration: 150}} class="rounded-lg overflow-hidden shadow-md hover:shadow-lg">
-            <div transition:fade={{duration: 300}} class="flex flex-col justify-between gap-1.5 lg:gap-2.5 overflow-hidden h-104 md:h-100 lg:h-96">
+          <div transition:slide={{duration: 150}} class="rounded-lg overflow-hidden shadow-md hover:shadow-lg h-auto">
+            <div transition:fade={{duration: 300}} class="flex flex-col justify-between gap-2 lg:gap-3 overflow-hidden h-full">
               <a href="{news.url}" target="_blank" class="overflow-hidden w-full h-44 lg:h-52">
                 <img src="{news['image']}" alt="thumbnail of news article" class="object-cover w-full h-full"/>
               </a>
@@ -64,11 +64,6 @@
               </div>
             </div>
           </div>
-          {#if (index + 1) % 8 == 0}
-            <div class="col-span-2 h-20 xl:h-24 bg-primary-gradient-opacity bg-opacity-50 grid place-content-center text-semibold text-lg shadow-md hover:shadow-lg rounded-md">
-              ADS
-            </div>
-          {/if}
         {/each}
     </div>
     {#if loading}

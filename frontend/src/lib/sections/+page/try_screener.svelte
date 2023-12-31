@@ -8,9 +8,9 @@
         </h6>
     </div>
     <div class="flex justify-center">
-        <button class="btn bg-primary-gradient-opacity bg-primary-gradient-opacity-inter text-xs md:text-sm xl:text-base px-6 md:px-8 xl:px-10 h-8 xl:h-10 min-h-0 border-0 text-white hover:brightness-105 focus:brightness-105 shadow-md hover:shadow-lg">
+        <a href="/screener" class="btn bg-primary-gradient-opacity bg-primary-gradient-opacity-inter text-xs md:text-sm xl:text-base px-6 md:px-8 xl:px-10 h-8 xl:h-10 min-h-0 border-0 text-white hover:brightness-105 focus:brightness-105 shadow-md hover:shadow-lg">
             I Want Knowledge!
-        </button>
+        </a>
     </div>
 </section>
 

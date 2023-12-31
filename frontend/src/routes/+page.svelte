@@ -200,10 +200,10 @@
                     </h3>
                 </div>
                 <div class="hidden md:flex md:justify-start w-full gap-2 lg:gap-4">
-                    <button 
+                    <a href="/screener"
                     class="w-1/2 md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 text-xs uppercase lg:text-sm rounded-md bg-primary-gradient font-semibold text-white hover:brightness-105 focus:hover:brightness-105 btn shadow-md hover:shadow-lg">
                         Try our screener
-                    </button>
+                    </a>
                     <div class="relative w-1/2 md:w-auto">
                         <button on:click={toggleDropdown} class="w-full md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 shadow-md hover:shadow-lg text-xs lg:text-sm rounded-md bordeTr border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light">
                             Explore <span class="hidden md:inline-block">New </span>Analysis
@@ -245,10 +245,10 @@
                     {/if}
                 </div>
                 <div class="flex md:hidden md:justify-start w-full gap-2 lg:gap-5 xl:gap-6">
-                    <button 
+                    <a href="/screener"
                     class="w-1/2 md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 text-xs uppercase lg:text-sm rounded-md bg-primary-gradient font-semibold text-white hover:brightness-105 focus:hover:brightness-105 btn shadow-md hover:shadow-lg">
                         Try <span class="hidden md:block">our </span>screener
-                    </button>
+                    </a>
                     <div class="relative w-1/2 md:w-full">
                         <button on:click={toggleDropdown} class="w-full md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 shadow-md hover:shadow-lg text-xs lg:text-sm rounded-md bordeTr border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light">
                             Explore <span class="hidden md:inline-block">New </span>Analysis

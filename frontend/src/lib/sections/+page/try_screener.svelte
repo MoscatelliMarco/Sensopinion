@@ -15,6 +15,12 @@
 </section>
 
 <style>
+    .main {
+        width: 320px;
+    }
+    .sub {
+        width: 320px;
+    }
     @media (min-width: 768px) {
         .main {
             width: 550px;

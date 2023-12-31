@@ -18,7 +18,7 @@
     <body class="flex flex-col min-h-screen bg-white text-black">
         <Navbar />
         <main class="flex justify-center mb-48">
-            <div class="max-w-xs md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-2 md:mx-4 lg:mx-6">
+            <div class="max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-2 md:mx-4 lg:mx-6">
                 <slot></slot>
             </div>
         </main>
@@ -26,6 +26,6 @@
     </body>
 {:else}
     <div class="bg-white flex justify-center items-center h-screen">
-        <span class="loading loading-infinity w-12 md:w-13 lg:w-15 xl:w-16"></span>
+        <span class="loading loading-infinity w-12 md:w-13 lg:w-14"></span>
     </div>
 {/if}

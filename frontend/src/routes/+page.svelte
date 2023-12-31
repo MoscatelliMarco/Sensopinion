@@ -187,24 +187,24 @@
         <span class="mt-0.5">We couldn't fetch the news for an internal server error😔, try again later.</span>
     </div>
 {:else}
-    <div class="flex flex-col gap-32 md:gap-36 lg:gap-48 xl:gap-56">
+    <div class="flex flex-col gap-36 lg:gap-48 xl:gap-56">
 
         <section class="flex flex-col items-center md:flex-row md:justify-between gap-8 lg:gap-16 xl:gap-24 mt-8 md:mt-12 lg:mt-14 xl:mt-16">
             <div class="flex flex-col justify-center gap-4 md:gap-6 lg:gap-8 xl:gap-10 items-center text-center md:text-left">
-                <div class="flex flex-col gap-2 md:gap-4 lg:gap-5 xl:gap-6">
-                    <h1 style="line-height: 1.1;" class="font-bold text-3xl md:text-4xl lg:text-5xl xl:text-6xl max-w-sm lg:max-w-lg xl:max-w-2xl">
+                <div class="flex flex-col gap-2 md:gap-4 lg:gap-5 xl:gap-6 items-center md:items-start">
+                    <h1 style="line-height: 1.1;" class="font-bold text-3xl md:text-4xl lg:text-5xl xl:text-6xl max-w-xs md:max-w-sm lg:max-w-lg xl:max-w-2xl">
                         Analyze <span class="text-primary-gradient">Sentiment</span> and <span class="text-primary-gradient">Emotions</span> At The Speed Of Light
                     </h1>
-                    <h3 class="max-w-sm xl:max-w-lg text-xxs md:text-xs lg:text-sm xl:text-base">
+                    <h3 class="max-w-xs xl:max-w-lg text-xs lg:text-sm xl:text-base">
                         We hate reading boring articles just to understand what's happening around us, that's why we created WPTAT
                     </h3>
                 </div>
-                <div class="hidden md:flex md:justify-start w-full gap-2 lg:gap-5 xl:gap-6">
+                <div class="hidden md:flex md:justify-start w-full gap-2 lg:gap-4">
                     <button 
                     class="w-1/2 md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 text-xs uppercase lg:text-sm rounded-md bg-primary-gradient font-semibold text-white hover:brightness-105 focus:hover:brightness-105 btn shadow-md hover:shadow-lg">
                         Try our screener
                     </button>
-                    <div class="relative w-1/2 md:w-full">
+                    <div class="relative w-1/2 md:w-auto">
                         <button on:click={toggleDropdown} class="w-full md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 shadow-md hover:shadow-lg text-xs lg:text-sm rounded-md bordeTr border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light">
                             Explore <span class="hidden md:inline-block">New </span>Analysis
                         </button>
@@ -217,20 +217,20 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col justify-center gap-2 md:gap-4 mt-0 md:mt-6">
+            <div class="flex flex-col justify-center px-2 md:px-0 gap-2 md:gap-4 mt-0 md:mt-6">
                 <div class="flex justify-center">
                     <NewsChart name="all" value={metrics['all'][factor]} dimension='big' emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                 </div>
-                <div class="relative">
+                <div class="relative h-12 lg:h-13">
                     {#if (factor !== 'emotions')}
-                        <h5 transition:fade={{duration: 300}} class="text-center font-light text-sm xl:text-base h-12 lg:h-13 absolute top-0 left-0 right-0">{factor.charAt(0).toUpperCase() + factor.slice(1)} on news</h5>
+                        <h5 transition:fade={{duration: 300}} class="text-center font-light text-sm xl:text-base absolute top-0 left-0 right-0">{factor.charAt(0).toUpperCase() + factor.slice(1)} on news</h5>
                     {:else}
                         <div class="absolute top-0 left-0 right-0">
-                            <div transition:fade={{duration: 300}} class="flex flex-col h-12 lg:h-13 justify-between">
+                            <div transition:fade={{duration: 300}} class="flex flex-col justify-between">
                                 <div class="flex justify-center gap-1 lg:gap-2.5 xl:gap-3">
                                     {#each ['🤬', '🤢', '😨', '😐', '😭', '😲', '😀'] as emotion_item, index}
                                         <button on:click={handleClickEmotionAnalyze} data-emotion={emotion_item} style="background-color: {cake_chart_colors[index]};" 
-                                        class="py-1 px-2.5 md:py-1 md:px-1.5 lg:px-2 lg:py-1.5 xl:py-1 text-sm md:text-xs lg:text-sm rounded-md flex flex-col justify-center border border-white"
+                                        class="py-1 px-2 md:py-1 md:px-1.5 lg:px-2 lg:py-1.5 xl:py-1 text-xs lg:text-sm rounded-md flex flex-col justify-center border border-white"
                                         class:shadow-md={emotion_item != emotion_analyze}
                                         class:hover:shadow-lg={emotion_item != emotion_analyze}
                                         class:emotion_selected={emotion_item == emotion_analyze}
@@ -244,20 +244,20 @@
                         </div>
                     {/if}
                 </div>
-                <div class="flex md:hidden md:justify-start w-full gap-2 lg:gap-5 xl:gap-6 mt-14">
+                <div class="flex md:hidden md:justify-start w-full gap-2 lg:gap-5 xl:gap-6">
                     <button 
                     class="w-1/2 md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 text-xs uppercase lg:text-sm rounded-md bg-primary-gradient font-semibold text-white hover:brightness-105 focus:hover:brightness-105 btn shadow-md hover:shadow-lg">
-                        Try our screener
+                        Try <span class="hidden md:block">our </span>screener
                     </button>
                     <div class="relative w-1/2 md:w-full">
                         <button on:click={toggleDropdown} class="w-full md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 shadow-md hover:shadow-lg text-xs lg:text-sm rounded-md bordeTr border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light">
                             Explore <span class="hidden md:inline-block">New </span>Analysis
                         </button>
                         <ul bind:this={dropdown} class:hidden={!dropdown_main_active} class:absolute={dropdown_main_active} 
-                        class="w-38 md:w-40 lg:w-48 xl:w-52 bg-white rounded-md mt-1 md:mt-1.5 lg:mt-2 shadow-md px-1.5 py-1 md:px-3 md:py-2.5 flex flex-col gap-0.5 z-20">
-                            <FactorDropdownButton clickFunction={handleClickFactor} content="👎👍 Positivity 👍👎" factorValue="positivity" currentFactor={factor} />
-                            <FactorDropdownButton clickFunction={handleClickFactor} content="🤜✊ Subjectivity ✊🤛" factorValue="subjectivity" currentFactor={factor} />
-                            <FactorDropdownButton clickFunction={handleClickFactor} content="🤬😃 Emotions 😃🤬" factorValue="emotions" currentFactor={factor} />
+                        class="w-full md:w-40 lg:w-48 xl:w-52 bg-white rounded-md mt-1 md:mt-1.5 lg:mt-2 shadow-md px-1.5 py-1 md:px-3 md:py-2.5 flex flex-col gap-0.5 z-20">
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="👍 Positivity 👎" factorValue="positivity" currentFactor={factor} />
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="🤜 Subjectivity 🤛" factorValue="subjectivity" currentFactor={factor} />
+                            <FactorDropdownButton clickFunction={handleClickFactor} content="😃 Emotions 🤬" factorValue="emotions" currentFactor={factor} />
                         </ul>
                     </div>
                 </div>
@@ -265,9 +265,9 @@
         </section>
         
         <section class="flex flex-col">
-            <div class="text-center flex flex-col gap-6 md:gap-4 lg:gap-7 xl:gap-8">
+            <div class="text-center flex flex-col gap-4 lg:gap-7 xl:gap-8">
                 <h2 class="font-medium text-2xl md:text-3xl lg:text-4xl">What People Think About</h2>
-                <div class="flex flex-col gap-16 md:gap-0 items-center md:flex-row md:justify-between xl:mx-16">
+                <div class="flex flex-col gap-8 md:gap-0 items-center md:flex-row md:justify-between xl:mx-16">
                     <div class="flex flex-col justify-center gap-4 md:gap-5 lg:gap-6 w-full items-center">
                         <a href="#" class="flex flex-col gap-1.5 md:gap-2">
                             <h4 class="font-medium text-center text-base md:text-lg xl:text-xl">Politics</h4>

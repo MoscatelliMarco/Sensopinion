@@ -1194,6 +1194,10 @@ html{
   position: relative;
 }
 
+.sticky{
+  position: sticky;
+}
+
 .left-0{
   left: 0px;
 }
@@ -1255,6 +1259,10 @@ html{
   margin-top: 0.25rem;
 }
 
+.mt-14{
+  margin-top: 3.5rem;
+}
+
 .mt-2{
   margin-top: 0.5rem;
 }
@@ -1279,12 +1287,8 @@ html{
   margin-top: -2rem;
 }
 
-.mt-12{
-  margin-top: 3rem;
-}
-
-.mt-14{
-  margin-top: 3.5rem;
+.mb-12{
+  margin-bottom: 3rem;
 }
 
 .block{
@@ -1311,6 +1315,10 @@ html{
   height: 2.5rem;
 }
 
+.h-104{
+  height: 26rem;
+}
+
 .h-12{
   height: 3rem;
 }
@@ -1335,20 +1343,12 @@ html{
   height: 2rem;
 }
 
-.h-auto{
-  height: auto;
-}
-
 .h-full{
   height: 100%;
 }
 
 .h-screen{
   height: 100vh;
-}
-
-.h-104{
-  height: 26rem;
 }
 
 .min-h-0{
@@ -1403,6 +1403,14 @@ html{
   max-width: 20rem;
 }
 
+.max-w-md{
+  max-width: 28rem;
+}
+
+.max-w-lg{
+  max-width: 32rem;
+}
+
 .shrink-0{
   flex-shrink: 0;
 }
@@ -1425,6 +1433,10 @@ html{
 
 .grid-cols-4{
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-cols-3{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .flex-col{
@@ -1493,6 +1505,18 @@ html{
 
 .gap-9{
   gap: 2.25rem;
+}
+
+.gap-5{
+  gap: 1.25rem;
+}
+
+.gap-12{
+  gap: 3rem;
+}
+
+.gap-36{
+  gap: 9rem;
 }
 
 .gap-x-3{
@@ -1677,6 +1701,16 @@ html{
 .py-7{
   padding-top: 1.75rem;
   padding-bottom: 1.75rem;
+}
+
+.px-8{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.px-0{
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .pb-8{
@@ -1913,10 +1947,6 @@ html{
     margin-top: 1.5rem;
   }
 
-  .md\:mt-auto{
-    margin-top: auto;
-  }
-
   .md\:block{
     display: block;
   }
@@ -1961,8 +1991,16 @@ html{
     width: 100%;
   }
 
+  .md\:w-auto{
+    width: auto;
+  }
+
   .md\:max-w-3xl{
     max-width: 48rem;
+  }
+
+  .md\:max-w-sm{
+    max-width: 24rem;
   }
 
   .md\:grid-cols-2{
@@ -1975,6 +2013,10 @@ html{
 
   .md\:flex-row{
     flex-direction: row;
+  }
+
+  .md\:items-start{
+    align-items: flex-start;
   }
 
   .md\:justify-start{
@@ -2062,6 +2104,11 @@ html{
     padding-bottom: 0.625rem;
   }
 
+  .md\:px-0{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
   .md\:text-left{
     text-align: left;
   }
@@ -2127,6 +2174,10 @@ html{
     margin-top: -1rem;
   }
 
+  .lg\:mb-13{
+    margin-bottom: 3.25rem;
+  }
+
   .lg\:flex{
     display: flex;
   }
@@ -2157,6 +2208,10 @@ html{
 
   .lg\:w-48{
     width: 12rem;
+  }
+
+  .lg\:w-14{
+    width: 3.5rem;
   }
 
   .lg\:max-w-5xl{
@@ -2217,6 +2272,10 @@ html{
 
   .lg\:gap-9{
     gap: 2.25rem;
+  }
+
+  .lg\:gap-0{
+    gap: 0px;
   }
 
   .lg\:px-12{

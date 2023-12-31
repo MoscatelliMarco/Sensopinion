@@ -45,7 +45,7 @@ def scrape_process_news(mongo_client):
         for entry in news_entries:
             if entry['google_news_url'] == google_news_url:
                 is_already_inside = True
-                logger.info(f"URL already processed: {google_news_url}")
+                logger.info(f"URL already processed (news.google): {google_news_url}")
                 break
         if is_already_inside:
             continue
@@ -53,6 +53,9 @@ def scrape_process_news(mongo_client):
         try:
             response = requests.get(google_news_url, allow_redirects=True, timeout=25)
             final_url = response.url
+            if entry['url'] == final_url:
+                logger.info(f"URL already processed (final url): {google_news_url}")
+                break
             emotions, sentiment, valid_categories, valid_subcategories, article_date_publish, image_url, article_description, article_title = process_article(final_url)
             if emotions and sentiment and valid_categories and valid_subcategories and article_date_publish:
                 logger.info(f"Added article: {final_url}")

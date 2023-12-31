@@ -187,9 +187,9 @@
         <span class="mt-0.5">We couldn't fetch the news for an internal server error😔, try again later.</span>
     </div>
 {:else}
-    <div class="flex flex-col gap-36 lg:gap-48 xl:gap-56">
+    <div class="flex flex-col gap-36 lg:gap-48 xl:gap-52">
 
-        <section class="flex flex-col items-center md:flex-row md:justify-between gap-8 lg:gap-16 xl:gap-24 mt-8 md:mt-12 lg:mt-14 xl:mt-16">
+        <section class="flex flex-col items-center md:flex-row md:justify-between gap-8 lg:gap-16 xl:gap-24 mt-6 xl:mt-12">
             <div class="flex flex-col justify-center gap-4 md:gap-6 lg:gap-8 xl:gap-10 items-center text-center md:text-left">
                 <div class="flex flex-col gap-2 md:gap-4 lg:gap-5 xl:gap-6 items-center md:items-start">
                     <h1 style="line-height: 1.1;" class="font-bold text-3xl md:text-4xl lg:text-5xl xl:text-6xl max-w-xs md:max-w-sm lg:max-w-lg xl:max-w-2xl">

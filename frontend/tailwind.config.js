@@ -23,17 +23,17 @@ module.exports = {
     ]
   },
   theme: {
-    colors: {
-      blue: "rgb(33, 135, 219)",
-      purple: "rgb(112, 46, 219)",
-      "neutral-light": "#E7E7E7",
-      neutral: "#878787",
-      "neutral-dark": "#616161",
-      white: "#F6F6F6",
-      black: "#0F0F0F",
-      "real-white": "#FFFFFF"
-    },
     extend: {
+      colors: {
+        blue: "rgb(33, 135, 219)",
+        purple: "rgb(112, 46, 219)",
+        "neutral-light": "#E7E7E7",
+        neutral: "#878787",
+        "neutral-dark": "#616161",
+        white: "#F6F6F6",
+        black: "#0F0F0F",
+        "real-white": "#FFFFFF"
+      },
       fontSize: {
         "xxs":  ["0.625rem", "0.75rem"]
       },

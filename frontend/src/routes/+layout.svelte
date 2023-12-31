@@ -15,7 +15,7 @@
 </script>
 
 {#if isLoaded}
-    <body class="flex flex-col min-h-screen bg-white text-black">
+    <body class="flex flex-col min-h-screen bg-white text-black overflow-x-hidden">
         <Navbar />
         <main class="flex justify-center mb-48">
             <div class="max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-2 md:mx-4 lg:mx-6">

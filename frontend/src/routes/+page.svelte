@@ -268,12 +268,12 @@
             <div class="text-center flex flex-col gap-4 lg:gap-7 xl:gap-8">
                 <h2 class="font-medium text-2xl md:text-3xl lg:text-4xl">What People Think About</h2>
                 <div class="flex flex-col gap-8 md:gap-0 items-center md:flex-row md:justify-between xl:mx-16">
-                    <div class="flex flex-col justify-center gap-4 md:gap-5 lg:gap-6 w-full items-center">
+                    <div class="flex flex-col justify-center md:gap-5 lg:gap-6 w-full items-center">
                         <a href="#" class="flex flex-col gap-1.5 md:gap-2">
                             <h4 class="font-medium text-center text-base md:text-lg xl:text-xl">Politics</h4>
                             <NewsChart name="politics" dimension='medium' value={metrics['politics'][factor]} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
-                        <div class="flex justify-center">
+                        <div class="flex justify-center mt-4">
                             <button on:click={show_more} data-category_type="politics" 
                             class="btn w-28 md:w-32 text-xs min-h-0 h-7 md:h-8 xl:h-9 items-center rounded-md shadow-md hover:shadow-lg"
                             class:bg-primary-gradient = {category_type == 'politics'}
@@ -286,12 +286,12 @@
                             </div>
                         {/if}
                     </div>
-                    <div class="flex flex-col justify-center gap-4 md:gap-5 lg:gap-6 w-full items-center">
+                    <div class="flex flex-col justify-center md:gap-5 lg:gap-6 w-full items-center">
                         <a href="#" class="flex flex-col gap-1.5 md:gap-2">
                             <h4 class="font-medium text-center text-base md:text-lg xl:text-xl">Economy</h4>
                             <NewsChart name="economy" dimension='medium' value={metrics['economy'][factor]} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
-                        <div class="flex justify-center">
+                        <div class="flex justify-center mt-4">
                             <button on:click={show_more} data-category_type="economy" 
                             class="btn w-28 md:w-32 text-xs min-h-0 h-7 md:h-8 xl:h-9 items-center rounded-md shadow-md hover:shadow-lg"
                             class:bg-primary-gradient = {category_type == 'economy'}
@@ -304,12 +304,12 @@
                             </div>
                         {/if}
                     </div>
-                    <div class="flex flex-col justify-center gap-4 md:gap-5 lg:gap-6 w-full items-center">
+                    <div class="flex flex-col justify-center md:gap-5 lg:gap-6 w-full items-center">
                         <a href="#" class="flex flex-col gap-1.5 md:gap-2">
                             <h4 class="font-medium text-center text-base md:text-lg xl:text-xl">Environment</h4>
                             <NewsChart name="environment" dimension='medium' value={metrics['environment'][factor]} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
-                        <div class="flex justify-center">
+                        <div class="flex justify-center mt-4">
                             <div class="flex justify-center">
                                 <button on:click={show_more} data-category_type="environment" 
                                 class="btn w-28 md:w-32 text-xs min-h-0 h-7 md:h-8 xl:h-9 items-center rounded-md shadow-md hover:shadow-lg"

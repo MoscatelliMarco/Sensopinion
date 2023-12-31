@@ -53,8 +53,8 @@
     }
 </script>
 
-<div transition:slide={{duration: 500}} class="mt-2 md:mt-14 xl:mt-18">
-    <div transition:fade={{duration: 400}} class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-x-3 md:gap-x-0 gap-y-3 md:gap-y-6 xl:gap-y-9 xl:mx-14">
+<div transition:slide={{duration: 600}} class="pt-6 md:pt-14 xl:pt-18">
+    <div transition:fade={{duration: 250}} class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-x-3 md:gap-x-0 gap-y-3 md:gap-y-6 xl:gap-y-9 xl:mx-14">
         {#each data as category, index}
             {#if (index == 8)}
                 <!-- div to have the other two elements centered when grid-cols-4 -->

@@ -1862,6 +1862,10 @@ html{
   width: 100%;
 }
 
+.w-7{
+  width: 1.75rem;
+}
+
 .max-w-6xl{
   max-width: 72rem;
 }
@@ -2103,6 +2107,10 @@ html{
 
 .p-5{
   padding: 1.25rem;
+}
+
+.p-3{
+  padding: 0.75rem;
 }
 
 .px-1{

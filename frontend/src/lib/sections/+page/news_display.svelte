@@ -2,7 +2,6 @@
   import { fade, slide } from "svelte/transition";
   import RadialProgressSmall from "../../items/radial_progress_small.svelte";
   import { globalStore } from "../../../stores";
-  import { lazyLoad } from '$public/lazy_load_image.js';
 
   export let news_articles;
   let sorted_news_articles = [...news_articles]
@@ -40,7 +39,7 @@
           <div transition:slide={{duration: 150}} class="rounded-lg overflow-hidden shadow-md hover:shadow-lg">
             <div transition:fade={{duration: 300}} class="flex flex-col justify-between gap-1.5 lg:gap-2.5 overflow-hidden h-104 md:h-100 lg:h-96">
               <a href="{news.url}" target="_blank" class="overflow-hidden w-full h-44 lg:h-52">
-                <img use:lazyLoad src="{news['image']}" alt="thumbnail of news article" class="object-cover w-full h-full"/>
+                <img src="{news['image']}" alt="thumbnail of news article" class="object-cover w-full h-full"/>
               </a>
               <div class="px-3 lg:px-4 flex flex-col gap-1 lg:gap-1.5">
                 <div class="flex justify-between gap-2 lg:gap-4">

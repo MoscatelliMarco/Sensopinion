@@ -1,4 +1,6 @@
 <script>
+    import { onMount } from 'svelte';
+    import { loadedStore } from '../stores';
     import Navbar from "$lib/components/navbar.svelte";
     import Footer from "$lib/components/footer.svelte";
     import "../public/app.css"
@@ -8,17 +10,24 @@
     import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit"
     injectSpeedInsights()
 
-    import { onMount } from 'svelte';
-
-    let isLoaded = false;
+    let store_loaded;
+    loadedStore.subscribe(value => {
+        store_loaded = value
+    })
+    let page_loaded = false;
 
     onMount(() => {
         // Simulating a loading process
-        isLoaded = true;
+        page_loaded = true;
     });
+
+    let loaded;
+    $: if(page_loaded && store_loaded) {
+        loaded = page_loaded && store_loaded
+    }
 </script>
 
-{#if isLoaded}
+{#if loaded}
     <body class="flex flex-col min-h-screen bg-white text-black overflow-x-hidden">
         <Navbar />
         <main class="flex justify-center mb-48">

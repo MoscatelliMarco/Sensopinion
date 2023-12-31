@@ -1,23 +1,30 @@
+import { globalStore, loadedStore } from "../../stores";
+
 // This runs on the server during SSR and on the client after navigation
 export async function load({ fetch }) {
-    let res;
-    try {
-        res = await fetch(`${import.meta.env.VITE_BACKEND_SERVER_IP}/api/news`);
-    } catch {
-        return {
-            status: 500,
-            props: { data: [] }
+    loadedStore.set(false)
+    let news_articles;
+    globalStore.subscribe(value => {
+        news_articles = value.news;
+    });
+    if (!news_articles.length) {
+        let res;
+        try {
+            res = await fetch(`${import.meta.env.VITE_BACKEND_SERVER_IP}/api/news`);
+        } catch {
+            loadedStore.set(true)
+            return
         }
+        if (res.ok) {
+            const data = await res.json();
+            globalStore.update(($dict) => {
+                $dict['news'] = data;
+                return $dict;
+            })
+            loadedStore.set(true)
+            return
+        }
+        loadedStore.set(true)
+        return;
     }
-    if (res.ok) {
-        const data = await res.json();
-        return { 
-            props: { data } 
-        }; // Pass the data as props to the component
-    }
-    // Handle errors or situations where data couldn't be fetched
-    return { 
-        status: res.status,
-        props: { data: [] }
-    };
 }

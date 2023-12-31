@@ -73,9 +73,12 @@
         const factor_value = event.target.dataset['factorValue'];
         factor = factor_value
     }
-
-    export let data;
-    const news_articles = data['props']['data']
+    
+    let news_articles;
+    import { globalStore } from "../stores.js";
+    globalStore.subscribe(value => {
+        news_articles = value.news;
+    });
     let metrics = {
             'all': {
                 'emotions': {},

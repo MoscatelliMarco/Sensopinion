@@ -2,8 +2,11 @@
     import NewsDisplay from '$lib/sections/screener/+page/news_display.svelte';
     import FilterSide from '../../lib/items/filter_side.svelte';
 
-    export let data;
-    let news_articles = data['props']['data']
+    let news_articles;
+    import { globalStore } from "../../stores.js";
+    globalStore.subscribe(value => {
+        news_articles = value.news;
+    });
 
     let filterActive = false;
 </script>

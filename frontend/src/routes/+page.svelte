@@ -209,7 +209,7 @@
                     </a>
                     <div class="relative w-1/2 md:w-auto">
                         <button on:click={toggleDropdown} class="w-full md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 shadow-md hover:shadow-lg text-xs lg:text-sm rounded-md bordeTr border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light">
-                            Explore <span class="hidden md:inline-block">New </span>Analysis
+                            Explore<span class="hidden md:inline-block">New</span>Analysis
                         </button>
                         <ul bind:this={dropdown} class:hidden={!dropdown_main_active} class:absolute={dropdown_main_active} 
                         class="w-38 md:w-40 lg:w-48 xl:w-52 bg-white rounded-md mt-1 md:mt-1.5 lg:mt-2 shadow-md px-1.5 py-1 md:px-3 md:py-2.5 flex flex-col gap-0.5 z-20">
@@ -254,7 +254,7 @@
                     </a>
                     <div class="relative w-1/2 md:w-full">
                         <button on:click={toggleDropdown} class="w-full md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 shadow-md hover:shadow-lg text-xs lg:text-sm rounded-md bordeTr border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light">
-                            Explore <span class="hidden md:inline-block">New </span>Analysis
+                            Explore<span class="hidden md:inline-block">New</span>Analysis
                         </button>
                         <ul bind:this={dropdown} class:hidden={!dropdown_main_active} class:absolute={dropdown_main_active} 
                         class="w-full md:w-40 lg:w-48 xl:w-52 bg-white rounded-md mt-1 md:mt-1.5 lg:mt-2 shadow-md px-1.5 py-1 md:px-3 md:py-2.5 flex flex-col gap-0.5 z-20">

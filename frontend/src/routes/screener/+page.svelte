@@ -3,11 +3,16 @@
     import FilterSide from '../../lib/items/filter_side.svelte';
     import SortSide from '../../lib/items/sort_side.svelte';
     import { fade } from 'svelte/transition';
+    import { writable } from 'svelte/store';
+    import { onMount } from 'svelte';
+    import { browser } from "$app/environment"
 
-    let news_articles;
     import { globalStore } from "../../stores.js";
+    let news_articles;
+    let categories;
     globalStore.subscribe(value => {
         news_articles = value.news;
+        categories = value.categories;
     });
 
     let filterActive = false;
@@ -24,16 +29,105 @@
         }
     }
 
+    // Store for the dictionary parameters.
+    const dict_params = writable({});
+
+    // This function updates the URL parameters to reflect the current store state.
+    function updateURLParams(params) {
+        const search_params = new URLSearchParams(params)
+        // Get the current URL
+        const currentUrl = window.location.href;
+        // Create a URL object using the current URL
+        const urlObject = new URL(currentUrl);
+        // Extract the base URL
+        const baseURL = urlObject.origin + urlObject.pathname;
+
+        if (search_params.toString()) {
+            window.history.pushState({}, '', baseURL + "?" + search_params.toString());
+        } else {
+            window.history.pushState({}, '', baseURL);
+        }
+    }
+
+    // Reactively update URL when dict_params changes.
     let ascending = false;
+    $: if ($dict_params) {
+        ascending = 'ascending' in $dict_params ? true : false;
+        // Check if the component is mounted so the URL params are not resetted at the start
+        if (is_mounted) {
+            updateURLParams($dict_params);
+        }
+    }
+
+    // This function initializes the store from URL parameters.
+    function initParamsFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        const initialParams = {};
+        params.forEach((value, key) => {
+            initialParams[key] = value;
+        });
+        dict_params.set(initialParams);
+    }
+
+    // On component mount, initialize the store from URL parameters.
+    let is_mounted = false;
+    onMount(() => {
+        is_mounted = true;
+        if (browser) {
+            initParamsFromURL();
+        }
+    });
+
+    // Logic changes news_articles_based on filters
+    let isChanged = false;
+    let news_articles_show = []
+    $: if ($dict_params) {
+        
+        if (news_articles) {
+            news_articles_show = news_articles.filter((item) => {
+                if (!Object.keys($dict_params).length) {
+                    return true;
+                }
+                let are_all_categories_blank = 0;
+                for (let category in categories) {
+                    if ($dict_params[category] === undefined) {
+                        are_all_categories_blank += 1
+                    }
+                    if ($dict_params[category] && (category.charAt(0).toUpperCase() + category.slice(1)) in item['categories']){
+                        return true;
+                    }
+                }
+                if (are_all_categories_blank == Object.keys(categories).length) {
+                    return true;
+                }
+                return false;
+            })
+
+            news_articles_show.sort((a, b) => {
+                // Convert the date strings to date objects for comparison.
+                let dateA = new Date(a['time_of_the_article']);
+                let dateB = new Date(b['time_of_the_article']);
+
+                // Compare the dates to determine their order.
+                if (!$dict_params['ascending']) {
+                    return dateB - dateA; // Use dateA - dateB for ascending order.
+                }
+                return dateA - dateB;
+            });
+        }
+
+        // Because you can't listen to changes in dict I use a variable that changes every cycle
+        isChanged = !isChanged;
+    }
 </script>
 
-{#if !news_articles.length}
+{#if news_articles === undefined}
     <div role="alert" class="alert alert-error shadow-md">
         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
         <span class="mt-0.5">We couldn't fetch the news for an internal server error😔, try again later.</span>
     </div>
 {:else}
-    <div class="flex">
+    <div class="flex justify-start">
         <div class="flex items-start">
             <div class="flex flex-col gap-4 p-3">
                 <button on:click={() => {filterActive ? setTimeout(() => {if (!filterActive) {filterShow = false}}, 150) : filterShow = true; filterActive = !filterActive; sortActive = false; sortShow = false; if(!filterActive && !sortActive) {firstOpen = true} else {setTimeout(() => {firstOpen = false}, 25)}}}>
@@ -51,20 +145,20 @@
                     </svg>
                 </button>
             </div>
-            <div class="h-full bg-white filter-menu overflow-hidden relative" class:w-0={!filterActive && !sortActive} class:w-64={filterActive || sortActive}>
+            <div class="h-full min-h-100 bg-white filter-menu overflow-hidden relative" class:w-0={!filterActive && !sortActive} class:w-64={filterActive || sortActive}>
                 {#if filterShow}
                     <div transition:fade={animParams()}>
-                        <FilterSide />
+                        <FilterSide dict_params={dict_params}/>
                     </div>
                 {:else if sortShow}
                     <div transition:fade={animParams()}>
-                        <SortSide ascending={ascending} changeOrder={() => {ascending = !ascending}} />
+                        <SortSide ascending={ascending} changeOrder={() => {ascending = !ascending}} dict_params={dict_params} />
                     </div>
                 {/if}
             </div>
         </div>
-    <div>
-        <NewsDisplay news_articles={news_articles}/>
+    <div class="w-full">
+        <NewsDisplay news_articles={news_articles_show} is_changed={isChanged}/>
     </div>
     </div>
 {/if}

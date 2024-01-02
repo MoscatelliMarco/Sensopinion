@@ -50,5 +50,5 @@ export const globalStore = writable({
         "Others"
     ]
     },
-    news: []
+    news: undefined
 });

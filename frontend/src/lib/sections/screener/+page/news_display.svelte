@@ -5,22 +5,12 @@
   import { onMount, onDestroy } from "svelte";
 
   export let news_articles;
-  let sorted_news_articles = [...news_articles]
-  sorted_news_articles.sort((a, b) => {
-      // Convert the date strings to date objects for comparison.
-      let dateA = new Date(a['time_of_the_article']);
-      let dateB = new Date(b['time_of_the_article']);
-
-      // Compare the dates to determine their order.
-      return dateB - dateA; // Use dateA - dateB for ascending order.
-  });
 
   let emotion_dict;
   globalStore.subscribe(value => {
       emotion_dict = value.emotion_dict;
   });
 
-  let n_load = 12;
   let loading = false;
   let is_scroll_operation_running = false;
   function loadOnScroll() {
@@ -48,11 +38,18 @@
   onDestroy(() => {
     window.removeEventListener('scroll', loadOnScroll);
   });
+
+  // when news_articles_changes bring back the load to the default 12
+  export let is_changed;
+  let n_load;
+  $: if (is_changed || !is_changed) {
+    n_load = 12;
+  }
 </script>
 <div class="grid grid-cols-3 gap-5">
-    {#each sorted_news_articles.slice(0, n_load) as news}
-      <div transition:slide={{duration: 150}} class="rounded-md overflow-hidden shadow-sm hover:shadow-md h-auto">
-        <div transition:fade={{duration: 300}} class="flex flex-col justify-between gap-2 lg:gap-3 overflow-hidden h-full">
+    {#each news_articles.slice(0, n_load) as news}
+      <div class="rounded-md overflow-hidden shadow-sm hover:shadow-md h-auto">
+        <div transition:fade={{duration: 150}} class="flex flex-col justify-between gap-2 lg:gap-3 overflow-hidden h-full">
           <a href="{news.url}" target="_blank" class="overflow-hidden w-full h-44 lg:h-52">
             <img src="{news['image']}" alt="thumbnail of news article" class="object-cover w-full h-full"/>
           </a>
@@ -81,6 +78,11 @@
       </div>
     {/each}
 </div>
+{#if !(news_articles.length)}
+  <div class="flex justify-center font-medium text-lg text-center mt-8">
+    <p>With your filters there's no available news.</p>
+  </div>
+{/if}
 
 {#if loading}
   <div transition:slide={{duration: 100}} class="flex justify-center pt-8">

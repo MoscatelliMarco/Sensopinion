@@ -7,7 +7,7 @@ export async function load({ fetch }) {
     globalStore.subscribe(value => {
         news_articles = value.news;
     });
-    if (!news_articles.length) {
+    if (news_articles === undefined) {
         let res;
         try {
             res = await fetch(`${import.meta.env.VITE_BACKEND_SERVER_IP}/api/news`);

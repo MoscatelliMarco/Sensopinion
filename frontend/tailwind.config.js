@@ -15,7 +15,7 @@ module.exports = {
           "neutral-light": "#E7E7E7",
           neutral: "#878787",
           "neutral-dark": "#616161",
-          white: "#F6F6F6",
+          white: "#FBFBFB",
           black: "#0F0F0F",
           "real-white": "#FFFFFF"
         }
@@ -30,7 +30,7 @@ module.exports = {
         "neutral-light": "#E7E7E7",
         neutral: "#878787",
         "neutral-dark": "#616161",
-        white: "#F6F6F6",
+        white: "#FBFBFB",
         black: "#0F0F0F",
         "real-white": "#FFFFFF"
       },

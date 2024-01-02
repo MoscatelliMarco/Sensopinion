@@ -38,14 +38,14 @@
     })
 
     $: if($dict_params) {
-        if (topic.toLowerCase() in $dict_params) {
-            main_checkbox.checked = true;
-        } else {
-            // If the component is not mount yet is going to throw an error so simply do nothing
-            try {
+        // If the component is not mount yet is going to throw an error so simply do nothing
+        try {
+            if (topic.toLowerCase() in $dict_params) {
+                main_checkbox.checked = true;
+            } else {
                 main_checkbox.checked = false;
-            } catch (e) {}
-        }
+            }
+        } catch (e) {}
     }
 </script>
 

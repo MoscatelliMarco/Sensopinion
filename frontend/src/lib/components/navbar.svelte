@@ -72,7 +72,9 @@
 
     // Close navbar menu when url changes
     function closeNavbar() {
+        drawerVisible = false;
         openMenu = false;
+        enableScroll()
     }
     $: $page, closeNavbar();
 </script>

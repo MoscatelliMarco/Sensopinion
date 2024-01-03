@@ -51,14 +51,14 @@
 
 <div class="flex flex-col">
     <div class="flex justify-between">
-        <label for="{topic}_checkbox" class="font-medium">{topic}</label>
+        <label for="{topic}_checkbox" class="font-medium text-base">{topic}</label>
         <input bind:this={main_checkbox} type="checkbox" id="{topic}_checkbox" class="w-5"/>
     </div>
     <button class="text-xs p-1 italic" on:click={() => {show_more = !show_more}}>
         Show {show_more ? "less" : "more"}
     </button>
     {#if show_more}
-        <div transition:slide={{duration: 300}} class="flex flex-col gap-1 pt-2.5">
+        <div transition:slide={{duration: 300}} class="flex flex-col gap-1 pt-1.5">
             <SubTopic dict_params={dict_params} topic={topic}/>
         </div>
     {/if}

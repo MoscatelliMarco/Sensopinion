@@ -44,6 +44,12 @@
         // Extract the base URL
         const baseURL = urlObject.origin + urlObject.pathname;
 
+        // Not using pushState svelte because it causes problem with the colored item recognized in the navbar and the $page.url.pathname
+        // if (search_params.toString()) {
+        //     pushState(baseURL + "?" + search_params.toString(), {});
+        // } else {
+        //     pushState(baseURL, {});
+        // }
         if (search_params.toString()) {
             window.history.pushState({}, '', baseURL + "?" + search_params.toString());
         } else {
@@ -124,34 +130,14 @@
     let side_buttons;
     let parent_side_buttons;
     let side_menu;
+    let stickyPoint;
     onMount(() => {
         // Get the initial position of the element
-        var stickyPoint = side_buttons.offsetTop;
-
-        // Function to check the scroll position and adjust the element accordingly
-        function checkSticky() {
-            if (window.pageYOffset >= stickyPoint - 16) {
-                // When the user has scrolled past the stickyPoint, make it sticky
-                side_buttons.style.position = 'fixed';
-                side_buttons.style.top = '16px';
-                side_menu.style.position = 'fixed';
-                side_menu.style.top = '0';
-            } else {
-                // When the user is above the stickyPoint, position it normally
-                side_buttons.style.position = 'relative';
-                side_buttons.style.top = '';
-                side_menu.style.position = 'relative';
-                side_menu.style.top = '';
-            }
-        }
-
-        function widthChangeResize() {
-            side_buttons.style.width = parent_side_buttons.offsetWidth + "px";
-        }
+        stickyPoint = side_buttons.offsetTop;
 
         // Add the scroll and resize event listener
-        window.onscroll = checkSticky;
-        window.onresize = widthChangeResize;
+        window.addEventListener('scroll', checkSticky);
+        window.addEventListener('resize', widthChangeResize);
 
         // Run it once on load in case the page starts with a scroll
         checkSticky();
@@ -161,6 +147,26 @@
         window.removeEventListener('scroll', checkSticky);
         window.removeEventListener('resize', widthChangeResize);
     })
+    // Function to check the scroll position and adjust the element accordingly
+    function checkSticky() {
+        if (window.pageYOffset >= stickyPoint - 16) {
+            // When the user has scrolled past the stickyPoint, make it sticky
+            side_buttons.style.position = 'fixed';
+            side_buttons.style.top = '16px';
+            side_menu.style.position = 'fixed';
+            side_menu.style.top = '16px';
+        } else {
+            // When the user is above the stickyPoint, position it normally
+            side_buttons.style.position = 'relative';
+            side_buttons.style.top = '';
+            side_menu.style.position = 'relative';
+            side_menu.style.top = '';
+        }
+    }
+
+    function widthChangeResize() {
+        side_buttons.style.width = parent_side_buttons.offsetWidth + "px";
+    }
 </script>
 
 {#if news_articles === undefined}
@@ -189,12 +195,12 @@
                     </button>
                 </div>
             </div>
-            <div class="bg-white relative filter-menu" class:w-0={!filterActive && !sortActive} class:w-64={filterActive || sortActive}>
-                <div bind:this={side_menu} class="h-full min-h-100 bg-white filter-menu overflow-hidden relative" class:w-0={!filterActive && !sortActive} class:w-64={filterActive || sortActive}>
+            <div class="bg-white relative filter-menu" class:w-0={!filterActive && !sortActive} class:w-56={filterActive || sortActive}>
+                <div bind:this={side_menu} class="h-full min-h-100 bg-white filter-menu overflow-hidden relative" class:w-0={!filterActive && !sortActive} class:w-56={filterActive || sortActive}>
                     {#if filterShow}
-                    <div transition:fade={animParams()}>
-                        <FilterSide dict_params={dict_params}/>
-                    </div>
+                        <div transition:fade={animParams()}>
+                            <FilterSide dict_params={dict_params}/>
+                        </div>
                     {:else if sortShow}
                         <div transition:fade={animParams()}>
                             <SortSide ascending={ascending} changeOrder={() => {ascending = !ascending}} dict_params={dict_params} />

@@ -48,7 +48,7 @@
     n_load = 12;
   }
 </script>
-<div class="grid grid-cols-3 gap-5">
+<div class="grid grid-cols-2 xl:grid-cols-3 gap-5">
     {#each news_articles.slice(0, n_load) as news (news._id)}
       <div class="rounded-md overflow-hidden shadow-sm hover:shadow-md h-auto">
         <div class="flex flex-col justify-between gap-2 lg:gap-3 overflow-hidden h-full">

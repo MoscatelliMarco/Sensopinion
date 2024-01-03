@@ -33,7 +33,7 @@
         });
     })
 </script>
-<div class="absolute top-0 left-0 flex flex-col gap-8 py-5 pr-5 pl-2.5 w-64 h-full bg-white">
+<div class="absolute top-0 left-0 flex flex-col gap-8 py-4 pr-4 pl-1 w-52 h-full bg-white">
     <div class="flex flex-col gap-4">
         <p class="font-semibold text-xl">Sort by</p>
         <div class="flex justify-between items-center">

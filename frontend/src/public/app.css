@@ -1838,6 +1838,18 @@ html{
   width: 4rem;
 }
 
+.w-52{
+  width: 13rem;
+}
+
+.w-48{
+  width: 12rem;
+}
+
+.w-56{
+  width: 14rem;
+}
+
 .max-w-6xl{
   max-width: 72rem;
 }
@@ -2073,6 +2085,18 @@ html{
   padding: 0.75rem;
 }
 
+.p-4{
+  padding: 1rem;
+}
+
+.p-2{
+  padding: 0.5rem;
+}
+
+.p-1{
+  padding: 0.25rem;
+}
+
 .px-1{
   padding-left: 0.25rem;
   padding-right: 0.25rem;
@@ -2196,6 +2220,18 @@ html{
 
 .pt-8{
   padding-top: 2rem;
+}
+
+.pr-3{
+  padding-right: 0.75rem;
+}
+
+.pr-4{
+  padding-right: 1rem;
+}
+
+.pl-1{
+  padding-left: 0.25rem;
 }
 
 .text-center{
@@ -2846,6 +2882,10 @@ html{
 
   .xl\:grid-cols-5{
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .xl\:grid-cols-3{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .xl\:gap-10{

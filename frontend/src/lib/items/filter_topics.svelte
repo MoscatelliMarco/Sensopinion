@@ -54,7 +54,7 @@
         <label for="{topic}_checkbox" class="font-medium">{topic}</label>
         <input bind:this={main_checkbox} type="checkbox" id="{topic}_checkbox" class="w-5"/>
     </div>
-    <button class="text-sm italic" on:click={() => {show_more = !show_more}}>
+    <button class="text-xs p-1 italic" on:click={() => {show_more = !show_more}}>
         Show {show_more ? "less" : "more"}
     </button>
     {#if show_more}

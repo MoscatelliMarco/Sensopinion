@@ -20,11 +20,14 @@
       loading = true;
       is_scroll_operation_running = true;
       setTimeout(() => {
-        n_load += 12
+        if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+          n_load += 12;
+          setTimeout(() => {
+            is_scroll_operation_running = false;
+          }, 200)
+        }
         loading = false;
-        setTimeout(() => {
-          is_scroll_operation_running = false;
-        }, 200)
+        is_scroll_operation_running = false;
       }, 300)
     }
   }
@@ -39,10 +42,9 @@
     window.removeEventListener('scroll', loadOnScroll);
   });
 
-  // when news_articles_changes bring back the load to the default 12
-  export let is_changed;
+  // When news_articles changes bring back the load to the default 12
   let n_load;
-  $: if (is_changed || !is_changed) {
+  $: if (news_articles) {
     n_load = 12;
   }
 </script>

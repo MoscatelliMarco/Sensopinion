@@ -1633,6 +1633,10 @@ html{
   position: relative;
 }
 
+.sticky{
+  position: sticky;
+}
+
 .left-0{
   left: 0px;
 }
@@ -1659,10 +1663,6 @@ html{
 
 .z-50{
   z-index: 50;
-}
-
-.col-span-3{
-  grid-column: span 3 / span 3;
 }
 
 .mx-2{
@@ -1702,6 +1702,10 @@ html{
   margin-top: 1.5rem;
 }
 
+.mt-8{
+  margin-top: 2rem;
+}
+
 .mt-9{
   margin-top: 2.25rem;
 }
@@ -1712,14 +1716,6 @@ html{
 
 .mt-neg-8{
   margin-top: -2rem;
-}
-
-.mt-5{
-  margin-top: 1.25rem;
-}
-
-.mt-8{
-  margin-top: 2rem;
 }
 
 .block{
@@ -1782,12 +1778,12 @@ html{
   min-height: 0px;
 }
 
-.min-h-screen{
-  min-height: 100vh;
-}
-
 .min-h-100{
   min-height: 25rem;
+}
+
+.min-h-screen{
+  min-height: 100vh;
 }
 
 .w-0{
@@ -1798,8 +1794,8 @@ html{
   width: 50%;
 }
 
-.w-12{
-  width: 3rem;
+.w-10{
+  width: 2.5rem;
 }
 
 .w-28{
@@ -1838,8 +1834,8 @@ html{
   width: 100%;
 }
 
-.w-10{
-  width: 2.5rem;
+.w-16{
+  width: 4rem;
 }
 
 .max-w-6xl{
@@ -2427,8 +2423,8 @@ html{
     height: 2.25rem;
   }
 
-  .md\:w-13{
-    width: 3.25rem;
+  .md\:w-12{
+    width: 3rem;
   }
 
   .md\:w-32{
@@ -2445,10 +2441,6 @@ html{
 
   .md\:w-full{
     width: 100%;
-  }
-
-  .md\:w-12{
-    width: 3rem;
   }
 
   .md\:max-w-3xl{
@@ -2645,16 +2637,12 @@ html{
     height: 13rem;
   }
 
-  .lg\:w-14{
-    width: 3.5rem;
+  .lg\:w-13{
+    width: 3.25rem;
   }
 
   .lg\:w-48{
     width: 12rem;
-  }
-
-  .lg\:w-13{
-    width: 3.25rem;
   }
 
   .lg\:max-w-5xl{

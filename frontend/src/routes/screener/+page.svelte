@@ -2,9 +2,10 @@
     import NewsDisplay from '$lib/sections/screener/+page/news_display.svelte';
     import FilterSide from '../../lib/items/filter_side.svelte';
     import SortSide from '../../lib/items/sort_side.svelte';
+    import { isEquivalent } from "../../public/dictEquivalent"
     import { fade } from 'svelte/transition';
     import { writable } from 'svelte/store';
-    import { onMount } from 'svelte';
+    import { onMount, onDestroy } from 'svelte';
     import { browser } from "$app/environment"
 
     import { globalStore } from "../../stores.js";
@@ -15,6 +16,7 @@
         categories = value.categories;
     });
 
+    // Filter and sort page conditions
     let filterActive = false;
     let sortActive = false;
     let filterShow = false;
@@ -79,11 +81,10 @@
     });
 
     // Logic changes news_articles_based on filters
-    let isChanged = false;
     let news_articles_show = []
+    let before_dict_params = { ...$dict_params };
     $: if ($dict_params) {
-        
-        if (news_articles) {
+        if (news_articles && (!isEquivalent(before_dict_params, $dict_params) || !is_mounted)) {
             news_articles_show = news_articles.filter((item) => {
                 if (!Object.keys($dict_params).length) {
                     return true;
@@ -114,11 +115,52 @@
                 }
                 return dateA - dateB;
             });
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            before_dict_params = { ...$dict_params }
+        }
+    }
+
+    // Javascript logic filter and sort button sticky
+    let side_buttons;
+    let parent_side_buttons;
+    let side_menu;
+    onMount(() => {
+        // Get the initial position of the element
+        var stickyPoint = side_buttons.offsetTop;
+
+        // Function to check the scroll position and adjust the element accordingly
+        function checkSticky() {
+            if (window.pageYOffset >= stickyPoint - 16) {
+                // When the user has scrolled past the stickyPoint, make it sticky
+                side_buttons.style.position = 'fixed';
+                side_buttons.style.top = '16px';
+                side_menu.style.position = 'fixed';
+                side_menu.style.top = '0';
+            } else {
+                // When the user is above the stickyPoint, position it normally
+                side_buttons.style.position = 'relative';
+                side_buttons.style.top = '';
+                side_menu.style.position = 'relative';
+                side_menu.style.top = '';
+            }
         }
 
-        // Because you can't listen to changes in dict I use a variable that changes every cycle
-        isChanged = !isChanged;
-    }
+        function widthChangeResize() {
+            side_buttons.style.width = parent_side_buttons.offsetWidth + "px";
+        }
+
+        // Add the scroll and resize event listener
+        window.onscroll = checkSticky;
+        window.onresize = widthChangeResize;
+
+        // Run it once on load in case the page starts with a scroll
+        checkSticky();
+        widthChangeResize()
+    })
+    onDestroy(() => {
+        window.removeEventListener('scroll', checkSticky);
+        window.removeEventListener('resize', widthChangeResize);
+    })
 </script>
 
 {#if news_articles === undefined}
@@ -128,38 +170,42 @@
     </div>
 {:else}
     <div class="flex justify-start">
-        <div class="flex items-start">
-            <div class="flex flex-col gap-4 p-3">
-                <button on:click={() => {filterActive ? setTimeout(() => {if (!filterActive) {filterShow = false}}, 150) : filterShow = true; filterActive = !filterActive; sortActive = false; sortShow = false; if(!filterActive && !sortActive) {firstOpen = true} else {setTimeout(() => {firstOpen = false}, 25)}}}>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 stroke-black" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 4.6C3 4.03995 3 3.75992 3.10899 3.54601C3.20487 3.35785 3.35785 3.20487 3.54601 3.10899C3.75992 3 4.03995 3 4.6 3H19.4C19.9601 3 20.2401 3 20.454 3.10899C20.6422 3.20487 20.7951 3.35785 20.891 3.54601C21 3.75992 21 4.03995 21 4.6V6.33726C21 6.58185 21 6.70414 20.9724 6.81923C20.9479 6.92127 20.9075 7.01881 20.8526 7.10828C20.7908 7.2092 20.7043 7.29568 20.5314 7.46863L14.4686 13.5314C14.2957 13.7043 14.2092 13.7908 14.1474 13.8917C14.0925 13.9812 14.0521 14.0787 14.0276 14.1808C14 14.2959 14 14.4182 14 14.6627V17L10 21V14.6627C10 14.4182 10 14.2959 9.97237 14.1808C9.94787 14.0787 9.90747 13.9812 9.85264 13.8917C9.7908 13.7908 9.70432 13.7043 9.53137 13.5314L3.46863 7.46863C3.29568 7.29568 3.2092 7.2092 3.14736 7.10828C3.09253 7.01881 3.05213 6.92127 3.02763 6.81923C3 6.70414 3 6.58185 3 6.33726V4.6Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-                <button on:click={() => {sortActive ? setTimeout(() => {if (!sortActive) {sortShow = false}}, 150) : sortShow = true; sortActive = !sortActive; filterActive = false; filterShow = false; if(!filterActive && !sortActive) {firstOpen = true;} else {setTimeout(() => {firstOpen = false}, 25)}}}>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 stroke-black" viewBox="0 0 24 24" fill="none">
-                        {#if ascending}
-                            <path d="M13 12H21M13 8H21M13 16H21M6 7V17M6 7L3 10M6 7L9 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        {:else}
-                            <path d="M13 12H21M13 8H21M13 16H21M6 7V17M6 17L3 14M6 17L9 14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        {/if}
-                    </svg>
-                </button>
+        <div class="flex">
+            <div bind:this={parent_side_buttons} class="w-16">
+                <div bind:this={side_buttons} class="flex flex-col gap-4 items-center">
+                    <button on:click={() => {filterActive ? setTimeout(() => {if (!filterActive) {filterShow = false}}, 150) : filterShow = true; filterActive = !filterActive; sortActive = false; sortShow = false; if(!filterActive && !sortActive) {firstOpen = true} else {setTimeout(() => {firstOpen = false}, 25)}}}>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 stroke-black" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 4.6C3 4.03995 3 3.75992 3.10899 3.54601C3.20487 3.35785 3.35785 3.20487 3.54601 3.10899C3.75992 3 4.03995 3 4.6 3H19.4C19.9601 3 20.2401 3 20.454 3.10899C20.6422 3.20487 20.7951 3.35785 20.891 3.54601C21 3.75992 21 4.03995 21 4.6V6.33726C21 6.58185 21 6.70414 20.9724 6.81923C20.9479 6.92127 20.9075 7.01881 20.8526 7.10828C20.7908 7.2092 20.7043 7.29568 20.5314 7.46863L14.4686 13.5314C14.2957 13.7043 14.2092 13.7908 14.1474 13.8917C14.0925 13.9812 14.0521 14.0787 14.0276 14.1808C14 14.2959 14 14.4182 14 14.6627V17L10 21V14.6627C10 14.4182 10 14.2959 9.97237 14.1808C9.94787 14.0787 9.90747 13.9812 9.85264 13.8917C9.7908 13.7908 9.70432 13.7043 9.53137 13.5314L3.46863 7.46863C3.29568 7.29568 3.2092 7.2092 3.14736 7.10828C3.09253 7.01881 3.05213 6.92127 3.02763 6.81923C3 6.70414 3 6.58185 3 6.33726V4.6Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button on:click={() => {sortActive ? setTimeout(() => {if (!sortActive) {sortShow = false}}, 150) : sortShow = true; sortActive = !sortActive; filterActive = false; filterShow = false; if(!filterActive && !sortActive) {firstOpen = true;} else {setTimeout(() => {firstOpen = false}, 25)}}}>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 stroke-black" viewBox="0 0 24 24" fill="none">
+                            {#if ascending}
+                                <path d="M13 12H21M13 8H21M13 16H21M6 7V17M6 7L3 10M6 7L9 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            {:else}
+                                <path d="M13 12H21M13 8H21M13 16H21M6 7V17M6 17L3 14M6 17L9 14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            {/if}
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <div class="h-full min-h-100 bg-white filter-menu overflow-hidden relative" class:w-0={!filterActive && !sortActive} class:w-64={filterActive || sortActive}>
-                {#if filterShow}
+            <div class="bg-white relative filter-menu" class:w-0={!filterActive && !sortActive} class:w-64={filterActive || sortActive}>
+                <div bind:this={side_menu} class="h-full min-h-100 bg-white filter-menu overflow-hidden relative" class:w-0={!filterActive && !sortActive} class:w-64={filterActive || sortActive}>
+                    {#if filterShow}
                     <div transition:fade={animParams()}>
                         <FilterSide dict_params={dict_params}/>
                     </div>
-                {:else if sortShow}
-                    <div transition:fade={animParams()}>
-                        <SortSide ascending={ascending} changeOrder={() => {ascending = !ascending}} dict_params={dict_params} />
-                    </div>
-                {/if}
+                    {:else if sortShow}
+                        <div transition:fade={animParams()}>
+                            <SortSide ascending={ascending} changeOrder={() => {ascending = !ascending}} dict_params={dict_params} />
+                        </div>
+                    {/if}
+                </div>
             </div>
         </div>
-    <div class="w-full">
-        <NewsDisplay news_articles={news_articles_show} is_changed={isChanged}/>
-    </div>
+        <div class="w-full">
+            <NewsDisplay news_articles={news_articles_show}/>
+        </div>
     </div>
 {/if}
 

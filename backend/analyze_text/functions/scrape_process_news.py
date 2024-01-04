@@ -49,20 +49,26 @@ def scrape_process_news(mongo_client):
                 break
         if is_already_inside:
             continue
-
-        try:
-            response = requests.get(google_news_url, allow_redirects=True, timeout=25)
-            final_url = response.url
+        response = requests.get(google_news_url, allow_redirects=True, timeout=25)
+        final_url = response.url
+        for entry in news_entries:
             if entry['url'] == final_url:
-                logger.info(f"URL already processed (final url): {google_news_url}")
+                is_already_inside = True
+                logger.info(f"URL already processed (destination url): {google_news_url}")
                 break
-            emotions, sentiment, valid_categories, valid_subcategories, article_date_publish, image_url, article_description, article_title = process_article(final_url)
-            if emotions and sentiment and valid_categories and valid_subcategories and article_date_publish:
-                logger.info(f"Added article: {final_url}")
-                mongo_client.insert_article(final_url, google_news_url, image_url, article_description, article_title, emotions, sentiment, valid_categories, valid_subcategories, article_date_publish)
-            else:
-                logger.debug(f"Not added article: {final_url}")
-            time.sleep(int(os.environ.get("SECOND_WAIT_REDUCE_USAGE")))
-        except:
-            logger.error(f"Couldn't go through fetch and/or analyze {google_news_url}")
+        if is_already_inside:
             continue
+
+        if final_url:
+            try:
+                emotions, sentiment, valid_categories, valid_subcategories, article_date_publish, image_url, article_description, article_title = process_article(final_url)
+                if emotions and sentiment and valid_categories and valid_subcategories and article_date_publish:
+                    logger.info(f"Added article: {final_url}")
+                    mongo_client.insert_article(final_url, google_news_url, image_url, article_description, article_title, emotions, sentiment, valid_categories, valid_subcategories, article_date_publish)
+                else:
+                    logger.debug(f"Not added article: {final_url}")
+                time.sleep(int(os.environ.get("SECOND_WAIT_REDUCE_USAGE")))
+            except Exception as e:
+                logger.error(f"Couldn't go through fetch and/or analyze {google_news_url}, error: {e}")
+                continue
+            final_url = None

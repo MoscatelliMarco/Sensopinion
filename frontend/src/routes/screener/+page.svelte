@@ -111,15 +111,51 @@
             })
 
             news_articles_show.sort((a, b) => {
-                // Convert the date strings to date objects for comparison.
-                let dateA = new Date(a['time_of_the_article']);
-                let dateB = new Date(b['time_of_the_article']);
+
+                let factor1;
+                let factor2;
+
+                if ($dict_params['sortby'] == 'positivity') {
+                    factor1 = a['sentiment']['polarity'];
+                    factor2 = b['sentiment']['polarity'];
+                } else if ($dict_params['sortby'] == 'subjectivity') {
+                    factor1 = a['sentiment']['subjectivity'];
+                    factor2 = b['sentiment']['subjectivity'];
+                } 
+                
+                else if ($dict_params['sortby'] == 'happiness') {
+                    factor1 = a['emotions']['happiness'];
+                    factor2 = b['emotions']['happiness'];
+                } else if ($dict_params['sortby'] == 'surprise') {
+                    factor1 = a['emotions']['surprise'];
+                    factor2 = b['emotions']['surprise'];
+                } else if ($dict_params['sortby'] == 'fear') {
+                    factor1 = a['emotions']['fear'];
+                    factor2 = b['emotions']['fear'];
+                } else if ($dict_params['sortby'] == 'disgust') {
+                    factor1 = a['emotions']['disgust'];
+                    factor2 = b['emotions']['disgust'];
+                } else if ($dict_params['sortby'] == 'anger') {
+                    factor1 = a['emotions']['anger'];
+                    factor2 = b['emotions']['anger'];
+                } else if ($dict_params['sortby'] == 'neutral') {
+                    factor1 = a['emotions']['neutral'];
+                    factor2 = b['emotions']['neutral'];
+                } else if ($dict_params['sortby'] == 'sadness') {
+                    factor1 = a['emotions']['sadness'];
+                    factor2 = b['emotions']['sadness'];
+                }
+
+                else {
+                    factor1 = new Date(a['time_of_the_article']);
+                    factor2 = new Date(b['time_of_the_article']);
+                }
 
                 // Compare the dates to determine their order.
                 if (!$dict_params['ascending']) {
-                    return dateB - dateA; // Use dateA - dateB for ascending order.
+                    return factor2 - factor1; // Use dateA - dateB for ascending order.
                 }
-                return dateA - dateB;
+                return factor1 - factor2;
             });
             window.scrollTo({top: 0, behavior: 'smooth'});
             before_dict_params = { ...$dict_params }

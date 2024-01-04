@@ -32,24 +32,41 @@
             })
         });
     })
+
+    // Logic component select option input
+    let options;
+    onMount(() => {
+        options = document.querySelectorAll(".sortby-options")
+    })
+    $: if ($dict_params) {
+        if (options) {
+            for (let option of options) {
+                if ($dict_params['sortby'] == option.value) {
+                    option.selected = true;
+                } else {
+                    option.selected = false;
+                }
+            }
+        }
+    }
 </script>
 <div class="absolute top-0 left-0 flex flex-col gap-8 py-4 pr-4 pl-1 w-52 h-full bg-white">
     <div class="flex flex-col gap-4">
         <p class="font-semibold text-xl">Sort by</p>
         <div class="flex justify-between items-center">
             <select bind:this={sort_select} class="w-36 text-sm rounded-none p-0 bg-white">
-                <option value="date">Date</option>
+                <option class="sortby-options" value="date">Date</option>
 
-                <option value="positivity">Positivity</option>
-                <option value="subjectivity">Subjectivity</option>
+                <option class="sortby-options" value="positivity">Positivity</option>
+                <option class="sortby-options" value="subjectivity">Subjectivity</option>
 
-                <option value="happiness">Happiness</option>
-                <option value="sadness">Sadness</option>
-                <option value="surprise">Surprise</option>
-                <option value="fear">Fear</option>
-                <option value="neutral">Neutral</option>
-                <option value="anger">Anger</option>
-                <option value="disgust">Disgust</option>
+                <option class="sortby-options" value="happiness">Happiness</option>
+                <option class="sortby-options" value="sadness">Sadness</option>
+                <option class="sortby-options" value="surprise">Surprise</option>
+                <option class="sortby-options" value="fear">Fear</option>
+                <option class="sortby-options" value="neutral">Neutral</option>
+                <option class="sortby-options" value="anger">Anger</option>
+                <option class="sortby-options" value="disgust">Disgust</option>
             </select>
             <button on:click={() => {changeOrder()}}>
                 {#if !ascending}

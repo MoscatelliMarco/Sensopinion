@@ -14,9 +14,12 @@ app.add_middleware(
 )
 
 @app.get("/api/news")
-async def read_root():
-    news_list = fetch_news()
-    # Convert each news item to a dictionary and convert ObjectId to string
-    for news in news_list:
-        news["_id"] = str(news["_id"])  # Convert ObjectId to string
-    return news_list
+async def read_root(category: str = None):
+    try:
+        news_list = fetch_news(category)
+        # Convert each news item to a dictionary and convert ObjectId to string
+        for news in news_list:
+            news["_id"] = str(news["_id"])  # Convert ObjectId to string
+        return news_list
+    except Exception as e:
+        return []

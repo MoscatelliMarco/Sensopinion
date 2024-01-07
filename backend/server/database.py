@@ -19,7 +19,4 @@ collection.create_index([("time_analyze", 1)], expireAfterSeconds=604800)  # 7 d
 logger.info("Connected to the database")
 
 def fetch_news(category):
-    if not category:
-        return list(collection.find({}))
-    else:
-        return []
+    return list(collection.find({}))

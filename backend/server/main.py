@@ -14,9 +14,9 @@ app.add_middleware(
 )
 
 @app.get("/api/news")
-async def read_root(category: str = None):
+async def read_root():
     try:
-        news_list = fetch_news(category)
+        news_list = fetch_news()
         # Convert each news item to a dictionary and convert ObjectId to string
         for news in news_list:
             news["_id"] = str(news["_id"])  # Convert ObjectId to string

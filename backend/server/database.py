@@ -18,5 +18,5 @@ collection = db['news_collection']
 collection.create_index([("time_analyze", 1)], expireAfterSeconds=604800)  # 7 days in seconds
 logger.info("Connected to the database")
 
-def fetch_news(category):
+def fetch_news():
     return list(collection.find({}))

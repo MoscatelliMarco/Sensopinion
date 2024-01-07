@@ -14,8 +14,8 @@
     loadedStore.subscribe(value => {
         store_loaded = value
     })
+    
     let page_loaded = false;
-
     onMount(() => {
         // Simulating a loading process
         page_loaded = true;

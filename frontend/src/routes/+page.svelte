@@ -199,7 +199,7 @@
                         Analyze <span class="text-primary-gradient">Sentiment</span> and <span class="text-primary-gradient">Emotions</span> At The Speed Of Light
                     </h1>
                     <h3 class="max-w-xs xl:max-w-lg text-xs lg:text-sm xl:text-base">
-                        We hate reading boring articles just to understand what's happening around us, that's why we created WPTAT
+                        We hate reading boring articles just to understand what's happening around us, that's why we created Sensopinion.
                     </h3>
                 </div>
                 <div class="hidden md:flex md:justify-start w-full gap-2 lg:gap-4">
@@ -272,7 +272,7 @@
                 <h2 class="font-medium text-2xl md:text-3xl lg:text-4xl">What People Think About</h2>
                 <div class="flex flex-col gap-8 md:gap-0 items-center md:flex-row md:justify-between xl:mx-16">
                     <div class="flex flex-col justify-center md:gap-5 lg:gap-6 w-full items-center">
-                        <a href="#" class="flex flex-col gap-1.5 md:gap-2">
+                        <a href="/categories/politics" class="flex flex-col gap-1.5 md:gap-2">
                             <h4 class="font-medium text-center text-base md:text-lg xl:text-xl">Politics</h4>
                             <NewsChart name="politics" dimension='medium' value={metrics['politics'][factor]} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
@@ -290,7 +290,7 @@
                         {/if}
                     </div>
                     <div class="flex flex-col justify-center md:gap-5 lg:gap-6 w-full items-center">
-                        <a href="#" class="flex flex-col gap-1.5 md:gap-2">
+                        <a href="/categories/economy" class="flex flex-col gap-1.5 md:gap-2">
                             <h4 class="font-medium text-center text-base md:text-lg xl:text-xl">Economy</h4>
                             <NewsChart name="economy" dimension='medium' value={metrics['economy'][factor]} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
@@ -308,7 +308,7 @@
                         {/if}
                     </div>
                     <div class="flex flex-col justify-center md:gap-5 lg:gap-6 w-full items-center">
-                        <a href="#" class="flex flex-col gap-1.5 md:gap-2">
+                        <a href="/categories/environment" class="flex flex-col gap-1.5 md:gap-2">
                             <h4 class="font-medium text-center text-base md:text-lg xl:text-xl">Environment</h4>
                             <NewsChart name="environment" dimension='medium' value={metrics['environment'][factor]} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>

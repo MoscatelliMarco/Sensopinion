@@ -40,7 +40,8 @@ def scrape_process_news(mongo_client):
     
     # Shuffle all the google news urls
     random.shuffle(google_news_urls)
-    for google_news_url in google_news_urls:
+    for news_index, google_news_url in enumerate(google_news_urls):
+        logger.info(f"Analyzing news number {news_index + 1} out of {len(google_news_urls)}")
         is_already_inside = False
         for entry in news_entries:
             if entry['google_news_url'] == google_news_url:

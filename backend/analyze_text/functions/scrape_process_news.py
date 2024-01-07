@@ -17,11 +17,11 @@ logger = logging.getLogger(__name__)
 # Load environment variables
 load_dotenv()
 
-def analyze_and_post_with_timeout(news_entries, google_news_url, timeout=60):
+def analyze_and_post_with_timeout(news_entries, google_news_url, mongo_client, timeout=60):
     # Define a function to run `analyze_and_post` in a separate thread
     def target(result_holder):
         try:
-            result_holder.append(analyze_and_post(news_entries, google_news_url))
+            result_holder.append(analyze_and_post(news_entries, google_news_url, mongo_client))
         except Exception as e:
             logger.error(f"Error in thread when analyzing {google_news_url}: {e}")
 

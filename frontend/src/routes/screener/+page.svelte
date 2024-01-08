@@ -44,16 +44,10 @@
         // Extract the base URL
         const baseURL = urlObject.origin + urlObject.pathname;
 
-        // Not using pushState svelte because it causes problem with the colored item recognized in the navbar and the $page.url.pathname
-        // if (search_params.toString()) {
-        //     pushState(baseURL + "?" + search_params.toString(), {});
-        // } else {
-        //     pushState(baseURL, {});
-        // }
         if (search_params.toString()) {
-            window.history.pushState({}, '', baseURL + "?" + search_params.toString());
+            pushState(baseURL + "?" + search_params.toString(), {});
         } else {
-            window.history.pushState({}, '', baseURL);
+            pushState(baseURL, {});
         }
     }
 

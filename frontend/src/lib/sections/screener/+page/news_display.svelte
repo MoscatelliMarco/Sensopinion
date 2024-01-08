@@ -50,7 +50,7 @@
 </script>
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
     {#each news_articles.slice(0, n_load) as news (news._id)}
-      <NewsCard news={news}/>
+      <NewsCard news={news} animate={false}/>
     {/each}
 </div>
 {#if !(news_articles.length)}

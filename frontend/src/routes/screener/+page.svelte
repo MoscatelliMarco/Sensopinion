@@ -6,7 +6,8 @@
     import { fade, slide } from 'svelte/transition';
     import { writable } from 'svelte/store';
     import { onMount, onDestroy } from 'svelte';
-    import { browser } from "$app/environment"
+    import { browser } from "$app/environment";
+    import { pushState } from "$app/navigation";
 
     import { globalStore } from "../../stores.js";
     let news_articles;
@@ -44,11 +45,20 @@
         // Extract the base URL
         const baseURL = urlObject.origin + urlObject.pathname;
 
-        if (search_params.toString()) {
-            pushState(baseURL + "?" + search_params.toString(), {});
-        } else {
-            pushState(baseURL, {});
+        if (currentUrl != baseURL + (search_params.toString() ? ("?" + search_params.toString()) : "")) {
+            if (search_params.toString()) {
+                pushState(baseURL + "?" + search_params.toString(), {});
+            } else {
+                pushState(baseURL, {});
+            }
         }
+        // if (currentUrl != baseURL + (search_params.toString() ? ("?" + search_params.toString()) : "")) {
+        //     if (search_params.toString()) {
+        //         window.history.pushState({}, '', baseURL + "?" + search_params.toString());
+        //     } else {
+        //         window.history.pushState({}, '', baseURL);
+        //     }
+        // }
     }
 
     // Reactively update URL when dict_params changes.

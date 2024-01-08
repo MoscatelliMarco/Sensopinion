@@ -1,12 +1,22 @@
 <script>
+  import Page from "../../routes/screener/+page.svelte";
   import RadialProgressSmall from "./radial_progress_small.svelte";
-  import { fade, slide } from "svelte/transition";
+  import { fade } from "svelte/transition";
 
   export let news;
+  export let animate = true;
+
+  function animation(node) {
+    if (animate) {
+      return fade(node, {duration: 200});
+    } else {
+      return null;
+    }
+  }
 </script>
 
-<div transition:slide={{duration: 150}} class="rounded-md overflow-hidden shadow-sm hover:shadow-md h-auto">
-  <div transition:fade={{duration: 300}} class="flex flex-col justify-between gap-2 lg:gap-3 overflow-hidden h-full relative border">
+<div class="rounded-md overflow-hidden shadow-sm hover:shadow-md h-auto">
+  <div transition:animation class="flex flex-col justify-between gap-2 lg:gap-3 overflow-hidden h-full relative border">
     <div class="absolute top-2 right-2 flex gap-1.5">
       {#if "Politics" in news['categories']}
         <a href="/categories/politics" class="bg-white rounded-md p-1 shadow-sm hover:shadow-md">
@@ -24,8 +34,8 @@
         </a>
       {/if}
     </div>
-    <a href="{news.url}" target="_blank" class="overflow-hidden w-full h-44 lg:h-52">
-      <img src="{news['image']}" alt="thumbnail of news article" class="object-cover w-full h-full"/>
+    <a href="{news.url}" target="_blank" class="overflow-hidden w-full h-52 lg:h- border-x border-t">
+      <img src="{news['image']}" alt="thumbnail of news article" class="object-cover w-full h-full rounded-t-sm"/>
     </a>
     <div class="px-3 lg:px-4 flex flex-col gap-1 lg:gap-1.5">
       <div class="flex justify-between gap-2 lg:gap-4">

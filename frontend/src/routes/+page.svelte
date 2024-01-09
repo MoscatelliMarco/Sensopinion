@@ -190,7 +190,7 @@
         <span class="mt-0.5">We couldn't fetch the news for an internal server error😔, try again later.</span>
     </div>
 {:else}
-    <div class="flex flex-col gap-36 lg:gap-48 xl:gap-52">
+    <div class="flex flex-col gap-32 lg:gap-48 xl:gap-52">
 
         <section class="flex flex-col items-center md:flex-row md:justify-between gap-8 lg:gap-16 xl:gap-24 mt-6 xl:mt-12">
             <div class="flex flex-col justify-center gap-4 md:gap-6 lg:gap-8 xl:gap-10 items-center text-center md:text-left">
@@ -221,9 +221,9 @@
                 </div>
             </div>
             <div class="flex flex-col justify-center px-2 md:px-0 gap-2 md:gap-4 mt-0 md:mt-6">
-                <div class="flex justify-center">
+                <a href="/categories" class="flex justify-center">
                     <NewsChart name="all" value={metrics['all'][factor]} dimension='big' emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
-                </div>
+                </a>
                 <div class="relative h-12 lg:h-13">
                     {#if (factor !== 'emotions')}
                         <h5 transition:fade={{duration: 300}} class="text-center font-light text-sm xl:text-base absolute top-0 left-0 right-0">{factor.charAt(0).toUpperCase() + factor.slice(1)} on news</h5>
@@ -268,9 +268,9 @@
         </section>
         
         <section class="flex flex-col">
-            <div class="text-center flex flex-col gap-4 lg:gap-7 xl:gap-8">
+            <div class="text-center flex flex-col gap-3 lg:gap-7 xl:gap-8">
                 <h2 class="font-medium text-2xl md:text-3xl lg:text-4xl">What People Think About</h2>
-                <div class="flex flex-col gap-8 md:gap-0 items-center md:flex-row md:justify-between xl:mx-16">
+                <div class="flex flex-col gap-7 md:gap-0 items-center md:flex-row md:justify-between xl:mx-16">
                     <div class="flex flex-col justify-center md:gap-5 lg:gap-6 w-full items-center">
                         <a href="/categories/politics" class="flex flex-col gap-1.5 md:gap-2">
                             <h4 class="font-medium text-center text-base md:text-lg xl:text-xl">Politics</h4>
@@ -337,7 +337,7 @@
             <div class="flex flex-col gap-2 lg:gap-4 mt-9 lg:mt-12 xl:mt-14">
                 <div class="flex justify-center">
                     <div class="relative">
-                        <button on:click={toggleSmallDropdown} class="w-40 lg:w-48 xl:w-52 text-xs lg:text-sm h-8 xl:h-9 min-h-0 shadow-md hover:shadow-lg rounded-md border border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light">
+                        <button on:click={toggleSmallDropdown} class="w-44 lg:w-48 xl:w-52 text-xs lg:text-sm h-8 xl:h-9 min-h-0 shadow-md hover:shadow-lg rounded-md border border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light">
                             Change Analysis
                         </button>
                         <ul bind:this={dropdown_small} class:hidden={!dropdown_small_active} class:absolute={dropdown_small_active} 
@@ -352,7 +352,7 @@
                     {#if (factor !== 'emotions')}
                         <div class="text-center font-light absolute top-0 left-0 right-0">
                             <div class="flex justify-center">
-                                <h5 transition:fade={{duration: 300}} class="w-40 lg:w-48 xl:w-52 py-1.5 lg:py-2 rounded-md bg-neutral-light flex flex-col justify-between h-12 lg:h-14 items-center shadow-md">
+                                <h5 transition:fade={{duration: 300}} class="w-44 lg:w-48 xl:w-52 py-1.5 lg:py-2 rounded-md bg-neutral-light flex flex-col justify-between h-12 lg:h-14 items-center shadow-md">
                                     <span class="text-xs lg:text-sm">
                                         Analyzing: 
                                     </span>

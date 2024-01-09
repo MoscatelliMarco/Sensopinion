@@ -50,7 +50,7 @@
         }
     }
 </script>
-<div class="lg:absolute lg:top-0 lg:left-0 flex flex-col gap-8 py-4 pr-4 pl-1 w-52 h-full bg-white">
+<div class="lg:absolute lg:top-0 lg:left-0 flex flex-col gap-8 pt-1 pb-3 pr-4 pl-1 w-52 h-full bg-white">
     <div class="flex flex-col gap-4">
         <p class="font-semibold text-xl">Sort by</p>
         <div class="flex justify-between items-center">

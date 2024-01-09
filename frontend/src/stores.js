@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-export const loadedStore = writable(false)
+export const loadedStore = writable(true)
 
 export const globalStore = writable({
     emotion_dict: {
@@ -19,7 +19,7 @@ export const globalStore = writable({
         "Policy Reforms",
         "Legislation",
         "Civil Right",
-        "Defense And Security",
+        "Defence And Security",
         "Local Governance",
         "Politics Scandals",
         "Public Opinion",

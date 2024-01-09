@@ -209,7 +209,7 @@
                         </div>
                     </div>
                 </div>
-                <svg xlmns="http://www.w3.org/2000/svg" version="1.1" width="{size}" height="{size}" class="shadow-md hover:shadow-lg rounded-full">
+                <svg xlmns="http://www.w3.org/2000/svg" version="1.1" width="{size}" height="{size}" class="shadow-md lg:hover:shadow-lg rounded-full">
                     <defs>
                         <linearGradient id="GradientColor"  x1="0%" y1="0%" x2="0%" y2="100%">
                             <stop offset="0%" stop-color="rgb(33, 135, 219)"/>

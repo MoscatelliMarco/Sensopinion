@@ -17,7 +17,7 @@ subcategories = [
         "Policy Reforms",
         "Legislation",
         "Civil Right",
-        "Defense And Security",
+        "Defence And Security",
         "Local Governance",
         "Politics Scandals",
         "Public Opinion",

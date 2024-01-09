@@ -535,7 +535,7 @@ html{
   neutral-light: #E7E7E7;
   --n: 0.623409 0 0;
   neutral-dark: #616161;
-  white: #FBFBFB;
+  white: #FDFDFD;
   black: #0F0F0F;
   real-white: #FFFFFF;
 }
@@ -2065,7 +2065,7 @@ html{
 
 .border-white{
   --tw-border-opacity: 1;
-  border-color: rgb(251 251 251 / var(--tw-border-opacity));
+  border-color: rgb(253 253 253 / var(--tw-border-opacity));
 }
 
 .bg-neutral{
@@ -2080,7 +2080,7 @@ html{
 
 .bg-white{
   --tw-bg-opacity: 1;
-  background-color: rgb(251 251 251 / var(--tw-bg-opacity));
+  background-color: rgb(253 253 253 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50{
@@ -2327,7 +2327,7 @@ html{
 
 .text-white{
   --tw-text-opacity: 1;
-  color: rgb(251 251 251 / var(--tw-text-opacity));
+  color: rgb(253 253 253 / var(--tw-text-opacity));
 }
 
 .shadow-lg{
@@ -2439,10 +2439,6 @@ html{
 
   .md\:mt-6{
     margin-top: 1.5rem;
-  }
-
-  .md\:mt-0{
-    margin-top: 0px;
   }
 
   .md\:block{
@@ -2991,6 +2987,11 @@ html{
     line-height: 2.25rem;
   }
 
+  .xl\:text-5xl{
+    font-size: 3rem;
+    line-height: 1;
+  }
+
   .xl\:text-6xl{
     font-size: 3.75rem;
     line-height: 1;
@@ -3009,10 +3010,5 @@ html{
   .xl\:text-xl{
     font-size: 1.25rem;
     line-height: 1.75rem;
-  }
-
-  .xl\:text-5xl{
-    font-size: 3rem;
-    line-height: 1;
   }
 }

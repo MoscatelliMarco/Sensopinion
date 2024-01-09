@@ -1,10 +1,10 @@
 <section class="flex flex-col gap-6 md:gap-4 lg:gap-5 xl:gap-6">
     <div class="flex flex-col justify-center items-center gap-2 md:gap-0.5 lg:gap-1.5 xl:gap-2 text-center">
-        <h3 class="font-semibold text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight md:leading-snug main">
-            Control Everything With Our <span class="text-primary-gradient">Screener</span>
+        <h3 class="font-semibold text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-tight md:leading-snug main">
+            Whether you are a <span class="text-primary-gradient">Neutrality</span> searcher or an <span class="text-primary-gradient">Emotions</span> analyzer, we got your back!
         </h3>
         <h6 class="font-light text-xs md:text-sm xl:text-lg sub">
-            We love understanding what people are thinking without reading tons of boring articles, that's why we provide our screener for <b>FREE</b>.
+            Control every news, every paramater, every factor with our screener completely for <b>FREE</b>.
         </h6>
     </div>
     <div class="flex justify-center">
@@ -26,15 +26,15 @@
             width: 550px;
         }
         .sub {
-            width: 520px;
+            width: 450px;
         }
     }
     @media (min-width: 1280px) {
         .main {
-            width: 700px;
+            width: 800px;
         }
         .sub {
-            width: 650px;
+            width: 500px;
         }
     }
 </style>

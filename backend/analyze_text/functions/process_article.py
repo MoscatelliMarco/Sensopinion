@@ -140,7 +140,7 @@ def process_article(url, entries):
 
     # Categories
     logger.debug("Analyzing categories")
-    valid_categories, valid_subcategories = pick_categories(article_description)
+    valid_categories, valid_subcategories = pick_categories(article_title + "\n" + article_description)
 
     return emotions_percentage, sentiment, valid_categories, valid_subcategories, article_date_publish, article_image, article_description, article_title
 

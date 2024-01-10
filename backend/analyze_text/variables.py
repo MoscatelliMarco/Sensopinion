@@ -6,7 +6,9 @@ urls_to_scrape = [
 ]
 black_listed_domains = [
     "bloomberg.com",
-    "nytimes.com"
+    "nytimes.com",
+    "youtube.com",
+    "www.macrobusiness.com.au"
 ]
 
 categories = ['Politics', 'Economy', 'Environment']

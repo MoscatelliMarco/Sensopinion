@@ -194,13 +194,12 @@
     })
     // Function to check the scroll position and adjust the element accordingly
     function checkSticky() {
-        let top_space = document.querySelector('nav').offsetHeight
-        if (window.pageYOffset >= stickyPointSide - top_space && window.innerWidth >= 1024) {
+        if (window.pageYOffset >= stickyPointSide - navbar_height && window.innerWidth >= 1024) {
             // When the user has scrolled past the stickyPoint, make it sticky
             side_buttons.style.position = 'fixed';
-            side_buttons.style.top = top_space + 'px';
+            side_buttons.style.top = navbar_height + 16 + 'px';
             side_menu.style.position = 'fixed';
-            side_menu.style.top = top_space + 'px';
+            side_menu.style.top = navbar_height + 16 + 'px';
         } else {
             // When the user is above the stickyPoint, position it normally
             side_buttons.style.position = 'relative';
@@ -220,11 +219,13 @@
     }
 
     function widthChangeResize() {
+        navbar_height = document.querySelector('nav div').offsetHeight;
         side_buttons.style.width = parent_side_buttons.offsetWidth + "px";
         up_buttons.style.width = up_buttons_parent.offsetWidth + "px";
         if (window.innerWidth >= 1024) {
             up_buttons_sibling.style.paddingTop = '0';
         }
+        checkSticky()
     }
 </script>
 

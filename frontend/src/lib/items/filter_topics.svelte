@@ -9,7 +9,9 @@
         sub_topics = value.categories;
     });
     unsubscribe()
+
     export let show_more = false;
+    export let switch_show;
 
     export let topic;
     sub_topics = sub_topics[(topic).toLowerCase()]
@@ -55,7 +57,7 @@
         <label for="{topic}_checkbox" class="font-medium text-base">{topic}</label>
         <input bind:this={main_checkbox} type="checkbox" id="{topic}_checkbox" class="w-5"/>
     </div>
-    <button class="text-xs p-1 italic" on:click={() => {show_more = !show_more}}>
+    <button class="text-xs p-1 italic" on:click={() => {switch_show()}}>
         Show {show_more ? "less" : "more"}
     </button>
     {#if show_more}

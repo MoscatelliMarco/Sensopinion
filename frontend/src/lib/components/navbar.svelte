@@ -32,12 +32,9 @@
     let navbar;
     let drawer;
     function updateNavbarHeight() {
-        const navbarStyle = window.getComputedStyle(navbar);
-
         const navbarHeight = navbar.offsetHeight; // Get the height of the navbar
-        const navbarMarginTop = parseInt(navbarStyle.marginTop, 10); // Get the top margin of the navbar
 
-        navbarTotalTopSpace = navbarHeight + navbarMarginTop; // Calculate total space occupied by the navbar including its margin
+        navbarTotalTopSpace = navbarHeight
     }
 
     function setDrawerPadding() {

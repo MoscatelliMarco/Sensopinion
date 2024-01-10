@@ -131,7 +131,6 @@
 
     let code;
     let el = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
-    let circle;
     $: if (value) {
         try {
             const style = document.createElement('style');
@@ -217,7 +216,7 @@
                             <stop offset="100%" stop-color="rgb(112, 46, 219)"/>
                         </linearGradient>
                     </defs>
-                    <circle bind:this={circle} style="
+                    <circle style="
                         stroke-width: {thickness};
                         animation: {name}_{code} 0.3s ease-in forwards;
                         stroke-dasharray: {2 * Math.PI * (size / 2 - thickness / 2) + "px"};

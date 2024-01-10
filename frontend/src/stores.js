@@ -18,7 +18,7 @@ export const globalStore = writable({
         "International Relations",
         "Policy Reforms",
         "Legislation",
-        "Civil Right",
+        "Civil Rights",
         "Defence And Security",
         "Local Governance",
         "Politics Scandals",

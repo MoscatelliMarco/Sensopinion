@@ -101,7 +101,7 @@
     })
 </script>
 
-<div class="flex {dimension == 'big' ? "gap-10 px-16" : "gap-4"}">
+<div class="flex {dimension == 'big' ? "gap-6 lg:gap-8 xl:gap-10 px-10 lg:px-14 xl:px-16" : "px-2 lg:px-0 gap-2 lg:gap-4"}">
     <div bind:this={parent} class="relative" style="width: 100%; height: {size}px">
         <div class="absolute top-0 left-0">
             <div style="
@@ -117,8 +117,8 @@
                     height: {size - thickness * 2}px;
                     " class="flex flex-col items-center justify-center bg-white rounded-full {dimension == 'big' ? 'pt-0.5' : ''}">
                     {#if dimension == 'big'}
-                        <p class="text-sm text-light flex"><span class="text-xs">👍</span>Positivity<span class="text-xs">👍</span></p>
-                        <p class="font-bold text-xl mt-neg-2 text-primary-gradient">{value_positivity}%</p>
+                        <p class="text-xs lg:text-sm text-light flex"><span class="text-xxs lg:text-xs">👍</span>Positivity<span class="text-xxs lg:text-xs">👍</span></p>
+                        <p class="font-bold text-lg lg:text-xl mt-neg-2 text-primary-gradient">{value_positivity}%</p>
                     {:else}
                         <p class="text-xs">{value_positivity == undefined ? "❌" : "👍"}</p>
                     {/if}
@@ -157,8 +157,8 @@
                     height: {size - thickness * 2}px;
                     " class="flex flex-col items-center justify-center bg-white rounded-full {dimension == 'big' ? 'pt-0.5' : ''}">
                         {#if dimension == 'big'}
-                            <p class="text-sm text-light"><span class="text-xs">✊</span>Subjectivity<span class="text-xs">✊</span></p>
-                            <p class="font-bold text-xl mt-neg-2 text-primary-gradient">{value_subjectivity}%</p>
+                            <p class="text-xs lg:text-sm text-light"><span class="text-xxs lg:text-xs">✊</span>Subjectivity<span class="text-xxs lg:text-xs">✊</span></p>
+                            <p class="font-bold text-lg lg:text-xl mt-neg-2 text-primary-gradient">{value_subjectivity}%</p>
                         {:else}
                             <p class="text-xs">{value_positivity == undefined ? "❌" : "✊"}</p>
                         {/if}
@@ -197,8 +197,8 @@
                     height: {size - thickness * 2}px;
                     " class="flex flex-col items-center justify-center bg-white rounded-full {dimension == 'big' ? 'pt-0.5' : ''}">
                         {#if dimension == 'big'}
-                            <p class="text-sm text-light"><span class="text-xs">{emoji_1}</span>{emotion_1.charAt(0).toUpperCase() + emotion_1.slice(1)}<span class="text-xs">{emoji_1}</span></p>
-                            <p class="font-bold text-xl mt-neg-2 text-primary-gradient">{value_1}%</p>
+                            <p class="text-xs lg:text-sm text-light"><span class="text-xxs lg:text-xs">{emoji_1}</span>{emotion_1.charAt(0).toUpperCase() + emotion_1.slice(1)}<span class="text-xxs lg:text-xs">{emoji_1}</span></p>
+                            <p class="font-bold text-lg lg:text-xl mt-neg-2 text-primary-gradient">{value_1}%</p>
                         {:else}
                             <p class="text-xs">{value_positivity == undefined ? "❌" : emoji_1}</p>
                         {/if}
@@ -237,8 +237,8 @@
                     height: {size - thickness * 2}px;
                     " class="flex flex-col items-center justify-center bg-white rounded-full {dimension == 'big' ? 'pt-0.5' : ''}">
                     {#if dimension == 'big'}
-                        <p class="text-sm text-light"><span class="text-xs">{emoji_2}</span>{emotion_2.charAt(0).toUpperCase() + emotion_2.slice(1)}<span class="text-xs">{emoji_2}</span></p>
-                        <p class="font-bold text-2xl mt-neg-2 text-primary-gradient">{value_2}%</p>
+                        <p class="text-xs lg:text-sm text-light"><span class="text-xxs lg:text-xs">{emoji_2}</span>{emotion_2.charAt(0).toUpperCase() + emotion_2.slice(1)}<span class="text-xxs lg:text-xs">{emoji_2}</span></p>
+                        <p class="font-bold text-lg lg:text-xl mt-neg-2 text-primary-gradient">{value_2}%</p>
                     {:else}
                         <p class="text-xs">{value_positivity == undefined ? "❌" : emoji_2}</p>
                     {/if}

@@ -15,7 +15,7 @@ module.exports = {
           "neutral-light": "#E7E7E7",
           neutral: "#878787",
           "neutral-dark": "#616161",
-          white: "#FDFDFD",
+          white: "#FEFEFE",
           black: "#0F0F0F",
           "real-white": "#FFFFFF"
         }
@@ -30,7 +30,7 @@ module.exports = {
         "neutral-light": "#E7E7E7",
         neutral: "#878787",
         "neutral-dark": "#616161",
-        white: "#FDFDFD",
+        white: "#FEFEFE",
         black: "#0F0F0F",
         "real-white": "#FFFFFF"
       },
@@ -48,6 +48,7 @@ module.exports = {
         "neg-4": "-1rem",
         "neg-8": "-2rem",
         "0.25": "0.0625rem",
+        "4.5": "1.125rem",
         "13": "3.25rem",
         "18": "4.5rem",
         "38": "9.5rem",

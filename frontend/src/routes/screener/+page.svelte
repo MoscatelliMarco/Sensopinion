@@ -210,7 +210,7 @@
         if (window.pageYOffset >= stickyPointUp - navbar_height && window.innerWidth < 1024) {
             up_buttons.style.position = 'fixed';
             up_buttons.style.top = navbar_height + "px";
-            up_buttons_sibling.style.paddingTop = up_buttons_child.offsetHeight - 8 + 'px';
+            up_buttons_sibling.style.paddingTop = up_buttons_child.offsetHeight - 9 + 'px';
         } else {
             up_buttons.style.position = 'relative';
             up_buttons.style.top = '';

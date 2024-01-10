@@ -7,9 +7,10 @@
   export let news_articles;
 
   let emotion_dict;
-  globalStore.subscribe(value => {
+  const unsubscribe = globalStore.subscribe(value => {
       emotion_dict = value.emotion_dict;
   });
+  unsubscribe()
 
   let loading = false;
   let is_scroll_operation_running = false;

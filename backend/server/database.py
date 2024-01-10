@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 import os
 from dotenv import load_dotenv
 from pymongo import MongoClient
+from bson import ObjectId
 import datetime
 
 load_dotenv()
@@ -18,5 +19,17 @@ collection = db['news_collection']
 collection.create_index([("time_analyze", 1)], expireAfterSeconds=604800)  # 7 days in seconds
 logger.info("Connected to the database")
 
-def fetch_news():
+def sanitize_string_for_mongodb(input_string):
+    # Replace or escape special MongoDB characters
+    sanitized_string = input_string.replace('$', '\$').replace('.', '\.')
+    return sanitized_string
+
+def fetch_news(param, value):
+    if param and value:
+        # Sanitize the string for mongodb
+        param = sanitize_string_for_mongodb(param)
+        value = sanitize_string_for_mongodb(value)
+        if param == '_id':
+            return list(collection.find({param: ObjectId(value)}))
+        return list(collection.find({param: value}))
     return list(collection.find({}))

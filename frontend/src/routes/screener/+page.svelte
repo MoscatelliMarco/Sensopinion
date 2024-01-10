@@ -12,10 +12,11 @@
     import { globalStore } from "../../stores.js";
     let news_articles;
     let categories;
-    globalStore.subscribe(value => {
+    const unsubscribe = globalStore.subscribe(value => {
         news_articles = value.news;
         categories = value.categories;
     });
+    unsubscribe()
 
     // Filter and sort page conditions
     let filterActive = false;

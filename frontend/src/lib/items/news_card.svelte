@@ -34,7 +34,7 @@
         </a>
       {/if}
     </div>
-    <a href="{news.url}" target="_blank" class="overflow-hidden w-full h-52 lg:h- border-x border-t">
+    <a href="/redirect/{news['_id']}" target="_blank" class="overflow-hidden w-full h-52 lg:h- border-x border-t">
       <img src="{news['image']}" alt="thumbnail of news article" class="object-cover w-full h-full rounded-t-sm"/>
     </a>
     <div class="px-3 lg:px-4 flex flex-col gap-1 lg:gap-1.5">
@@ -54,7 +54,7 @@
       <p class="text-sm font-medium px-4 h-7 bg-neutral-light rounded-tr-md bg-opacity-50 grid place-content-center">
         {news['time_of_the_article'].split('T')[0]}
       </p>
-      <a href="{news['url']}" target="_blank" class="bg-neutral px-12 h-7 grid place-content-center text-white rounded-tl-md font-medium">
+      <a href="/redirect/{news['_id']}" target="_blank" class="bg-neutral px-12 h-7 grid place-content-center text-white rounded-tl-md font-medium">
         Read
       </a>
     </div>

@@ -4,9 +4,10 @@
     import { globalStore } from '../../../stores.js';
 
     let categories;
-    globalStore.subscribe(value => {
+    const unsubscribe = globalStore.subscribe(value => {
         categories = value.categories;
     });
+    unsubscribe()
 
     export let category_type = null;
     export let emotion_analyze;

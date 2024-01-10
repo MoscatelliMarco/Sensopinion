@@ -77,7 +77,7 @@ def analyze_and_post(news_entries, google_news_url, mongo_client):
 
     if final_url:
         try:
-            emotions, sentiment, valid_categories, valid_subcategories, article_date_publish, image_url, article_description, article_title = process_article(final_url)
+            emotions, sentiment, valid_categories, valid_subcategories, article_date_publish, image_url, article_description, article_title = process_article(final_url, news_entries)
             if emotions and sentiment and valid_categories and valid_subcategories and article_date_publish:
                 logger.info(f"Added article: {final_url}")
                 mongo_client.insert_article(final_url, google_news_url, image_url, article_description, article_title, emotions, sentiment, valid_categories, valid_subcategories, article_date_publish)

@@ -25,9 +25,10 @@
   }
 
   let emotion_dict;
-  globalStore.subscribe(value => {
+  const unsubscribe = globalStore.subscribe(value => {
       emotion_dict = value.emotion_dict;
   });
+  unsubscribe()
 </script>
 
 <section class="flex flex-col gap-4 lg:gap-7 xl:gap-12">

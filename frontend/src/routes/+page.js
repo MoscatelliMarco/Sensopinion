@@ -4,27 +4,22 @@ import { globalStore, loadedStore } from "../stores";
 export async function load({ fetch }) {
     loadedStore.set(false)
     let news_articles;
-    globalStore.subscribe(value => {
+    const unsubscribe = globalStore.subscribe(value => {
         news_articles = value.news;
     });
+    unsubscribe()
     if (news_articles === undefined) {
         let res;
         try {
             res = await fetch(`${import.meta.env.VITE_BACKEND_SERVER_IP}/api/news`);
-        } catch {
-            loadedStore.set(true)
-            return
-        }
+        } catch {}
         if (res.ok) {
             const data = await res.json();
             globalStore.update(($dict) => {
                 $dict['news'] = data;
                 return $dict;
             })
-            loadedStore.set(true)
-            return
         }
         loadedStore.set(true)
-        return;
     }
 }

@@ -36,7 +36,7 @@ categories_tokenizer = AutoTokenizer.from_pretrained(categories_model_path)
 categories_model = AutoModelForSequenceClassification.from_pretrained(categories_model_path)
 categories_classifier = pipeline("zero-shot-classification", model=categories_model, tokenizer=categories_tokenizer)
 
-def process_article(url):
+def process_article(url, entries):
     article = NewsPlease.from_url(url)
 
     for black_listed_domain in black_listed_domains:
@@ -76,6 +76,11 @@ def process_article(url):
     if 'news.google.com' in url:
         logger.info(f"Article invalid url news.google.com domain: {article.url}")
         return
+
+    for entry in entries:
+        if article_title == entry['title']:
+            logger.info(f"Article invalid, same title already present inside the database: {article.url}")
+            return
 
     try:
         clusters = process_text(article_text)

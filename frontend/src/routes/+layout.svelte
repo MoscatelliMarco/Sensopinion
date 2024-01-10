@@ -11,9 +11,10 @@
     injectSpeedInsights()
 
     let store_loaded;
-    loadedStore.subscribe(value => {
+    const unsubscribe = loadedStore.subscribe(value => {
         store_loaded = value
     })
+    unsubscribe()
     
     let page_loaded = false;
     onMount(() => {

@@ -5,9 +5,10 @@
     import SubTopic from "./subtopic_filter_dropdown.svelte"
 
     let sub_topics;
-    globalStore.subscribe(value => {
+    const unsubscribe = globalStore.subscribe(value => {
         sub_topics = value.categories;
     });
+    unsubscribe()
     let show_more = false;
 
     export let topic;

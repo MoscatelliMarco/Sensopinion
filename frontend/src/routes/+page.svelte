@@ -76,9 +76,10 @@
     
     let news_articles;
     import { globalStore } from "../stores.js";
-    globalStore.subscribe(value => {
+    const unsubscribe = globalStore.subscribe(value => {
         news_articles = value.news;
     });
+    unsubscribe()
     let metrics = {
             'all': {
                 'emotions': {},

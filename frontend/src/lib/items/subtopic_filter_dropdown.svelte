@@ -3,9 +3,10 @@
     import { globalStore } from '../../stores.js';
 
     let sub_topics;
-    globalStore.subscribe(value => {
+    const unsubscribe = globalStore.subscribe(value => {
         sub_topics = value.categories;
     });
+    unsubscribe()
 
     export let topic;
     sub_topics = sub_topics[(topic).toLowerCase()]

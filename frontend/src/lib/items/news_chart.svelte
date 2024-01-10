@@ -177,9 +177,10 @@
         }
     }
     let emotion_dict;
-    globalStore.subscribe(value => {
+    const unsubscribe =  globalStore.subscribe(value => {
         emotion_dict = value.emotion_dict;
     });
+    unsubscribe()
 
     function getKeysByValue(object, value) {
         return String(Object.keys(object).filter(key => object[key] === value));

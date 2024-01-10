@@ -15,17 +15,27 @@
     });
     unsubscribe()
 
-    let value_positivity = metrics[name]['positivity']
-    let value_subjectivity = metrics[name]['subjectivity']
-    const entries = Object.entries(metrics[name]['emotions']);
-    entries.sort((a, b) => b[1] - a[1]);
-    const sortedObj = Object.fromEntries(entries);
-    let value_1 = sortedObj[Object.keys(sortedObj)[0]]
-    let value_2 = sortedObj[Object.keys(sortedObj)[1]]
-    let emotion_1 = Object.keys(sortedObj)[0]
-    let emotion_2 = Object.keys(sortedObj)[1]
-    let emoji_1 = emotion_dict[Object.keys(sortedObj)[0]]
-    let emoji_2 = emotion_dict[Object.keys(sortedObj)[1]]
+    let value_positivity;
+    let value_subjectivity;
+    let value_1;
+    let value_2;
+    let emotion_1;
+    let emotion_2;
+    let emoji_1;
+    let emoji_2;
+    try {
+        value_positivity = metrics[name]['positivity']
+        value_subjectivity = metrics[name]['subjectivity']
+        const entries = Object.entries(metrics[name]['emotions']);
+        entries.sort((a, b) => b[1] - a[1]);
+        const sortedObj = Object.fromEntries(entries);
+        value_1 = sortedObj[Object.keys(sortedObj)[0]]
+        value_2 = sortedObj[Object.keys(sortedObj)[1]]
+        emotion_1 = Object.keys(sortedObj)[0]
+        emotion_2 = Object.keys(sortedObj)[1]
+        emoji_1 = emotion_dict[Object.keys(sortedObj)[0]]
+        emoji_2 = emotion_dict[Object.keys(sortedObj)[1]]
+    } catch(e) {}
 
     let parent;
     let size = 200;
@@ -90,6 +100,7 @@
         window.removeEventListener('resize', changeSize)
     })
 </script>
+
 <div class="flex {dimension == 'big' ? "gap-10 px-16" : "gap-4"}">
     <div bind:this={parent} class="relative" style="width: 100%; height: {size}px">
         <div class="absolute top-0 left-0">
@@ -109,7 +120,7 @@
                         <p class="text-sm text-light flex"><span class="text-xs">👍</span>Positivity<span class="text-xs">👍</span></p>
                         <p class="font-bold text-xl mt-neg-2 text-primary-gradient">{value_positivity}%</p>
                     {:else}
-                        <p class="text-xs">👍</p>
+                        <p class="text-xs">{value_positivity == undefined ? "❌" : "👍"}</p>
                     {/if}
                     </div>
                 </div>
@@ -124,7 +135,7 @@
                         stroke-width: {thickness};
                         animation: {name}_{code}_1 0.3s ease-in forwards;
                         stroke-dasharray: {2 * Math.PI * (size / 2 - thickness / 2) + "px"};
-                        stroke-dashoffset: {dimension == 'big' ? 2 * Math.PI * (size / 2 - thickness / 2) + "px" : 2 * Math.PI * (size / 2 - thickness / 2) - 2 * Math.PI * (size / 2 - thickness / 2) * (value_positivity / 100) + 'px'};
+                        stroke-dashoffset: {value_positivity == undefined ? 2 * Math.PI * (size / 2 - thickness / 2) + "px" : dimension == 'big' ? 2 * Math.PI * (size / 2 - thickness / 2) + "px" : 2 * Math.PI * (size / 2 - thickness / 2) - 2 * Math.PI * (size / 2 - thickness / 2) * (value_positivity / 100) + 'px'};
                         " transform="rotate(270 {size / 2} {size / 2})" cx="{size / 2}" cy="{size / 2}" r="{size / 2 - thickness / 2}" 
                     stroke-linecap="round"/>
                 </svg>
@@ -149,7 +160,7 @@
                             <p class="text-sm text-light"><span class="text-xs">✊</span>Subjectivity<span class="text-xs">✊</span></p>
                             <p class="font-bold text-xl mt-neg-2 text-primary-gradient">{value_subjectivity}%</p>
                         {:else}
-                            <p class="text-xs">✊</p>
+                            <p class="text-xs">{value_positivity == undefined ? "❌" : "✊"}</p>
                         {/if}
                     </div>
                 </div>
@@ -164,7 +175,7 @@
                         stroke-width: {thickness};
                         animation: {name}_{code}_2 0.3s ease-in forwards;
                         stroke-dasharray: {2 * Math.PI * (size / 2 - thickness / 2) + "px"};
-                        stroke-dashoffset: {dimension == 'big' ? 2 * Math.PI * (size / 2 - thickness / 2) + "px" : 2 * Math.PI * (size / 2 - thickness / 2) - 2 * Math.PI * (size / 2 - thickness / 2) * (value_subjectivity / 100) + 'px'};
+                        stroke-dashoffset: {value_subjectivity == undefined ? 2 * Math.PI * (size / 2 - thickness / 2) + "px" : dimension == 'big' ? 2 * Math.PI * (size / 2 - thickness / 2) + "px" : 2 * Math.PI * (size / 2 - thickness / 2) - 2 * Math.PI * (size / 2 - thickness / 2) * (value_subjectivity / 100) + 'px'};
                         " transform="rotate(270 {size / 2} {size / 2})" cx="{size / 2}" cy="{size / 2}" r="{size / 2 - thickness / 2}" 
                     stroke-linecap="round"/>
                 </svg>
@@ -189,7 +200,7 @@
                             <p class="text-sm text-light"><span class="text-xs">{emoji_1}</span>{emotion_1.charAt(0).toUpperCase() + emotion_1.slice(1)}<span class="text-xs">{emoji_1}</span></p>
                             <p class="font-bold text-xl mt-neg-2 text-primary-gradient">{value_1}%</p>
                         {:else}
-                            <p class="text-xs">{emoji_1}</p>
+                            <p class="text-xs">{value_positivity == undefined ? "❌" : emoji_1}</p>
                         {/if}
                     </div>
                 </div>
@@ -204,7 +215,7 @@
                         stroke-width: {thickness};
                         animation: {name}_{code}_3 0.3s ease-in forwards;
                         stroke-dasharray: {2 * Math.PI * (size / 2 - thickness / 2) + "px"};
-                        stroke-dashoffset: {dimension == 'big' ? 2 * Math.PI * (size / 2 - thickness / 2) + "px" : 2 * Math.PI * (size / 2 - thickness / 2) - 2 * Math.PI * (size / 2 - thickness / 2) * (value_1 / 100) + 'px'};
+                        stroke-dashoffset: {value_1 == undefined ? 2 * Math.PI * (size / 2 - thickness / 2) + "px" : dimension == 'big' ? 2 * Math.PI * (size / 2 - thickness / 2) + "px" : 2 * Math.PI * (size / 2 - thickness / 2) - 2 * Math.PI * (size / 2 - thickness / 2) * (value_1 / 100) + 'px'};
                         " transform="rotate(270 {size / 2} {size / 2})" cx="{size / 2}" cy="{size / 2}" r="{size / 2 - thickness / 2}" 
                     stroke-linecap="round"/>
                 </svg>
@@ -229,7 +240,7 @@
                         <p class="text-sm text-light"><span class="text-xs">{emoji_2}</span>{emotion_2.charAt(0).toUpperCase() + emotion_2.slice(1)}<span class="text-xs">{emoji_2}</span></p>
                         <p class="font-bold text-2xl mt-neg-2 text-primary-gradient">{value_2}%</p>
                     {:else}
-                        <p class="text-xs">{emoji_2}</p>
+                        <p class="text-xs">{value_positivity == undefined ? "❌" : emoji_2}</p>
                     {/if}
                     </div>
                 </div>
@@ -244,7 +255,7 @@
                         stroke-width: {thickness};
                         animation: {name}_{code}_4 0.3s ease-in forwards;
                         stroke-dasharray: {2 * Math.PI * (size / 2 - thickness / 2) + "px"};
-                        stroke-dashoffset: {dimension == 'big' ? 2 * Math.PI * (size / 2 - thickness / 2) + "px" : 2 * Math.PI * (size / 2 - thickness / 2) - 2 * Math.PI * (size / 2 - thickness / 2) * (value_2 / 100) + 'px'};
+                        stroke-dashoffset: {value_2 == undefined ? 2 * Math.PI * (size / 2 - thickness / 2) + "px" : dimension == 'big' ? 2 * Math.PI * (size / 2 - thickness / 2) + "px" : 2 * Math.PI * (size / 2 - thickness / 2) - 2 * Math.PI * (size / 2 - thickness / 2) * (value_2 / 100) + 'px'};
                         " transform="rotate(270 {size / 2} {size / 2})" cx="{size / 2}" cy="{size / 2}" r="{size / 2 - thickness / 2}" 
                     stroke-linecap="round"/>
                 </svg>

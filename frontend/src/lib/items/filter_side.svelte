@@ -2,6 +2,10 @@
     import FilterTopics from "$lib/items/filter_topics.svelte";
 
     export let dict_params;
+
+    let show_more_politics = false;
+    let show_more_economy = false;
+    let show_more_environment = false;
 </script>
 
 <div class="lg:absolute lg:top-0 lg:left-0 flex flex-col gap-8 pt-1 pb-3 pr-4 pl-1 w-full h-full bg-white">
@@ -9,15 +13,15 @@
         <h6 class="font-semibold text-xl">Topics</h6>
         <div class="grid grid-cols-2 md:grid-cols-8 lg:grid-cols-1 gap-y-5 gap-x-8 md:gap-x-0">
             <div class="col-span-1 md:col-span-2 lg:col-span-1">
-                <FilterTopics dict_params={dict_params} topic="Politics"/>
+                <FilterTopics show_more={show_more_politics} dict_params={dict_params} topic="Politics"/>
             </div>
             <p class="hidden md:block lg:hidden text-center">·</p>
             <div class="col-span-1 md:col-span-2 lg:col-span-1">
-                <FilterTopics dict_params={dict_params} topic="Economy"/>
+                <FilterTopics show_more={show_more_economy} dict_params={dict_params} topic="Economy"/>
             </div>
             <p class="hidden md:block lg:hidden text-center">·</p>
             <div class="col-span-1 md:col-span-2 lg:col-span-1">
-                <FilterTopics dict_params={dict_params} topic="Environment"/>
+                <FilterTopics show_more={show_more_environment} dict_params={dict_params} topic="Environment"/>
             </div>
         </div>
     </div>

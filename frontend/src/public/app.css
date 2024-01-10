@@ -1799,10 +1799,6 @@ html{
   height: 100vh;
 }
 
-.h-9{
-  height: 2.25rem;
-}
-
 .min-h-0{
   min-height: 0px;
 }
@@ -2296,11 +2292,6 @@ html{
   line-height: 1;
 }
 
-.text-9xl{
-  font-size: 8rem;
-  line-height: 1;
-}
-
 .text-base{
   font-size: 1rem;
   line-height: 1.5rem;
@@ -2324,11 +2315,6 @@ html{
 .text-xs{
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.text-7xl{
-  font-size: 4.5rem;
-  line-height: 1;
 }
 
 .font-black{
@@ -2918,9 +2904,9 @@ html{
     padding-top: 0px;
   }
 
-  .lg\:text-3xl{
-    font-size: 1.875rem;
-    line-height: 2.25rem;
+  .lg\:text-2xl{
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 
   .lg\:text-4xl{
@@ -2941,11 +2927,6 @@ html{
   .lg\:text-sm{
     font-size: 0.875rem;
     line-height: 1.25rem;
-  }
-
-  .lg\:text-2xl{
-    font-size: 1.5rem;
-    line-height: 2rem;
   }
 
   .lg\:hover\:shadow-lg:hover{

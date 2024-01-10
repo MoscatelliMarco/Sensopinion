@@ -53,13 +53,6 @@
                 pushState(baseURL, {});
             }
         }
-        // if (currentUrl != baseURL + (search_params.toString() ? ("?" + search_params.toString()) : "")) {
-        //     if (search_params.toString()) {
-        //         window.history.pushState({}, '', baseURL + "?" + search_params.toString());
-        //     } else {
-        //         window.history.pushState({}, '', baseURL);
-        //     }
-        // }
     }
 
     // Reactively update URL when dict_params changes.
@@ -201,12 +194,13 @@
     })
     // Function to check the scroll position and adjust the element accordingly
     function checkSticky() {
-        if (window.pageYOffset >= stickyPointSide - 16 && window.innerWidth >= 1024) {
+        let top_space = document.querySelector('nav').offsetHeight
+        if (window.pageYOffset >= stickyPointSide - top_space && window.innerWidth >= 1024) {
             // When the user has scrolled past the stickyPoint, make it sticky
             side_buttons.style.position = 'fixed';
-            side_buttons.style.top = '16px';
+            side_buttons.style.top = top_space + 'px';
             side_menu.style.position = 'fixed';
-            side_menu.style.top = '16px';
+            side_menu.style.top = top_space + 'px';
         } else {
             // When the user is above the stickyPoint, position it normally
             side_buttons.style.position = 'relative';

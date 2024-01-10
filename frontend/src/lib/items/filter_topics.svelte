@@ -9,7 +9,7 @@
         sub_topics = value.categories;
     });
     unsubscribe()
-    let show_more = false;
+    export let show_more = false;
 
     export let topic;
     sub_topics = sub_topics[(topic).toLowerCase()]

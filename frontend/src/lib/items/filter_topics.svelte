@@ -4,11 +4,7 @@
     import { onMount, onDestroy } from 'svelte';
     import SubTopic from "./subtopic_filter_dropdown.svelte"
 
-    let sub_topics;
-    const unsubscribe = globalStore.subscribe(value => {
-        sub_topics = value.categories;
-    });
-    unsubscribe()
+    let sub_topics = $globalStore.categories;
 
     export let show_more = false;
     export let switch_show;

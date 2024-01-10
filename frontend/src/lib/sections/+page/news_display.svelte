@@ -1,7 +1,6 @@
 <script>
   import { fade, slide } from "svelte/transition";
   import NewsCard from "../../items/news_card.svelte";
-  import { globalStore } from "../../../stores";
 
   export let news_articles;
   let sorted_news_articles = [...news_articles]
@@ -23,12 +22,6 @@
       loading = false
     }, 250)
   }
-
-  let emotion_dict;
-  const unsubscribe = globalStore.subscribe(value => {
-      emotion_dict = value.emotion_dict;
-  });
-  unsubscribe()
 </script>
 
 <section class="flex flex-col gap-4 lg:gap-7 xl:gap-12">

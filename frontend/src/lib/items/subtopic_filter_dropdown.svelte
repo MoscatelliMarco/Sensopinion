@@ -2,11 +2,7 @@
     import { onMount, onDestroy } from "svelte";
     import { globalStore } from '../../stores.js';
 
-    let sub_topics;
-    const unsubscribe = globalStore.subscribe(value => {
-        sub_topics = value.categories;
-    });
-    unsubscribe()
+    let sub_topics = $globalStore.categories;  
 
     export let topic;
     sub_topics = sub_topics[(topic).toLowerCase()]

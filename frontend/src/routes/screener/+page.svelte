@@ -10,13 +10,8 @@
     import { pushState } from "$app/navigation";
 
     import { globalStore } from "../../stores.js";
-    let news_articles;
-    let categories;
-    const unsubscribe = globalStore.subscribe(value => {
-        news_articles = value.news;
-        categories = value.categories;
-    });
-    unsubscribe()
+    let news_articles = $globalStore.news;
+    let categories = $globalStore.categories;
 
     // Filter and sort page conditions
     let filterActive = false;

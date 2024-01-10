@@ -1,16 +1,9 @@
 <script>
   import { fade, slide } from "svelte/transition";
   import NewsCard from "../../../items/news_card.svelte";
-  import { globalStore } from "../../../../stores";
   import { onMount, onDestroy } from "svelte";
 
   export let news_articles;
-
-  let emotion_dict;
-  const unsubscribe = globalStore.subscribe(value => {
-      emotion_dict = value.emotion_dict;
-  });
-  unsubscribe()
 
   let loading = false;
   let is_scroll_operation_running = false;

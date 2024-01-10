@@ -3,11 +3,7 @@
     import NewsChart from "../../items/news_chart.svelte";
     import { globalStore } from '../../../stores.js';
 
-    let categories;
-    const unsubscribe = globalStore.subscribe(value => {
-        categories = value.categories;
-    });
-    unsubscribe()
+    let categories = $globalStore.categories;
 
     export let category_type = null;
     export let emotion_analyze;

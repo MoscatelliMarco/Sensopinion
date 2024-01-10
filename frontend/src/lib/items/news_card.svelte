@@ -38,7 +38,7 @@
       <img src="{news['image']}" alt="thumbnail of news article" class="object-cover w-full h-full rounded-t-sm"/>
     </a>
     <div class="px-3 lg:px-4 flex flex-col gap-1 lg:gap-1.5">
-      <div class="flex justify-between gap-2 lg:gap-4">
+      <div class="flex justify-between gap-1 lg:gap-2">
         <h6 class="font-medium text-lg">
           {news['title'].slice(0, 100).replace(/\s$/, '')}{news['title'].length > 100 ? "..." : ""}
         </h6>

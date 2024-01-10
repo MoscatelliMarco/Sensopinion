@@ -3,11 +3,7 @@ import { error } from '@sveltejs/kit';
 
 // This runs on the server during SSR and on the client after navigation
 export async function load({ fetch, params }) {
-    let news_articles;
-    const unsubscribe = globalStore.subscribe(value => {
-        news_articles = value.news;
-    });
-    unsubscribe()
+    let news_articles = globalStore.news;
     if (news_articles === undefined) {
         let res;
         try {

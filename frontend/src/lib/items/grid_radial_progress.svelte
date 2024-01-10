@@ -9,11 +9,7 @@
     let code;
     let el = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
 
-    let emotion_dict;
-    const unsubscribe = globalStore.subscribe(value => {
-        emotion_dict = value.emotion_dict;
-    });
-    unsubscribe()
+    let emotion_dict = $globalStore.emotion_dict;
 
     let value_positivity;
     let value_subjectivity;

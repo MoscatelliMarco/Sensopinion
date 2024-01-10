@@ -6,11 +6,7 @@
     let size = "32"
     let thickness = "4"
 
-    let emotion_dict;
-    const unsubscribe = globalStore.subscribe(value => {
-        emotion_dict = value.emotion_dict;
-    });
-    unsubscribe()
+    let emotion_dict = $globalStore.emotion_dict;
     
     const entries = Object.entries(news['emotions']);
     entries.sort((a, b) => b[1] - a[1]);

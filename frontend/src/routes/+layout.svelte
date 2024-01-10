@@ -14,7 +14,6 @@
     const unsubscribe = loadedStore.subscribe(value => {
         store_loaded = value
     })
-    unsubscribe()
     
     let page_loaded = false;
     onMount(() => {

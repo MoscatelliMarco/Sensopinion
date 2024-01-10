@@ -44,13 +44,14 @@ module.exports = {
         "main": ["Roboto", ...defaultTheme.fontFamily.sans]
       },
       spacing: {
+        "neg-2": "-0.25rem",
+        "neg-4": "-1rem",
+        "neg-8": "-2rem",
+        "0.25": "0.0625rem",
         "13": "3.25rem",
         "18": "4.5rem",
         "38": "9.5rem",
         "88": "22rem",
-        "neg-2": "-0.25rem",
-        "neg-4": "-1rem",
-        "neg-8": "-2rem",
         "100": "25rem",
         "104": "26rem"
       }

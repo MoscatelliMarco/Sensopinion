@@ -69,20 +69,20 @@
         }
     }
 </script>
-<div class="flex flex-col gap-44 mt-12">
+<div class="flex flex-col gap-32 mt-10">
     {#each Object.keys(categories) as category}
-        <div class="flex flex-col gap-5">
-            <a href="/categories/{category}"><h2 class="col-span-3 text-2xl text-center hover:font-medium">{category.charAt(0).toUpperCase() + category.slice(1)}</h2></a>
-            <div class="flex flex-col gap-7">
+        <div class="flex flex-col gap-7">
+            <div class="flex flex-col gap-5 border-2 rounded-full px-7 py-5">
+                <a href="/categories/{category}"><h2 class="col-span-3 text-2xl text-center hover:font-medium">{category.charAt(0).toUpperCase() + category.slice(1)}</h2></a>
                 <GridRadialProgress name={category.toLowerCase()} metrics={metrics}/>
-                <div class="grid grid-cols-5 text-center gap-6">
-                    {#each categories[category] as subcategory}
-                        <div class="flex flex-col border-2 px-6 pb-2 pt-1.5 rounded-full">
-                            <a href="/categories/{category.toLowerCase()}/{subcategory.replaceAll(" ", "_").toLowerCase()}" class="italic text-sm font-medium hover:font-semibold">{subcategory}</a>
-                            <GridRadialProgress name={subcategory.replaceAll(" ", "_").toLowerCase() + "_" + category.toLowerCase()} metrics={metrics} dimension={'small'}/>
-                        </div>
-                    {/each}
-                </div>
+            </div>
+            <div class="grid grid-cols-5 text-center gap-6">
+                {#each categories[category] as subcategory}
+                    <div class="flex flex-col gap-0.25 border-2 px-6 pb-2 pt-1.5 rounded-full">
+                        <a href="/categories/{category.toLowerCase()}/{subcategory.replaceAll(" ", "_").toLowerCase()}" class="italic text-sm font-medium hover:font-semibold">{subcategory}</a>
+                        <GridRadialProgress name={subcategory.replaceAll(" ", "_").toLowerCase() + "_" + category.toLowerCase()} metrics={metrics} dimension={'small'}/>
+                    </div>
+                {/each}
             </div>
         </div>
     {/each}

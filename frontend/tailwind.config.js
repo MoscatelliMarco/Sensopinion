@@ -55,6 +55,11 @@ module.exports = {
         "88": "22rem",
         "100": "25rem",
         "104": "26rem"
+      },
+      borderRadius: {
+        // "4xl": "2.25rem",
+        // "5xl": "3rem",
+        "6xl": "4rem"
       }
     }
   }

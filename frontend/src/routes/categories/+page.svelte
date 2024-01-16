@@ -89,6 +89,10 @@
                 metrics[metric]['subjectivity'] = Math.round($globalStore.stretchFunction(metrics[metric]['subjectivity']['numerator'] / metrics[metric]['subjectivity']['denominator']) * 1000) / 10
             }
         }
+        globalStore.update((value) => {
+            value['metrics'] = metrics;
+            return value;
+        })
     }
 </script>
 <div class="flex flex-col gap-28 md:gap-32 xl:gap-36 mt-4 md:mt-5 lg:mt-8 xl:mt-10">

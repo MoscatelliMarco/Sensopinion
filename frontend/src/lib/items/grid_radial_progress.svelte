@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy, onMount } from "svelte";
+    import { onDestroy, onMount } from "svelte";
     import { globalStore } from "../../stores";
 
     export let metrics;
@@ -38,7 +38,7 @@
     let thickness = dimension == 'big' ? Math.round(size / 14) : Math.round(size / 12)
     function changeSize () {
         size = parent.offsetWidth;
-        thickness = dimension == 'big' ? Math.round(size / 14) : Math.round(size / 12)
+        thickness = dimension == 'big' ? Math.round(size / 14) : dimension == 'small' ? Math.round(size / 12) : Math.round(size / 11)
     }
     onMount(() => {
         window.addEventListener('resize', changeSize)

@@ -5,7 +5,11 @@ import { error } from '@sveltejs/kit';
 export async function load({ fetch, params }) {
     if (['politics', 'economy', 'environment'].includes(params.category)) {
         loadedStore.set(false)
-        let news_articles = globalStore.news;
+        let news_articles;
+        const unsubscribe = globalStore.subscribe((value) => {
+            news_articles = value.news;
+        })
+        unsubscribe()
         if (news_articles === undefined) {
             let res;
             try {

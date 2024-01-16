@@ -160,6 +160,11 @@
                 metrics[metric]['subjectivity'] = Math.round($globalStore.stretchFunction(metrics[metric]['subjectivity']['numerator'] / metrics[metric]['subjectivity']['denominator']) * 1000) / 10
             }
         }
+
+        globalStore.update((value) => {
+            value['metrics'] = metrics;
+            return value;
+        })
     }
 
     let cake_chart_colors = [

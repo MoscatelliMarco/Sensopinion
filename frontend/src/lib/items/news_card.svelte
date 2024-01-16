@@ -1,5 +1,4 @@
 <script>
-  import Page from "../../routes/screener/+page.svelte";
   import RadialProgressSmall from "./radial_progress_small.svelte";
   import { fade } from "svelte/transition";
 
@@ -24,12 +23,12 @@
         </a>
       {/if}
       {#if "Economy" in news['categories']}
-        <a href="/categories/politics" class="bg-white rounded-md p-1 shadow-sm hover:shadow-md">
+        <a href="/categories/economy" class="bg-white rounded-md p-1 shadow-sm hover:shadow-md">
           💵
         </a>
       {/if}
       {#if "Environment" in news['categories']}
-        <a href="/categories/politics" class="bg-white rounded-md p-1 shadow-sm hover:shadow-md">
+        <a href="/categories/environment" class="bg-white rounded-md p-1 shadow-sm hover:shadow-md">
           🍃
         </a>
       {/if}

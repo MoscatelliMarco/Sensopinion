@@ -81,6 +81,18 @@ def analyze_and_post(news_entries, google_news_url, mongo_client):
             if emotions and sentiment and valid_categories and valid_subcategories and article_date_publish:
                 logger.info(f"Added article: {final_url}")
                 mongo_client.insert_article(final_url, google_news_url, image_url, article_description, article_title, emotions, sentiment, valid_categories, valid_subcategories, article_date_publish)
+                news_entries.append({
+                    "url": url,
+                    "google_news_url": google_news_url,
+                    "image": image_url,
+                    "title": article_title,
+                    "description": article_description,
+                    "emotions": emotions,
+                    "sentiment": sentiment,
+                    "categories": dict(zip(valid_categories, valid_subcategories)),
+                    "time_analyze": datetime.datetime.utcnow(),
+                    "time_of_the_article": article_date_publish
+                })
             else:
                 logger.info(f"Not added article: {final_url}")
             time.sleep(int(os.environ.get("SECOND_WAIT_REDUCE_USAGE")))

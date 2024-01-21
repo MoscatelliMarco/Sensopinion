@@ -32,6 +32,6 @@ class DBClient():
             "sentiment": sentiment,
             "categories": dict(zip(category, subcategories)),
             "time_analyze": datetime.datetime.utcnow(),
-            "time_of_the_article": time_of_the_article if time_of_the_article else None
+            "time_of_the_article": time_of_the_article
         }
         self.collection.insert_one(doc)

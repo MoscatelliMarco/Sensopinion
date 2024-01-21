@@ -1645,12 +1645,16 @@ html{
   position: sticky;
 }
 
-.bottom-6{
-  bottom: 1.5rem;
+.bottom-4{
+  bottom: 1rem;
 }
 
 .left-0{
   left: 0px;
+}
+
+.left-1\/2{
+  left: 50%;
 }
 
 .right-0{
@@ -1661,28 +1665,12 @@ html{
   right: 0.5rem;
 }
 
-.right-6{
-  right: 1.5rem;
-}
-
 .top-0{
   top: 0px;
 }
 
 .top-2{
   top: 0.5rem;
-}
-
-.bottom-4{
-  bottom: 1rem;
-}
-
-.right-4{
-  right: 1rem;
-}
-
-.left-1\/2{
-  left: 50%;
 }
 
 .z-10{
@@ -2645,6 +2633,10 @@ html{
     width: 100%;
   }
 
+  .md\:w-56{
+    width: 14rem;
+  }
+
   .md\:max-w-3xl{
     max-width: 48rem;
   }
@@ -2747,6 +2739,11 @@ html{
     padding-right: 0.75rem;
   }
 
+  .md\:px-4{
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
   .md\:px-5{
     padding-left: 1.25rem;
     padding-right: 1.25rem;
@@ -2775,11 +2772,6 @@ html{
   .md\:py-5{
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
-  }
-
-  .md\:px-4{
-    padding-left: 1rem;
-    padding-right: 1rem;
   }
 
   .md\:pb-2{
@@ -3031,6 +3023,11 @@ html{
     padding-right: 1.125rem;
   }
 
+  .lg\:px-6{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
   .lg\:py-1{
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
@@ -3054,11 +3051,6 @@ html{
   .lg\:py-8{
     padding-top: 2rem;
     padding-bottom: 2rem;
-  }
-
-  .lg\:px-6{
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
   }
 
   .lg\:pb-4{

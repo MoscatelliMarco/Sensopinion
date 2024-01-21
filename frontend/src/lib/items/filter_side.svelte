@@ -12,7 +12,7 @@
     const switchEnvironment = () => {show_more_environment = !show_more_environment; if (window.innerWidth < 768) {show_more_economy = false; show_more_politics = false;}}
 </script>
 
-<div class="lg:absolute lg:top-0 lg:left-0 flex flex-col gap-8 pt-1 pb-3 pr-4 pl-1 w-full h-full bg-white">
+<div class="lg:absolute lg:top-0 lg:left-0 flex flex-col gap-8 pt-1 pb-3 pr-4 pl-1 w-full md:w-56 h-full bg-white">
     <div class="flex flex-col gap-4 lg:gap-6">
         <h6 class="font-semibold text-xl">Topics</h6>
         <div class="grid grid-cols-2 md:grid-cols-8 lg:grid-cols-1 gap-y-5 gap-x-8 md:gap-x-0">

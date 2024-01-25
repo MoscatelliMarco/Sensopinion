@@ -114,7 +114,7 @@
                     " class="flex flex-col items-center justify-center bg-white rounded-full {dimension == 'big' ? 'pt-0.5' : ''}">
                     {#if dimension == 'big'}
                         <p class="text-xs lg:text-sm text-light flex"><span class="text-xxs lg:text-xs">👍</span>Positivity<span class="text-xxs lg:text-xs">👍</span></p>
-                        <p class="font-bold text-lg lg:text-xl mt-neg-2 text-primary-gradient">{value_positivity}%</p>
+                        <p class="font-bold text-lg lg:text-xl mt-neg-2 text-primary-gradient">{value_positivity ? value_positivity : 0}%</p>
                     {:else}
                         <p class="text-xs">{value_positivity == undefined ? "❌" : "👍"}</p>
                     {/if}
@@ -154,7 +154,7 @@
                     " class="flex flex-col items-center justify-center bg-white rounded-full {dimension == 'big' ? 'pt-0.5' : ''}">
                         {#if dimension == 'big'}
                             <p class="text-xs lg:text-sm text-light"><span class="text-xxs lg:text-xs">✊</span>Subjectivity<span class="text-xxs lg:text-xs">✊</span></p>
-                            <p class="font-bold text-lg lg:text-xl mt-neg-2 text-primary-gradient">{value_subjectivity}%</p>
+                            <p class="font-bold text-lg lg:text-xl mt-neg-2 text-primary-gradient">{value_subjectivity ? value_subjectivity : 0}%</p>
                         {:else}
                             <p class="text-xs">{value_positivity == undefined ? "❌" : "✊"}</p>
                         {/if}
@@ -193,8 +193,8 @@
                     height: {size - thickness * 2}px;
                     " class="flex flex-col items-center justify-center bg-white rounded-full {dimension == 'big' ? 'pt-0.5' : ''}">
                         {#if dimension == 'big'}
-                            <p class="text-xs lg:text-sm text-light"><span class="text-xxs lg:text-xs">{emoji_1}</span>{emotion_1.charAt(0).toUpperCase() + emotion_1.slice(1)}<span class="text-xxs lg:text-xs">{emoji_1}</span></p>
-                            <p class="font-bold text-lg lg:text-xl mt-neg-2 text-primary-gradient">{value_1}%</p>
+                            <p class="text-xs lg:text-sm text-light"><span class="text-xxs lg:text-xs">{!emoji_1 ? "❌" : emoji_1}</span>{emotion_1 ? emotion_1.charAt(0).toUpperCase() + emotion_1.slice(1) : "No data"}<span class="text-xxs lg:text-xs">{!emoji_1 ? "❌" : emoji_1}</span></p>
+                            <p class="font-bold text-lg lg:text-xl mt-neg-2 text-primary-gradient">{value_1 ? value_1 : 0}%</p>
                         {:else}
                             <p class="text-xs">{value_positivity == undefined ? "❌" : emoji_1}</p>
                         {/if}
@@ -233,8 +233,8 @@
                     height: {size - thickness * 2}px;
                     " class="flex flex-col items-center justify-center bg-white rounded-full {dimension == 'big' ? 'pt-0.5' : ''}">
                     {#if dimension == 'big'}
-                        <p class="text-xs lg:text-sm text-light"><span class="text-xxs lg:text-xs">{emoji_2}</span>{emotion_2.charAt(0).toUpperCase() + emotion_2.slice(1)}<span class="text-xxs lg:text-xs">{emoji_2}</span></p>
-                        <p class="font-bold text-lg lg:text-xl mt-neg-2 text-primary-gradient">{value_2}%</p>
+                        <p class="text-xs lg:text-sm text-light"><span class="text-xxs lg:text-xs">{!emoji_2 ? "❌" : emoji_2}</span>{emotion_2 ? emotion_2.charAt(0).toUpperCase() + emotion_2.slice(1) : "No data"}<span class="text-xxs lg:text-xs">{!emoji_2 ? "❌" : emoji_2}</span></p>
+                        <p class="font-bold text-lg lg:text-xl mt-neg-2 text-primary-gradient">{value_2 ? value_2 : 0}%</p>
                     {:else}
                         <p class="text-xs">{value_positivity == undefined ? "❌" : emoji_2}</p>
                     {/if}

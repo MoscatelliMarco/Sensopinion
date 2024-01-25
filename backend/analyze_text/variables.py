@@ -8,7 +8,8 @@ black_listed_domains = [
     "bloomberg.com",
     "nytimes.com",
     "youtube.com",
-    "www.macrobusiness.com.au"
+    "macrobusiness.com.au",
+    "telegraph.co.uk"
 ]
 
 categories = ['Politics', 'Economy', 'Environment']

@@ -8,7 +8,7 @@ export async function load({ fetch }) {
         news_articles = value.news;
     })
     unsubscribe()
-    if (news_articles === undefined) {
+    if (news_articles === undefined || (news_articles instanceof Array && !news_articles.length)) {
         let res;
         try {
             res = await fetch(`${import.meta.env.VITE_BACKEND_SERVER_IP}/api/news`);

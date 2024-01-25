@@ -57,5 +57,13 @@
         Read
       </a>
     </div>
+    {#each ['Politics', 'Economy', 'Environment'] as category}
+      {#if news['categories'][category]}
+        {#each news['categories'][category] as subcategory}
+          <p>{subcategory}</p>
+        {/each}
+        <p>________</p>
+      {/if}
+    {/each}
   </div>
 </div>

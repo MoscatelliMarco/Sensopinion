@@ -4,7 +4,7 @@
     export let data;
     let news = data['props']['data'][0]
 
-    let timer = 5;
+    let timer = 3;
     onMount(() => {
         setInterval(() => {
             if (timer != 0) {

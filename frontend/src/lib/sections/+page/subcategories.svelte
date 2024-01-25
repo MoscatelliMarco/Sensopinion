@@ -19,7 +19,7 @@
                 <!-- div to have the other two elements centered when grid-cols-4 -->
                 <div class="hidden md:block xl:hidden"></div>
             {/if}
-            <a href="#" class="flex flex-col items-center gap-2 xl:gap-3">
+            <a href="/categories/{category_type}?subcategories={category.replaceAll(" ", "_").toLowerCase()}" class="flex flex-col items-center gap-2 xl:gap-3">
                 <h4 class="text-xs md:text-base text-center font-medium">{category}</h4>
                 <NewsChart name="{category.toLowerCase().replaceAll(" ", "_") + '_' + category_type}" value={
                     (category.toLowerCase().replaceAll(" ", "_") + '_' + category_type) in metrics ? 

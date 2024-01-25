@@ -83,22 +83,39 @@
     let news_articles_show = []
     let before_dict_params = { ...$dict_params };
     $: if ($dict_params) {
+        // Run only if the html is mounted, if news_articles exist and the previous dict_params is different from the new one
         if (news_articles && (!isEquivalent(before_dict_params, $dict_params) || !is_mounted)) {
             news_articles_show = news_articles.filter((item) => {
-                if (!Object.keys($dict_params).length) {
-                    return true;
-                }
-                let are_all_categories_blank = 0;
+                // If there is not category filter show everything
+                let count_not_present_categories = 0;
                 for (let category in categories) {
-                    if ($dict_params[category] === undefined) {
-                        are_all_categories_blank += 1
-                    }
-                    if ($dict_params[category] && (category.charAt(0).toUpperCase() + category.slice(1)) in item['categories']){
-                        return true;
+                    if (!$dict_params[category]) {
+                        count_not_present_categories += 1;
                     }
                 }
-                if (are_all_categories_blank == Object.keys(categories).length) {
+                if (count_not_present_categories == Object.keys(categories).length) {
                     return true;
+                }
+                for (let category in categories) {
+                    if ($dict_params[category]) {
+                        if ($dict_params[category] == 'true' || $dict_params[category] === true) {
+                            for (let news_category in item['categories']) {
+                                if (news_category.toLowerCase() == category) {
+                                    return true;
+                                }
+                            }
+                        } 
+                        // if the parameters is a list
+                        else {
+                            if (item['categories'][category.charAt(0).toUpperCase() + category.slice(1)]) {
+                                for (let news_subcategory of item['categories'][category.charAt(0).toUpperCase() + category.slice(1)]) {
+                                    if ($dict_params[category].includes(news_subcategory.replaceAll(" ", "_").toLowerCase())) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 return false;
             })

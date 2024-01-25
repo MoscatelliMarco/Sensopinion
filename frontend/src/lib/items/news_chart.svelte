@@ -201,7 +201,7 @@
                             font-weight: {font_weight};
                             font-size: {font_size}px;
                         " class="text-primary-gradient">
-                            {Number(value) ? value + '%' : value}
+                            {value + '%'}
                         </div>
                     </div>
                 </div>

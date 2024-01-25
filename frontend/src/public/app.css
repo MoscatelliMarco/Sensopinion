@@ -2350,6 +2350,10 @@ html{
   padding-top: 0.375rem;
 }
 
+.pt-2{
+  padding-top: 0.5rem;
+}
+
 .pt-6{
   padding-top: 1.5rem;
 }
@@ -2625,16 +2629,16 @@ html{
     width: 10rem;
   }
 
+  .md\:w-56{
+    width: 14rem;
+  }
+
   .md\:w-auto{
     width: auto;
   }
 
   .md\:w-full{
     width: 100%;
-  }
-
-  .md\:w-56{
-    width: 14rem;
   }
 
   .md\:max-w-3xl{

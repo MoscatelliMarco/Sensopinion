@@ -20,7 +20,7 @@
                 }
             }
         }
-        if (news_articles !== undefined) {
+        if (news_articles !== undefined && news_articles.length) {
             for (let emotion of ['anger', 'disgust', 'fear', 'neutral', 'sadness', 'surprise', 'happiness']) {
                 for (let news of news_articles) {
                     if (emotion in metrics['all']['emotions']) {
@@ -108,7 +108,7 @@
                         <div class="hidden md:block lg:hidden"></div>
                     {/if}
                     <div class="flex flex-col gap-1 lg:gap-0.25 justify-between border-2 px-3 lg:px-4.5 xl:px-6 pb-2 pt-1.5 rounded-full">
-                        <a href="/categories/{category.toLowerCase()}/{subcategory.replaceAll(" ", "_").toLowerCase()}" class="italic text-xs lg:text-sm font-medium hover:font-semibold">{subcategory}</a>
+                        <a href="/categories/{category.toLowerCase()}?subcategories={subcategory.replaceAll(" ", "_").toLowerCase()}" class="italic text-xs lg:text-sm font-medium hover:font-semibold">{subcategory}</a>
                         <GridRadialProgress name={subcategory.replaceAll(" ", "_").toLowerCase() + "_" + category.toLowerCase()} metrics={metrics} dimension={'small'}/>
                     </div>
                 {/each}

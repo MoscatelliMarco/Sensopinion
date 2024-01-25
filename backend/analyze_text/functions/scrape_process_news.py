@@ -35,21 +35,18 @@ def analyze_and_post_with_timeout(news_entries, google_news_url, mongo_client, t
     return True
 
 def scrape_process_news(mongo_client):
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+    # headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
     news_entries = mongo_client.fetch_news()
     google_news_urls = []
-
     for url_to_scrape in urls_to_scrape:
-        response = requests.get(url_to_scrape, headers=headers)
+        response = requests.get(url_to_scrape)
         soup = BeautifulSoup(response.text, 'html.parser')
-
         for link in soup.find_all('article'):
             a_tag = link.find('a', href=True)
             if a_tag and 'href' in a_tag.attrs:
                 partial_url = a_tag.attrs['href']
                 google_news_url = f'https://news.google.com{partial_url}'
                 google_news_urls.append(google_news_url)
-
     random.shuffle(google_news_urls)
     for news_index, google_news_url in enumerate(google_news_urls):
         logger.info(f"Analyzing news number {news_index + 1} out of {len(google_news_urls)}")

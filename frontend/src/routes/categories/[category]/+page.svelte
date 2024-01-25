@@ -1,12 +1,220 @@
 <script>
     import { globalStore } from "../../../stores";
+    import { isEquivalent } from "../../../public/dictEquivalent"
+    import { onMount, onDestroy } from "svelte";
     import NewsDisplay from "$lib/sections/screener/+page/news_display.svelte"
     import GridRadialProgress from "$lib/items/grid_radial_progress.svelte"
     import { page } from '$app/stores';
+    import { pushState } from "$app/navigation";
+    import { writable } from 'svelte/store';
+    import { browser } from "$app/environment";
 
     let news_articles = $globalStore.news;
     let metrics = $globalStore.metrics;
     let categories = $globalStore.categories;
+
+    // Store for the dictionary parameters.
+    const dict_params = writable({});
+
+    // FILTERS
+    let subtopic_checkboxes;
+    function checkSubTopic() {
+        let active_sub_filter = []
+        for (let checkbox of subtopic_checkboxes) {
+            if (checkbox.checked) {
+                active_sub_filter.push(checkbox.dataset['filter'])
+            }
+        }
+        dict_params.update(($dict) => {
+            if (active_sub_filter.length) {
+                $dict['subcategories'] = active_sub_filter;
+            } else {
+                delete $dict['subcategories']
+            }
+            return $dict;
+        })
+    }
+    onMount(() => {
+        subtopic_checkboxes = document.querySelectorAll(".subtopic_checkbox");
+        for (let checkbox of subtopic_checkboxes){
+            checkbox.addEventListener('change', checkSubTopic)
+        }
+    })
+    onDestroy(() => {
+        for (let checkbox of subtopic_checkboxes){
+            checkbox.removeEventListener('change', checkSubTopic)
+        }
+    })
+
+
+    // SORT
+    $: if (ascending || !ascending) {
+        dict_params.update($dict => {
+            if (ascending) {
+                $dict['ascending'] = 'true';   
+            } else {
+                delete $dict['ascending']
+            }
+            return $dict
+        })
+    }
+
+    let sort_select;
+    onMount(() => {
+        // Add an event listener for the 'change' event
+        sort_select.addEventListener('change', (event) => {
+            // Get the value of the selected option
+            const selectedValue = event.target.value;
+            
+            dict_params.update($dict => {
+                if (selectedValue == 'date') {
+                    delete $dict['sortby']
+                } else {
+                    $dict['sortby'] = selectedValue;
+                }
+                return $dict
+            })
+        });
+    })
+
+    // Logic component select option input
+    let options;
+    onMount(() => {
+        options = document.querySelectorAll(".sortby-options")
+    })
+    $: if ($dict_params) {
+        if (options) {
+            for (let option of options) {
+                if ($dict_params['sortby'] == option.value) {
+                    option.selected = true;
+                } else {
+                    option.selected = false;
+                }
+            }
+        }
+    }
+
+    // This function updates the URL parameters to reflect the current store state.
+    function updateURLParams(params) {
+        const search_params = new URLSearchParams(params)
+        // Get the current URL
+        const currentUrl = window.location.href;
+        // Create a URL object using the current URL
+        const urlObject = new URL(currentUrl);
+        // Extract the base URL
+        const baseURL = urlObject.origin + urlObject.pathname;
+
+        if (currentUrl != baseURL + (search_params.toString() ? ("?" + search_params.toString()) : "")) {
+            if (search_params.toString()) {
+                pushState(baseURL + "?" + search_params.toString(), {});
+            } else {
+                pushState(baseURL, {});
+            }
+        }
+    }
+
+    // Reactively update URL when dict_params changes.
+    let ascending = false;
+    $: if ($dict_params) {
+        ascending = 'ascending' in $dict_params ? true : false;
+        // Check if the component is mounted so the URL params are not resetted at the start
+        if (is_mounted) {
+            updateURLParams($dict_params);
+        }
+    }
+
+    // This function initializes the store from URL parameters.
+    function initParamsFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        const initialParams = {};
+        params.forEach((value, key) => {
+            initialParams[key] = value;
+        });
+        dict_params.set(initialParams);
+    }
+
+    // On component mount, initialize the store from URL parameters.
+    let is_mounted = false;
+    onMount(() => {
+        is_mounted = true;
+        if (browser) {
+            initParamsFromURL();
+        }
+    });
+
+    // Logic changes news_articles_based on filters
+    let news_articles_show = []
+    let before_dict_params = { ...$dict_params };
+    $: if ($dict_params) {
+        // Run only if the html is mounted, if news_articles exist and the previous dict_params is different from the new one
+        if (news_articles && (!isEquivalent(before_dict_params, $dict_params) || !is_mounted)) {
+            news_articles_show = news_articles.filter((item) => {
+                if (!$dict_params['subcategories']) {
+                    return true;
+                }
+                if ($dict_params['subcategories']) {
+                    if (item['categories'][$page.params.category.charAt(0).toUpperCase() + $page.params.category.slice(1)]) {
+                        for (let news_subcategory of item['categories'][$page.params.category.charAt(0).toUpperCase() + $page.params.category.slice(1)]) {
+                            if ($dict_params['subcategories'].includes(news_subcategory.replaceAll(" ", "_").toLowerCase())) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                return false;
+            })
+
+            news_articles_show.sort((a, b) => {
+
+                let factor1;
+                let factor2;
+
+                if ($dict_params['sortby'] == 'positivity') {
+                    factor1 = a['sentiment']['polarity'];
+                    factor2 = b['sentiment']['polarity'];
+                } else if ($dict_params['sortby'] == 'subjectivity') {
+                    factor1 = a['sentiment']['subjectivity'];
+                    factor2 = b['sentiment']['subjectivity'];
+                } 
+                
+                else if ($dict_params['sortby'] == 'happiness') {
+                    factor1 = a['emotions']['happiness'];
+                    factor2 = b['emotions']['happiness'];
+                } else if ($dict_params['sortby'] == 'surprise') {
+                    factor1 = a['emotions']['surprise'];
+                    factor2 = b['emotions']['surprise'];
+                } else if ($dict_params['sortby'] == 'fear') {
+                    factor1 = a['emotions']['fear'];
+                    factor2 = b['emotions']['fear'];
+                } else if ($dict_params['sortby'] == 'disgust') {
+                    factor1 = a['emotions']['disgust'];
+                    factor2 = b['emotions']['disgust'];
+                } else if ($dict_params['sortby'] == 'anger') {
+                    factor1 = a['emotions']['anger'];
+                    factor2 = b['emotions']['anger'];
+                } else if ($dict_params['sortby'] == 'neutral') {
+                    factor1 = a['emotions']['neutral'];
+                    factor2 = b['emotions']['neutral'];
+                } else if ($dict_params['sortby'] == 'sadness') {
+                    factor1 = a['emotions']['sadness'];
+                    factor2 = b['emotions']['sadness'];
+                }
+
+                else {
+                    factor1 = new Date(a['time_of_the_article']);
+                    factor2 = new Date(b['time_of_the_article']);
+                }
+
+                // Compare the dates to determine their order
+                if (!$dict_params['ascending']) {
+                    return factor2 - factor1; // Use dateA - dateB for ascending order.
+                }
+                return factor1 - factor2;
+            });
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            before_dict_params = { ...$dict_params }
+        }
+    }
 
     if (!Object.keys(metrics).length) {
         metrics = {
@@ -22,7 +230,7 @@
                 }
             }
         }
-        if (news_articles !== undefined) {
+        if (news_articles !== undefined && news_articles.length) {
             for (let emotion of ['anger', 'disgust', 'fear', 'neutral', 'sadness', 'surprise', 'happiness']) {
                 for (let news of news_articles) {
                     if (emotion in metrics['all']['emotions']) {
@@ -96,8 +304,6 @@
             return value;
         })
     }
-
-    let ascending = true;
 </script>
 
 <div class="flex flex-col gap-8">
@@ -110,7 +316,7 @@
                 </div>
             </div>
             <div class="flex gap-6 items-center">
-                <select class="w-32 text-sm rounded-none p-0 bg-white">
+                <select bind:this={sort_select} class="w-32 text-sm rounded-none p-0 bg-white">
                     <option class="sortby-options" value="date">Date</option>
     
                     <option class="sortby-options" value="positivity">Positivity</option>
@@ -143,14 +349,16 @@
                     <div class="hidden md:block lg:hidden"></div>
                 {/if}
                 <div class="flex gap-1">
-                    <input type="checkbox" id="{subcategory}_checkbox" class="w-5"/>
+                    <input type="checkbox" id="{subcategory}_checkbox" class="subtopic_checkbox w-5" checked={
+                        $dict_params['subcategories'] && ($dict_params['subcategories'] === true || $dict_params['subcategories'].includes(subcategory.toLowerCase().replaceAll(" ", "_"))) ? "checked" : ""
+                    } data-filter={subcategory.toLowerCase().replaceAll(" ", "_")}/>
                     <label for="{subcategory}_checkbox" class="text-xs">{subcategory}</label>
                 </div>
             {/each}
         </div>
     </div>
     
-    <NewsDisplay news_articles={news_articles} />
+    <NewsDisplay news_articles={news_articles_show} />
 </div>
 
 <div style="transform: translateX(-50%);" class="fixed bottom-4 left-1/2 flex justify-end max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-6xl px-2 md:px-4 lg:px-6 w-full pointer-events-none">

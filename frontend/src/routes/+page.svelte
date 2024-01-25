@@ -91,7 +91,7 @@
                 }
             }
         }
-        if (news_articles !== undefined) {
+        if (news_articles !== undefined && news_articles.length) {
             for (let emotion of ['anger', 'disgust', 'fear', 'neutral', 'sadness', 'surprise', 'happiness']) {
                 for (let news of news_articles) {
                     if (emotion in metrics['all']['emotions']) {
@@ -227,7 +227,7 @@
             </div>
             <div class="flex flex-col justify-center px-2 md:px-0 gap-2 md:gap-4 mt-0 md:mt-6">
                 <a href="/categories" class="flex justify-center">
-                    <NewsChart name="all" value={metrics['all'][factor]} dimension='big' emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
+                    <NewsChart name="all" value={news_articles !== undefined && news_articles.length ? metrics['all'][factor] : 0} dimension='big' emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                 </a>
                 <div class="relative h-12 lg:h-13">
                     {#if (factor !== 'emotions')}
@@ -279,7 +279,7 @@
                     <div class="flex flex-col justify-center md:gap-5 lg:gap-6 w-full items-center">
                         <a href="/categories/politics" class="flex flex-col gap-1.5 md:gap-2">
                             <h4 class="font-medium text-center text-base md:text-lg xl:text-xl">Politics</h4>
-                            <NewsChart name="politics" dimension='medium' value={metrics['politics'][factor]} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
+                            <NewsChart name="politics" dimension='medium' value={news_articles !== undefined && news_articles.length ? metrics['politics'][factor] : 0} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
                         <div class="flex justify-center mt-4">
                             <button on:click={show_more} data-category_type="politics" 
@@ -297,7 +297,7 @@
                     <div class="flex flex-col justify-center md:gap-5 lg:gap-6 w-full items-center">
                         <a href="/categories/economy" class="flex flex-col gap-1.5 md:gap-2">
                             <h4 class="font-medium text-center text-base md:text-lg xl:text-xl">Economy</h4>
-                            <NewsChart name="economy" dimension='medium' value={metrics['economy'][factor]} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
+                            <NewsChart name="economy" dimension='medium' value={news_articles !== undefined && news_articles.length ? metrics['economy'][factor] : 0} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
                         <div class="flex justify-center mt-4">
                             <button on:click={show_more} data-category_type="economy" 
@@ -315,7 +315,7 @@
                     <div class="flex flex-col justify-center md:gap-5 lg:gap-6 w-full items-center">
                         <a href="/categories/environment" class="flex flex-col gap-1.5 md:gap-2">
                             <h4 class="font-medium text-center text-base md:text-lg xl:text-xl">Environment</h4>
-                            <NewsChart name="environment" dimension='medium' value={metrics['environment'][factor]} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
+                            <NewsChart name="environment" dimension='medium' value={news_articles !== undefined && news_articles.length ? metrics['environment'][factor] : 0} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
                         <div class="flex justify-center mt-4">
                             <div class="flex justify-center">

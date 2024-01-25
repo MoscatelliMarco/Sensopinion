@@ -10,7 +10,7 @@
     export let dict_params;
     let topic_key = topic.toLowerCase()
     let subtopic_checkboxes;
-    function checkSubTopic(event) {
+    function checkSubTopic() {
         let active_sub_filter = []
         for (let checkbox of subtopic_checkboxes) {
             if (checkbox.checked) {
@@ -54,7 +54,7 @@
     <div class="flex justify-between">
         <label for="{sub_topic}_checkbox" class="text-sm">{sub_topic}</label>
         <input type="checkbox" checked={
-            $dict_params[topic_key] && ($dict_params[topic_key] === true || $dict_params[topic_key].includes(sub_topic.toLowerCase().replaceAll(" ", "_"))) ? "checked" : ""
+            $dict_params[topic_key] && ($dict_params[topic_key] === true || $dict_params[topic_key].includes(sub_topic.toLowerCase().replaceAll(" ", "_"))) || $dict_params[topic_key] == 'true' ? "checked" : ""
         } data-filter={sub_topic.toLowerCase().replaceAll(" ", "_")} id="{sub_topic}_checkbox" class="w-4 subtopic_checkbox"/>
     </div>
 {/each}

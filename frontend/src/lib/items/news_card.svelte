@@ -1,6 +1,7 @@
 <script>
   import RadialProgressSmall from "./radial_progress_small.svelte";
   import { fade } from "svelte/transition";
+  import ImageComponentCard from "./image_component_card.svelte";
 
   export let news;
   export let animate = true;
@@ -33,9 +34,7 @@
         </a>
       {/if}
     </div>
-    <a href="/redirect/{news['_id']}" target="_blank" class="overflow-hidden w-full h-52 lg:h- border-x border-t">
-      <img src="{news['image']}" alt="thumbnail of news article" class="object-cover w-full h-full rounded-t-sm"/>
-    </a>
+    <ImageComponentCard url={news["image"]} id={news["_id"]}/>
     <div class="px-3 lg:px-4 flex flex-col gap-1 lg:gap-1.5">
       <div class="flex justify-between gap-1 lg:gap-2">
         <h6 class="font-medium text-lg">

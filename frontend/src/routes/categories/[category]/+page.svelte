@@ -143,14 +143,16 @@
     });
 
     // Logic changes news_articles_based on filters
-    let news_articles_show = []
+    let news_articles_show = [];
     let before_dict_params = { ...$dict_params };
     $: if ($dict_params) {
         // Run only if the html is mounted, if news_articles exist and the previous dict_params is different from the new one
         if (news_articles && (!isEquivalent(before_dict_params, $dict_params) || !is_mounted)) {
             news_articles_show = news_articles.filter((item) => {
                 if (!$dict_params['subcategories']) {
-                    return true;
+                    if (Object.keys(item['categories']).includes($page.params.category.charAt(0).toUpperCase() + $page.params.category.slice(1))) {
+                        return true;
+                    }
                 }
                 if ($dict_params['subcategories']) {
                     if (item['categories'][$page.params.category.charAt(0).toUpperCase() + $page.params.category.slice(1)]) {
@@ -361,7 +363,7 @@
     <NewsDisplay news_articles={news_articles_show} />
 </div>
 
-<div style="transform: translateX(-50%);" class="fixed bottom-4 left-1/2 flex justify-end max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-6xl px-2 md:px-4 lg:px-6 w-full pointer-events-none">
+<div style="transform: translateX(-50%);" class="fixed bottom-2 md:bottom-4 lg:bottom-6 left-1/2 flex justify-end max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-6xl px-2 md:px-4 lg:px-6 w-full pointer-events-none">
     <button class="bg-white rounded-full pointer-events-auto" on:click={() => {window.scrollTo({top: 0, behavior: 'smooth'});}}>
         <div class="bg-primary-gradient-opacity bg-primary-gradient-opacity-inter rounded-full p-3">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="fill-white h-6">

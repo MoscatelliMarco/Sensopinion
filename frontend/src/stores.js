@@ -52,7 +52,7 @@ export const globalStore = writable({
     },
     news: undefined,
     metrics: {},
-    stretchFunction: function (x, stretch_constant = 0.15) {
+    stretchFunction: function (x, stretch_constant = 0.2) {
       if (x >= 1 - stretch_constant) {
         return 1
       } else if (x <= stretch_constant) {

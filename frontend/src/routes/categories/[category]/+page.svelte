@@ -311,7 +311,7 @@
 <div class="flex flex-col gap-8">
     <div class="flex flex-col gap-4 mt-8">
         <div class="flex justify-between">
-            <div class="flex gap-4">
+            <div class="flex flex-col md:flex-row gap-1 md:gap-4 mb-1 md:mb-0">
                 <h1 class="text-3xl text-primary-gradient font-semibold">{($page.params.category).charAt(0).toUpperCase() + ($page.params.category).slice(1)}</h1>
                 <div class="w-36 flex flex-col justify-center">
                     <GridRadialProgress metrics={metrics} name={$page.params.category} dimension='side'/>

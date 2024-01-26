@@ -12,7 +12,7 @@ module.exports = {
         main: {
           blue: "rgb(33, 135, 219)",
           purple: "rgb(112, 46, 219)",
-          "neutral-light": "#E7E7E7",
+          "neutral-light": "#E2E2E2",
           neutral: "#878787",
           "neutral-dark": "#616161",
           white: "#FEFEFE",
@@ -27,7 +27,7 @@ module.exports = {
       colors: {
         blue: "rgb(33, 135, 219)",
         purple: "rgb(112, 46, 219)",
-        "neutral-light": "#E7E7E7",
+        "neutral-light": "#E2E2E2",
         neutral: "#878787",
         "neutral-dark": "#616161",
         white: "#FEFEFE",
@@ -54,7 +54,9 @@ module.exports = {
         "38": "9.5rem",
         "88": "22rem",
         "100": "25rem",
-        "104": "26rem"
+        "104": "26rem",
+        "124": "31rem",
+        "160": "40rem"
       },
       borderRadius: {
         // "4xl": "2.25rem",

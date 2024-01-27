@@ -160,8 +160,8 @@ def process_article_text(text):
     valid_categories, valid_subcategories = pick_categories((clusters[0] + "\n" + clusters[1]) if len(clusters) != 1 else clusters[0])
 
     if not len(valid_categories) or not len(valid_subcategories):
-        logger.info(f"Category == Others")
-        return
+        valid_categories = ['Others']
+        valid_subcategories = ['Others']
 
     logger.debug("Clustering")
     clusters_dict = []

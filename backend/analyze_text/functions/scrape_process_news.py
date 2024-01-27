@@ -8,6 +8,7 @@ import threading
 from dotenv import load_dotenv
 from variables import urls_to_scrape
 from functions.process_article import process_article
+import datetime
 
 # Set up logging
 date_format = "%Y-%m-%d %H:%M:%S"
@@ -79,7 +80,7 @@ def analyze_and_post(news_entries, google_news_url, mongo_client):
                 logger.info(f"Added article: {final_url}")
                 mongo_client.insert_article(final_url, google_news_url, image_url, article_description, article_title, emotions, sentiment, valid_categories, valid_subcategories, article_date_publish)
                 news_entries.append({
-                    "url": url,
+                    "url": final_url,
                     "google_news_url": google_news_url,
                     "image": image_url,
                     "title": article_title,
@@ -91,7 +92,7 @@ def analyze_and_post(news_entries, google_news_url, mongo_client):
                     "time_of_the_article": article_date_publish
                 })
             else:
-                logger.info(f"Not added article: {final_url}")
+                logger.info(f"Article not added: {final_url}")
             time.sleep(int(os.environ.get("SECOND_WAIT_REDUCE_USAGE")))
         except Exception as e:
             logger.error(f"Couldn't go through fetch and/or analyze {google_news_url}, error: {e}")

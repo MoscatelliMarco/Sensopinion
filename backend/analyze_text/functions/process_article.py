@@ -88,6 +88,14 @@ def process_article(url, entries):
         logger.info("A sentence or more in the article exceed the max amount of 512 chars")
         return
 
+    # Categories
+    logger.debug("Analyzing categories")
+    valid_categories, valid_subcategories = pick_categories(article_title + "\n" + article_description)
+
+    if not len(valid_categories) or not len(valid_subcategories):
+        logger.info(f"Category == Others {url}")
+        return
+
     logger.debug("Clustering")
     clusters_dict = []
     for i, cluster in enumerate(clusters, 1):
@@ -138,10 +146,6 @@ def process_article(url, entries):
             item_sum_char = 0
     sentiment['polarity'] = (sentiment['polarity'] + 1) / 2
 
-    # Categories
-    logger.debug("Analyzing categories")
-    valid_categories, valid_subcategories = pick_categories(article_title + "\n" + article_description)
-
     return emotions_percentage, sentiment, valid_categories, valid_subcategories, article_date_publish, article_image, article_description, article_title
 
     
@@ -149,7 +153,7 @@ def pick_categories(text, max_selectable_subcategories=5):
     categories_an = copy.deepcopy(categories)
     categories_an.append("Others")
 
-    output = categories_classifier(text, categories, multi_label=True)
+    output = categories_classifier(text, categories_an, multi_label=True)
 
     # Apply kmeans
     data_train = np.array(output['scores']).reshape(-1, 1)

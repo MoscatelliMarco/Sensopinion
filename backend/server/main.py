@@ -1,6 +1,7 @@
 from database import fetch_news
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from analyze_article import *
 
 app = FastAPI()
 
@@ -14,7 +15,7 @@ app.add_middleware(
 )
 
 @app.get("/api/news")
-async def read_root(param: str = None, value: str = None):
+async def return_news(param: str = None, value: str = None):
     try:
         news_list = fetch_news(param, value)
         # Convert each news item to a dictionary and convert ObjectId to string
@@ -23,3 +24,25 @@ async def read_root(param: str = None, value: str = None):
         return news_list
     except Exception as e:
         return []
+
+# BODY FOR ANALYZE_TEXT
+from pydantic import BaseModel, Field
+from typing import Optional
+
+class AnalyzeTextRequest(BaseModel):
+    text: Optional[str] = Field(None, description="Text to analyze")
+    url: Optional[str] = Field(None, description="URL to analyze")
+
+@app.post("/api/analyze_text")
+async def analyze_text(body: AnalyzeTextRequest):
+    # You can now access the data with request_body.text and request_body.url
+    if body.text:
+        if len(body.text) > 2000:
+            return {'error': "The text is over the 1500 charachters limit"}
+        return analyze_text_article(body.text)
+    elif body.url:
+        pass
+    else:
+        return {'error': "invalid text or url"}
+
+    return {"message": "message"}

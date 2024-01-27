@@ -50,7 +50,7 @@
         }
     }
 </script>
-<div class="lg:absolute lg:top-0 lg:left-0 flex flex-col gap-8 pt-1 pb-3 pr-4 pl-1 w-52 h-full bg-white">
+<div class="lg:absolute lg:top-0 lg:left-0 flex flex-col gap-8 pt-1 pb-3 pr-4 pl-1 w-full lg:w-56 h-full bg-white">
     <div class="flex flex-col gap-4">
         <p class="font-semibold text-xl">Sort by</p>
         <div class="flex justify-between items-center">
@@ -79,6 +79,11 @@
                     </svg>
                 {/if}
             </button>
+        </div>
+        <div class="flex flex-row lg:flex-col justify-center gap-7 mb-2">
+            <button class="btn bg-primary-gradient-opacity bg-primary-gradient-inter border-white shadow-md hover:shadow-lg focus:shadow-lg text-white min-h-0 rounded-md px-4 h-7 text-xs font-light">Most positive</button>
+            <button class="btn bg-primary-gradient-opacity bg-primary-gradient-inter border-white shadow-md hover:shadow-lg focus:shadow-lg text-white min-h-0 rounded-md px-4 h-7 text-xs font-light">Most negative</button>
+            <button class="btn bg-primary-gradient-opacity bg-primary-gradient-inter border-white shadow-md hover:shadow-lg focus:shadow-lg text-white min-h-0 rounded-md px-4 h-7 text-xs font-light">Most neutral</button>
         </div>
     </div>
 </div>

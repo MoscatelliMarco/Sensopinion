@@ -197,7 +197,6 @@
         window.addEventListener('resize', widthChangeResize);
 
         // Run it once on load in case the page starts with a scroll
-        checkSticky();
         widthChangeResize()
     })
     onDestroy(() => {

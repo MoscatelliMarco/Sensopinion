@@ -38,7 +38,7 @@
     let thickness = dimension == 'big' ? Math.round(size / 14) : Math.round(size / 12)
     function changeSize () {
         size = parent.offsetWidth;
-        thickness = dimension == 'big' ? Math.round(size / 14) : dimension == 'small' ? Math.round(size / 12) : Math.round(size / 11)
+        thickness = dimension == 'big' ? Math.round(size / 14) : (dimension == 'small' ? Math.round(size / 12) : Math.round(size / 11))
     }
     onMount(() => {
         window.addEventListener('resize', changeSize)
@@ -97,7 +97,7 @@
     })
 </script>
 
-<div class="grid {dimension == 'big' ? "gap-3 md:gap-6 lg:gap-8 xl:gap-10 px-5 md:px-10 lg:px-14 xl:px-16 grid-cols-2 md:grid-cols-4" : "px-0.5 lg:px-0 gap-2 lg:gap-4 grid-cols-4"}">
+<div class="grid {dimension == 'big' ? "gap-3 md:gap-6 lg:gap-8 xl:gap-10 px-5 md:px-10 lg:px-14 xl:px-16 grid-cols-2 md:grid-cols-4" : "px-0.5 lg:px-0 gap-2 lg:gap-3 grid-cols-4"}">
     <div bind:this={parent} class="relative" style="width: 100%; height: {size}px">
         <div class="absolute top-0 left-0">
             <div style="

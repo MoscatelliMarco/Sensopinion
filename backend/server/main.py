@@ -37,11 +37,11 @@ class AnalyzeTextRequest(BaseModel):
 async def analyze_text(body: AnalyzeTextRequest):
     # You can now access the data with request_body.text and request_body.url
     if body.text:
-        if len(body.text) > 2000:
+        if len(body.text) > 2500:
             return {'error': "The text is over the 1500 charachters limit"}
         return analyze_text_article(body.text)
     elif body.url:
-        pass
+        return analyze_url_article(body.url)
     else:
         return {'error': "invalid text or url"}
 

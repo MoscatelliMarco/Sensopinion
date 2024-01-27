@@ -36,19 +36,14 @@ categories_tokenizer = AutoTokenizer.from_pretrained(categories_model_path)
 categories_model = AutoModelForSequenceClassification.from_pretrained(categories_model_path)
 categories_classifier = pipeline("zero-shot-classification", model=categories_model, tokenizer=categories_tokenizer)
 
-def process_article(url, entries, check_validity_news=True):
+def process_article(url):
     article = NewsPlease.from_url(url)
-
-    if check_validity_news:
-        for black_listed_domain in black_listed_domains:
-            if black_listed_domain in url:
-                return
 
     logger.info(url)
     
     # If article is a dict that means that the request was negative
     if isinstance(article, dict):
-        raise Exception(f"Error scraping a website: {url}")
+        return {'error': "It looks like the link you provided is invalid"}
 
     article_text = article.maintext
     article_title = article.title
@@ -56,40 +51,24 @@ def process_article(url, entries, check_validity_news=True):
     article_date_publish = article.date_publish
     article_image = article.image_url
 
-    if check_validity_news:
-        if not article_description:
-            logger.info(f"Article invalid no description: {article.url}")
-            return
-        if not article_text:
-            logger.info(f"Article invalid no maintext: {article.url}")
-            return
-        if not article_date_publish:
-            logger.info(f"Article invalid no date_publish: {article.url}")
-            return
-        if article_date_publish < datetime.now() - timedelta(days=int(os.environ.get("ACCEPTED_DAYS_NEWS"))):
-            logger.info(f"Article invalid date publish older than {int(os.environ.get('ACCEPTED_DAYS_NEWS'))} days: {article.url}")
-            return
-        if not article_title:
-            logger.info(f"Article invalid no title: {article.url}")
-            return
-        if not article_image:
-            logger.info(f"Article invalid no image_url: {article.url}")
-            return
-        if 'news.google.com' in url:
-            logger.info(f"Article invalid url news.google.com domain: {article.url}")
-            return
+    if not article_description:
+        logger.info(f"Article invalid no description: {article.url}")
+    if not article_text:
+        logger.info(f"Article invalid no maintext: {article.url}")
+    if not article_date_publish:
+        logger.info(f"Article invalid no date_publish: {article.url}")
+    if article_date_publish < datetime.now() - timedelta(days=int(os.environ.get("ACCEPTED_DAYS_NEWS"))):
+        logger.info(f"Article invalid date publish older than {int(os.environ.get('ACCEPTED_DAYS_NEWS'))} days: {article.url}")
+    if not article_title:
+        logger.info(f"Article invalid no title: {article.url}")
+    if not article_image:
+        logger.info(f"Article invalid no image_url: {article.url}")
 
-    if check_validity_news:
-        for entry in entries:
-            if article_title == entry['title']:
-                logger.info(f"Article invalid, same title already present inside the database: {article.url}")
-                return
 
     try:
         clusters = process_text(article_text)
     except:
-        logger.info("A sentence or more in the article exceed the max amount of 512 chars")
-        return
+        return {'error': "A sentence or more in the article exceed the max amount of 512 chars, and this is not allowed by our system."}
 
     logger.debug("Clustering")
     clusters_dict = []

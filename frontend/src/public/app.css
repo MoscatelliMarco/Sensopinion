@@ -2032,6 +2032,10 @@ html{
   width: 100%;
 }
 
+.w-48{
+  width: 12rem;
+}
+
 .max-w-3xl{
   max-width: 48rem;
 }
@@ -2886,6 +2890,10 @@ html{
     gap: 1.5rem;
   }
 
+  .md\:gap-3{
+    gap: 0.75rem;
+  }
+
   .md\:gap-x-0{
     -moz-column-gap: 0px;
          column-gap: 0px;
@@ -3098,6 +3106,14 @@ html{
 
   .lg\:w-48{
     width: 12rem;
+  }
+
+  .lg\:w-40{
+    width: 10rem;
+  }
+
+  .lg\:w-44{
+    width: 11rem;
   }
 
   .lg\:max-w-5xl{

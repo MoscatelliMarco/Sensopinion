@@ -201,7 +201,7 @@
             <div class="flex flex-col justify-center gap-4 md:gap-6 lg:gap-8 xl:gap-10 items-center text-center md:text-left">
                 <div class="flex flex-col gap-2 md:gap-4 lg:gap-5 xl:gap-6 items-center md:items-start">
                     <h1 style="line-height: 1.1;" class="font-bold text-3xl md:text-4xl lg:text-5xl xl:text-6xl max-w-xs md:max-w-sm lg:max-w-lg xl:max-w-2xl">
-                        Analyze <span class="text-primary-gradient">Sentiment</span> and <span class="text-primary-gradient">Emotions</span> At The Speed Of Light
+                        Analyze <span class="text-primary-gradient">Sentiment</span> and <span class="text-primary-gradient">Emotions</span> Of News And Articles At The Speed Of Light
                     </h1>
                     <h3 class="max-w-xs xl:max-w-lg text-xs lg:text-sm xl:text-base">
                         We hate reading boring articles just to understand what's happening around us, that's why we created Sensopinion.

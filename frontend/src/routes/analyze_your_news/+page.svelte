@@ -1,5 +1,7 @@
 <script>
     import TextareaAnalyzeText from "../../lib/items/textarea_analyze_text.svelte";
+    import NewsRadioAll from "../../lib/sections/analyze_text/news_radio_all.svelte";
+    import Alert from "../../lib/items/alert.svelte";
 
     let mode_text = true; // State to toggle between text and URL input
     let inputText = ''; // To store the input value
@@ -7,6 +9,8 @@
   
     // Logic to show loading
     let show_loading = false;
+    let data;
+    let message;
 
     // Function to handle form submission
     async function handleSubmit(event) {
@@ -31,27 +35,56 @@
                 show_loading = false;
                 return
             }
-    
-            const data = await response.json();
-            console.log(data); // Handle success response
+            
+            const is_message_showed = getCookie("message_showed")
+            if (!is_message_showed) {
+                console.log(is_message_showed)
+                message = "We can't guarantee with absolute certainty our results to be accurate.";
+                setCookie("message_showed", "true")
+            }
+            data = await response.json();
         } catch (error) {
             console.error('There was a problem with your fetch operation:', error);
         }
         show_loading = false;
     }
-  </script>
-  
-  <div class="w-full flex justify-center mt-10 md:mt-12 lg:mt-16 xl:mt-20">
-      <div class="max-w-3xl flex flex-col w-full">
-          <div class="flex justify-center">
+
+    // Function to set a cookie with an expiration of 5 days
+    function setCookie(name, value, days = 5) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+    }
+
+    // Function to read a cookie by name
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+</script>
+
+<div class="w-full flex flex-col items-center mt-2 md:mt-4 lg:mt-6 relative">
+    {#if message}
+        <Alert message={message}/>
+    {/if}
+    {#if data}
+        {#key data}
+            <div class="w-full flex flex-col items-center justify-center gap-4 pb-4">
+                <NewsRadioAll data={data}/>
+            </div>
+        {/key}
+    {/if}
+    <div class="max-w-3xl flex flex-col w-full mt-8 md:mt-10 lg:mt-12">
+        <div class="flex justify-center">
               <button on:click={() => mode_text = true} class="{mode_text ? 'bg-primary-gradient-opacity text-white' : 'text-black'} w-24 py-1 text-xs border-neutral rounded-tl-md border-x border-t">
                   Text
               </button>
               <button on:click={() => mode_text = false} class="{!mode_text ? 'bg-primary-gradient-opacity text-white' : 'text-black'} w-24 py-1 text-xs border-neutral rounded-tr-md border-r border-t">
                   Url
               </button>
-          </div>
-          <form on:submit={handleSubmit}>
+        </div>
+        <form on:submit={handleSubmit}>
             {#if mode_text}
                 <div class="w-full border border-neutral rounded-sm h-72 md:h-124 lg:h-140">
                     <TextareaAnalyzeText bind:inputText={inputText}/>
@@ -79,6 +112,6 @@
                     </button>
                 </div>
             {/if}
-          </form>
-      </div>
+        </form>
+    </div>
   </div>

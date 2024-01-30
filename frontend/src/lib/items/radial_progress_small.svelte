@@ -17,7 +17,7 @@
     let emoji_2 = emotion_dict[Object.keys(sortedObj)[1]]
 </script>
 
-<div class="flex gap-2">
+<div class="flex gap-1 md:gap-2">
     <div class="relative" style="width: {size}px; height: {size}px">
         <div class="absolute top-0 left-0">
             <div style="

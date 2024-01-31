@@ -81,10 +81,27 @@
             </button>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-2 justify-center gap-x-3 md:gap-x-4 lg:gap-x-2 gap-y-1.5 mb-1 md:mb-0 mt-2">
-            <button on:click={() => {$dict_params['sortby'] = 'positivity'; delete $dict_params['ascending'];}} class="{$dict_params['sortby'] == 'positivity' && $dict_params['ascending'] != 'true' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most positive</button>
-            <button on:click={() => {$dict_params['sortby'] = 'positivity'; $dict_params['ascending'] = 'true';}} class="{$dict_params['sortby'] == 'positivity' && $dict_params['ascending'] =='true' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most negative</button>
-            <button on:click={() => {$dict_params['sortby'] = 'neutral'; delete $dict_params['ascending'];}} class="{$dict_params['sortby'] == 'neutral' && $dict_params['ascending'] != 'true' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most neutral</button>
-            <button on:click={() => {$dict_params['sortby'] = 'anger'; delete $dict_params['ascending'];}} class="{$dict_params['sortby'] == 'anger' && $dict_params['ascending'] != 'true' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most angry</button>
+            <button on:click={() => {
+                $dict_params['sortby'] = 'positivity'; delete $dict_params['ascending'];
+                }} class="{$dict_params['sortby'] == 'positivity' && $dict_params['ascending'] != 'true' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most positive</button>
+            <button on:click={() => {
+                $dict_params['sortby'] = 'positivity'; $dict_params['ascending'] = 'true';
+                }} class="{$dict_params['sortby'] == 'positivity' && $dict_params['ascending'] =='true' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most negative</button>
+            <button on:click={
+            () => {$dict_params['sortby'] = 'neutral'; delete $dict_params['ascending'];
+            }} class="{$dict_params['sortby'] == 'neutral' && $dict_params['ascending'] != 'true' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most neutral</button>
+            <button on:click={
+            () => {
+                dict_params.update(currentParams => {
+                    if (currentParams.sortby === 'anger' && currentParams.ascending !== 'true') {  
+                        delete currentParams.sortby; 
+                    } else { 
+                        currentParams.sortby = 'anger'; 
+                        delete currentParams.ascending;
+                    }
+                    return currentParams;
+                });
+            }} class="{$dict_params['sortby'] == 'anger' && $dict_params['ascending'] != 'true' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most angry</button>
         </div>
     </div>
 </div>

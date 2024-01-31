@@ -90,7 +90,7 @@
             🍃
             </a>
         {/if}
-        {#if data[2].includes("Others")}
+        {#if data[2].includes("Others") || !data[2].length}
             <p class="bg-white rounded-md px-2.5 py-1.5 shadow-sm text-sm">
             Others
             </p>

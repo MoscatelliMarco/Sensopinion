@@ -8,9 +8,15 @@
             <h2 class="text-primary-gradient font-medium text-xl lg:text-2xl">Sensopinion</h2>
         </div>
         <ul class="flex flex-col md:flex-row items-center justify-center gap-0 md:gap-5 lg:gap-8 xl:gap-10 text-sm">
+            <li class="hover:font-medium {$page.url.pathname === '/' ? 'font-medium' : ''}">
+                <a svelte href="/">
+                    Home
+                </a>
+            </li>
+            <li class="font-medium">·</li>
             <li class="hover:font-medium {$page.url.pathname === '/screener' ? 'font-medium' : ''}">
                 <a svelte href="/screener">
-                    Sentiment Screener
+                    Screener
                 </a>
             </li>
             <li class="font-medium">·</li>

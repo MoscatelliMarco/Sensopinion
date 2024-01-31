@@ -26,15 +26,9 @@
                 </a>
             </li>
             <li class="font-medium">·</li>
-            <li class="hover:font-medium {$page.url.pathname === '#' ? 'font-medium' : ''}">
-                <a href="#">
+            <li class="hover:font-medium {$page.url.pathname === '/info/about-us' ? 'font-medium' : ''}">
+                <a href="/info/about-us">
                     About us
-                </a>
-            </li>
-            <li class="font-medium">·</li>
-            <li class="hover:font-medium {$page.url.pathname === '#' ? 'font-medium' : ''}">
-                <a href="#">
-                    Where do we find news
                 </a>
             </li>
         </ul>

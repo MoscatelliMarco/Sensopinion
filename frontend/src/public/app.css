@@ -2310,6 +2310,11 @@ html{
   border-color: rgb(254 254 254 / var(--tw-border-opacity));
 }
 
+.border-warning{
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-wa,oklch(var(--wa)/var(--tw-border-opacity)));
+}
+
 .bg-neutral{
   --tw-bg-opacity: 1;
   background-color: rgb(135 135 135 / var(--tw-bg-opacity));
@@ -2325,6 +2330,11 @@ html{
   background-color: rgb(254 254 254 / var(--tw-bg-opacity));
 }
 
+.bg-warning{
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-wa,oklch(var(--wa)/var(--tw-bg-opacity)));
+}
+
 .bg-opacity-30{
   --tw-bg-opacity: 0.3;
 }
@@ -2335,6 +2345,10 @@ html{
 
 .bg-opacity-90{
   --tw-bg-opacity: 0.9;
+}
+
+.bg-opacity-20{
+  --tw-bg-opacity: 0.2;
 }
 
 .fill-black{

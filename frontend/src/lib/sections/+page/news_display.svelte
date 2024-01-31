@@ -15,11 +15,19 @@
 
   let n_load = 4
   let loading = false
+  let show_reached_end = false;
   function loadNews() {
     loading = true
     setTimeout(() => {
       n_load += 4
       loading = false
+
+      if (n_load >= news_articles.length) {
+          show_reached_end = true;
+          setTimeout(() => {
+            show_reached_end = false;
+          }, 4000)
+        }
     }, 250)
   }
 </script>
@@ -37,6 +45,11 @@
       {#if loading}
         <div transition:slide={{duration: 100}} class="flex justify-center pb-8">
           <span transition:fade={{duration: 150}} class="loading loading-dots loading-md text-neutral"></span>
+        </div>
+      {/if}
+      {#if show_reached_end}
+        <div transition:slide={{duration: 200}}>
+          <p transition:fade={{duration: 300}} class="text-center mt-8 py-2.5 rounded-md bg-warning bg-opacity-30 border border-warning text-sm">You have reached the end</p>
         </div>
       {/if}
       <div class="flex justify-center pt-2">

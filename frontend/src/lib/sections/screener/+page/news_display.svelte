@@ -7,10 +7,11 @@
 
   let loading = false;
   let is_scroll_operation_running = false;
+  let show_reached_end = false;
   function loadOnScroll() {
     const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
 
-    if (nearBottom && !is_scroll_operation_running) {
+    if (nearBottom && !is_scroll_operation_running && !show_reached_end) {
       loading = true;
       is_scroll_operation_running = true;
       setTimeout(() => {
@@ -22,6 +23,12 @@
         }
         loading = false;
         is_scroll_operation_running = false;
+        if (n_load >= news_articles.length) {
+          show_reached_end = true;
+          setTimeout(() => {
+            show_reached_end = false;
+          }, 4000)
+        }
       }, 300)
     }
   }
@@ -50,6 +57,12 @@
 {#if !(news_articles.length)}
   <div class="flex justify-center font-medium text-lg text-center mt-8">
     <p>With your filters there's no available news.</p>
+  </div>
+{/if}
+
+{#if show_reached_end}
+  <div transition:slide={{duration: 200}}>
+    <p transition:fade={{duration: 300}} class="text-center mt-8 py-2.5 rounded-md bg-warning bg-opacity-30 border border-warning text-sm">You have reached the end</p>
   </div>
 {/if}
 

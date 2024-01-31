@@ -267,7 +267,7 @@
                 </div>
             </div>
             <div class="bg-white relative filter-menu" class:w-0={!filterActive && !sortActive} class:w-56={filterActive || sortActive}>
-                <div bind:this={side_menu} class="h-full min-h-100 bg-white filter-menu overflow-hidden relative" class:w-0={!filterActive && !sortActive} class:w-56={filterActive || sortActive}>
+                <div bind:this={side_menu} class="h-full min-h-124 bg-white filter-menu overflow-hidden relative" class:w-0={!filterActive && !sortActive} class:w-56={filterActive || sortActive}>
                     {#if filterShow}
                         <div transition:fade={animParams()}>
                             <FilterSide dict_params={dict_params}/>

@@ -12,7 +12,7 @@
     Your {Object.keys(data).length > 4 ? "url" : "text"} is <span class="text-primary-gradient">analyzed</span>!
 </h6>
 {#if Object.keys(data).length > 4}
-    <div class="rounded-md overflow-hidden shadow-sm hover:shadow-md h-auto w-124">
+    <div class="rounded-md overflow-hidden shadow-sm hover:shadow-md h-auto w-80 md:w-124 mt-1 md:mt-2">
         <div class="flex flex-col justify-between gap-2 lg:gap-3 overflow-hidden h-full relative border">
             <div class="overflow-hidden w-full h-52 lg:h-56 border-x border-t">
                 {#if !imageError}
@@ -28,9 +28,6 @@
                 <h6 class="font-medium text-lg">
                     {data[7].slice(0, 100).replace(/\s$/, '')}{data[5].length > 100 ? "..." : ""}
                 </h6>
-                <div class="mt-0.5">
-                    <!-- <RadialProgressSmall news={news}/> -->
-                </div>
                 </div>
                 <p class="text-sm">
                     {data[6].slice(0, 250).replace(/\s$/, '')}{data[4].length > 250 ? "..." : ""}

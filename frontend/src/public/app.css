@@ -2046,6 +2046,10 @@ html{
   width: 31rem;
 }
 
+.w-80{
+  width: 20rem;
+}
+
 .max-w-3xl{
   max-width: 48rem;
 }
@@ -2832,6 +2836,10 @@ html{
     margin-top: 1.75rem;
   }
 
+  .md\:mt-2{
+    margin-top: 0.5rem;
+  }
+
   .md\:block{
     display: block;
   }
@@ -2882,6 +2890,10 @@ html{
 
   .md\:w-24{
     width: 6rem;
+  }
+
+  .md\:w-124{
+    width: 31rem;
   }
 
   .md\:max-w-3xl{

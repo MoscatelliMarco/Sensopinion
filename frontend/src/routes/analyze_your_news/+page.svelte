@@ -1,6 +1,6 @@
 <script>
     import TextareaAnalyzeText from "../../lib/items/textarea_analyze_text.svelte";
-    import NewsRadioAll from "../../lib/sections/analyze_text/news_radio_all.svelte";
+    import NewsRadioAll from "../../lib/sections/analyze_text/+page/news_radio_all.svelte";
     import Alert from "../../lib/items/alert.svelte";
 
     let mode_text = true; // State to toggle between text and URL input
@@ -42,6 +42,7 @@
                 message = "We can't guarantee with absolute certainty our results to be accurate.";
                 setCookie("message_showed", "true")
             }
+            
             data = await response.json();
         } catch (error) {
             console.error('There was a problem with your fetch operation:', error);
@@ -75,7 +76,7 @@
             </div>
         {/key}
     {/if}
-    <div class="max-w-3xl flex flex-col w-full mt-8 md:mt-10 lg:mt-12">
+    <div class="max-w-3xl flex flex-col w-full mt-10 lg:mt-12">
         <div class="flex justify-center">
               <button on:click={() => mode_text = true} class="{mode_text ? 'bg-primary-gradient-opacity text-white' : 'text-black'} w-24 py-1 text-xs border-neutral rounded-tl-md border-x border-t">
                   Text

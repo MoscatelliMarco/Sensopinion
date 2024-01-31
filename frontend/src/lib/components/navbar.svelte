@@ -96,6 +96,9 @@
             <li class="hover:font-medium text-sm flex flex-col justify-center {$page.url.pathname === '/screener' ? 'text-primary-gradient font-medium' : ''}">
                 <a href="/screener">Screener</a>
             </li>
+            <li class="hover:font-medium text-sm flex flex-col justify-center {$page.url.pathname === '/categories' ? 'text-primary-gradient font-medium' : ''}">
+                <a href="/categories">Categories</a>
+            </li>
             <li class="hover:font-medium text-sm flex flex-col justify-center {$page.url.pathname === '/analyze_your_news' ? 'text-primary-gradient font-medium' : ''}">
                 <a href="/analyze_your_news">Analyze Your News</a>
             </li>
@@ -122,14 +125,14 @@
             <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md {$page.url.pathname === '/screener' ? 'text-primary-gradient font-medium' : ''}">
                 <a href="/screener">Screener</a>
             </li>
+            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md {$page.url.pathname === '/categories' ? 'text-primary-gradient font-medium' : ''}">
+                <a href="/categories">Categories</a>
+            </li>
             <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md {$page.url.pathname === '/analyze_your_news' ? 'text-primary-gradient font-medium' : ''}">
                 <a href="/analyze_your_news">Analyze Your News</a>
             </li>
             <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md {$page.url.pathname === '#' ? 'text-primary-gradient font-medium' : ''}">
                 <a href="#">About us</a>
-            </li>
-            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md {$page.url.pathname === '#' ? 'text-primary-gradient font-medium' : ''}">
-                <a href="#">Where do we find news</a>
             </li>
         </ul>
     </div>

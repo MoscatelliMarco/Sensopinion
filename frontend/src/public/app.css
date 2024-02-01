@@ -2320,6 +2320,11 @@ html{
   border-color: rgb(254 254 254 / var(--tw-border-opacity));
 }
 
+.border-black{
+  --tw-border-opacity: 1;
+  border-color: rgb(15 15 15 / var(--tw-border-opacity));
+}
+
 .bg-error{
   --tw-bg-opacity: 1;
   background-color: var(--fallback-er,oklch(var(--er)/var(--tw-bg-opacity)));
@@ -2396,6 +2401,10 @@ html{
 
 .p-3{
   padding: 0.75rem;
+}
+
+.p-0\.5{
+  padding: 0.125rem;
 }
 
 .px-0{

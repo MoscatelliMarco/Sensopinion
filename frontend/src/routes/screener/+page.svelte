@@ -2,6 +2,7 @@
     import NewsDisplay from '$lib/sections/screener/+page/news_display.svelte';
     import FilterSide from '../../lib/items/filter_side.svelte';
     import SortSide from '../../lib/items/sort_side.svelte';
+    import SearchSide from '../../lib/items/search_side.svelte'
     import { isEquivalent } from "../../public/dictEquivalent"
     import { fade, slide } from 'svelte/transition';
     import { writable } from 'svelte/store';
@@ -16,8 +17,10 @@
     // Filter and sort page conditions
     let filterActive = false;
     let sortActive = false;
+    let searchActive = false;
     let filterShow = false;
     let sortShow = false;
+    let searchShow = false;
 
     let firstOpen = true;
     function animParams(){
@@ -85,6 +88,7 @@
     $: if ($dict_params) {
         // Run only if the html is mounted, if news_articles exist and the previous dict_params is different from the new one
         if (news_articles && (!isEquivalent(before_dict_params, $dict_params) || !is_mounted)) {
+            // Filter categories
             news_articles_show = news_articles.filter((item) => {
                 // If there is not category filter show everything
                 let count_not_present_categories = 0;
@@ -120,6 +124,17 @@
                 return false;
             })
 
+            // Filter by search
+            if ($dict_params['search']) {
+                news_articles_show = news_articles_show.filter((item) => {
+                    if (item['title'].toLowerCase().includes($dict_params['search']) || item['description'].toLowerCase().includes($dict_params['search'])) {
+                        return true;
+                    }
+                    return false;
+                })
+            }
+
+            // Sort by emotions
             news_articles_show.sort((a, b) => {
 
                 let factor1;
@@ -250,12 +265,12 @@
         <div class="hidden lg:flex">
             <div bind:this={parent_side_buttons} class="w-14">
                 <div bind:this={side_buttons} class="flex flex-col gap-4 items-center">
-                    <button on:click={() => {filterActive ? setTimeout(() => {if (!filterActive) {filterShow = false}}, 150) : filterShow = true; filterActive = !filterActive; sortActive = false; sortShow = false; if(!filterActive && !sortActive) {firstOpen = true} else {setTimeout(() => {firstOpen = false}, 25)}}}>
+                    <button on:click={() => {filterActive ? setTimeout(() => {if (!filterActive) {filterShow = false}}, 150) : filterShow = true; filterActive = !filterActive; searchActive = false; searchShow = false; sortActive = false; sortShow = false; if(!filterActive && !sortActive && !searchActive) {firstOpen = true} else {setTimeout(() => {firstOpen = false}, 25)}}}>
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 stroke-black" viewBox="0 0 24 24" fill="none">
                             <path d="M3 4.6C3 4.03995 3 3.75992 3.10899 3.54601C3.20487 3.35785 3.35785 3.20487 3.54601 3.10899C3.75992 3 4.03995 3 4.6 3H19.4C19.9601 3 20.2401 3 20.454 3.10899C20.6422 3.20487 20.7951 3.35785 20.891 3.54601C21 3.75992 21 4.03995 21 4.6V6.33726C21 6.58185 21 6.70414 20.9724 6.81923C20.9479 6.92127 20.9075 7.01881 20.8526 7.10828C20.7908 7.2092 20.7043 7.29568 20.5314 7.46863L14.4686 13.5314C14.2957 13.7043 14.2092 13.7908 14.1474 13.8917C14.0925 13.9812 14.0521 14.0787 14.0276 14.1808C14 14.2959 14 14.4182 14 14.6627V17L10 21V14.6627C10 14.4182 10 14.2959 9.97237 14.1808C9.94787 14.0787 9.90747 13.9812 9.85264 13.8917C9.7908 13.7908 9.70432 13.7043 9.53137 13.5314L3.46863 7.46863C3.29568 7.29568 3.2092 7.2092 3.14736 7.10828C3.09253 7.01881 3.05213 6.92127 3.02763 6.81923C3 6.70414 3 6.58185 3 6.33726V4.6Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
-                    <button on:click={() => {sortActive ? setTimeout(() => {if (!sortActive) {sortShow = false}}, 150) : sortShow = true; sortActive = !sortActive; filterActive = false; filterShow = false; if(!filterActive && !sortActive) {firstOpen = true;} else {setTimeout(() => {firstOpen = false}, 25)}}}>
+                    <button on:click={() => {sortActive ? setTimeout(() => {if (!sortActive) {sortShow = false}}, 150) : sortShow = true; sortActive = !sortActive; searchActive = false; searchShow = false; filterActive = false; filterShow = false; if(!filterActive && !sortActive && !searchActive) {firstOpen = true;} else {setTimeout(() => {firstOpen = false}, 25)}}}>
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-7 stroke-black" viewBox="0 0 24 24" fill="none">
                             {#if ascending}
                                 <path d="M13 12H21M13 8H21M13 16H21M6 7V17M6 7L3 10M6 7L9 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -264,10 +279,15 @@
                             {/if}
                         </svg>
                     </button>
+                    <button on:click={() => {searchActive ? setTimeout(() => {if (!searchActive) {searchShow = false}}, 150) : searchShow = true; searchActive = !searchActive; sortActive = false; sortShow = false; filterActive = false; filterShow = false; if(!filterActive && !sortActive && !searchActive) {firstOpen = true;} else {setTimeout(() => {firstOpen = false}, 25)}}}>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 stroke-black" viewBox="0 0 24 24" fill="none">
+                            <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
-            <div class="bg-white relative filter-menu" class:w-0={!filterActive && !sortActive} class:w-56={filterActive || sortActive}>
-                <div bind:this={side_menu} class="h-full min-h-124 bg-white filter-menu overflow-hidden relative" class:w-0={!filterActive && !sortActive} class:w-56={filterActive || sortActive}>
+            <div class="bg-white relative filter-menu" class:w-0={!filterActive && !sortActive && !searchActive} class:w-56={filterActive || sortActive || searchActive}>
+                <div bind:this={side_menu} class="h-full min-h-124 bg-white filter-menu overflow-hidden relative" class:w-0={!filterActive && !sortActive && !searchActive} class:w-56={filterActive || sortActive || searchActive}>
                     {#if filterShow}
                         <div transition:fade={animParams()}>
                             <FilterSide dict_params={dict_params}/>
@@ -275,6 +295,10 @@
                     {:else if sortShow}
                         <div transition:fade={animParams()}>
                             <SortSide ascending={ascending} changeOrder={() => {ascending = !ascending}} dict_params={dict_params} />
+                        </div>
+                    {:else if searchShow}
+                        <div transition:fade={animParams()}>
+                            <SearchSide dict_params={dict_params} />
                         </div>
                     {/if}
                 </div>

@@ -2034,6 +2034,10 @@ html{
   width: 100%;
 }
 
+.w-52{
+  width: 13rem;
+}
+
 .max-w-3xl{
   max-width: 48rem;
 }

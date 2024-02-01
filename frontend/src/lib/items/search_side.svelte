@@ -1,10 +1,8 @@
 <script>
-    import { writable } from 'svelte/store';
-
     export let dict_params;
 
     let search_value;
-    const delay = 500;
+    export let delay = 500;
 
     // Debounce function
     function debounce(func, wait) {

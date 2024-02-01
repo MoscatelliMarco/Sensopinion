@@ -1834,6 +1834,10 @@ html{
   margin-top: 0.5rem;
 }
 
+.mt-3{
+  margin-top: 0.75rem;
+}
+
 .mt-4{
   margin-top: 1rem;
 }
@@ -1864,10 +1868,6 @@ html{
 
 .mt-neg-8{
   margin-top: -2rem;
-}
-
-.mt-3{
-  margin-top: 0.75rem;
 }
 
 .block{
@@ -1942,16 +1942,12 @@ html{
   min-height: 0px;
 }
 
-.min-h-100{
-  min-height: 25rem;
+.min-h-124{
+  min-height: 31rem;
 }
 
 .min-h-screen{
   min-height: 100vh;
-}
-
-.min-h-124{
-  min-height: 31rem;
 }
 
 .w-0{
@@ -2052,14 +2048,6 @@ html{
 
 .max-w-xs{
   max-width: 20rem;
-}
-
-.max-w-xl{
-  max-width: 36rem;
-}
-
-.max-w-2xl{
-  max-width: 42rem;
 }
 
 .shrink-0{
@@ -2312,9 +2300,19 @@ html{
   border-top-width: 1px;
 }
 
+.border-error{
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-er,oklch(var(--er)/var(--tw-border-opacity)));
+}
+
 .border-neutral{
   --tw-border-opacity: 1;
   border-color: rgb(135 135 135 / var(--tw-border-opacity));
+}
+
+.border-warning{
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-wa,oklch(var(--wa)/var(--tw-border-opacity)));
 }
 
 .border-white{
@@ -2322,9 +2320,9 @@ html{
   border-color: rgb(254 254 254 / var(--tw-border-opacity));
 }
 
-.border-warning{
-  --tw-border-opacity: 1;
-  border-color: var(--fallback-wa,oklch(var(--wa)/var(--tw-border-opacity)));
+.bg-error{
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-er,oklch(var(--er)/var(--tw-bg-opacity)));
 }
 
 .bg-neutral{
@@ -2337,14 +2335,14 @@ html{
   background-color: rgb(226 226 226 / var(--tw-bg-opacity));
 }
 
-.bg-white{
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 254 254 / var(--tw-bg-opacity));
-}
-
 .bg-warning{
   --tw-bg-opacity: 1;
   background-color: var(--fallback-wa,oklch(var(--wa)/var(--tw-bg-opacity)));
+}
+
+.bg-white{
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 254 254 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-30{
@@ -2357,10 +2355,6 @@ html{
 
 .bg-opacity-90{
   --tw-bg-opacity: 0.9;
-}
-
-.bg-opacity-20{
-  --tw-bg-opacity: 0.2;
 }
 
 .fill-black{
@@ -2618,11 +2612,6 @@ html{
   line-height: 0.75rem;
 }
 
-.text-4xl{
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
-
 .font-bold{
   font-weight: 700;
 }
@@ -2641,10 +2630,6 @@ html{
 
 .font-semibold{
   font-weight: 600;
-}
-
-.font-extralight{
-  font-weight: 200;
 }
 
 .uppercase{

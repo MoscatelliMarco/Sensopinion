@@ -12,6 +12,9 @@
     let data;
     let message;
 
+    let show_server_not_responding = false;
+    let show_link_invalid = false;
+
     // Function to handle form submission
     async function handleSubmit(event) {
         event.preventDefault(); // Prevent default form submission behavior
@@ -30,9 +33,11 @@
             });
     
             if (!response.ok) {
-                // TODO show error
-                print('Error in the response')
                 show_loading = false;
+                show_server_not_responding = true;
+                setTimeout(() => {
+                    show_server_not_responding = false;
+                }, 4000)
                 return
             }
             
@@ -43,9 +48,18 @@
                 setCookie("message_showed", "true")
             }
             
-            data = await response.json();
+            data = await response.json()
+            if (!data || !data.length) {
+                show_link_invalid = true;
+                setTimeout(() => {
+                    show_link_invalid = false;
+                }, 4000)
+            }
         } catch (error) {
-            console.error('There was a problem with your fetch operation:', error);
+            show_server_not_responding = true;
+            setTimeout(() => {
+                show_server_not_responding = false;
+            }, 4000)
         }
         show_loading = false;
     }
@@ -68,6 +82,12 @@
 <div class="w-full flex flex-col items-center mt-2 md:mt-4 lg:mt-6 relative">
     {#if message}
         <Alert message={message}/>
+    {/if}
+    {#if show_server_not_responding}
+        <Alert message="The server is not responding, we are sorry for the inconvenient" type={'error'}/>
+    {/if}
+    {#if show_link_invalid}
+        <Alert message="The link that you've provided is invalid, it might not be a news article url" type={'error'}/>
     {/if}
     {#if data}
         {#key data}

@@ -64,5 +64,9 @@ module.exports = {
         "6xl": "4rem"
       }
     }
-  }
+  },
+  safelist: [
+    "bg-error",
+    "border-error"
+  ],
 }

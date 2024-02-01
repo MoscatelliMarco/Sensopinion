@@ -22,7 +22,10 @@
     // Wrapped update function with debounce
     const updateParams = debounce((value) => {
         if (!value) {
-            delete $dict_params['search'];
+            dict_params.update(params => {
+                delete params['search'];
+                return params;
+            })
         } else {
             $dict_params['search'] = value;
         }

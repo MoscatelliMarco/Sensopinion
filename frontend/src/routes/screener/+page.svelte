@@ -276,7 +276,10 @@
     // Wrapped update function with debounce
     const updateParams = debounce((value) => {
         if (!value) {
-            delete $dict_params['search'];
+            dict_params.update(params => {
+                delete params['search'];
+                return params;
+            })
         } else {
             $dict_params['search'] = value;
         }
@@ -338,7 +341,7 @@
             </div>
         </div>
         <div bind:this={up_buttons} class="block lg:hidden z-10">
-            <div bind:this={up_buttons_child} class="flex justify-between p-2 bg-white">
+            <div bind:this={up_buttons_child} class="flex justify-between p-2 pt-4 pb-2.5 bg-white">
                 <div class="flex gap-4">
                     <button on:click={() => {filterShow = !filterShow; filterActive = !filterActive; sortActive = false; sortShow = false; if(!filterActive && !sortActive) {firstOpen = true} else {setTimeout(() => {firstOpen = false}, 25)}}}>
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 stroke-black" viewBox="0 0 24 24" fill="none">
@@ -355,7 +358,7 @@
                         </svg>
                     </button>
                 </div>
-                <div class="border border-black rounded-md p-0.5 w-52">
+                <div class="border border-black rounded-md px-0.5 w-52">
                     <input bind:value={search_value} maxlength="50" name="url" type="text" placeholder="Search content" class="text-xs md:text-sm px-1.5 py-1 w-full focus:border-none focus:outline-none" />
                 </div>
             </div>

@@ -9,6 +9,8 @@
     import { onMount, onDestroy } from 'svelte';
     import { browser } from "$app/environment";
     import { pushState } from "$app/navigation";
+    import FlexSearch from 'flexsearch';
+    const { Index } = FlexSearch;
 
     import { globalStore } from "../../stores.js";
     let news_articles = $globalStore.news;
@@ -86,6 +88,9 @@
     let news_articles_show = []
     let before_dict_params = { ...$dict_params };
     $: if ($dict_params) {
+        // Change search_value so the value is the same as the query params
+        search_value = $dict_params['search'];
+
         // Run only if the html is mounted, if news_articles exist and the previous dict_params is different from the new one
         if (news_articles && (!isEquivalent(before_dict_params, $dict_params) || !is_mounted)) {
             // Filter categories
@@ -133,6 +138,43 @@
                     return false;
                 })
             }
+            // Initialize FlexSearch index
+            // function searchNewsArticles(news_articles, searchQuery) {
+            // const options = {
+            //     charset: "latin:extra",
+            //     preset: 'match',
+            //     tokenize: 'strict',
+            //     cache: false
+            // };
+
+            // const index = new Index(options);
+
+            // // Assuming `news_articles` is an array of article objects
+            // news_articles_show.forEach((news, idx) => {
+            //         // Add both title and description to the index
+            //         index.add(idx, news.title + " " + news.description);
+            //     });
+
+            //     let searchResults = [];
+            //     if (searchQuery) {
+            //         const resultIds = index.search(searchQuery, 5);
+                    
+            //         // Map the result IDs back to articles
+            //         searchResults = resultIds.map(id => news_articles[id]);
+            //     } else {
+            //         // No search term means show all articles
+            //         searchResults = news_articles;
+            //     }
+
+            //     return searchResults;
+            // }
+
+            // // Example usage
+            // const news_articles = []; // Your news articles array
+            // const searchQuery = $dict_params['search']; // Your search query
+            // const filteredNewsArticles = searchNewsArticles(news_articles_show, searchQuery);
+
+            // console.log(filteredNewsArticles);
 
             // Sort by emotions
             news_articles_show.sort((a, b) => {

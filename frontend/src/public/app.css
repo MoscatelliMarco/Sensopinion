@@ -2516,12 +2516,21 @@ html{
   padding-bottom: 1.75rem;
 }
 
+.px-8{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
 .pb-0{
   padding-bottom: 0px;
 }
 
 .pb-2{
   padding-bottom: 0.5rem;
+}
+
+.pb-2\.5{
+  padding-bottom: 0.625rem;
 }
 
 .pb-3{
@@ -2564,28 +2573,16 @@ html{
   padding-top: 0.5rem;
 }
 
+.pt-4{
+  padding-top: 1rem;
+}
+
 .pt-6{
   padding-top: 1.5rem;
 }
 
 .pt-8{
   padding-top: 2rem;
-}
-
-.pt-2\.5{
-  padding-top: 0.625rem;
-}
-
-.pb-2\.5{
-  padding-bottom: 0.625rem;
-}
-
-.pt-3{
-  padding-top: 0.75rem;
-}
-
-.pt-4{
-  padding-top: 1rem;
 }
 
 .text-center{

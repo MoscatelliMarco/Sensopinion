@@ -1,7 +1,7 @@
 <script>
     export let dict_params;
 
-    let search_value;
+    let search_value = $dict_params['search'];
     export let delay = 500;
 
     // Debounce function

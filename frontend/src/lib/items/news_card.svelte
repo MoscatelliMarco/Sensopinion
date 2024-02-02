@@ -50,11 +50,11 @@
     </div>
     <div class="mt-auto">
       <div class="flex justify-between items-center mt-2">
-        <p class="text-sm font-medium px-4 h-7 bg-neutral-light rounded-tr-md bg-opacity-50 grid place-content-center">
+        <p class="text-xs font-medium px-4 h-7 bg-neutral-light rounded-tr-md bg-opacity-50 grid place-content-center">
           {news['time_of_the_article'].split('T')[0]}
         </p>
-        <a href="/redirect/{news['_id']}" target="_blank" class="bg-neutral px-12 h-7 grid place-content-center text-white rounded-tl-md font-medium">
-          Read
+        <a href="/news/{news['_id']}" target="_blank" class="bg-neutral px-8 h-7 grid place-content-center text-white rounded-tl-md font-medium text-sm">
+          Read & Infos
         </a>
       </div>
     </div>

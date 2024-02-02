@@ -57,11 +57,18 @@
 
     // Reactively update URL when dict_params changes.
     let ascending = false;
+    let first_time_search_value = true;
     $: if ($dict_params) {
         ascending = 'ascending' in $dict_params ? true : false;
         // Check if the component is mounted so the URL params are not resetted at the start
         if (is_mounted) {
             updateURLParams($dict_params);
+            // Synchronize search_value with $dict_params['search'] only the first run or else the search input won't be working
+            if (first_time_search_value) {
+                console.log('fadfsadfads')
+                search_value = $dict_params['search'];
+                first_time_search_value = false;
+            }
         }
     }
 
@@ -88,8 +95,6 @@
     let news_articles_show = []
     let before_dict_params = { ...$dict_params };
     $: if ($dict_params) {
-        // Change search_value so the value is the same as the query params
-        search_value = $dict_params['search'];
 
         // Run only if the html is mounted, if news_articles exist and the previous dict_params is different from the new one
         if (news_articles && (!isEquivalent(before_dict_params, $dict_params) || !is_mounted)) {

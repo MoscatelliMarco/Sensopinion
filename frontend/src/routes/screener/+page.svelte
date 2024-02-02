@@ -9,8 +9,7 @@
     import { onMount, onDestroy } from 'svelte';
     import { browser } from "$app/environment";
     import { pushState } from "$app/navigation";
-    import FlexSearch from 'flexsearch';
-    const { Index } = FlexSearch;
+    import lunr from 'lunr';
 
     import { globalStore } from "../../stores.js";
     let news_articles = $globalStore.news;
@@ -135,50 +134,25 @@
 
             // Filter by search
             if ($dict_params['search']) {
-                news_articles_show = news_articles_show.filter((item) => {
-                    if (item['title'].toLowerCase().includes($dict_params['search']) || item['description'].toLowerCase().includes($dict_params['search'])) {
-                        return true;
-                    }
-                    return false;
-                })
+                // Initialize the Lunr index
+                let index = lunr(function () {
+                    this.ref('_id');
+                    this.field('title');
+                    this.field('description');
+                    this.field('url');
+
+                    // Add news data to the index
+                    news_articles_show.forEach(news => {
+                        this.add(news);
+                    });
+                });
+
+                const searchResults = index.search($dict_params['search']);
+                // Map search results back to news data
+                news_articles_show = searchResults.map(result => {
+                    return news_articles_show.find(news => news._id === result.ref);
+                });
             }
-            // Initialize FlexSearch index
-            // function searchNewsArticles(news_articles, searchQuery) {
-            // const options = {
-            //     charset: "latin:extra",
-            //     preset: 'match',
-            //     tokenize: 'strict',
-            //     cache: false
-            // };
-
-            // const index = new Index(options);
-
-            // // Assuming `news_articles` is an array of article objects
-            // news_articles_show.forEach((news, idx) => {
-            //         // Add both title and description to the index
-            //         index.add(idx, news.title + " " + news.description);
-            //     });
-
-            //     let searchResults = [];
-            //     if (searchQuery) {
-            //         const resultIds = index.search(searchQuery, 5);
-                    
-            //         // Map the result IDs back to articles
-            //         searchResults = resultIds.map(id => news_articles[id]);
-            //     } else {
-            //         // No search term means show all articles
-            //         searchResults = news_articles;
-            //     }
-
-            //     return searchResults;
-            // }
-
-            // // Example usage
-            // const news_articles = []; // Your news articles array
-            // const searchQuery = $dict_params['search']; // Your search query
-            // const filteredNewsArticles = searchNewsArticles(news_articles_show, searchQuery);
-
-            // console.log(filteredNewsArticles);
 
             // Sort by emotions
             news_articles_show.sort((a, b) => {

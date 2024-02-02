@@ -65,7 +65,6 @@
             updateURLParams($dict_params);
             // Synchronize search_value with $dict_params['search'] only the first run or else the search input won't be working
             if (first_time_search_value) {
-                console.log('fadfsadfads')
                 search_value = $dict_params['search'];
                 first_time_search_value = false;
             }

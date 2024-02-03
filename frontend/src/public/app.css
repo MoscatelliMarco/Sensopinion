@@ -2062,6 +2062,18 @@ html{
   max-width: 20rem;
 }
 
+.max-w-64{
+  max-width: 16rem;
+}
+
+.max-w-7{
+  max-width: 1.75rem;
+}
+
+.max-w-80{
+  max-width: 20rem;
+}
+
 .shrink-0{
   flex-shrink: 0;
 }

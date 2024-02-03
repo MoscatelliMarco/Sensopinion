@@ -15,56 +15,67 @@
 
     let show_server_not_responding = false;
     let show_link_invalid = false;
+    let is_taking_time = false;
 
     // Function to handle form submission
     async function handleSubmit(event) {
         event.preventDefault(); // Prevent default form submission behavior
-        
+
         const endpoint = import.meta.env.VITE_BACKEND_SERVER_IP + '/api/analyze_text';
         const body = mode_text ? { text: inputText } : { url: inputUrl }; // Conditionally prepare the body
+
+        // Set a timeout to change is_taking_time to true if the request takes more than 8 seconds
+        const timeout = setTimeout(() => {
+            is_taking_time = true;
+        }, 8000); // 8000 milliseconds = 8 seconds
 
         try {
             show_loading = true;
             const response = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body),
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body),
             });
-    
+
+            clearTimeout(timeout); // Clear the timeout as the request has finished
+
             if (!response.ok) {
                 show_loading = false;
                 show_server_not_responding = true;
                 setTimeout(() => {
                     show_server_not_responding = false;
                 }, 4000)
-                return
+                return;
             }
-            
-            const is_message_showed = getCookie("message_showed")
+
+            const is_message_showed = getCookie("message_showed");
             if (!is_message_showed) {
                 message = "We can't guarantee with absolute certainty our results to be accurate.";
-                setCookie("message_showed", "true")
+                setCookie("message_showed", "true");
             }
-            
-            data = await response.json()
+
+            data = await response.json();
             if (data['error']) {
                 message_error = data['error'];
-            }
-            else if (!data || !data.length) {
+            } else if (!data || !data.length) {
                 show_link_invalid = true;
                 setTimeout(() => {
                     show_link_invalid = false;
-                }, 4000)
+                }, 4000);
             }
         } catch (error) {
+            clearTimeout(timeout); // Clear the timeout in case of an error as well
             show_server_not_responding = true;
             setTimeout(() => {
                 show_server_not_responding = false;
-            }, 4000)
+            }, 4000);
+        } finally {
+            // Ensure is_taking_time is set to false and loading state is updated when the request is complete or fails
+            is_taking_time = false;
+            show_loading = false;
         }
-        show_loading = false;
     }
 
     // Function to set a cookie with an expiration of 5 days
@@ -140,5 +151,10 @@
                 </div>
             {/if}
         </form>
+        {#if is_taking_time}
+            <div class="flex justify-center text-center font-medium mt-6 lg:mt-8 text-sm">
+                <p class="max-w-80">We are experiencing a lot of demand, maybe try again later, we may recommend to check our screener :)</p>
+            </div>
+        {/if}
     </div>
   </div>

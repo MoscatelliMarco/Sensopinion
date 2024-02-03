@@ -15,16 +15,16 @@ class DBClient():
         db = client['news_database']
         self.collection = db['news_collection']
         try:
-            self.collection.create_index([("time_of_the_article", 1)], expireAfterSeconds=60 * 60 * 24 * accepted_days_news)  # 7 days in seconds
+            self.collection.create_index([("date_published", 1)], expireAfterSeconds=60 * 60 * 24 * accepted_days_news)  # 7 days in seconds
         except Exception as e:
-            logger.error("Error creating index for time_of_the_article")
+            logger.error("Error creating index for date_published")
         logger.info("Connected to the database")
 
     def fetch_news(self):
         # Fetch recent news entries
         return list(self.collection.find({}))
 
-    def insert_article(self, url, google_news_url, image_url, article_description, article_title, emotions, sentiment, category, subcategories, time_of_the_article):
+    def insert_article(self, url, google_news_url, image_url, article_description, article_title, emotions, sentiment, category, subcategories, date_published):
         doc = {
             "url": url,
             "google_news_url": google_news_url,
@@ -35,6 +35,6 @@ class DBClient():
             "sentiment": sentiment,
             "categories": dict(zip(category, subcategories)),
             "time_analyze": datetime.datetime.utcnow(),
-            "time_of_the_article": time_of_the_article
+            "date_published": date_published
         }
         self.collection.insert_one(doc)

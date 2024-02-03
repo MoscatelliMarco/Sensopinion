@@ -6,8 +6,8 @@
   let sorted_news_articles = [...news_articles]
   sorted_news_articles.sort((a, b) => {
       // Convert the date strings to date objects for comparison.
-      let dateA = new Date(a['time_of_the_article']);
-      let dateB = new Date(b['time_of_the_article']);
+      let dateA = new Date(a['date_published']);
+      let dateB = new Date(b['date_published']);
 
       // Compare the dates to determine their order.
       return dateB - dateA; // Use dateA - dateB for ascending order.

@@ -4,7 +4,7 @@
     
     export let data;
     let news = data['props']['data'][0]
-    let radio_data = [news['emotions'], news['sentiment'], Object.keys(news['categories']), Object.values(news['categories']), news['time_of_the_article'], news['image'], news['description'], news['title']]
+    let radio_data = [news['emotions'], news['sentiment'], Object.keys(news['categories']), Object.values(news['categories']), news['date_published'], news['image'], news['description'], news['title']]
 
     let timer = 3;
     onMount(() => {

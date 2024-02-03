@@ -89,7 +89,7 @@ def analyze_and_post(news_entries, google_news_url, mongo_client):
                     "sentiment": sentiment,
                     "categories": dict(zip(valid_categories, valid_subcategories)),
                     "time_analyze": datetime.datetime.utcnow(),
-                    "time_of_the_article": article_date_publish
+                    "date_published": article_date_publish
                 })
             else:
                 logger.info(f"Article not added: {final_url}")

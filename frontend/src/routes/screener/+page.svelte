@@ -192,8 +192,8 @@
                 }
 
                 else {
-                    factor1 = new Date(a['time_of_the_article']);
-                    factor2 = new Date(b['time_of_the_article']);
+                    factor1 = new Date(a['date_published']);
+                    factor2 = new Date(b['date_published']);
                 }
 
                 // Compare the dates to determine their order.

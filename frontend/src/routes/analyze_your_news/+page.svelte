@@ -44,7 +44,6 @@
             
             const is_message_showed = getCookie("message_showed")
             if (!is_message_showed) {
-                console.log(is_message_showed)
                 message = "We can't guarantee with absolute certainty our results to be accurate.";
                 setCookie("message_showed", "true")
             }

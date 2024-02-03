@@ -11,6 +11,7 @@
     let show_loading = false;
     let data;
     let message;
+    let message_error;
 
     let show_server_not_responding = false;
     let show_link_invalid = false;
@@ -49,7 +50,10 @@
             }
             
             data = await response.json()
-            if (!data || !data.length) {
+            if (data['error']) {
+                message_error = data['error'];
+            }
+            else if (!data || !data.length) {
                 show_link_invalid = true;
                 setTimeout(() => {
                     show_link_invalid = false;
@@ -83,13 +87,16 @@
     {#if message}
         <Alert message={message}/>
     {/if}
+    {#if message_error}
+        <Alert message={message_error} type={'error'}/>
+    {/if}
     {#if show_server_not_responding}
-        <Alert message="The server is not responding, we are sorry for the inconvenient" type={'error'}/>
+        <Alert message="The server is not responding, we are sorry for the inconvenient" type={'error'} show_x={false}/>
     {/if}
     {#if show_link_invalid}
-        <Alert message="The link that you've provided is invalid, it might not be a news article url" type={'error'}/>
+        <Alert message="The link that you've provided is invalid, it might not be a news article url" type={'error'} show_x={false}/>
     {/if}
-    {#if data}
+    {#if data && !data['error']}
         {#key data}
             <div class="w-full flex flex-col items-center justify-center gap-4 pb-4">
                 <NewsRadioAll data={data}/>

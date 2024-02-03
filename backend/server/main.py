@@ -1,7 +1,10 @@
-from database import fetch_news
-from fastapi import FastAPI
+from database import fetch_news, collection_requests
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from analyze_article import *
+from functions.analyze_article import *
+import functions.check_vpns as check_vpns
+import hashlib
+from datetime import datetime, timedelta
 
 app = FastAPI()
 
@@ -34,13 +37,32 @@ class AnalyzeTextRequest(BaseModel):
     url: Optional[str] = Field(None, description="URL to analyze")
 
 @app.post("/api/analyze_text")
-async def analyze_text(body: AnalyzeTextRequest):
-    # You can now access the data with request_body.text and request_body.url
-    if body.text:
-        if len(body.text) > 2500:
-            return {'error': "The text is over the 2500 characters limit"}
-        return analyze_text_article(body.text)
-    elif body.url:
-        return analyze_url_article(body.url)
-    else:
-        return {'error': "invalid text or url"}
+async def analyze_text(body: AnalyzeTextRequest, request: Request):
+    request_ip = request.client.host
+    hashed_ip = hashlib.sha256(request_ip.encode()).hexdigest()  # Hash IP for privacy
+
+    # Rate limit check
+    start_of_day = datetime.utcnow() - timedelta(days=1)
+    request_count = collection_requests.count_documents({"ip": hashed_ip, "timestamp": {"$gte": start_of_day}})
+
+    if request_count >= 10:
+        return {'error': "You can only send ten requests per day"}
+
+    # Log the request
+    collection_requests.insert_one({"ip": hashed_ip, "timestamp": datetime.utcnow()})
+
+    try:
+        # You can now access the data with request_body.text and request_body.url
+        if not check_vpns.is_vpn(request_ip):
+            if body.text:
+                if len(body.text) > 2500:
+                    return {'error': "The text is over the 2500 characters limit"}
+                return analyze_text_article(body.text)
+            elif body.url:
+                return analyze_url_article(body.url)
+            else:
+                return {'error': "Invalid text or url"}
+        else:
+            return {'error': "You need to deactivate your vpns or proxies to use our services"}
+    except Exception as e:
+        return {'error': f"Invalid request {e}"}

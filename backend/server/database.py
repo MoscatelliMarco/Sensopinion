@@ -15,8 +15,12 @@ load_dotenv()
 
 client = MongoClient(os.environ.get("MONGODB_CLIENT_URL"))
 db = client['news_database']
-collection = db['news_collection']
-collection.create_index([("time_analyze", 1)], expireAfterSeconds=604800)  # 7 days in seconds
+
+collection_news = db['news_collection']
+collection_news.create_index([("time_analyze", 1)], expireAfterSeconds=604800)  # 7 days in seconds
+
+collection_requests = db["requests"]
+
 logger.info("Connected to the database")
 
 def sanitize_string_for_mongodb(input_string):
@@ -30,6 +34,6 @@ def fetch_news(param, value):
         param = sanitize_string_for_mongodb(param)
         value = sanitize_string_for_mongodb(value)
         if param == '_id':
-            return list(collection.find({param: ObjectId(value)}))
-        return list(collection.find({param: value}))
-    return list(collection.find({}))
+            return list(collection_news.find({param: ObjectId(value)}))
+        return list(collection_news.find({param: value}))
+    return list(collection_news.find({}))

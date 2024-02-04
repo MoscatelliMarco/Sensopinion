@@ -2054,23 +2054,15 @@ html{
   max-width: 72rem;
 }
 
+.max-w-80{
+  max-width: 20rem;
+}
+
 .max-w-lg{
   max-width: 32rem;
 }
 
 .max-w-xs{
-  max-width: 20rem;
-}
-
-.max-w-64{
-  max-width: 16rem;
-}
-
-.max-w-7{
-  max-width: 1.75rem;
-}
-
-.max-w-80{
   max-width: 20rem;
 }
 

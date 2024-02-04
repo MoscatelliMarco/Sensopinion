@@ -8,15 +8,14 @@
 
 		<meta name="google-adsense-account" content="ca-pub-6584406098478702">
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-J7CXGSKNKL"></script>
-		
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+	
+			gtag('config', 'G-J7CXGSKNKL');
+		</script>
 	</head>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'G-J7CXGSKNKL');
-	</script>
 	<div style="display: contents" class="font-main">
 		%sveltekit.body%
 	</div>

@@ -1,3 +1,6 @@
+import sys
+sys.path.append("../")
+
 import logging
 import requests
 from bs4 import BeautifulSoup
@@ -6,7 +9,7 @@ import time
 import os
 import threading
 from dotenv import load_dotenv
-from variables import urls_to_scrape
+from variables import urls_to_scrape, temporal_urls_to_scrape
 from functions.process_article import process_article
 import datetime
 
@@ -39,7 +42,7 @@ def scrape_process_news(mongo_client):
     # headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
     news_entries = mongo_client.fetch_news()
     google_news_urls = []
-    for url_to_scrape in urls_to_scrape:
+    for url_to_scrape in urls_to_scrape + temporal_urls_to_scrape:
         response = requests.get(url_to_scrape)
         soup = BeautifulSoup(response.text, 'html.parser')
         for link in soup.find_all('article'):

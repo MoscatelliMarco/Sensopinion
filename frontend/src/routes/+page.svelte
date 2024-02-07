@@ -226,9 +226,9 @@
                 </div>
             </div>
             <div class="flex flex-col justify-center px-2 md:px-0 gap-2 md:gap-4 mt-0 md:mt-6">
-                <a href="/categories" class="flex justify-center">
+                <div class="flex justify-center">
                     <NewsChart name="all" value={news_articles !== undefined && news_articles.length ? metrics['all'][factor] : 0} dimension='big' emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
-                </a>
+                </div>
                 <div class="relative h-12 lg:h-13">
                     {#if (factor !== 'emotions')}
                         <h5 transition:fade={{duration: 300}} class="text-center font-light text-sm xl:text-base absolute top-0 left-0 right-0">{factor.charAt(0).toUpperCase() + factor.slice(1)} on news</h5>

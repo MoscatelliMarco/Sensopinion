@@ -20,3 +20,5 @@ __pycache__/
 */__pycache__/
 **/__pycache__/
 delete_pycache.py
+
+media/posts

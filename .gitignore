@@ -13,6 +13,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 _TODO.txt
+-LEGACY
 
 backend/venv
 backend/models

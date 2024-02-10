@@ -21,7 +21,6 @@
     async function handleSubmit(event) {
         event.preventDefault(); // Prevent default form submission behavior
 
-        const endpoint = import.meta.env.VITE_BACKEND_SERVER_IP + '/api/analyze_text';
         const body = mode_text ? { text: inputText } : { url: inputUrl }; // Conditionally prepare the body
 
         // Set a timeout to change is_taking_time to true if the request takes more than 8 seconds
@@ -31,7 +30,7 @@
 
         try {
             show_loading = true;
-            const response = await fetch(endpoint, {
+            const response = await fetch(import.meta.env.VITE_BACKEND_SERVER_IP + '/api/analyze_text', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

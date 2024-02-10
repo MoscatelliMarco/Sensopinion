@@ -20,15 +20,11 @@
 		"@vercel/speed-insights": "^1.0.2",
 		"autoprefixer": "^10.4.16",
 		"axios": "^1.6.7",
-		"compromise": "^14.11.2",
 		"daisyui": "^4.4.21",
 		"dotenv": "^16.3.1",
 		"intersection-observer": "^0.12.2",
 		"lunr": "^2.3.9",
-		"ml-kmeans": "^6.0.0",
 		"mongodb": "^6.3.0",
-		"natural": "^6.10.4",
-		"node-kmeans": "^1.1.9",
 		"tailwindcss": "^3.4.0",
 		"uuid": "^9.0.1"
 	}

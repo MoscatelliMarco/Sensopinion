@@ -1,7 +1,6 @@
 <script>
     import DynamicRadio from "../../../items/dynamic_radio.svelte";
     import { globalStore } from "../../../../stores";
-    import RadialProgressSmall from "../../../items/radial_progress_small.svelte";
 
     export let data;
 
@@ -71,7 +70,7 @@
             </div>
         {/each}
     </div>
-    <div class="flex justify-center font-light text-sm mt-5 md:mt-6">
+    <!-- <div class="flex justify-center font-light text-sm mt-5 md:mt-6">
         <p>Categories</p>
     </div>
     <div class="flex gap-4 justify-center">
@@ -95,5 +94,5 @@
                 Others
             </p>
         {/if}
-    </div>
+    </div> -->
 </div>

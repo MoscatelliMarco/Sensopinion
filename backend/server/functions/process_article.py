@@ -125,9 +125,9 @@ def process_article(url):
 
     # Categories
     logger.debug("Analyzing categories")
-    valid_categories, valid_subcategories = pick_categories(article_title + "\n" + article_description)
+    # valid_categories, valid_subcategories = pick_categories(article_title + "\n" + article_description)
 
-    return emotions_percentage, sentiment, valid_categories, valid_subcategories, article_date_publish, article_image, article_description, article_title
+    return emotions_percentage, sentiment, [], [], article_date_publish, article_image, article_description, article_title
 
 def process_article_text(text):
     try:
@@ -225,32 +225,33 @@ def pick_categories(text, max_selectable_subcategories=5):
 
     valid_subcategories = []
 
-    for category in valid_categories:
-        category_index = np.where(np.array(categories) == category)[0][0]
-        output = categories_classifier(text, subcategories[category_index], multi_label=True)
+    # NOTE: this part is not needed for analyze_text
+    # for category in valid_categories:
+    #     category_index = np.where(np.array(categories) == category)[0][0]
+    #     output = categories_classifier(text, subcategories[category_index], multi_label=True)
 
-        # Apply kmeans
-        data_train = np.array(output['scores']).reshape(-1, 1)
-        kmeans = KMeans(n_clusters=2, n_init=10)
-        kmeans.fit(data_train)
-        labels = kmeans.labels_
-        cluster_averages = [data_train[labels == i].mean() for i in range(2)]
-        higher_avg_cluster = np.argmax(cluster_averages)
-        indices_higher_cluster = np.where(labels == higher_avg_cluster)[0]
+    #     # Apply kmeans
+    #     data_train = np.array(output['scores']).reshape(-1, 1)
+    #     kmeans = KMeans(n_clusters=2, n_init=10)
+    #     kmeans.fit(data_train)
+    #     labels = kmeans.labels_
+    #     cluster_averages = [data_train[labels == i].mean() for i in range(2)]
+    #     higher_avg_cluster = np.argmax(cluster_averages)
+    #     indices_higher_cluster = np.where(labels == higher_avg_cluster)[0]
 
-        # Find valid labels
-        index_low_cluster_start = indices_higher_cluster[-1] + 1
-        valid_subcategories_append = []
-        for i, label in enumerate(output['labels']):
-            if i < index_low_cluster_start:
-                if i < max_selectable_subcategories:
-                    if label != "Others":
-                        valid_subcategories_append.append(label)
-                    else:
-                        if i == 0:
-                            valid_subcategories_append.append('Others')
-                        break
-        valid_subcategories.append(valid_subcategories_append)
+    #     # Find valid labels
+    #     index_low_cluster_start = indices_higher_cluster[-1] + 1
+    #     valid_subcategories_append = []
+    #     for i, label in enumerate(output['labels']):
+    #         if i < index_low_cluster_start:
+    #             if i < max_selectable_subcategories:
+    #                 if label != "Others":
+    #                     valid_subcategories_append.append(label)
+    #                 else:
+    #                     if i == 0:
+    #                         valid_subcategories_append.append('Others')
+    #                     break
+    #     valid_subcategories.append(valid_subcategories_append)
 
     return valid_categories, valid_subcategories
 

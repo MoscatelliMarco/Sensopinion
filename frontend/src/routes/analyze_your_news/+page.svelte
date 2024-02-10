@@ -26,7 +26,7 @@
         // Set a timeout to change is_taking_time to true if the request takes more than 8 seconds
         const timeout = setTimeout(() => {
             is_taking_time = true;
-        }, 10000); // 8000 milliseconds = 8 seconds
+        }, 12000); // 8000 milliseconds = 8 seconds
 
         try {
             show_loading = true;
@@ -152,7 +152,7 @@
         </form>
         {#if is_taking_time}
             <div class="flex justify-center text-center font-medium mt-6 lg:mt-8 text-sm">
-                <p class="max-w-80">We are experiencing a lot of demand, this may take up to a minute :(</p>
+                <p class="max-w-80">We are experiencing a lot of demand, give us just a little bit more time 🥺</p>
             </div>
         {/if}
     </div>

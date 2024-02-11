@@ -1,20 +1,29 @@
 import asyncio
 from pyppeteer import launch
+from time import sleep
 
 async def save_html_as_png(html_content, output_png):
     browser = await launch(headless=True)
     page = await browser.newPage()
 
+    sleep(.5)
+
     # Set content of the page to the provided HTML string
     await page.setContent(html_content)
+
+    sleep(.5)
 
     # Set viewport size to the full page size
     body_width = await page.evaluate('document.body.scrollWidth')
     body_height = await page.evaluate('document.body.scrollHeight')
     await page.setViewport({'width': body_width, 'height': body_height})
 
+    sleep(.5)
+
     # Save screenshot as PNG
     await page.screenshot({'path': output_png})
+
+    sleep(.5)
 
     # Close browser
     await browser.close()

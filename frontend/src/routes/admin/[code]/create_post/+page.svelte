@@ -1,5 +1,4 @@
 <script>
-    import { onMount } from "svelte";
     import * as htmlToImage from 'html-to-image';
     import MostXNews from "../../../../lib/items/admin/most_x_news.svelte";
 
@@ -27,16 +26,45 @@
     const requiredParameters = (template_required_parameters) => {
         required_parameters = template_required_parameters;
     }
+
+    $: if (post_type_value) {
+        setTimeout(() => {
+            const parameterInputs = document.querySelectorAll('.parameter-input')
+            for (let parameterInput of parameterInputs) {
+                if (parameterInput.type == 'select-one') {
+                    parameterInput.addEventListener("change", () => {
+                        parameters[parameterInput.name] = parameterInput.value; 
+                    })
+                } else if (parameterInput.type == 'text') {
+                    parameterInput.addEventListener("keyup", () => {
+                        parameters[parameterInput.name] = parameterInput.value;
+                    })
+                }        
+            }
+        }, 100)
+    }
 </script>
 
 <div class="flex flex-col gap-2">
     <h5 class="text-lg">Options</h5>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <select on:change={() => {post_type_value = post_type['value'];}} bind:this={post_type} >
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-3">
+        <select on:change={() => {post_type_value = post_type['value'];}} bind:this={post_type} class="border rounded-md p-1" >
             <option disabled selected>-- select a post type --</option>
             <option value="most_x_news">Most x news</option>
             <option value="most_x_categories">Most x categories</option>
         </select>
+        {#each Object.keys(required_parameters) as parameter}
+            {#if Array.isArray(required_parameters[parameter])}
+                <select name="{parameter}" class="parameter-input border rounded-md p-1">
+                    <option disabled selected>-- select {parameter} --</option>
+                    {#each required_parameters[parameter] as option}
+                        <option value="{option}">{option}</option>
+                    {/each}
+                </select>
+            {:else if required_parameters[parameter] == 'string'}
+                <input name="{parameter}" type="text" placeholder="{parameter}" class="parameter-input px-2 border rounded-md">
+            {/if}
+        {/each}
     </div>
 </div>
 
@@ -46,14 +74,16 @@
     </button>
 </div>
 
-<div class="overflow-x-auto mt-4">
-    <div style="width: calc(1080px + 20px);" class="bg-warning p-2.5">
-        <div bind:this={html_post} style="width: 1080px; height: 1080px;" class="bg-white">
-            {#if post_type_value == 'most_x_news'}
-                <MostXNews parameters={parameters} requiredParameters={requiredParameters}/>
-            {:else}
-                <div class="w-full h-full"></div>
-            {/if}
+<div class="flex justify-center">
+    <div class="overflow-x-auto mt-4">
+        <div style="width: calc(1080px + 20px);" class="bg-warning p-2.5">
+            <div bind:this={html_post} style="width: 1080px; height: 1080px;" class="bg-white">
+                {#if post_type_value == 'most_x_news'}
+                    <MostXNews parameters={parameters} requiredParameters={requiredParameters}/>
+                {:else}
+                    <div class="w-full h-full"></div>
+                {/if}
+            </div>
         </div>
     </div>
 </div>

@@ -1,14 +1,37 @@
 <script>
+    import { globalStore } from "../../../stores";
+
+    const all_categories = $globalStore.categories;
+    let categories_parameter = [];
+    for (let category in all_categories) {
+        categories_parameter.push(category)
+        for (let subcategory of all_categories[category]) {
+            categories_parameter.push(subcategory.toLowerCase().replaceAll(" ", "_") + "_" + category)
+        }
+    }
+
+    const factors = $globalStore.emotion_dict;
+    const factors_parameter = [...Object.keys(factors)]
+    factors_parameter.push('positivity')
+    factors_parameter.push('subjectivity')
+
     export let parameters;
     export let requiredParameters;
 
+    const news = $globalStore.news;
+
     requiredParameters({
-        
+        "category": categories_parameter,
+        "factor": factors_parameter,
+        "ascending": ["ascending", "descending"],
+        "factor_name": "string"
     })
 
+    function capitalizeFirstLetter(str) {
+        return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    }
+
     let boilerplate = {
-        "factor": "negative", 
-        "category": "politics",
         "news_title": "Biden is killing civiliants and his enjoying it",
         "news_description": "People are desperate and don't know what to do, they are begging for mercy.",
         "image_url": "https://asianews.network/wp-content/uploads/2024/02/2532551.jpg",
@@ -23,10 +46,10 @@
     }
 </script>
 
-<main class="w-full h-full bg-warning bg-opacity-20 py-20 px-36 flex flex-col justify-between gap-16">
+<main class="w-full h-full py-20 px-36 flex flex-col justify-between gap-16">
     <div class="flex justify-center">
         <h1 class="text-5xl font-medium max-w-lg text-center">
-            Most <span class="font-bold text-primary-gradient">{parameters['factor']}</span> news in the last 10 days about <span class="font-bold">{parameters['category']}</span>
+            Most <span class="font-bold text-primary-gradient">{parameters['factor_name']}</span> news in the last 10 days about <span class="font-bold">{parameters['category'] ? capitalizeFirstLetter(parameters['category'].replace("_politics", "").replace("_environment", "").replace("_economy", "").replaceAll("_", " ")) : parameters['category']}</span>
         </h1>
     </div>
 

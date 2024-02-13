@@ -27,3 +27,20 @@
 .bg-primary-gradient-opacity-inter:focus {
     background: linear-gradient(to right, rgb(33, 135, 219, 0.8), rgb(112, 46, 219, 0.8));
 }
+
+circle {
+    fill: none;
+    stroke: url(#GradientColor);
+}
+
+.news-chart-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.center-absolute {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

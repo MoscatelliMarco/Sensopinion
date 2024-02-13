@@ -207,7 +207,7 @@
                         </div>
                     </div>
                 </div>
-                <svg xlmns="http://www.w3.org/2000/svg" version="1.1" width="{size}" height="{size}" class="shadow-md lg:hover:shadow-lg rounded-full">
+                <svg xlmns="http://www.w3.org/2000/svg" version="1.1" width="{size}" height="{size}" class="shadow-md lg:hover:shadow-lg rounded-full news-chart-svg">
                     <defs>
                         <linearGradient id="GradientColor"  x1="0%" y1="0%" x2="0%" y2="100%">
                             <stop offset="0%" stop-color="rgb(33, 135, 219)"/>
@@ -284,22 +284,3 @@
         </div>
     {/if}
 </div>
-
-<style>
-    circle {
-        fill: none;
-        stroke: url(#GradientColor);
-    }
-
-    svg {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
-    .center-absolute {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-</style>

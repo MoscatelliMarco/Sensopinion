@@ -161,16 +161,18 @@
         }
     }
 
-    let highest_emotion = {
-        'type': null,
-        'score': 0
-    };
+    let highest_emotion_score = 0;
+    let highest_emotion_type = null;
+    $: if (name) {
+        highest_emotion_score = 0;
+        highest_emotion_type = null;
+    }
     $: if (value) {
         if (typeof value === 'object') {
             for (let emotion in value) {
-                if (value[emotion] > highest_emotion['score']) {
-                    highest_emotion['type'] = emotion
-                    highest_emotion['score'] = value[emotion]
+                if (value[emotion] > highest_emotion_score) {
+                    highest_emotion_type = emotion
+                    highest_emotion_score = value[emotion]
                 }
             }
         }
@@ -255,11 +257,11 @@
                             class:md:text-base={dimension == 'small'}
                             class:text-sm={dimension == 'small'}>
                             <span class="flex flex-col justify-center">
-                                {emotion_dict[highest_emotion['type']]} 
-                                {dimension == 'big' ? highest_emotion['type'].charAt(0).toUpperCase() + highest_emotion['type'].slice(1) : ''} 
+                                {emotion_dict[highest_emotion_type]} 
+                                {dimension == 'big' ? highest_emotion_type.charAt(0).toUpperCase() + highest_emotion_type.slice(1) : ''} 
                                 -&nbsp;
                             </span>
-                            <span class="font-extrabold text-primary-gradient">{highest_emotion['score']}%</span>
+                            <span class="font-extrabold text-primary-gradient">{highest_emotion_score}%</span>
                         </p>
                     {:else}
                         <p class="text-sm"

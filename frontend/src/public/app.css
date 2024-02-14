@@ -1094,69 +1094,6 @@ html{
   align-items: center;
 }
 
-.radial-progress{
-  position: relative;
-  display: inline-grid;
-  height: var(--size);
-  width: var(--size);
-  place-content: center;
-  border-radius: 9999px;
-  background-color: transparent;
-  vertical-align: middle;
-  box-sizing: content-box;
-  --value: 0;
-  --size: 5rem;
-  --thickness: calc(var(--size) / 10);
-}
-
-.radial-progress::-moz-progress-bar{
-  -moz-appearance: none;
-       appearance: none;
-  background-color: transparent;
-}
-
-.radial-progress::-webkit-progress-value{
-  -webkit-appearance: none;
-          appearance: none;
-  background-color: transparent;
-}
-
-.radial-progress::-webkit-progress-bar{
-  -webkit-appearance: none;
-          appearance: none;
-  background-color: transparent;
-}
-
-.radial-progress:before,
-.radial-progress:after{
-  position: absolute;
-  border-radius: 9999px;
-  content: "";
-}
-
-.radial-progress:before{
-  inset: 0px;
-  background: radial-gradient(farthest-side, currentColor 98%, #0000) top/var(--thickness) var(--thickness)
-      no-repeat,
-    conic-gradient(currentColor calc(var(--value) * 1%), #0000 0);
-  -webkit-mask: radial-gradient(
-    farthest-side,
-    #0000 calc(99% - var(--thickness)),
-    #000 calc(100% - var(--thickness))
-  );
-  mask: radial-gradient(
-    farthest-side,
-    #0000 calc(99% - var(--thickness)),
-    #000 calc(100% - var(--thickness))
-  );
-}
-
-.radial-progress:after{
-  inset: calc(50% - var(--thickness) / 2);
-  transform: rotate(calc(var(--value) * 3.6deg - 90deg)) translate(calc(var(--size) / 2 - 50%));
-  background-color: currentColor;
-}
-
 .select{
   display: inline-flex;
   cursor: pointer;
@@ -1930,10 +1867,6 @@ html{
   top: 0px;
 }
 
-.top-1\/2{
-  top: 50%;
-}
-
 .top-2{
   top: 0.5rem;
 }
@@ -2008,10 +1941,6 @@ html{
   margin-top: 0.25rem;
 }
 
-.mt-1\.5{
-  margin-top: 0.375rem;
-}
-
 .mt-10{
   margin-top: 2.5rem;
 }
@@ -2066,6 +1995,10 @@ html{
 
 .block{
   display: block;
+}
+
+.inline-block{
+  display: inline-block;
 }
 
 .flex{
@@ -2236,20 +2169,16 @@ html{
   width: 18rem;
 }
 
+.w-8{
+  width: 2rem;
+}
+
 .w-80{
   width: 20rem;
 }
 
-.w-88{
-  width: 22rem;
-}
-
 .w-full{
   width: 100%;
-}
-
-.w-8{
-  width: 2rem;
 }
 
 .max-w-3xl{
@@ -2268,24 +2197,20 @@ html{
   max-width: 32rem;
 }
 
-.max-w-xs{
-  max-width: 20rem;
-}
-
-.max-w-sm{
-  max-width: 24rem;
-}
-
 .max-w-md{
   max-width: 28rem;
 }
 
-.shrink-0{
-  flex-shrink: 0;
+.max-w-xl{
+  max-width: 36rem;
 }
 
-.shrink{
-  flex-shrink: 1;
+.max-w-xs{
+  max-width: 20rem;
+}
+
+.shrink-0{
+  flex-shrink: 0;
 }
 
 .transform{
@@ -2362,10 +2287,6 @@ html{
 
 .gap-10{
   gap: 2.5rem;
-}
-
-.gap-16{
-  gap: 4rem;
 }
 
 .gap-2{
@@ -2478,6 +2399,10 @@ html{
 
 .rounded-full{
   border-radius: 9999px;
+}
+
+.rounded-lg{
+  border-radius: 0.5rem;
 }
 
 .rounded-md{
@@ -2688,14 +2613,14 @@ html{
   padding-right: 0.625rem;
 }
 
+.px-28{
+  padding-left: 7rem;
+  padding-right: 7rem;
+}
+
 .px-3{
   padding-left: 0.75rem;
   padding-right: 0.75rem;
-}
-
-.px-36{
-  padding-left: 9rem;
-  padding-right: 9rem;
 }
 
 .px-4{
@@ -2748,11 +2673,6 @@ html{
   padding-bottom: 0.625rem;
 }
 
-.py-20{
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-}
-
 .py-3{
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -2773,11 +2693,6 @@ html{
   padding-bottom: 1.75rem;
 }
 
-.px-28{
-  padding-left: 7rem;
-  padding-right: 7rem;
-}
-
 .pb-0{
   padding-bottom: 0px;
 }
@@ -2788,6 +2703,10 @@ html{
 
 .pb-2\.5{
   padding-bottom: 0.625rem;
+}
+
+.pb-20{
+  padding-bottom: 5rem;
 }
 
 .pb-3{
@@ -2826,6 +2745,10 @@ html{
   padding-top: 0.375rem;
 }
 
+.pt-16{
+  padding-top: 4rem;
+}
+
 .pt-2{
   padding-top: 0.5rem;
 }
@@ -2858,11 +2781,6 @@ html{
 .text-3xl{
   font-size: 1.875rem;
   line-height: 2.25rem;
-}
-
-.text-4xl{
-  font-size: 2.25rem;
-  line-height: 2.5rem;
 }
 
 .text-5xl{

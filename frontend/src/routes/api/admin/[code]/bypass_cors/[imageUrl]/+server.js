@@ -1,5 +1,11 @@
+import { error }from "@sveltejs/kit";
+
 export async function GET({ params }) {
-    const { imageUrl } = params;
+    const { imageUrl, code } = params;
+
+    if (code !== import.meta.env.VITE_ADMIN_CODE) {
+      throw new error(404, 'Not found');
+    }
  
     try {
       const response = await fetch(decodeURIComponent(imageUrl));

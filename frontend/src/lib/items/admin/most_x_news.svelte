@@ -125,7 +125,7 @@
                 </div>
             </div>
             <div class="overflow-hidden w-full h-52">
-                <img src="/api/bypass_cors/{news_article_show[0] ? encodeURIComponent(news_article_show[0]['image']) : ""}" class="object-cover w-full h-full rounded-lg card-images" alt="placeholder alt"/>
+                <img src="/api/admin/{import.meta.env.VITE_ADMIN_CODE}/bypass_cors/{news_article_show[0] ? encodeURIComponent(news_article_show[0]['image']) : ""}" class="object-cover w-full h-full rounded-lg card-images" alt="placeholder alt"/>
             </div>
             <div class="mt-0.5 font-light">
                 <p>{news_article_show[0] ? news_article_show[0]['description'].slice(0, 150).replace(/\s$/, '') : ""}{news_article_show[0] ? news_article_show[0]['description'].length > 150 ? "..." : "" : ""}</p>
@@ -147,7 +147,7 @@
                 </div>
             </div>
             <div class="overflow-hidden h-32 w-48 shrink-0 flex flex-col justify-center">
-                <img src="/api/bypass_cors/{news_article_show[1] ? encodeURIComponent(news_article_show[1]['image']) : ""}" class="object-cover w-full h-full rounded-md card-images" alt="placeholder alt"/>
+                <img src="/api/admin/{import.meta.env.VITE_ADMIN_CODE}/bypass_cors/{news_article_show[1] ? encodeURIComponent(news_article_show[1]['image']) : ""}" class="object-cover w-full h-full rounded-md card-images" alt="placeholder alt"/>
             </div>
             <div class="flex flex-col justify-center gap-1">
                 <h3 class="font-bold text-lg">{news_article_show[1] ? news_article_show[1]['title'].slice(0, 100).replace(/\s$/, '') : ""}{news_article_show[1] ? news_article_show[1]['title'].length > 100 ? "..." : "" : ""}</h3>
@@ -167,7 +167,7 @@
                 </div>
             </div>
             <div class="overflow-hidden h-32 w-48 shrink-0 flex flex-col justify-center">
-                <img src="/api/bypass_cors/{news_article_show[2] ? encodeURIComponent(news_article_show[2]['image']) : ""}" class="object-cover w-full h-full rounded-md card-images" alt="placeholder alt"/>
+                <img src="/api/admin/{import.meta.env.VITE_ADMIN_CODE}/bypass_cors/{news_article_show[2] ? encodeURIComponent(news_article_show[2]['image']) : ""}" class="object-cover w-full h-full rounded-md card-images" alt="placeholder alt"/>
             </div>
             <div class="flex flex-col justify-center gap-1">
                 <h3 class="font-bold text-lg">{news_article_show[2] ? news_article_show[2]['title'].slice(0, 100).replace(/\s$/, '') : ""}{news_article_show[2] ? news_article_show[2]['title'].length > 100 ? "..." : "" : ""}</h3>

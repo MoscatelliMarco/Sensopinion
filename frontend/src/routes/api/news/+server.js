@@ -20,6 +20,8 @@ export async function GET(event) {
   const param = event.url.searchParams.get('param');
   const value = event.url.searchParams.get('value');
   
+  let projection = { google_news_url: 0, time_analyze: 0 }; // Exclude fields from the results
+
   let news;
   if (param && value) {
     const sanitizedParam = sanitizeStringForMongoDB(param);
@@ -33,9 +35,9 @@ export async function GET(event) {
       query = { [sanitizedParam]: sanitizedValue };
     }
     
-    news = await collection.find(query).toArray();
+    news = await collection.find(query, { projection }).toArray();
   } else {
-    let projection = { google_news_url: 0, time_analyze: 0, url: 0 }; // Exclude fields from the results
+    projection = { google_news_url: 0, time_analyze: 0, url: 0 }; // Exclude fields from the results
     news = await collection.find({}, { projection }).toArray();
   }
   

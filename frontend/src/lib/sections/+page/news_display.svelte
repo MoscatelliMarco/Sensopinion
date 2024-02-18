@@ -53,7 +53,7 @@
         </div>
       {/if}
       <div class="flex justify-center pt-2">
-          <button on:click={loadNews} class="btn bg-primary-gradient-opacity bg-primary-gradient-opacity-inter hover:brightness-105 focus:brightness-105 px-6 md:px-5 h-8 md:h-9 min-h-0 border-0 text-white shadow-md hover:shadow-lg">Load more</button>
+          <button on:click={loadNews} class="btn bg-primary-gradient-opacity font-medium bg-primary-gradient-opacity-inter hover:brightness-105 focus:brightness-105 px-6 md:px-5 h-8 min-h-0 border-0 text-white shadow-md hover:shadow-lg">Load more</button>
       </div>
     {:else}
       <p class="font-medium text-center">There are no news available at the moment</p>

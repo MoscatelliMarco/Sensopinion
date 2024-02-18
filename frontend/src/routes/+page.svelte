@@ -198,14 +198,14 @@
     <div class="flex flex-col gap-32 lg:gap-48 xl:gap-52">
 
         <section class="flex flex-col items-center md:flex-row md:justify-between gap-8 lg:gap-16 xl:gap-24 mt-6 xl:mt-12">
-            <div class="flex flex-col justify-center gap-4 md:gap-6 lg:gap-8 xl:gap-10 items-center text-center md:text-left">
-                <div class="flex flex-col gap-2 md:gap-4 lg:gap-5 xl:gap-6 items-center md:items-start">
-                    <h1 style="line-height: 1.1;" class="font-bold text-3xl md:text-4xl lg:text-5xl xl:text-6xl max-w-xs md:max-w-sm lg:max-w-lg xl:max-w-2xl">
+            <div class="flex flex-col justify-center gap-4 md:gap-7 lg:gap-9 xl:gap-11 items-center text-center md:text-left">
+                <div class="flex flex-col gap-2 md:gap-3 lg:gap-4 xl:gap-5 items-center md:items-start">
+                    <h1 class="font-bold text-3xl md:text-4xl lg:text-5xl xl:text-6xl max-w-xs md:max-w-sm lg:max-w-lg xl:max-w-2xl">
                         Analyze <span class="text-primary-gradient">Sentiment</span> and <span class="text-primary-gradient">Emotions</span> Of News And Articles At The Speed Of Light
                     </h1>
-                    <h3 class="max-w-xs xl:max-w-lg text-xs lg:text-sm xl:text-base">
+                    <p class="max-w-xs xl:max-w-lg text-xs lg:text-sm xl:text-base text-grey-1">
                         We hate reading boring articles just to understand what's happening around us, that's why we created Sensopinion.
-                    </h3>
+                    </p>
                 </div>
                 <div class="hidden md:flex md:justify-start w-full gap-2 lg:gap-4">
                     <a href="/screener"
@@ -213,8 +213,10 @@
                         Try our screener
                     </a>
                     <div class="relative w-1/2 md:w-auto">
-                        <button on:click={toggleDropdown} class="w-full md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 shadow-md hover:shadow-lg text-xs lg:text-sm rounded-md bordeTr border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light">
-                            Explore<span class="hidden md:inline-block">New</span>Analysis
+                        <button on:click={toggleDropdown} class="w-full md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 shadow-md hover:shadow-lg text-xs lg:text-sm rounded-md bordeTr border-grey-2 text-grey-2 hover:border-grey-1 hover:text-grey-1 btn font-light">
+                            <p>
+                                Explore New Analysis
+                            </p>
                         </button>
                         <ul bind:this={dropdown} class:hidden={!dropdown_main_active} class:absolute={dropdown_main_active} 
                         class="w-38 md:w-40 lg:w-48 xl:w-52 bg-white rounded-md mt-1 md:mt-1.5 lg:mt-2 shadow-md px-1.5 py-1 md:px-3 md:py-2.5 flex flex-col gap-0.5 z-20">
@@ -259,7 +261,7 @@
                     </a>
                     <div class="relative w-1/2 md:w-full">
                         <button on:click={toggleDropdown} class="w-full md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 shadow-md hover:shadow-lg text-xs lg:text-sm rounded-md bordeTr border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light">
-                            Explore<span class="hidden md:inline-block">New</span>Analysis
+                            Explore Analysis
                         </button>
                         <ul bind:this={dropdown} class:hidden={!dropdown_main_active} class:absolute={dropdown_main_active} 
                         class="w-full md:w-40 lg:w-48 xl:w-52 bg-white rounded-md mt-1 md:mt-1.5 lg:mt-2 shadow-md px-1.5 py-1 md:px-3 md:py-2.5 flex flex-col gap-0.5 z-20">
@@ -273,20 +275,18 @@
         </section>
         
         <section class="flex flex-col">
-            <div class="text-center flex flex-col gap-3 lg:gap-7 xl:gap-8">
+            <div class="text-center flex flex-col gap-8 lg:gap-11 xl:gap-12">
                 <h2 class="font-medium text-2xl md:text-3xl lg:text-4xl">What People Think About</h2>
-                <div class="flex flex-col gap-7 md:gap-0 items-center md:flex-row md:justify-between xl:mx-16">
-                    <div class="flex flex-col justify-center md:gap-5 lg:gap-6 w-full items-center">
-                        <a href="/categories/politics" class="flex flex-col gap-1.5 md:gap-2">
-                            <h4 class="font-medium text-center text-base md:text-lg xl:text-xl">Politics</h4>
+                <div class="flex flex-col gap-13 md:gap-0 items-center md:flex-row md:justify-between xl:mx-16">
+                    <div class="flex flex-col justify-center gap-3 md:gap-4 w-full items-center">
+                        <a href="/categories/politics" class="flex flex-col gap-3 md:gap-5 lg:gap-6">
+                            <h4 class="text-center text-lg xl:text-xl text-grey-1">politics</h4>
                             <NewsChart name="politics" dimension='medium' value={news_articles !== undefined && news_articles.length ? metrics['politics'][factor] : 0} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
-                        <div class="flex justify-center mt-4">
+                        <div class="flex justify-center">
                             <button on:click={show_more} data-category_type="politics" 
-                            class="btn w-28 md:w-32 text-xs min-h-0 h-7 md:h-8 xl:h-9 items-center rounded-md shadow-md hover:shadow-lg"
-                            class:bg-primary-gradient = {category_type == 'politics'}
-                            class:shadow-lg = {category_type == 'politics'}
-                            class:text-white = {category_type == 'politics'}>{#if category_type == 'politics'}Show less{:else}Show more{/if}</button>
+                            class="btn w-28 text-xs min-h-0 h-7 xl:h-8 font-light rounded shadow hover:shadow-md {category_type == 'politics' ? "bg-primary-gradient shadow-md text-white font-normal" : "border-grey-2 text-grey-2"}">
+                            {#if category_type == 'politics'}Show less{:else}Show more{/if}</button>
                         </div>
                         {#if category_type == 'politics'}
                             <div class="block md:hidden">
@@ -294,17 +294,15 @@
                             </div>
                         {/if}
                     </div>
-                    <div class="flex flex-col justify-center md:gap-5 lg:gap-6 w-full items-center">
-                        <a href="/categories/economy" class="flex flex-col gap-1.5 md:gap-2">
-                            <h4 class="font-medium text-center text-base md:text-lg xl:text-xl">Economy</h4>
+                    <div class="flex flex-col justify-center gap-3 md:gap-4 w-full items-center">
+                        <a href="/categories/economy" class="flex flex-col gap-3 md:gap-5 lg:gap-6">
+                            <h4 class="text-center text-lg xl:text-xl text-grey-1">economy</h4>
                             <NewsChart name="economy" dimension='medium' value={news_articles !== undefined && news_articles.length ? metrics['economy'][factor] : 0} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
-                        <div class="flex justify-center mt-4">
+                        <div class="flex justify-center">
                             <button on:click={show_more} data-category_type="economy" 
-                            class="btn w-28 md:w-32 text-xs min-h-0 h-7 md:h-8 xl:h-9 items-center rounded-md shadow-md hover:shadow-lg"
-                            class:bg-primary-gradient = {category_type == 'economy'}
-                            class:shadow-lg = {category_type == 'economy'}
-                            class:text-white = {category_type == 'economy'}>{#if category_type == 'economy'}Show less{:else}Show more{/if}</button>
+                            class="btn w-28 text-xs min-h-0 h-7 xl:h-8 font-light rounded shadow hover:shadow-md {category_type == 'politics' ? "bg-primary-gradient shadow-md text-white font-normal" : "border-grey-2 text-grey-2"}">
+                            {#if category_type == 'economy'}Show less{:else}Show more{/if}</button>
                         </div>
                         {#if category_type == 'economy'}
                             <div class="block md:hidden">
@@ -312,18 +310,16 @@
                             </div>
                         {/if}
                     </div>
-                    <div class="flex flex-col justify-center md:gap-5 lg:gap-6 w-full items-center">
-                        <a href="/categories/environment" class="flex flex-col gap-1.5 md:gap-2">
-                            <h4 class="font-medium text-center text-base md:text-lg xl:text-xl">Environment</h4>
+                    <div class="flex flex-col justify-center gap-3 md:gap-4 w-full items-center">
+                        <a href="/categories/environment" class="flex flex-col gap-3 md:gap-5 lg:gap-6">
+                            <h4 class="text-center text-lg xl:text-xl text-grey-1">environment</h4>
                             <NewsChart name="environment" dimension='medium' value={news_articles !== undefined && news_articles.length ? metrics['environment'][factor] : 0} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
-                        <div class="flex justify-center mt-4">
+                        <div class="flex justify-center">
                             <div class="flex justify-center">
                                 <button on:click={show_more} data-category_type="environment" 
-                                class="btn w-28 md:w-32 text-xs min-h-0 h-7 md:h-8 xl:h-9 items-center rounded-md shadow-md hover:shadow-lg"
-                                class:bg-primary-gradient = {category_type == 'environment'}
-                                class:shadow-lg = {category_type == 'environment'}
-                                class:text-white = {category_type == 'environment'}>{#if category_type == 'environment'}Show less{:else}Show more{/if}</button>
+                                class="btn w-28 text-xs min-h-0 h-7 xl:h-8 font-light rounded shadow hover:shadow-md {category_type == 'politics' ? "bg-primary-gradient shadow-md text-white font-normal" : "border-grey-2 text-grey-2"}">
+                                {#if category_type == 'environment'}Show less{:else}Show more{/if}</button>
                             </div>
                         </div>
                         {#if category_type == 'environment'}
@@ -339,10 +335,10 @@
                     <SubCategories category_type={category_type} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors} metrics={metrics} factor={factor} />
                 </div>
             {/if}
-            <div class="flex flex-col gap-2 lg:gap-4 mt-9 lg:mt-12 xl:mt-14">
+            <div class="flex flex-col gap-1.5 lg:gap-2.5 mt-14 lg:mt-18 xl:mt-20">
                 <div class="flex justify-center">
                     <div class="relative">
-                        <button on:click={toggleSmallDropdown} class="w-44 lg:w-48 xl:w-52 text-xs lg:text-sm h-8 xl:h-9 min-h-0 shadow-md hover:shadow-lg rounded-md border border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light">
+                        <button on:click={toggleSmallDropdown} class="w-44 lg:w-48 xl:w-52 text-xs lg:text-sm h-8 xl:h-9 min-h-0 shadow hover:shadow-md rounded-md border border-grey-3 text-grey-3 hover:border-grey-2 hover:text-grey-2 btn font-light">
                             Change Analysis
                         </button>
                         <ul bind:this={dropdown_small} class:hidden={!dropdown_small_active} class:absolute={dropdown_small_active} 
@@ -357,14 +353,14 @@
                     {#if (factor !== 'emotions')}
                         <div class="text-center font-light absolute top-0 left-0 right-0">
                             <div class="flex justify-center">
-                                <h5 transition:fade={{duration: 300}} class="w-44 lg:w-48 xl:w-52 py-1.5 lg:py-2 rounded-md bg-neutral-light flex flex-col justify-between h-12 lg:h-14 items-center shadow-md">
-                                    <span class="text-xs lg:text-sm">
+                                <b transition:fade={{duration: 300}} class="w-44 lg:w-48 xl:w-52 py-1.5 lg:py-2 rounded-md bg-grey-4 flex flex-col justify-between h-12 lg:h-14 items-center shadow">
+                                    <span class="text-xs lg:text-sm text-grey-2">
                                         Analyzing: 
                                     </span>
-                                    <span class="text-sm lg:text-base font-bold">
+                                    <span class="text-sm lg:text-base font-bold text-grey-1 mt-neg-2">
                                         { factor == 'positivity' ? "👎👍 Positivity 👍👎" : factor == 'subjectivity' ? "🤜✊ Subjectivity ✊🤛" : "🤬😃 Emotions 😃🤬"}
                                     </span>
-                                </h5>
+                                </b>
                             </div>
                         </div>
                     {:else}

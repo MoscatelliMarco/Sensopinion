@@ -12,6 +12,10 @@ module.exports = {
         main: {
           blue: "rgb(33, 135, 219)",
           purple: "rgb(112, 46, 219)",
+          "grey-1": "#616161",
+          "grey-2": "#969696",
+          "grey-3": "#CECECE",
+          "grey-4": "#F1F1F1",
           "neutral-light": "#E2E2E2",
           neutral: "#878787",
           "neutral-dark": "#616161",
@@ -27,6 +31,10 @@ module.exports = {
       colors: {
         blue: "rgb(33, 135, 219)",
         purple: "rgb(112, 46, 219)",
+        "grey-1": "#616161",
+        "grey-2": "#969696",
+        "grey-3": "#CECECE",
+        "grey-4": "#F1F1F1",
         "neutral-light": "#E2E2E2",
         neutral: "#878787",
         "neutral-dark": "#616161",

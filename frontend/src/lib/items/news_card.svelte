@@ -44,16 +44,16 @@
           <RadialProgressSmall news={news}/>
         </div>
       </div>
-      <p class="text-sm">
+      <p class="text-sm text-grey-1 font-light">
         {news['description'].slice(0, 250).replace(/\s$/, '')}{news['description'].length > 250 ? "..." : ""}
       </p>
     </div>
     <div class="mt-auto">
-      <div class="flex justify-between items-center mt-2">
-        <p class="text-xs font-medium px-4 h-7 bg-neutral-light rounded-tr-md bg-opacity-50 grid place-content-center">
+      <div class="flex justify-between items-center mt-2 md:mt-2.5">
+        <p class="text-xs font-medium px-4 h-7 bg-grey-4 text-grey-3 rounded-tr-md bg-opacity-50 grid place-content-center">
           {news['date_published'].split('T')[0]}
         </p>
-        <a href="/news/{news['_id']}" target="_blank" class="bg-neutral px-8 h-7 grid place-content-center text-white rounded-tl-md font-medium text-sm">
+        <a href="/news/{news['_id']}" target="_blank" class="bg-grey-3 px-8 h-7 grid place-content-center text-white rounded-tl font-medium text-sm">
           Read & Infos
         </a>
       </div>

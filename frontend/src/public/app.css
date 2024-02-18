@@ -534,7 +534,7 @@ html{
   purple: rgb(112, 46, 219);
   grey-1: #616161;
   grey-2: #969696;
-  grey-3: #CECECE;
+  grey-3: #CACACA;
   grey-4: #F1F1F1;
   neutral-light: #E2E2E2;
   --n: 0.623409 0 0;
@@ -2417,10 +2417,6 @@ html{
   border-radius: 0.125rem;
 }
 
-.rounded{
-  border-radius: 0.25rem;
-}
-
 .rounded-b-md{
   border-bottom-right-radius: 0.375rem;
   border-bottom-left-radius: 0.375rem;
@@ -2431,20 +2427,16 @@ html{
   border-top-right-radius: 0.125rem;
 }
 
+.rounded-tl{
+  border-top-left-radius: 0.25rem;
+}
+
 .rounded-tl-md{
   border-top-left-radius: 0.375rem;
 }
 
 .rounded-tr-md{
   border-top-right-radius: 0.375rem;
-}
-
-.rounded-tl-sm{
-  border-top-left-radius: 0.125rem;
-}
-
-.rounded-tl{
-  border-top-left-radius: 0.25rem;
 }
 
 .border{
@@ -2501,7 +2493,7 @@ html{
 
 .border-grey-3{
   --tw-border-opacity: 1;
-  border-color: rgb(206 206 206 / var(--tw-border-opacity));
+  border-color: rgb(202 202 202 / var(--tw-border-opacity));
 }
 
 .border-neutral{
@@ -2524,14 +2516,14 @@ html{
   background-color: var(--fallback-er,oklch(var(--er)/var(--tw-bg-opacity)));
 }
 
+.bg-grey-3{
+  --tw-bg-opacity: 1;
+  background-color: rgb(202 202 202 / var(--tw-bg-opacity));
+}
+
 .bg-grey-4{
   --tw-bg-opacity: 1;
   background-color: rgb(241 241 241 / var(--tw-bg-opacity));
-}
-
-.bg-neutral{
-  --tw-bg-opacity: 1;
-  background-color: rgb(135 135 135 / var(--tw-bg-opacity));
 }
 
 .bg-neutral-light{
@@ -2547,16 +2539,6 @@ html{
 .bg-white{
   --tw-bg-opacity: 1;
   background-color: rgb(254 254 254 / var(--tw-bg-opacity));
-}
-
-.bg-grey-3{
-  --tw-bg-opacity: 1;
-  background-color: rgb(206 206 206 / var(--tw-bg-opacity));
-}
-
-.bg-grey-2{
-  --tw-bg-opacity: 1;
-  background-color: rgb(150 150 150 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-30{
@@ -2913,7 +2895,7 @@ html{
 
 .text-grey-3{
   --tw-text-opacity: 1;
-  color: rgb(206 206 206 / var(--tw-text-opacity));
+  color: rgb(202 202 202 / var(--tw-text-opacity));
 }
 
 .text-neutral{
@@ -2924,6 +2906,12 @@ html{
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(254 254 254 / var(--tw-text-opacity));
+}
+
+.shadow{
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .shadow-lg{
@@ -2941,12 +2929,6 @@ html{
 .shadow-sm{
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.shadow{
-  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
@@ -2971,11 +2953,6 @@ html{
   border-color: rgb(97 97 97 / var(--tw-border-opacity));
 }
 
-.hover\:border-grey-2:hover{
-  --tw-border-opacity: 1;
-  border-color: rgb(150 150 150 / var(--tw-border-opacity));
-}
-
 .hover\:border-neutral-dark:hover{
   --tw-border-opacity: 1;
   border-color: rgb(97 97 97 / var(--tw-border-opacity));
@@ -2997,11 +2974,6 @@ html{
 .hover\:text-grey-1:hover{
   --tw-text-opacity: 1;
   color: rgb(97 97 97 / var(--tw-text-opacity));
-}
-
-.hover\:text-grey-2:hover{
-  --tw-text-opacity: 1;
-  color: rgb(150 150 150 / var(--tw-text-opacity));
 }
 
 .hover\:text-neutral-dark:hover{
@@ -3098,6 +3070,10 @@ html{
     margin-top: 0.5rem;
   }
 
+  .md\:mt-2\.5{
+    margin-top: 0.625rem;
+  }
+
   .md\:mt-20{
     margin-top: 5rem;
   }
@@ -3114,18 +3090,6 @@ html{
     margin-top: 1.5rem;
   }
 
-  .md\:mt-3{
-    margin-top: 0.75rem;
-  }
-
-  .md\:mt-3\.5{
-    margin-top: 0.875rem;
-  }
-
-  .md\:mt-2\.5{
-    margin-top: 0.625rem;
-  }
-
   .md\:block{
     display: block;
   }
@@ -3140,14 +3104,6 @@ html{
 
   .md\:h-124{
     height: 31rem;
-  }
-
-  .md\:h-8{
-    height: 2rem;
-  }
-
-  .md\:h-9{
-    height: 2.25rem;
   }
 
   .md\:w-12{
@@ -3353,11 +3309,6 @@ html{
   .md\:text-base{
     font-size: 1rem;
     line-height: 1.5rem;
-  }
-
-  .md\:text-lg{
-    font-size: 1.125rem;
-    line-height: 1.75rem;
   }
 
   .md\:text-sm{
@@ -3815,10 +3766,6 @@ html{
 
   .xl\:gap-6{
     gap: 1.5rem;
-  }
-
-  .xl\:gap-9{
-    gap: 2.25rem;
   }
 
   .xl\:gap-y-9{

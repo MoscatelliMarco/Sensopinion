@@ -238,7 +238,7 @@
                 </div>
                 <div class="relative h-12 lg:h-13">
                     {#if (factor !== 'emotions')}
-                        <h5 transition:fade={{duration: 300}} class="text-center font-light text-sm xl:text-base absolute top-0 left-0 right-0">{factor.charAt(0).toUpperCase() + factor.slice(1)} on news</h5>
+                        <h5 transition:fade={{duration: 300}} class="text-center text-grey-2 font-light text-sm xl:text-base absolute top-0 left-0 right-0">{factor.charAt(0).toUpperCase() + factor.slice(1)} on news</h5>
                     {:else}
                         <div class="absolute top-0 left-0 right-0">
                             <div transition:fade={{duration: 300}} class="flex flex-col justify-between">
@@ -254,7 +254,7 @@
                                         </button>
                                     {/each}
                                 </div>
-                                <p class="text-center font-light text-xs lg:text-sm">(try to click on an emoji)</p>
+                                <p class="text-center font-light text-xs lg:text-sm text-grey-2">(try to click on an emoji)</p>
                             </div>
                         </div>
                     {/if}

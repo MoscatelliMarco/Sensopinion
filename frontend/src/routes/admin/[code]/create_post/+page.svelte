@@ -11,7 +11,7 @@
         htmlToImage.toJpeg(html_post, {quality: 1, useCORS: true})
         .then(function (dataUrl) {
             var link = document.createElement('a');
-            link.download = output_filename.value + '.jpeg';
+            link.download = (output_filename.value ? output_filename.value : "sensopinion_media") + '.jpeg';
             link.href = dataUrl;
             link.click();
             link.remove()
@@ -39,7 +39,11 @@
                     parameterInput.addEventListener("keyup", () => {
                         parameters[parameterInput.name] = parameterInput.value;
                     })
-                }        
+                } else if (parameterInput.type == 'range') {
+                    parameterInput.addEventListener("change", () => {
+                        parameters[parameterInput.name] = parameterInput.value;
+                    })
+                }      
             }
         }, 100)
     }
@@ -67,6 +71,11 @@
                     </select>
                 {:else if required_parameters[parameter] == 'string'}
                     <input name="{parameter}" type="text" placeholder="{parameter}" class="parameter-input px-2 border rounded-md">
+                {:else if required_parameters[parameter]['range']}
+                    <div class="flex flex-col justify-center">
+                        <input name="{parameter}" type="range" min="{required_parameters[parameter]['range'][0]}" max="{required_parameters[parameter]['range'][1]}" value="{(required_parameters[parameter]['range'][0] + required_parameters[parameter]['range'][1]) / 2}" 
+                        class="parameter-input range range-info border"/>
+                    </div>
                 {/if}
             {/each}
         </div>

@@ -24,7 +24,8 @@
         "factor": factors_parameter,
         "order": ["ascending", "descending"],
         "factor_name": "string",
-        "1_minus_x": ['yes', "no"]
+        "1_minus_x": ['yes', "no"],
+        "title_width": {"range": [300, 700]}
     })
 
     function capitalizeFirstLetter(str) {
@@ -99,7 +100,7 @@
 
 <main class="w-full h-full pt-16 pb-20 px-28 flex flex-col justify-between gap-4">
     <div class="flex justify-center">
-        <h1 class="text-5xl font-medium max-w-xl text-center">
+        <h1 style="max-width: {parameters['title_width']}px;" class="text-5xl font-medium text-center">
             Most <span class="font-bold text-primary-gradient">{parameters['factor_name']}</span> news in the last 10 days about <span class="font-bold">{parameters['category'] ? capitalizeFirstLetter(parameters['category'].replace("_politics", "").replace("_environment", "").replace("_economy", "").replaceAll("_", " ")) : parameters['category']}</span>
         </h1>
     </div>
@@ -109,7 +110,7 @@
             {#if news_article_show[0]}
                 <NewsChartCustom size={300} thickness={20} font_size={32} font_weight={800} value={parameters['factor'] != 'polarity' && parameters['factor'] != 'subjectivity' ? Math.round((parameters['1_minus_x'] == 'yes' ? 1 - news_article_show[0]['emotions'][parameters['factor']] : news_article_show[0]['emotions'][parameters['factor']]) * 1000) / 10 : Math.round($globalStore.stretchFunction(parameters['1_minus_x'] == 'yes' ? 1 - news_article_show[0]['sentiment'][parameters['factor']] : news_article_show[0]['sentiment'][parameters['factor']]) * 1000) / 10}/>
             {/if}
-            <p class="font-light text-sm text-center w-full mt-2">*{parameters['factor']} of the news highlighted</p>
+            <p class="font-light text-sm text-center w-full mt-2 text-grey-2">*{parameters['factor']} of the news highlighted</p>
         </div>
         <div class="flex flex-col justify-center gap-1.5 max-w-md">
             <div class="flex gap-2">
@@ -125,7 +126,7 @@
                 </div>
             </div>
             <div class="overflow-hidden w-full h-52">
-                <img src="/api/admin/{import.meta.env.VITE_ADMIN_CODE}/bypass_cors/{news_article_show[0] ? encodeURIComponent(news_article_show[0]['image']) : ""}" class="object-cover w-full h-full rounded-lg card-images" alt="placeholder alt"/>
+                <img src="{news_article_show[0] ? `/api/admin/${import.meta.env.VITE_ADMIN_CODE}/bypass_cors/` : ""}{news_article_show[0] ? encodeURIComponent(news_article_show[0]['image']) : ""}" class="object-cover w-full h-full rounded-lg card-images" alt="placeholder alt"/>
             </div>
             <div class="mt-0.5 font-light">
                 <p>{news_article_show[0] ? news_article_show[0]['description'].slice(0, 150).replace(/\s$/, '') : ""}{news_article_show[0] ? news_article_show[0]['description'].length > 150 ? "..." : "" : ""}</p>
@@ -147,7 +148,7 @@
                 </div>
             </div>
             <div class="overflow-hidden h-32 w-48 shrink-0 flex flex-col justify-center">
-                <img src="/api/admin/{import.meta.env.VITE_ADMIN_CODE}/bypass_cors/{news_article_show[1] ? encodeURIComponent(news_article_show[1]['image']) : ""}" class="object-cover w-full h-full rounded-md card-images" alt="placeholder alt"/>
+                <img src="{news_article_show[1] ? `/api/admin/${import.meta.env.VITE_ADMIN_CODE}/bypass_cors/` : ""}{news_article_show[1] ? encodeURIComponent(news_article_show[1]['image']) : ""}" class="object-cover w-full h-full rounded-md card-images" alt="placeholder alt"/>
             </div>
             <div class="flex flex-col justify-center gap-1">
                 <h3 class="font-bold text-lg">{news_article_show[1] ? news_article_show[1]['title'].slice(0, 100).replace(/\s$/, '') : ""}{news_article_show[1] ? news_article_show[1]['title'].length > 100 ? "..." : "" : ""}</h3>
@@ -167,7 +168,7 @@
                 </div>
             </div>
             <div class="overflow-hidden h-32 w-48 shrink-0 flex flex-col justify-center">
-                <img src="/api/admin/{import.meta.env.VITE_ADMIN_CODE}/bypass_cors/{news_article_show[2] ? encodeURIComponent(news_article_show[2]['image']) : ""}" class="object-cover w-full h-full rounded-md card-images" alt="placeholder alt"/>
+                <img src="{news_article_show[2] ? `/api/admin/${import.meta.env.VITE_ADMIN_CODE}/bypass_cors/` : ""}{news_article_show[2] ? encodeURIComponent(news_article_show[2]['image']) : ""}" class="object-cover w-full h-full rounded-md card-images" alt="placeholder alt"/>
             </div>
             <div class="flex flex-col justify-center gap-1">
                 <h3 class="font-bold text-lg">{news_article_show[2] ? news_article_show[2]['title'].slice(0, 100).replace(/\s$/, '') : ""}{news_article_show[2] ? news_article_show[2]['title'].length > 100 ? "..." : "" : ""}</h3>

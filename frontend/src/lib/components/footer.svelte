@@ -26,7 +26,7 @@
                 </a>
             </li>
             <li class="font-medium">·</li>
-            <li class="hover:font-medium {$page.url.pathname === '/categories' ? 'font-medium' : ''}">
+            <li class="hover:font-medium {$page.url.pathname.includes('/categories') ? 'font-medium' : ''}">
                 <a href="/categories">
                     Categories
                 </a>

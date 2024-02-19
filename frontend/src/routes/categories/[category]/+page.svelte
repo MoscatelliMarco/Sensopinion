@@ -306,6 +306,26 @@
             return value;
         })
     }
+    
+    $: if ($page.params.category) {
+        news_articles_show = news_articles.filter((item) => {
+            if (!$dict_params['subcategories']) {
+                if (Object.keys(item['categories']).includes($page.params.category.charAt(0).toUpperCase() + $page.params.category.slice(1))) {
+                    return true;
+                }
+            }
+            if ($dict_params['subcategories']) {
+                if (item['categories'][$page.params.category.charAt(0).toUpperCase() + $page.params.category.slice(1)]) {
+                    for (let news_subcategory of item['categories'][$page.params.category.charAt(0).toUpperCase() + $page.params.category.slice(1)]) {
+                        if ($dict_params['subcategories'].includes(news_subcategory.replaceAll(" ", "_").toLowerCase())) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        })
+    }
 </script>
 
 <svelte:head>

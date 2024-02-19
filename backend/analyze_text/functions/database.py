@@ -38,3 +38,42 @@ class DBClient():
             "date_published": date_published
         }
         self.collection.insert_one(doc)
+
+    def delete_duplicates(self):
+        # Define the aggregation pipeline
+        pipeline = [
+            {
+                "$group": {
+                    "_id": {
+                        "google_news_url": "$google_news_url",
+                        "url": "$url",
+                        "title": "$title",
+                        "description": "$description"
+                    },
+                    "count": {"$sum": 1},
+                    "ids": {"$push": "$_id"}
+                }
+            },
+            {
+                "$match": {
+                    "count": {"$gt": 1}
+                }
+            },
+            {
+                "$project": {
+                    "idsToKeep": {"$slice": ["$ids", 1]},
+                    "idsToDelete": {"$slice": ["$ids", 1, {"$size": "$ids"}]}
+                }
+            },
+            {
+                "$unwind": "$idsToDelete"
+            }
+        ]
+
+        # Execute the aggregation pipeline
+        duplicate_documents = list(self.collection.aggregate(pipeline))
+
+        # Delete duplicate documents, keeping one from each group
+        for doc in duplicate_documents:
+            self.collection.delete_one({"_id": doc['idsToDelete']})
+            logger.debug(f"Deleted duplicate document with ID: {doc['idsToDelete']}")

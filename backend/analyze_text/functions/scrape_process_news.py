@@ -57,6 +57,12 @@ def scrape_process_news(mongo_client):
         if not analyze_and_post_with_timeout(news_entries, google_news_url, mongo_client):
             continue
 
+        # Check if there are any duplicates every 10 news analyzed in the mongo database and if there are delete them
+        if (news_index + 1) % 15 == 0:
+            logger.info("Running duplicates removal")
+            
+            mongo_client.delete_duplicates()
+
 def analyze_and_post(news_entries, google_news_url, mongo_client):
     is_already_inside = False
     for entry in news_entries:

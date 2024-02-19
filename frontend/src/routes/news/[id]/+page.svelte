@@ -16,6 +16,12 @@
     })
 </script>
 
+<svelte:head>
+    <title>Sensopinion analysis: {news['title']}</title>
+    <meta name='description' content="{news['description']}">
+    <meta name='author' content="{news['author']}">
+</svelte:head>
+
 <div class="flex flex-col items-center gap-3 mt-5 md:mt-6 lg:mt-8 text-center">
     <div class="flex flex-col items-center">
         <p>Click this button after {timer} seconds to be redirected</p>

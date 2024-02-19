@@ -308,6 +308,11 @@
     }
 </script>
 
+<svelte:head>
+    <title>Analyzing {$page.params.category}</title>
+    <meta name='description' content="Analyzing the news about {$page.params.category}">
+</svelte:head>
+
 <div class="flex flex-col gap-8">
     <div class="flex flex-col gap-4 mt-8">
         <div class="flex justify-between">

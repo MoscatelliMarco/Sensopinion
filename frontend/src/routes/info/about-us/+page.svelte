@@ -1,3 +1,8 @@
+<svelte:head>
+    <title>About us</title>
+    <meta name='description' content="The innovative news analyzer that brings a new perspective to how you understand the world. We specialize in providing insightful analyses of the latest news.">
+</svelte:head>
+
 <div class="flex flex-col word-break gap-6 mt-3 md:mt-4">
     <div class="flex flex-col">
         <h3 class="text-3xl lg:text-4xl font-medium">About us</h3>

@@ -95,6 +95,12 @@
         })
     }
 </script>
+
+<svelte:head>
+    <title>Categories</title>
+    <meta name='description' content="From politics, to economy, to environment, we got everything analyzed!">
+</svelte:head>
+
 <div class="flex flex-col gap-28 md:gap-32 xl:gap-36 mt-4 md:mt-5 lg:mt-8 xl:mt-10">
     {#each Object.keys(categories) as category}
         <div class="flex flex-col gap-5 lg:gap-7">

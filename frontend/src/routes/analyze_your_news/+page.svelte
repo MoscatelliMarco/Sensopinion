@@ -92,6 +92,11 @@
     }
 </script>
 
+<svelte:head>
+    <title>Analyze your own text</title>
+    <meta name='description' content="Analyze your own text, wheter is a news url or your article, we got your back!">
+</svelte:head>
+
 <div class="w-full flex flex-col items-center mt-2 md:mt-4 lg:mt-6 relative">
     {#if message}
         <Alert message={message}/>

@@ -378,7 +378,7 @@
                         </svg>
                     </button>
                 </div>
-                <div class="border border-black rounded-md px-0.5 w-52">
+                <div class="bg-transparent border border-grey-2 rounded-md px-0.5 w-52">
                     <input bind:value={search_value} maxlength="50" name="url" type="text" placeholder="Search content" class="text-xs md:text-sm px-1.5 py-1 w-full focus:border-none focus:outline-none" />
                 </div>
             </div>

@@ -15,7 +15,7 @@
   }
 </script>
 
-<div class="rounded-md overflow-hidden shadow-sm hover:shadow-md h-auto">
+<div class="rounded-md overflow-hidden shadow-sm hover:shadow h-auto">
   <div transition:animation class="flex flex-col justify-between gap-2 lg:gap-3 overflow-hidden h-full relative border">
     <div class="absolute top-2 right-2 flex gap-1.5">
       {#if "Politics" in news['categories']}
@@ -49,11 +49,11 @@
       </p>
     </div>
     <div class="mt-auto">
-      <div class="flex justify-between items-center mt-2 md:mt-2.5">
-        <p class="text-xs font-medium px-4 h-7 bg-grey-4 text-grey-3 rounded-tr-md bg-opacity-50 grid place-content-center">
+      <div class="flex justify-between items-center mt-1 md:mt-1.5">
+        <p class="text-xs font-medium px-4 h-6.5 text-grey-3 rounded-tr-md bg-opacity-50 grid place-content-center">
           {news['date_published'].split('T')[0]}
         </p>
-        <a href="/news/{news['_id']}" target="_blank" class="bg-grey-3 px-8 h-7 grid place-content-center text-white rounded-tl font-medium text-sm">
+        <a href="/news/{news['_id']}" target="_blank" class="bg-grey-4 px-6 h-6.5 grid place-content-center text-grey-2 rounded-tl font-semibold text-xs">
           Read & Infos
         </a>
       </div>

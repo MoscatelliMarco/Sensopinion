@@ -260,7 +260,7 @@
                         Try <span class="hidden md:block">our </span>screener
                     </a>
                     <div class="relative w-1/2 md:w-full">
-                        <button on:click={toggleDropdown} class="w-full md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 shadow-md hover:shadow-lg text-xs lg:text-sm rounded-md bordeTr border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light">
+                        <button on:click={toggleDropdown} class="bg-transparent w-full md:w-40 lg:w-48 xl:w-52 h-10 lg:h-11 xl:h-12 min-h-0 shadow-md hover:shadow-lg text-xs lg:text-sm rounded-md bordeTr border-neutral text-neutral hover:border-neutral-dark hover:text-neutral-dark btn font-light">
                             Explore Analysis
                         </button>
                         <ul bind:this={dropdown} class:hidden={!dropdown_main_active} class:absolute={dropdown_main_active} 
@@ -285,7 +285,7 @@
                         </a>
                         <div class="flex justify-center">
                             <button on:click={show_more} data-category_type="politics" 
-                            class="btn w-28 text-xs min-h-0 h-7 xl:h-8 font-light rounded-md shadow hover:shadow-md {category_type == 'politics' ? "bg-primary-gradient-opacity shadow-md text-white font-normal" : "border-grey-3 text-grey-3"}">
+                            class="btn w-28 text-xs min-h-0 h-7 xl:h-8 font-light rounded-md shadow hover:shadow-md {category_type == 'politics' ? "bg-primary-gradient-opacity shadow-md text-white font-normal" : "bg-transparent border-grey-3 text-grey-3"}">
                             {#if category_type == 'politics'}Show less{:else}Show more{/if}</button>
                         </div>
                         {#if category_type == 'politics'}
@@ -301,7 +301,7 @@
                         </a>
                         <div class="flex justify-center">
                             <button on:click={show_more} data-category_type="economy" 
-                            class="btn w-28 text-xs min-h-0 h-7 xl:h-8 font-light rounded-md shadow hover:shadow-md {category_type == 'economy' ? "bg-primary-gradient-opacity shadow-md text-white font-normal" : "border-grey-3 text-grey-3"}">
+                            class="btn w-28 text-xs min-h-0 h-7 xl:h-8 font-light rounded-md shadow hover:shadow-md {category_type == 'economy' ? "bg-primary-gradient-opacity shadow-md text-white font-normal" : "bg-transparent border-grey-3 text-grey-3"}">
                             {#if category_type == 'economy'}Show less{:else}Show more{/if}</button>
                         </div>
                         {#if category_type == 'economy'}
@@ -318,7 +318,7 @@
                         <div class="flex justify-center">
                             <div class="flex justify-center">
                                 <button on:click={show_more} data-category_type="environment" 
-                                class="btn w-28 text-xs min-h-0 h-7 xl:h-8 font-light rounded-md shadow hover:shadow-md {category_type == 'environment' ? "bg-primary-gradient-opacity shadow-md text-white font-normal" : "border-grey-3 text-grey-3"}">
+                                class="btn w-28 text-xs min-h-0 h-7 xl:h-8 font-light rounded-md shadow hover:shadow-md {category_type == 'environment' ? "bg-primary-gradient-opacity shadow-md text-white font-normal" : "bg-transparent border-grey-3 text-grey-3"}">
                                 {#if category_type == 'environment'}Show less{:else}Show more{/if}</button>
                             </div>
                         </div>
@@ -338,7 +338,7 @@
             <div class="flex flex-col gap-1.5 lg:gap-2.5 mt-14 lg:mt-18 xl:mt-20">
                 <div class="flex justify-center">
                     <div class="relative">
-                        <button on:click={toggleSmallDropdown} class="w-44 lg:w-48 xl:w-52 text-xs lg:text-sm h-8 xl:h-9 min-h-0 shadow hover:shadow-md rounded-md border border-grey-2 text-grey-2 hover:border-grey-1 hover:text-grey-1 btn font-light">
+                        <button on:click={toggleSmallDropdown} class="bg-transparent w-44 lg:w-48 xl:w-52 text-xs lg:text-sm h-8 xl:h-9 min-h-0 shadow hover:shadow-md rounded-md border border-grey-2 text-grey-2 hover:border-grey-1 hover:text-grey-1 btn font-light">
                             Change Analysis
                         </button>
                         <ul bind:this={dropdown_small} class:hidden={!dropdown_small_active} class:absolute={dropdown_small_active} 

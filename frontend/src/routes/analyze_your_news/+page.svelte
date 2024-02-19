@@ -93,7 +93,7 @@
 </script>
 
 <svelte:head>
-    <title>Analyze your own text</title>
+    <title>Analyze your text</title>
     <meta name='description' content="Analyze your own text, wheter is a news url or your article, we got your back!">
 </svelte:head>
 

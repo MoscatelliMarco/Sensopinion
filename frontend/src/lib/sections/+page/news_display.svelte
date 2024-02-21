@@ -21,7 +21,7 @@
 
       let res_news;
       try {
-        res_news = await fetch(`/api/news?n_load=4&start_id=${sorted_news_articles[sorted_news_articles.length - 1]['_id']}`);
+        res_news = await fetch(`/api/news?n_load=6&start_id=${sorted_news_articles[sorted_news_articles.length - 1]['_id']}`);
       } catch (e) {
         console.log(e)
         loading = false

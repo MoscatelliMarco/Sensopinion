@@ -66,6 +66,6 @@ export async function GET(event) {
     return json(news);
   } catch (e) {
     console.log(e)
-    return json({})
+    return json([])
   }
 }

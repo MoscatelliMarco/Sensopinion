@@ -4,7 +4,6 @@
     import TryScreener from "$lib/sections/+page/try_screener.svelte"
     import NewsDisplay from "$lib/sections/+page/news_display.svelte"
     import FactorDropdownButton  from "$lib/items/factor_dropdown_button.svelte";
-    import { globalStore } from "../stores.js";
     import { onMount, onDestroy } from 'svelte';
     import { fade } from "svelte/transition";
 
@@ -74,98 +73,6 @@
         const factor_value = event.target.dataset['factorValue'];
         factor = factor_value
     }
-    
-    let news_articles = $globalStore.news;
-    let metrics = $globalStore.metrics;
-    if (!Object.keys(metrics).length) {
-        metrics = {
-            'all': {
-                'emotions': {},
-                'positivity': {
-                    'numerator': 0,
-                    'denominator': 0
-                },
-                'subjectivity': {
-                    'numerator': 0,
-                    'denominator': 0
-                }
-            }
-        }
-        if (news_articles !== undefined && news_articles.length) {
-            for (let emotion of ['anger', 'disgust', 'fear', 'neutral', 'sadness', 'surprise', 'happiness']) {
-                for (let news of news_articles) {
-                    if (emotion in metrics['all']['emotions']) {
-                        metrics['all']['emotions'][emotion]['numerator'] += news['emotions'][emotion]
-                        metrics['all']['emotions'][emotion]['denominator'] += 1
-                    }
-                    else{
-                        metrics['all']['emotions'][emotion] = {'numerator': news['emotions'][emotion],'denominator': 1}
-                    }
-
-                    for (let category in news['categories']) {
-                        let raw_category = category;
-                        category = category.toLowerCase().replaceAll(" ", "_");
-                        if (!(category in metrics)) {
-                            metrics[category] = {'emotions': {}, 'positivity': {'numerator': 0,'denominator': 0},'subjectivity': {'numerator': 0,'denominator': 0}}
-                        }
-                        if (emotion in metrics[category]['emotions']) {
-                            metrics[category]['emotions'][emotion]['numerator'] += news['emotions'][emotion]
-                            metrics[category]['emotions'][emotion]['denominator'] += 1
-                        }
-                        else{
-                            metrics[category]['emotions'][emotion] = {'numerator': news['emotions'][emotion],'denominator': 1}
-                        }
-                        for (let subcategory of news['categories'][raw_category]){
-                            subcategory = subcategory.toLowerCase().replaceAll(" ", "_") + '_' + category
-                            if (!(subcategory in metrics)) {
-                                metrics[subcategory] = {'emotions': {}, 'positivity': {'numerator': 0,'denominator': 0},'subjectivity': {'numerator': 0,'denominator': 0}}
-                            }
-                            if (emotion in metrics[subcategory]['emotions']) {
-                                metrics[subcategory]['emotions'][emotion]['numerator'] += news['emotions'][emotion]
-                                metrics[subcategory]['emotions'][emotion]['denominator'] += 1
-                            }
-                            else{
-                                metrics[subcategory]['emotions'][emotion] = {'numerator': news['emotions'][emotion],'denominator': 1}
-                            }
-                        }
-                    }
-                }
-                for (let metric in metrics) {
-                    metrics[metric]['emotions'][emotion] = Math.round(metrics[metric]['emotions'][emotion]['numerator'] / metrics[metric]['emotions'][emotion]['denominator'] * 1000) / 10
-                }
-            }
-            for (let news of news_articles) {
-                metrics['all']['positivity']['numerator'] += news['sentiment']['polarity']
-                metrics['all']['positivity']['denominator'] += 1
-                metrics['all']['subjectivity']['numerator'] += news['sentiment']['subjectivity']
-                metrics['all']['subjectivity']['denominator'] += 1
-                for (let category in news['categories']) {
-                    let raw_category = category;
-                    category = category.toLowerCase().replaceAll(" ", "_");
-                    metrics[category]['positivity']['numerator'] += news['sentiment']['polarity']
-                    metrics[category]['positivity']['denominator'] += 1
-                    metrics[category]['subjectivity']['numerator'] += news['sentiment']['subjectivity']
-                    metrics[category]['subjectivity']['denominator'] += 1
-                    for (let subcategory of news['categories'][raw_category]) {
-                        subcategory = subcategory.toLowerCase().replaceAll(" ", "_") + "_" + category;
-                        metrics[subcategory]['positivity']['numerator'] += news['sentiment']['polarity']
-                        metrics[subcategory]['positivity']['denominator'] += 1
-                        metrics[subcategory]['subjectivity']['numerator'] += news['sentiment']['subjectivity']
-                        metrics[subcategory]['subjectivity']['denominator'] += 1
-                    }
-                }
-            }
-            for (let metric in metrics) {
-                metrics[metric]['positivity'] = Math.round($globalStore.stretchFunction(metrics[metric]['positivity']['numerator'] / metrics[metric]['positivity']['denominator']) * 1000) / 10
-                metrics[metric]['subjectivity'] = Math.round($globalStore.stretchFunction(metrics[metric]['subjectivity']['numerator'] / metrics[metric]['subjectivity']['denominator']) * 1000) / 10
-            }
-        }
-
-        globalStore.update((value) => {
-            value['metrics'] = metrics;
-            return value;
-        })
-    }
 
     let cake_chart_colors = [
         "rgb(108, 62, 219)",
@@ -187,6 +94,11 @@
             emotion_analyze = emotion_analyze_value
         }
     }
+
+    // Get the prop with the news metrics and articles
+    export let data;
+    let metrics = data['props']['metrics'];
+    let news_articles = data['props']['news_articles']
 </script>
 
 <svelte:head>
@@ -194,7 +106,7 @@
     <meta name='description' content="We hate reading boring articles just to understand what's happening around us, that's why we created Sensopinion. Whether you are a Neutrality searcher or an Emotions analyzer, we got your back!">
 </svelte:head>
 
-{#if news_articles == undefined}
+{#if !metrics}
     <div role="alert" class="alert alert-error shadow-md">
         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
         <span class="mt-0.5">We couldn't fetch the news for an internal server error😔, try again later.</span>
@@ -234,7 +146,7 @@
             </div>
             <div class="flex flex-col justify-center px-2 md:px-0 gap-2 md:gap-4 mt-0 md:mt-6">
                 <div class="flex justify-center">
-                    <NewsChart name="all" value={news_articles !== undefined && news_articles.length ? metrics['all'][factor] : 0} dimension='big' emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
+                    <NewsChart name="all" value={metrics['all'][factor]} dimension='big' emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                 </div>
                 <div class="relative h-12 lg:h-13">
                     {#if (factor !== 'emotions')}
@@ -286,7 +198,7 @@
                     <div class="flex flex-col justify-center gap-3 md:gap-4 w-full items-center">
                         <a href="/categories/politics" class="flex flex-col gap-3 md:gap-5 lg:gap-6">
                             <h4 class="text-center text-lg xl:text-xl text-grey-1">politics</h4>
-                            <NewsChart name="politics" dimension='medium' value={news_articles !== undefined && news_articles.length ? metrics['politics'][factor] : 0} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
+                            <NewsChart name="politics" dimension='medium' value={metrics['politics'][factor]} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
                         <div class="flex justify-center">
                             <button on:click={show_more} data-category_type="politics" 
@@ -302,7 +214,7 @@
                     <div class="flex flex-col justify-center gap-3 md:gap-4 w-full items-center">
                         <a href="/categories/economy" class="flex flex-col gap-3 md:gap-5 lg:gap-6">
                             <h4 class="text-center text-lg xl:text-xl text-grey-1">economy</h4>
-                            <NewsChart name="economy" dimension='medium' value={news_articles !== undefined && news_articles.length ? metrics['economy'][factor] : 0} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
+                            <NewsChart name="economy" dimension='medium' value={metrics['economy'][factor]} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
                         <div class="flex justify-center">
                             <button on:click={show_more} data-category_type="economy" 
@@ -318,7 +230,7 @@
                     <div class="flex flex-col justify-center gap-3 md:gap-4 w-full items-center">
                         <a href="/categories/environment" class="flex flex-col gap-3 md:gap-5 lg:gap-6">
                             <h4 class="text-center text-lg xl:text-xl text-grey-1">environment</h4>
-                            <NewsChart name="environment" dimension='medium' value={news_articles !== undefined && news_articles.length ? metrics['environment'][factor] : 0} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
+                            <NewsChart name="environment" dimension='medium' value={metrics['environment'][factor]} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
                         <div class="flex justify-center">
                             <div class="flex justify-center">

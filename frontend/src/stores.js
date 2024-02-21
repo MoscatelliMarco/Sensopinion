@@ -50,7 +50,6 @@ export const globalStore = writable({
         "Others"
     ]
     },
-    news: undefined,
     metrics: {},
     stretchFunction: function (x, stretch_constant = 0.05) {
       if (x >= 1 - stretch_constant) {

@@ -34,6 +34,7 @@ export async function GET() {
     let projection = { google_news_url: 0, time_analyze: 0 }; // Exclude fields from the results
     let news_articles = await collection.find({}, { projection }).toArray();
 
+    // If the length is the same the means that the article are the same and you can use the metrics_cache calculated in the request before (this has a small chance to not calculate the metrics properly if an article is deleted and added at the same time, but the different would be irrelevant)
     if (news_articles.length === current_len_collection) {
         return json(metrics_cache)
     }
@@ -120,6 +121,10 @@ export async function GET() {
         metrics[metric]['positivity'] = Math.round(stretchFunction(metrics[metric]['positivity']['numerator'] / metrics[metric]['positivity']['denominator']) * 1000) / 10
         metrics[metric]['subjectivity'] = Math.round(stretchFunction(metrics[metric]['subjectivity']['numerator'] / metrics[metric]['subjectivity']['denominator']) * 1000) / 10
     }
+
+    // Save old metrics in the cache
+    metrics_cache = {...metrics};
+    current_len_collection = news_articles.length;
 
     return json(metrics);
 }

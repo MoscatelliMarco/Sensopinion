@@ -1,25 +1,23 @@
-import { globalStore, loadedStore } from "../../stores";
+import { loadedStore } from "../../stores";
 
 // This runs on the server during SSR and on the client after navigation
-export async function load({ fetch }) {
+export async function load({ fetch, url }) {
     loadedStore.set(false)
-    let news_articles;
-    const unsubscribe = globalStore.subscribe((value) => {
-        news_articles = value.news;
-    })
-    unsubscribe()
-    if (news_articles === undefined || (news_articles instanceof Array && !news_articles.length)) {
-        let res;
-        try {
-            res = await fetch("/api/news");
-        } catch {}
-        if (res.ok) {
-            const data = await res.json();
-            globalStore.update(($dict) => {
-                $dict['news'] = data;
-                return $dict;
-            })
-        }
+
+    let res_news;
+    try {
+        // Send the same params but with n_load
+        res_news = await fetch(`/api/news/screener${url.search}${url.search ? "&" : "?"}n_load=12`);
+    } catch {}
+    if (res_news.ok) {
+        const data_news = await res_news.json();
+
         loadedStore.set(true)
+        return {
+            props: {
+                news_articles: data_news
+            }
+        }
     }
+    loadedStore.set(true)
 }

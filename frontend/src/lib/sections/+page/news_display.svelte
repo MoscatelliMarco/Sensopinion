@@ -15,13 +15,14 @@
 
   let loading = false
   let show_reached_end = false;
+  let n_loaded = sorted_news_articles.length;
   function loadNews() {
     loading = true
     setTimeout(async () => {
 
       let res_news;
       try {
-        res_news = await fetch(`/api/news?n_load=6&start_id=${sorted_news_articles[sorted_news_articles.length - 1]['_id']}`);
+        res_news = await fetch(`/api/news?n_load=6&skip=${n_loaded}`);
       } catch (e) {
         console.log(e)
         loading = false
@@ -35,6 +36,7 @@
       let data_news = await res_news.json();
       if (Array.isArray(data_news)) {
         sorted_news_articles = sorted_news_articles.concat(data_news)
+        n_loaded = sorted_news_articles.length;
       } else {
         show_reached_end = true;
         setTimeout(() => {
@@ -44,11 +46,11 @@
 
       loading = false
       if (data_news.length == 0) {
-          show_reached_end = true;
-          setTimeout(() => {
-            show_reached_end = false;
-          }, 4000)
-        }
+        show_reached_end = true;
+        setTimeout(() => {
+          show_reached_end = false;
+        }, 4000)
+      }
     }, 250)
   }
 </script>

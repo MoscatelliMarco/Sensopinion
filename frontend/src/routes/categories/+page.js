@@ -8,16 +8,17 @@ export async function load({ fetch }) {
     let res_metrics;
     try {
         res_metrics = await fetch(`/api/metrics`);
-    } catch {}
-    if (res_metrics.ok) {
-        const data_metrics = await res_metrics.json();
 
-        loadedStore.set(true)
-        return {
-            props: {
-                metrics: data_metrics
+        if (res_metrics.ok) {
+            const data_metrics = await res_metrics.json();
+    
+            loadedStore.set(true)
+            return {
+                props: {
+                    metrics: data_metrics
+                }
             }
         }
-    }
+    } catch {}
     loadedStore.set(true)
 }

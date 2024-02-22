@@ -11,7 +11,7 @@ export async function load({ fetch, params }) {
     if (news_articles === undefined || (news_articles instanceof Array && !news_articles.length)) {
         let res;
         try {
-            res = await fetch(`/api/news?param=_id&value=${params.id}`);
+            res = await fetch(`/api/news/one?factor=_id&value=${params.id}`);
         } catch {}
         if (res.ok) {
             const data = await res.json();

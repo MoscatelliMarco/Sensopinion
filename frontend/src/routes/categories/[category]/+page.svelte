@@ -51,7 +51,7 @@
     $: if (ascending || !ascending) {
         dict_params.update($dict => {
             if (ascending) {
-                $dict['ascending'] = 'true';   
+                $dict['ascending'] = '1';   
             } else {
                 delete $dict['ascending']
             }
@@ -68,9 +68,9 @@
             
             dict_params.update($dict => {
                 if (selectedValue == 'date') {
-                    delete $dict['sortby']
+                    delete $dict['sort_by']
                 } else {
-                    $dict['sortby'] = selectedValue;
+                    $dict['sort_by'] = selectedValue;
                 }
                 return $dict
             })
@@ -85,7 +85,7 @@
     $: if ($dict_params) {
         if (options) {
             for (let option of options) {
-                if ($dict_params['sortby'] == option.value) {
+                if ($dict_params['sort_by'] == option.value) {
                     option.selected = true;
                 } else {
                     option.selected = false;
@@ -171,33 +171,33 @@
                 let factor1;
                 let factor2;
 
-                if ($dict_params['sortby'] == 'positivity') {
+                if ($dict_params['sort_by'] == 'positivity') {
                     factor1 = a['sentiment']['polarity'];
                     factor2 = b['sentiment']['polarity'];
-                } else if ($dict_params['sortby'] == 'subjectivity') {
+                } else if ($dict_params['sort_by'] == 'subjectivity') {
                     factor1 = a['sentiment']['subjectivity'];
                     factor2 = b['sentiment']['subjectivity'];
                 } 
                 
-                else if ($dict_params['sortby'] == 'happiness') {
+                else if ($dict_params['sort_by'] == 'happiness') {
                     factor1 = a['emotions']['happiness'];
                     factor2 = b['emotions']['happiness'];
-                } else if ($dict_params['sortby'] == 'surprise') {
+                } else if ($dict_params['sort_by'] == 'surprise') {
                     factor1 = a['emotions']['surprise'];
                     factor2 = b['emotions']['surprise'];
-                } else if ($dict_params['sortby'] == 'fear') {
+                } else if ($dict_params['sort_by'] == 'fear') {
                     factor1 = a['emotions']['fear'];
                     factor2 = b['emotions']['fear'];
-                } else if ($dict_params['sortby'] == 'disgust') {
+                } else if ($dict_params['sort_by'] == 'disgust') {
                     factor1 = a['emotions']['disgust'];
                     factor2 = b['emotions']['disgust'];
-                } else if ($dict_params['sortby'] == 'anger') {
+                } else if ($dict_params['sort_by'] == 'anger') {
                     factor1 = a['emotions']['anger'];
                     factor2 = b['emotions']['anger'];
-                } else if ($dict_params['sortby'] == 'neutral') {
+                } else if ($dict_params['sort_by'] == 'neutral') {
                     factor1 = a['emotions']['neutral'];
                     factor2 = b['emotions']['neutral'];
-                } else if ($dict_params['sortby'] == 'sadness') {
+                } else if ($dict_params['sort_by'] == 'sadness') {
                     factor1 = a['emotions']['sadness'];
                     factor2 = b['emotions']['sadness'];
                 }

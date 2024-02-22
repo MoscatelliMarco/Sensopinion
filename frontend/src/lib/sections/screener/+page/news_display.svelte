@@ -4,26 +4,55 @@
   import { onMount, onDestroy } from "svelte";
 
   export let news_articles;
+  export let string_dict_params;
 
   let loading = false;
   let is_scroll_operation_running = false;
   let show_reached_end = false;
+  let n_loaded = news_articles.length;
   function loadOnScroll() {
     const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
 
     if (nearBottom && !is_scroll_operation_running && !show_reached_end) {
       loading = true;
       is_scroll_operation_running = true;
-      setTimeout(() => {
+      setTimeout(async () => {
+        let data_news;
         if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-          n_load += 12;
+          // Send request
+          let res_news;
+          try {
+            res_news = await fetch(`/api/news/screener?n_load=12&skip=${n_loaded}${string_dict_params ? "&" + string_dict_params : ""}`);
+          } catch (e) {
+            console.log(e)
+            loading = false
+            show_reached_end = true;
+            setTimeout(() => {
+              show_reached_end = false;
+            }, 4000)
+            return
+          }
+
+          data_news = await res_news.json();
+          if (Array.isArray(data_news)) {
+            news_articles = news_articles.concat(data_news)
+            n_loaded = news_articles.length;
+          } else {
+            show_reached_end = true;
+            setTimeout(() => {
+                show_reached_end = false;
+            }, 4000)
+          }
+
           setTimeout(() => {
             is_scroll_operation_running = false;
           }, 200)
         }
         loading = false;
         is_scroll_operation_running = false;
-        if (n_load >= news_articles.length) {
+
+        loading = false
+        if (data_news.length == 0) {
           show_reached_end = true;
           setTimeout(() => {
             show_reached_end = false;
@@ -42,15 +71,9 @@
   onDestroy(() => {
     window.removeEventListener('scroll', loadOnScroll);
   });
-
-  // When news_articles changes bring back the load to the default 12
-  let n_load;
-  $: if (news_articles) {
-    n_load = 12;
-  }
 </script>
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-    {#each news_articles.slice(0, n_load) as news (news._id)}
+    {#each news_articles as news }
       <NewsCard news={news} animate={false}/>
     {/each}
 </div>

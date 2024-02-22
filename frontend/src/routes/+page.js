@@ -8,19 +8,20 @@ export async function load({ fetch }) {
     let res_news;
     try {
         res_metrics = await fetch(`/api/metrics`);
-        res_news = await fetch(`/api/news?n_load=4&sort_by=date_published&order=-1`);
-    } catch {}
-    if (res_metrics.ok && res_news.ok) {
-        const data_metrics = await res_metrics.json();
-        const data_news = await res_news.json();
+        res_news = await fetch(`/api/news?n_load=4`);
 
-        loadedStore.set(true)
-        return {
-            props: {
-                metrics: data_metrics,
-                news_articles: data_news
+        if (res_metrics.ok && res_news.ok) {
+            const data_metrics = await res_metrics.json();
+            const data_news = await res_news.json();
+    
+            loadedStore.set(true)
+            return {
+                props: {
+                    metrics: data_metrics,
+                    news_articles: data_news
+                }
             }
         }
-    }
+    } catch {}
     loadedStore.set(true)
 }

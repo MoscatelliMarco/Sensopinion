@@ -3,17 +3,16 @@
     import FilterSide from '../../lib/items/filter_side.svelte';
     import SortSide from '../../lib/items/sort_side.svelte';
     import SearchSide from '../../lib/items/search_side.svelte'
-    import { isEquivalent } from "../../public/dictEquivalent"
     import { fade, slide } from 'svelte/transition';
     import { writable } from 'svelte/store';
     import { onMount, onDestroy } from 'svelte';
     import { browser } from "$app/environment";
     import { pushState } from "$app/navigation";
-    import lunr from 'lunr';
+    import { isEquivalent } from '../../public/dictEquivalent';
 
-    import { globalStore } from "../../stores.js";
-    let news_articles = $globalStore.news;
-    let categories = $globalStore.categories;
+    // Get news_articles from props
+    export let data;
+    let news_articles = data['props']['news_articles'];
 
     // Filter and sort page conditions
     let filterActive = false;
@@ -54,9 +53,31 @@
         }
     }
 
+    // String to pass to news_display to send the right request
+    let string_dict_params;
+    let before_dict_params = { ...$dict_params };
+    $: if (dict_params) {
+        string_dict_params = (new URLSearchParams($dict_params)).toString();
+    }
+
+    async function fetch_news () {
+        let res_news;
+        try {
+            // Send the same params but with n_load
+            res_news = await fetch(`/api/news/screener${window.location.search}${window.location.search ? "&" : "?"}n_load=12`);
+        } catch {}
+        if (res_news.ok) {
+            const data_news = await res_news.json();
+
+            return data_news;
+        }
+        return []
+    }
+
     // Reactively update URL when dict_params changes.
     let ascending = false;
     let first_time_search_value = true;
+    let first_init = true;
     $: if ($dict_params) {
         ascending = 'ascending' in $dict_params ? true : false;
         // Check if the component is mounted so the URL params are not resetted at the start
@@ -67,8 +88,25 @@
                 search_value = $dict_params['search'];
                 first_time_search_value = false;
             }
+
+            // Rimandare la richiesta se cambiano i dict_params
+            if (news_articles && (!isEquivalent(before_dict_params, $dict_params) || !is_mounted)) {
+                if (!first_init) {
+                    fetch_news().then(value => {
+                        news_articles = value;
+                    })
+
+                    before_dict_params = { ...$dict_params };
+                    window.scrollTo({top: 0, behavior: 'smooth'}); // TODO this behavior is not smooth
+                }  
+            }
+
+            // This is necessary to not send any useless requests to the server for new news when they are the same
+            first_init = false;
         }
     }
+
+    // Search again the news if there is a change in $dict_params
 
     // This function initializes the store from URL parameters.
     function initParamsFromURL() {
@@ -88,124 +126,6 @@
             initParamsFromURL();
         }
     });
-
-    // Logic changes news_articles_based on filters
-    let news_articles_show = []
-    let before_dict_params = { ...$dict_params };
-    $: if ($dict_params) {
-
-        // Run only if the html is mounted, if news_articles exist and the previous dict_params is different from the new one
-        if (news_articles && (!isEquivalent(before_dict_params, $dict_params) || !is_mounted)) {
-            // Filter categories
-            news_articles_show = news_articles.filter((item) => {
-                // If there is not category filter show everything
-                let count_not_present_categories = 0;
-                for (let category in categories) {
-                    if (!$dict_params[category]) {
-                        count_not_present_categories += 1;
-                    }
-                }
-                if (count_not_present_categories == Object.keys(categories).length) {
-                    return true;
-                }
-                for (let category in categories) {
-                    if ($dict_params[category]) {
-                        if ($dict_params[category] == 'true' || $dict_params[category] === true) {
-                            for (let news_category in item['categories']) {
-                                if (news_category.toLowerCase() == category) {
-                                    return true;
-                                }
-                            }
-                        } 
-                        // if the parameters is a list
-                        else {
-                            if (item['categories'][category.charAt(0).toUpperCase() + category.slice(1)]) {
-                                for (let news_subcategory of item['categories'][category.charAt(0).toUpperCase() + category.slice(1)]) {
-                                    if ($dict_params[category].includes(news_subcategory.replaceAll(" ", "_").toLowerCase())) {
-                                        return true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                return false;
-            })
-
-            // Filter by search
-            if ($dict_params['search']) {
-                // Initialize the Lunr index
-                let index = lunr(function () {
-                    this.ref('_id');
-                    this.field('title');
-                    this.field('description');
-                    this.field('url');
-
-                    // Add news data to the index
-                    news_articles_show.forEach(news => {
-                        this.add(news);
-                    });
-                });
-
-                const searchResults = index.search($dict_params['search']);
-                // Map search results back to news data
-                news_articles_show = searchResults.map(result => {
-                    return news_articles_show.find(news => news._id === result.ref);
-                });
-            }
-
-            // Sort by emotions
-            news_articles_show.sort((a, b) => {
-
-                let factor1;
-                let factor2;
-
-                if ($dict_params['sortby'] == 'positivity') {
-                    factor1 = a['sentiment']['polarity'];
-                    factor2 = b['sentiment']['polarity'];
-                } else if ($dict_params['sortby'] == 'subjectivity') {
-                    factor1 = a['sentiment']['subjectivity'];
-                    factor2 = b['sentiment']['subjectivity'];
-                } 
-                
-                else if ($dict_params['sortby'] == 'happiness') {
-                    factor1 = a['emotions']['happiness'];
-                    factor2 = b['emotions']['happiness'];
-                } else if ($dict_params['sortby'] == 'surprise') {
-                    factor1 = a['emotions']['surprise'];
-                    factor2 = b['emotions']['surprise'];
-                } else if ($dict_params['sortby'] == 'fear') {
-                    factor1 = a['emotions']['fear'];
-                    factor2 = b['emotions']['fear'];
-                } else if ($dict_params['sortby'] == 'disgust') {
-                    factor1 = a['emotions']['disgust'];
-                    factor2 = b['emotions']['disgust'];
-                } else if ($dict_params['sortby'] == 'anger') {
-                    factor1 = a['emotions']['anger'];
-                    factor2 = b['emotions']['anger'];
-                } else if ($dict_params['sortby'] == 'neutral') {
-                    factor1 = a['emotions']['neutral'];
-                    factor2 = b['emotions']['neutral'];
-                } else if ($dict_params['sortby'] == 'sadness') {
-                    factor1 = a['emotions']['sadness'];
-                    factor2 = b['emotions']['sadness'];
-                }
-
-                else {
-                    factor1 = new Date(a['date_published']);
-                    factor2 = new Date(b['date_published']);
-                }
-
-                // Compare the dates to determine their order.
-                if (!$dict_params['ascending']) {
-                    return factor2 - factor1; // Use dateA - dateB for ascending order.
-                }
-                return factor1 - factor2;
-            });
-            window.scrollTo({top: 0, behavior: 'smooth'});
-            before_dict_params = { ...$dict_params }
-        }
-    }
 
     // Javascript logic filter and sort button sticky
     let side_buttons;
@@ -278,16 +198,14 @@
     let search_value;
     const delay = 300;
 
-    // Debounce function
+    // Debounce function, change the param only after the wait without inputs
     function debounce(func, wait) {
         let timeout;
-
         return function executedFunction(...args) {
             const later = () => {
                 clearTimeout(timeout);
                 func(...args);
             };
-
             clearTimeout(timeout);
             timeout = setTimeout(later, wait);
         };
@@ -402,7 +320,7 @@
             {/if}
         </div>
         <div bind:this={up_buttons_sibling} class="w-full">
-            <NewsDisplay news_articles={news_articles_show}/>
+            <NewsDisplay news_articles={news_articles} string_dict_params={string_dict_params}/>
         </div>
     </div>
 {/if}

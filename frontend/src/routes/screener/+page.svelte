@@ -94,6 +94,7 @@
                 if (!first_init) {
                     fetch_news().then(value => {
                         news_articles = value;
+                        news_loading = false;
                     })
 
                     before_dict_params = { ...$dict_params };
@@ -176,7 +177,7 @@
         if (window.pageYOffset >= stickyPointUp - navbar_height && window.innerWidth < 1024) {
             up_buttons.style.position = 'fixed';
             up_buttons.style.top = navbar_height + "px";
-            up_buttons_sibling.style.paddingTop = up_buttons_child.offsetHeight + 'px';
+            up_buttons_sibling.style.paddingTop = up_buttons_child.offsetHeight + 'px'; // add -9 to make it look tigher
         } else {
             up_buttons.style.position = 'relative';
             up_buttons.style.top = '';

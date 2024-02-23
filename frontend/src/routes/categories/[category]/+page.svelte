@@ -51,9 +51,9 @@
     $: if (ascending || !ascending) {
         dict_params.update($dict => {
             if (ascending) {
-                $dict['ascending'] = '1';   
+                $dict['order'] = 'ascending';   
             } else {
-                delete $dict['ascending']
+                delete $dict['order']
             }
             return $dict
         })
@@ -208,7 +208,7 @@
                 }
 
                 // Compare the dates to determine their order
-                if (!$dict_params['ascending']) {
+                if (!$dict_params['order']) {
                     return factor2 - factor1; // Use dateA - dateB for ascending order.
                 }
                 return factor1 - factor2;

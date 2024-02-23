@@ -1,5 +1,6 @@
 // src/routes/api/news.js
 import { MongoClient, ObjectId } from 'mongodb';
+import { globalStore } from '../../../stores';
 
 const client = new MongoClient(import.meta.env.VITE_MONGO_CLIENT_URL)
 let db;
@@ -20,6 +21,20 @@ function sanitizeStringForMongoDB(inputString) {
 }
 
 export async function all_news(n_load = null, skip = 0, sort_by = 'date_published', order = 'descending') {
+    // Translate sort_by to the correct format
+    let emotions;
+    const unsubscribe = globalStore.subscribe(store => {
+        emotions = Object.keys(store.emotion_dict);
+    })
+    unsubscribe()
+
+    // Change positivity to polarity
+    sort_by = sort_by === 'positivity' ? "polarity" : sort_by;
+    const prefix = emotions.includes(sort_by) ? "emotions." : (["polarity", "subjectivity"].includes(sort_by) ? "sentiment." : "")
+    sort_by =  prefix + sort_by
+
+    const projection = { google_news_url: 0, time_analyze: 0, url: 0 }; // Exclude fields from the results
+
     try {
         const sort_order = order === 'ascending' ? 1 : -1; // If different from ascending -> descending
         let sort_criteria;
@@ -28,8 +43,6 @@ export async function all_news(n_load = null, skip = 0, sort_by = 'date_publishe
         } else {
             sort_criteria = {}
         }
-
-        const projection = { google_news_url: 0, time_analyze: 0, url: 0 }; // Exclude fields from the results
 
         let news;
         if (n_load !== null) {
@@ -64,6 +77,18 @@ export async function one_news(factor, value) {
 }
 
 export async function screener_news(politics, economy, environment, n_load = 9, skip = 0, sort_by = 'date_published', order = 'descending', search = null) {
+    // Translate sort_by to the correct format
+    let emotions;
+    const unsubscribe = globalStore.subscribe(store => {
+        emotions = Object.keys(store.emotion_dict);
+    })
+    unsubscribe()
+
+    // Change positivity to polarity
+    sort_by = sort_by === 'positivity' ? "polarity" : sort_by;
+    const prefix = emotions.includes(sort_by) ? "emotions." : (["polarity", "subjectivity"].includes(sort_by) ? "sentiment." : "");
+    sort_by =  prefix + sort_by;
+
     const projection = { google_news_url: 0, time_analyze: 0, url: 0 }; // Exclude fields from the results
 
     // Format properly for the request the parameters

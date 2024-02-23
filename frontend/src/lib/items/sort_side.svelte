@@ -4,15 +4,36 @@
     export let changeOrder;
     export let dict_params;
 
-    $: if (ascending || !ascending) {
-        dict_params.update($dict => {
-            if (ascending) {
-                $dict['ascending'] = '1';   
-            } else {
-                delete $dict['ascending']
-            }
-            return $dict
+    $: if (ascending || !ascending ) {
+        // All of this prevents to run multiple times the change of dict_params
+        let dict_ascending;
+        const unsubscribe = dict_params.subscribe(store => {
+            dict_ascending = store['order'];
         })
+        unsubscribe()
+
+        if (!ascending && dict_ascending == 'ascending') {
+            console.log('running')
+            dict_params.update($dict => {
+                if (ascending) {
+                    $dict['order'] = 'ascending';   
+                } else {
+                    delete $dict['order']
+                }
+                return $dict
+            })
+        }
+        else if (ascending && dict_ascending != 'ascending') {
+            console.log('running2')
+            dict_params.update($dict => {
+                if (ascending) {
+                    $dict['order'] = 'ascending';   
+                } else {
+                    delete $dict['order']
+                }
+                return $dict
+            })
+        }
     }
 
     let sort_select;
@@ -83,51 +104,51 @@
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-2 justify-center gap-x-3 md:gap-x-4 lg:gap-x-2 gap-y-1.5 mb-1 md:mb-0 mt-2">
             <button on:click={() => {
                 dict_params.update(currentParams => {
-                    if (currentParams['sort_by'] == 'positivity' && currentParams['ascending'] != '1') {  
+                    if (currentParams['sort_by'] == 'positivity' && currentParams['order'] != 'ascending') {  
                         delete currentParams['sort_by'];
                     } else { 
                         currentParams['sort_by'] = 'positivity'; 
-                        delete currentParams['ascending'];
+                        delete currentParams['order'];
                     }
                     return currentParams;
                 });
-                }} class="{$dict_params['sort_by'] == 'positivity' && $dict_params['ascending'] != '1' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most positive</button>
+                }} class="{$dict_params['sort_by'] == 'positivity' && $dict_params['order'] != 'ascending' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most positive</button>
             <button on:click={() => {
                 dict_params.update(currentParams => {
-                    if (currentParams['sort_by'] == 'positivity' && currentParams['ascending'] =='true') {  
+                    if (currentParams['sort_by'] == 'positivity' && currentParams['order'] =='1') {  
                         delete currentParams['sort_by'];
-                        delete currentParams['ascending'];
+                        delete currentParams['order'];
                     } else { 
                         currentParams['sort_by'] = 'positivity'; 
-                        currentParams['ascending'] = '1';
+                        currentParams['order'] = 'ascending';
                     }
                     return currentParams;
                 });
-                }} class="{$dict_params['sort_by'] == 'positivity' && $dict_params['ascending'] =='true' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most negative</button>
+                }} class="{$dict_params['sort_by'] == 'positivity' && $dict_params['order'] =='ascending' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most negative</button>
             <button on:click={
             () => {
                 dict_params.update(currentParams => {
-                    if (currentParams['sort_by'] == 'neutral' && currentParams['ascending'] != '1') {  
+                    if (currentParams['sort_by'] == 'neutral' && currentParams['order'] != 'ascending') {  
                         delete currentParams['sort_by'];
                     } else { 
                         currentParams['sort_by'] = 'neutral'; 
-                        delete currentParams['ascending'];
+                        delete currentParams['order'];
                     }
                     return currentParams;
                 });
-            }} class="{$dict_params['sort_by'] == 'neutral' && $dict_params['ascending'] != '1' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most neutral</button>
+            }} class="{$dict_params['sort_by'] == 'neutral' && $dict_params['order'] != 'ascending' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most neutral</button>
             <button on:click={
             () => {
                 dict_params.update(currentParams => {
-                    if (currentParams.sort_by === 'anger' && currentParams.ascending !== '1') {  
+                    if (currentParams.sort_by === 'anger' && currentParams['order'] !== 'ascending') {  
                         delete currentParams.sort_by; 
                     } else { 
                         currentParams.sort_by = 'anger'; 
-                        delete currentParams.ascending;
+                        delete currentParams['order'];
                     }
                     return currentParams;
                 });
-            }} class="{$dict_params['sort_by'] == 'anger' && $dict_params['ascending'] != '1' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most angry</button>
+            }} class="{$dict_params['sort_by'] == 'anger' && $dict_params['order'] != 'ascending' ? "bg-primary-gradient-opacity border-white text-white" : ""} btn shadow-sm hover:shadow-md focus:shadow-md min-h-0 rounded-md px-4 lg:px-6 h-7 lg:h-10 text-xs font-light">Most angry</button>
         </div>
     </div>
 </div>

@@ -2277,10 +2277,6 @@ html{
   width: 100%;
 }
 
-.w-12{
-  width: 3rem;
-}
-
 .max-w-3xl{
   max-width: 48rem;
 }
@@ -2869,34 +2865,6 @@ html{
 
 .pt-8{
   padding-top: 2rem;
-}
-
-.pt-2{
-  padding-top: 0.5rem;
-}
-
-.pb-24{
-  padding-bottom: 6rem;
-}
-
-.pb-48{
-  padding-bottom: 12rem;
-}
-
-.pb-52{
-  padding-bottom: 13rem;
-}
-
-.pb-56{
-  padding-bottom: 14rem;
-}
-
-.pb-64{
-  padding-bottom: 16rem;
-}
-
-.pb-72{
-  padding-bottom: 18rem;
 }
 
 .text-center{
@@ -3722,10 +3690,6 @@ html{
 
   .lg\:pt-0{
     padding-top: 0px;
-  }
-
-  .lg\:pb-80{
-    padding-bottom: 20rem;
   }
 
   .lg\:text-2xl{

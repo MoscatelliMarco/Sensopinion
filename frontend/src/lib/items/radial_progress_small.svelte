@@ -7,14 +7,22 @@
     let thickness = "4"
 
     let emotion_dict = $globalStore.emotion_dict;
-    
-    const entries = Object.entries(news['emotions']);
-    entries.sort((a, b) => b[1] - a[1]);
-    const sortedObj = Object.fromEntries(entries);
-    let value_1 = sortedObj[Object.keys(sortedObj)[0]] * 100
-    let emoji_1 = emotion_dict[Object.keys(sortedObj)[0]]
-    let value_2 = sortedObj[Object.keys(sortedObj)[1]] * 100
-    let emoji_2 = emotion_dict[Object.keys(sortedObj)[1]]
+
+    let entries;
+    let sortedObj;
+    let value_1;
+    let emoji_1;
+    let value_2;
+    let emoji_2;
+    $: if (news) {
+        entries = Object.entries(news['emotions']);
+        entries.sort((a, b) => b[1] - a[1]);
+        sortedObj = Object.fromEntries(entries);
+        value_1 = sortedObj[Object.keys(sortedObj)[0]] * 100
+        emoji_1 = emotion_dict[Object.keys(sortedObj)[0]]
+        value_2 = sortedObj[Object.keys(sortedObj)[1]] * 100
+        emoji_2 = emotion_dict[Object.keys(sortedObj)[1]]
+    }
 </script>
 
 <div class="flex gap-1 md:gap-2">

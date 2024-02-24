@@ -2,15 +2,16 @@
     import { globalStore } from "../../../stores";
     import { isEquivalent } from "../../../public/dictEquivalent"
     import { onMount, onDestroy } from "svelte";
-    import NewsDisplay from "$lib/sections/screener/+page/news_display.svelte"
+    import NewsDisplay from "$lib/sections/categories/[category]/+page/news_display.svelte"
     import GridRadialProgress from "$lib/items/grid_radial_progress.svelte"
     import { page } from '$app/stores';
     import { pushState } from "$app/navigation";
     import { writable } from 'svelte/store';
     import { browser } from "$app/environment";
 
-    let news_articles = $globalStore.news;
-    let metrics = $globalStore.metrics;
+    export let data;
+    let news_articles = data['props']['news_articles'];
+    let metrics = data['props']['metrics'];
     let categories = $globalStore.categories;
 
     // Store for the dictionary parameters.
@@ -45,19 +46,6 @@
             checkbox.removeEventListener('change', checkSubTopic)
         }
     })
-
-
-    // SORT
-    $: if (ascending || !ascending) {
-        dict_params.update($dict => {
-            if (ascending) {
-                $dict['order'] = 'ascending';   
-            } else {
-                delete $dict['order']
-            }
-            return $dict
-        })
-    }
 
     let sort_select;
     onMount(() => {
@@ -94,6 +82,37 @@
         }
     }
 
+    // Manage ascending/descending logic
+    $: if (ascending || !ascending ) {
+        // All of this prevents to run multiple times the change of dict_params
+        let dict_ascending;
+        const unsubscribe = dict_params.subscribe(store => {
+            dict_ascending = store['order'];
+        })
+        unsubscribe()
+
+        if (!ascending && dict_ascending == 'ascending') {
+            dict_params.update($dict => {
+                if (ascending) {
+                    $dict['order'] = 'ascending';   
+                } else {
+                    delete $dict['order']
+                }
+                return $dict
+            })
+        }
+        else if (ascending && dict_ascending != 'ascending') {
+            dict_params.update($dict => {
+                if (ascending) {
+                    $dict['order'] = 'ascending';   
+                } else {
+                    delete $dict['order']
+                }
+                return $dict
+            })
+        }
+    }
+
     // This function updates the URL parameters to reflect the current store state.
     function updateURLParams(params) {
         const search_params = new URLSearchParams(params)
@@ -113,13 +132,57 @@
         }
     }
 
+    // String to pass to news_display to send the right request
+    let string_dict_params;
+    let before_dict_params = { ...$dict_params };
+    $: if (dict_params) {
+        ascending = $dict_params['order'] == 'ascending' ? true : false;
+        string_dict_params = (new URLSearchParams($dict_params)).toString();
+    }
+
+    async function fetch_news () {
+        let res_news;
+        try {
+            // Send the same params but with n_load
+            res_news = await fetch(`/api/news/${$page.params.category}${window.location.search}${window.location.search ? "&" : "?"}n_load=12`);
+        } catch {}
+        if (res_news.ok) {
+            const data_news = await res_news.json();
+
+            return data_news;
+        }
+        return []
+    }
+
     // Reactively update URL when dict_params changes.
     let ascending = false;
+    let first_time_search_value = true;
+    let first_init = true;
     $: if ($dict_params) {
-        ascending = 'ascending' in $dict_params ? true : false;
+
         // Check if the component is mounted so the URL params are not resetted at the start
         if (is_mounted) {
             updateURLParams($dict_params);
+            // Synchronize search_value with $dict_params['search'] only the first run or else the search input won't be working
+            if (first_time_search_value) {
+                // search_value = $dict_params['search'];
+                first_time_search_value = false;
+            }
+
+            // Rimandare la richiesta se cambiano i dict_params
+            if (news_articles && (!isEquivalent(before_dict_params, $dict_params) || !is_mounted)) {
+                if (!first_init) {
+                    fetch_news().then(value => {
+                        news_articles = value;
+                    })
+
+                    before_dict_params = { ...$dict_params };
+                    window.scrollTo({top: 0, behavior: 'smooth'}); // TODO this behavior is not smooth
+                }  
+            }
+
+            // This is necessary to not send any useless requests to the server for new news when they are the same
+            first_init = false;
         }
     }
 
@@ -141,191 +204,6 @@
             initParamsFromURL();
         }
     });
-
-    // Logic changes news_articles_based on filters
-    let news_articles_show = [];
-    let before_dict_params = { ...$dict_params };
-    $: if ($dict_params) {
-        // Run only if the html is mounted, if news_articles exist and the previous dict_params is different from the new one
-        if (news_articles && (!isEquivalent(before_dict_params, $dict_params) || !is_mounted)) {
-            news_articles_show = news_articles.filter((item) => {
-                if (!$dict_params['subcategories']) {
-                    if (Object.keys(item['categories']).includes($page.params.category.charAt(0).toUpperCase() + $page.params.category.slice(1))) {
-                        return true;
-                    }
-                }
-                if ($dict_params['subcategories']) {
-                    if (item['categories'][$page.params.category.charAt(0).toUpperCase() + $page.params.category.slice(1)]) {
-                        for (let news_subcategory of item['categories'][$page.params.category.charAt(0).toUpperCase() + $page.params.category.slice(1)]) {
-                            if ($dict_params['subcategories'].includes(news_subcategory.replaceAll(" ", "_").toLowerCase())) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                return false;
-            })
-
-            news_articles_show.sort((a, b) => {
-
-                let factor1;
-                let factor2;
-
-                if ($dict_params['sort_by'] == 'positivity') {
-                    factor1 = a['sentiment']['polarity'];
-                    factor2 = b['sentiment']['polarity'];
-                } else if ($dict_params['sort_by'] == 'subjectivity') {
-                    factor1 = a['sentiment']['subjectivity'];
-                    factor2 = b['sentiment']['subjectivity'];
-                } 
-                
-                else if ($dict_params['sort_by'] == 'happiness') {
-                    factor1 = a['emotions']['happiness'];
-                    factor2 = b['emotions']['happiness'];
-                } else if ($dict_params['sort_by'] == 'surprise') {
-                    factor1 = a['emotions']['surprise'];
-                    factor2 = b['emotions']['surprise'];
-                } else if ($dict_params['sort_by'] == 'fear') {
-                    factor1 = a['emotions']['fear'];
-                    factor2 = b['emotions']['fear'];
-                } else if ($dict_params['sort_by'] == 'disgust') {
-                    factor1 = a['emotions']['disgust'];
-                    factor2 = b['emotions']['disgust'];
-                } else if ($dict_params['sort_by'] == 'anger') {
-                    factor1 = a['emotions']['anger'];
-                    factor2 = b['emotions']['anger'];
-                } else if ($dict_params['sort_by'] == 'neutral') {
-                    factor1 = a['emotions']['neutral'];
-                    factor2 = b['emotions']['neutral'];
-                } else if ($dict_params['sort_by'] == 'sadness') {
-                    factor1 = a['emotions']['sadness'];
-                    factor2 = b['emotions']['sadness'];
-                }
-
-                else {
-                    factor1 = new Date(a['date_published']);
-                    factor2 = new Date(b['date_published']);
-                }
-
-                // Compare the dates to determine their order
-                if (!$dict_params['order']) {
-                    return factor2 - factor1; // Use dateA - dateB for ascending order.
-                }
-                return factor1 - factor2;
-            });
-            window.scrollTo({top: 0, behavior: 'smooth'});
-            before_dict_params = { ...$dict_params }
-        }
-    }
-
-    if (!Object.keys(metrics).length) {
-        metrics = {
-            'all': {
-                'emotions': {},
-                'positivity': {
-                    'numerator': 0,
-                    'denominator': 0
-                },
-                'subjectivity': {
-                    'numerator': 0,
-                    'denominator': 0
-                }
-            }
-        }
-        if (news_articles !== undefined && news_articles.length) {
-            for (let emotion of ['anger', 'disgust', 'fear', 'neutral', 'sadness', 'surprise', 'happiness']) {
-                for (let news of news_articles) {
-                    if (emotion in metrics['all']['emotions']) {
-                        metrics['all']['emotions'][emotion]['numerator'] += news['emotions'][emotion]
-                        metrics['all']['emotions'][emotion]['denominator'] += 1
-                    }
-                    else{
-                        metrics['all']['emotions'][emotion] = {'numerator': news['emotions'][emotion],'denominator': 1}
-                    }
-
-                    for (let category in news['categories']) {
-                        let raw_category = category;
-                        category = category.toLowerCase().replaceAll(" ", "_");
-                        if (!(category in metrics)) {
-                            metrics[category] = {'emotions': {}, 'positivity': {'numerator': 0,'denominator': 0},'subjectivity': {'numerator': 0,'denominator': 0}}
-                        }
-                        if (emotion in metrics[category]['emotions']) {
-                            metrics[category]['emotions'][emotion]['numerator'] += news['emotions'][emotion]
-                            metrics[category]['emotions'][emotion]['denominator'] += 1
-                        }
-                        else{
-                            metrics[category]['emotions'][emotion] = {'numerator': news['emotions'][emotion],'denominator': 1}
-                        }
-                        for (let subcategory of news['categories'][raw_category]){
-                            subcategory = subcategory.toLowerCase().replaceAll(" ", "_") + '_' + category
-                            if (!(subcategory in metrics)) {
-                                metrics[subcategory] = {'emotions': {}, 'positivity': {'numerator': 0,'denominator': 0},'subjectivity': {'numerator': 0,'denominator': 0}}
-                            }
-                            if (emotion in metrics[subcategory]['emotions']) {
-                                metrics[subcategory]['emotions'][emotion]['numerator'] += news['emotions'][emotion]
-                                metrics[subcategory]['emotions'][emotion]['denominator'] += 1
-                            }
-                            else{
-                                metrics[subcategory]['emotions'][emotion] = {'numerator': news['emotions'][emotion],'denominator': 1}
-                            }
-                        }
-                    }
-                }
-                for (let metric in metrics) {
-                    metrics[metric]['emotions'][emotion] = Math.round(metrics[metric]['emotions'][emotion]['numerator'] / metrics[metric]['emotions'][emotion]['denominator'] * 1000) / 10
-                }
-            }
-            for (let news of news_articles) {
-                metrics['all']['positivity']['numerator'] += news['sentiment']['polarity']
-                metrics['all']['positivity']['denominator'] += 1
-                metrics['all']['subjectivity']['numerator'] += news['sentiment']['subjectivity']
-                metrics['all']['subjectivity']['denominator'] += 1
-                for (let category in news['categories']) {
-                    let raw_category = category;
-                    category = category.toLowerCase().replaceAll(" ", "_");
-                    metrics[category]['positivity']['numerator'] += news['sentiment']['polarity']
-                    metrics[category]['positivity']['denominator'] += 1
-                    metrics[category]['subjectivity']['numerator'] += news['sentiment']['subjectivity']
-                    metrics[category]['subjectivity']['denominator'] += 1
-                    for (let subcategory of news['categories'][raw_category]) {
-                        subcategory = subcategory.toLowerCase().replaceAll(" ", "_") + "_" + category;
-                        metrics[subcategory]['positivity']['numerator'] += news['sentiment']['polarity']
-                        metrics[subcategory]['positivity']['denominator'] += 1
-                        metrics[subcategory]['subjectivity']['numerator'] += news['sentiment']['subjectivity']
-                        metrics[subcategory]['subjectivity']['denominator'] += 1
-                    }
-                }
-            }
-            for (let metric in metrics) {
-                metrics[metric]['positivity'] = Math.round($globalStore.stretchFunction(metrics[metric]['positivity']['numerator'] / metrics[metric]['positivity']['denominator']) * 1000) / 10
-                metrics[metric]['subjectivity'] = Math.round($globalStore.stretchFunction(metrics[metric]['subjectivity']['numerator'] / metrics[metric]['subjectivity']['denominator']) * 1000) / 10
-            }
-        }
-        globalStore.update((value) => {
-            value['metrics'] = metrics;
-            return value;
-        })
-    }
-    
-    $: if ($page.params.category) {
-        news_articles_show = news_articles.filter((item) => {
-            if (!$dict_params['subcategories']) {
-                if (Object.keys(item['categories']).includes($page.params.category.charAt(0).toUpperCase() + $page.params.category.slice(1))) {
-                    return true;
-                }
-            }
-            if ($dict_params['subcategories']) {
-                if (item['categories'][$page.params.category.charAt(0).toUpperCase() + $page.params.category.slice(1)]) {
-                    for (let news_subcategory of item['categories'][$page.params.category.charAt(0).toUpperCase() + $page.params.category.slice(1)]) {
-                        if ($dict_params['subcategories'].includes(news_subcategory.replaceAll(" ", "_").toLowerCase())) {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        })
-    }
 </script>
 
 <svelte:head>
@@ -385,7 +263,7 @@
         </div>
     </div>
     
-    <NewsDisplay news_articles={news_articles_show} />
+    <NewsDisplay news_articles={news_articles} string_dict_params={string_dict_params}/>
 </div>
 
 <div style="transform: translateX(-50%);" class="fixed bottom-2 md:bottom-4 lg:bottom-6 left-1/2 flex justify-end max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-6xl px-2 md:px-4 lg:px-6 w-full pointer-events-none">

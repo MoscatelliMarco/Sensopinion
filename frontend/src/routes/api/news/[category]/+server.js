@@ -11,6 +11,8 @@ export async function GET(event) {
     const sort_by = event.url.searchParams.get("sort_by") || "date_published";
     const order = event.url.searchParams.get("order") || "descending";
 
-    const news = await categories_news(politics, economy, environment, n_load, skip, sort_by, order)
+    const search = event.url.searchParams.get("search") || null;
+
+    const news = await categories_news(category, subcategories, n_load, skip, sort_by, order, search)
     return json(news)
 }

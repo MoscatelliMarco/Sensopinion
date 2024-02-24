@@ -13,7 +13,6 @@
         unsubscribe()
 
         if (!ascending && dict_ascending == 'ascending') {
-            console.log('running')
             dict_params.update($dict => {
                 if (ascending) {
                     $dict['order'] = 'ascending';   
@@ -24,7 +23,6 @@
             })
         }
         else if (ascending && dict_ascending != 'ascending') {
-            console.log('running2')
             dict_params.update($dict => {
                 if (ascending) {
                     $dict['order'] = 'ascending';   

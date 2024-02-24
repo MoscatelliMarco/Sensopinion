@@ -79,7 +79,8 @@
     let first_time_search_value = true;
     let first_init = true;
     $: if ($dict_params) {
-        ascending = 'order' in $dict_params ? true : false;
+        ascending = $dict_params['order'] == 'ascending' ? true : false;
+        
         // Check if the component is mounted so the URL params are not resetted at the start
         if (is_mounted) {
             updateURLParams($dict_params);
@@ -94,7 +95,6 @@
                 if (!first_init) {
                     fetch_news().then(value => {
                         news_articles = value;
-                        news_loading = false;
                     })
 
                     before_dict_params = { ...$dict_params };

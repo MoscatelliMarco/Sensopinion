@@ -168,8 +168,8 @@ export async function screener_news(politics, economy, environment, n_load = 9, 
     }
 }
 
-// TODO this function needs to be adapted to categories and need to adapt news display in categories
-export async function categories_news(category, subcategories, n_load = 9, skip = 0, sort_by = 'date_published', order = 'descending') {
+// NOTE: even though there is the search parameters here it only works in api request and not in the client
+export async function categories_news(category, subcategories, n_load = 9, skip = 0, sort_by = 'date_published', order = 'descending', search = null) {
     // Translate sort_by to the correct format
     let emotions;
     const unsubscribe = globalStore.subscribe(store => {
@@ -183,47 +183,34 @@ export async function categories_news(category, subcategories, n_load = 9, skip 
     sort_by =  prefix + sort_by;
 
     const projection = { google_news_url: 0, time_analyze: 0, url: 0 }; // Exclude fields from the results
-
-    // Format properly for the request the parameters
-    if (politics == 'true') {
-        politics = true;
-    } else if (politics) {
-        // Get the list of the subcategories from politics
-        politics = sanitizeStringForMongoDB(capitalizeEveryWord(politics.replaceAll("_", " "))).split(",");
-    }
-    if (economy == 'true') {
-        economy = true;
-    } else if (economy) {
-        // Get the list of the subcategories from economy
-        economy = sanitizeStringForMongoDB(capitalizeEveryWord(economy.replaceAll("_", " "))).split(",");
-    }
-    if (environment == 'true') {
-        environment = true;
-    } else if (environment) {
-        // Get the list of the subcategories from environment
-        environment = sanitizeStringForMongoDB(capitalizeEveryWord(environment.replaceAll("_", " "))).split(",");
-    }
     
     // Create the condition for the request
     let conditions = [];
 
+    // Correct formatting subcategories
+    subcategories = subcategories ? sanitizeStringForMongoDB(capitalizeEveryWord(subcategories.replaceAll("_", " "))).split(",") : [];
+
     // Construct conditions based on the input parameters
-    if (politics === true) {
-        conditions.push({ "categories.Politics": { $exists: true } });
-    } else if (Array.isArray(politics)) {
-        conditions.push({ "categories.Politics": { $in: politics } });
-    }
-    
-    if (economy === true) {
-        conditions.push({ "categories.Economy": { $exists: true } });
-    } else if (Array.isArray(economy)) {
-        conditions.push({ "categories.Economy": { $in: economy } });
-    }
-    
-    if (environment === true) {
-        conditions.push({ "categories.Environment": { $exists: true } });
-    } else if (Array.isArray(environment)) {
-        conditions.push({ "categories.Environment": { $in: environment } });
+    if (category === "politics") {
+        if (subcategories.length) {
+            conditions.push({ "categories.Politics": { $in: subcategories } });
+        } else {
+            conditions.push({ "categories.Politics": { $exists: true } });
+        }
+    } else if (category === "economy") {
+        if (subcategories.length) {
+            conditions.push({ "categories.Economy": { $in: subcategories } });
+        } else {
+            conditions.push({ "categories.Economy": { $exists: true } });
+        }
+    } else if (category === "environment") {
+        if (subcategories.length) {
+            conditions.push({ "categories.Environment": { $in: subcategories } });
+        } else {
+            conditions.push({ "categories.Environment": { $exists: true } });
+        }
+    } else {
+        return [] // If the categories are not accepted just send an empty array
     }
 
     // Conditions must be {} if it's blank to prevent any errors $and/$or/$nor must be a nonempty array

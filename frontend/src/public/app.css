@@ -2265,20 +2265,16 @@ html{
   width: 18rem;
 }
 
-.w-8{
-  width: 2rem;
-}
-
 .w-80{
   width: 20rem;
 }
 
-.w-full{
-  width: 100%;
-}
-
 .w-9{
   width: 2.25rem;
+}
+
+.w-full{
+  width: 100%;
 }
 
 .max-w-3xl{
@@ -2511,6 +2507,10 @@ html{
 
 .rounded-sm{
   border-radius: 0.125rem;
+}
+
+.rounded{
+  border-radius: 0.25rem;
 }
 
 .rounded-b-md{
@@ -2855,8 +2855,8 @@ html{
   padding-top: 0.375rem;
 }
 
-.pt-16{
-  padding-top: 4rem;
+.pt-14{
+  padding-top: 3.5rem;
 }
 
 .pt-4{

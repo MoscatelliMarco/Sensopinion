@@ -10,6 +10,6 @@
 <div class="relative h-full">
     <textarea on:input={() => {setTimeout(() => {char_count = inputText.length;}, 50)}} maxlength="2500" name="text" 
         bind:value={inputText} placeholder="Text to analyze" 
-        class="text-sm md:text-base px-2.5 py-1.5 w-full h-full resize-none overflow-y-auto focus:border-none focus:outline-none"></textarea>
-    <p class="absolute bottom-0 right-1">{2500 - char_count}</p>
+        class="text-sm md:text-base px-2.5 py-1.5 w-full h-full resize-none overflow-y-auto focus:border-none focus:outline-none rounded"></textarea>
+    <p class="absolute bottom-0 right-1 text-grey-2">{2500 - char_count}</p>
 </div>

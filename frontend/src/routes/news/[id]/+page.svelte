@@ -28,7 +28,7 @@
         <p class="text-8xl text-primary-gradient font-bold">{timer}</p>
     </div>
     <button on:click={() => {
-        if (timer == 0) { window.open(news['url'], '_blank'); }
+        if (timer == 0) { window.open(news['url']); }
     }} class="{timer == 0 ? "btn bg-primary-gradient shadow-md hover:shadow-lg" : " bg-primary-gradient-opacity"} h-9 min-h-0 rounded-sm text-white border-0 px-8 font-medium disabled:opacity-50 disabled:cursor-not-allowed">
         Redirect me
     </button>

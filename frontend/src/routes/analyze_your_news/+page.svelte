@@ -128,7 +128,7 @@
         </div>
         <form on:submit={handleSubmit}>
             {#if mode_text}
-                <div class="w-full border border-neutral rounded-sm h-72 md:h-124 lg:h-140">
+                <div class="w-full border border-grey-2 rounded h-72 md:h-124 lg:h-140">
                     <TextareaAnalyzeText bind:inputText={inputText}/>
                 </div>
                 <div class="flex justify-center">
@@ -141,7 +141,7 @@
                     </button>
                 </div>
             {:else}
-                <div class="w-full border border-neutral rounded-sm">
+                <div class="w-full border border-grey-2 rounded">
                     <input maxlength="250" name="url" type="text" bind:value={inputUrl} placeholder="Url to analyze" class="text-sm md:text-base px-2.5 py-1.5 w-full focus:border-none focus:outline-none">
                 </div>
                 <div class="flex justify-center">

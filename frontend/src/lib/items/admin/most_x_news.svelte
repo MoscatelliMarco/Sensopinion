@@ -26,7 +26,7 @@
         "factor_name": "string",
         "factor_name_progress": "string",
         "1_minus_x": ['yes', "no"],
-        "title_width": {"range": [300, 700]}
+        "title_width": {"range": [100, 900]}
     })
 
     function capitalizeFirstLetter(str) {
@@ -91,7 +91,7 @@
             }
 
             // Compare the dates to determine their order.
-            if (parameters['order'] == 'ascending') {
+            if (parameters['order'] == 'descending') {
                 return factor2 - factor1; // Use dateA - dateB for ascending order.
             }
             return factor1 - factor2;
@@ -99,7 +99,7 @@
     }
 </script>
 
-<main class="w-full h-full pt-16 pb-20 px-28 flex flex-col justify-between gap-4">
+<main class="w-full h-full pt-14 pb-20 px-28 flex flex-col justify-between gap-4">
     <div class="flex justify-center">
         <h1 style="max-width: {parameters['title_width']}px;" class="text-6xl font-medium text-center">
             Most <span class="font-bold text-primary-gradient">{parameters['factor_name']}</span> news in the last 10 days about <span class="font-bold">{parameters['category'] ? capitalizeFirstLetter(parameters['category'].replace("_politics", "").replace("_environment", "").replace("_economy", "").replaceAll("_", " ")) : parameters['category']}</span>
@@ -135,7 +135,7 @@
         </div>
     </div>
 
-    <div class="flex flex-col gap-4 mb-4 justify-center text-grey-1">
+    <div class="flex flex-col gap-4 mb-4 justify-center text-grey-1 mt-6">
 
         <div class="flex w-full gap-4">
             <div class="flex gap-6">

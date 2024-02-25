@@ -1,22 +1,12 @@
 <script>
   import RadialProgressSmall from "./radial_progress_small.svelte";
-  import { fade } from "svelte/transition";
   import ImageComponentCard from "./image_component_card.svelte";
 
   export let news;
-  export let animate = true;
-
-  function animation(node) {
-    if (animate) {
-      return fade(node, {duration: 200});
-    } else {
-      return null;
-    }
-  }
 </script>
 
 <div class="rounded-md overflow-hidden shadow-sm hover:shadow h-auto">
-  <div transition:animation class="flex flex-col justify-between gap-2 lg:gap-3 overflow-hidden h-full relative border">
+  <div class="flex flex-col justify-between gap-2 lg:gap-3 overflow-hidden h-full relative border">
     <div class="absolute top-2 right-2 flex gap-1.5">
       {#if "Politics" in news['categories']}
         <a href="/categories/politics" class="bg-white rounded-md p-1 shadow-sm hover:shadow-md">

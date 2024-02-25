@@ -15,10 +15,13 @@ export async function load({ fetch }) {
         } catch {}
         if (res.ok) {
             const data = await res.json();
-            globalStore.update(($dict) => {
-                $dict['news'] = data;
-                return $dict;
-            })
+            
+            loadedStore.set(true)
+            return {
+                props: {
+                    news_articles: data
+                }
+            }
         }
         loadedStore.set(true)
     }

@@ -2277,6 +2277,10 @@ html{
   width: 100%;
 }
 
+.w-9{
+  width: 2.25rem;
+}
+
 .max-w-3xl{
   max-width: 48rem;
 }
@@ -2885,8 +2889,8 @@ html{
   line-height: 2.25rem;
 }
 
-.text-5xl{
-  font-size: 3rem;
+.text-6xl{
+  font-size: 3.75rem;
   line-height: 1;
 }
 

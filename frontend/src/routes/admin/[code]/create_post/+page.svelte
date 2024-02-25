@@ -47,6 +47,9 @@
             }
         }, 100)
     }
+
+    export let data;
+    const news_articles = data['props']['news_articles'];
 </script>
 
 <div class="flex flex-col gap-4">
@@ -93,7 +96,7 @@
         <div style="width: calc(1080px + 20px);" class="bg-warning p-2.5">
             <div bind:this={html_post} style="width: 1080px; height: 1080px;" class="bg-white">
                 {#if post_type_value == 'most_x_news'}
-                    <MostXNews parameters={parameters} requiredParameters={requiredParameters}/>
+                    <MostXNews parameters={parameters} requiredParameters={requiredParameters} news_articles={news_articles}/>
                 {:else}
                     <div class="w-full h-full"></div>
                 {/if}

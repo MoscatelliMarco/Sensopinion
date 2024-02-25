@@ -75,7 +75,7 @@
   </script>
   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
       {#each news_articles as news }
-        <NewsCard news={news} animate={false}/>
+        <NewsCard news={news}/>
       {/each}
   </div>
   {#if !(news_articles.length)}

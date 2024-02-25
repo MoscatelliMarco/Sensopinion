@@ -2,6 +2,7 @@
     import { onMount, onDestroy } from "svelte";
     let openMenu = false;
     let originalScrollY;
+    import { page } from '$app/stores';
 
     // Create variable for navbar height
     let navbar_node;
@@ -11,12 +12,14 @@
     })
 
     function disableScroll() {
-        originalScrollY = window.scrollY;  // Record the scroll position
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${originalScrollY}px`;
-        document.body.style.width = '100%';
-        document.body.style.overflowY = 'scroll';  // Keep the scrollbar visible
-        try {navbar_node.style.top = window.scrollY + "px";} catch(e) {} // Without try catch it stops working at the start
+        if (document.body.scrollHeight > window.innerHeight) {
+            originalScrollY = window.scrollY;  // Record the scroll position
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${originalScrollY}px`;
+            document.body.style.width = '100%';
+            document.body.style.overflowY = 'scroll';  // Keep the scrollbar visible
+            try {navbar_node.style.top = window.scrollY + "px";} catch(e) {} // Without try catch it stops working at the start
+        }
     }
 
     function enableScroll() {
@@ -25,7 +28,7 @@
         document.body.style.width = '';
         document.body.style.overflowY = '';
         window.scrollTo(0, originalScrollY);  // Reset the scroll position
-        try {navbar_node.style.top = "0px";} catch (error) {} // Without try catch it stops working at the start
+        try {navbar_node.style.top = "0px";} catch (e) {} // Without try catch it stops working at the start
     }
 
     let navbarTotalTopSpace = 0;
@@ -33,7 +36,6 @@
     let drawer;
     function updateNavbarHeight() {
         const navbarHeight = navbar.offsetHeight; // Get the height of the navbar
-
         navbarTotalTopSpace = navbarHeight
     }
 
@@ -73,8 +75,6 @@
         window.removeEventListener('resize', updateNavbarHeight);
         window.removeEventListener('resize', closeDrawerLaptop);
     })
-
-    import { page } from '$app/stores';
 
     // Close navbar menu when url changes
     function closeNavbar() {
@@ -128,19 +128,19 @@
     class:hidden={!drawerVisible}>
     <div class={`w-full h-full bg-white fixed z-50 ${openMenu ? 'drawer-enter' : 'drawer-exit drawer-hidden'}`}>
         <ul class="flex flex-col gap-4 px-4 pt-6">
-            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/' ? 'text-primary-gradient font-medium' : ''}">
+            <li class="text-sm hover:font-medium flex flex-col justify-center hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/' ? 'text-primary-gradient font-semibold shadow' : 'text-grey-1 shadow-sm'}">
                 <a href="/">Home</a>
             </li>
-            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/screener' ? 'text-primary-gradient font-medium' : ''}">
+            <li class="text-sm hover:font-medium flex flex-col justify-center hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/screener' ? 'text-primary-gradient font-semibold shadow' : 'text-grey-1 shadow-sm'}">
                 <a href="/screener">Screener</a>
             </li>
-            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow px-4 py-3 rounded-md {$page.url.pathname.includes('/categories') ? 'text-primary-gradient font-medium' : ''}">
+            <li class="text-sm hover:font-medium flex flex-col justify-center hover:shadow px-4 py-3 rounded-md {$page.url.pathname.includes('/categories') ? 'text-primary-gradient font-semibold shadow' : 'text-grey-1 shadow-sm'}">
                 <a href="/categories">Categories</a>
             </li>
-            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/analyze_your_news' ? 'text-primary-gradient font-medium' : ''}">
+            <li class="text-sm hover:font-medium flex flex-col justify-center hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/analyze_your_news' ? 'text-primary-gradient font-semibold shadow' : 'text-grey-1 shadow-sm'}">
                 <a href="/analyze_your_news">Analyze Your News</a>
             </li>
-            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/info/about-us' ? 'text-primary-gradient font-medium' : ''}">
+            <li class="text-sm hover:font-medium flex flex-col justify-center hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/info/about-us' ? 'text-primary-gradient font-semibold shadow' : 'text-grey-1 shadow-sm'}">
                 <a href="/info/about-us">About us</a>
             </li>
         </ul>

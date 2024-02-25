@@ -2085,6 +2085,10 @@ html{
   margin-top: -2rem;
 }
 
+.mt-7{
+  margin-top: 1.75rem;
+}
+
 .block{
   display: block;
 }
@@ -2279,6 +2283,10 @@ html{
 
 .w-8{
   width: 2rem;
+}
+
+.w-60{
+  width: 15rem;
 }
 
 .max-w-3xl{
@@ -2879,8 +2887,28 @@ html{
   padding-top: 2rem;
 }
 
+.pb-3\.5{
+  padding-bottom: 0.875rem;
+}
+
+.pt-3{
+  padding-top: 0.75rem;
+}
+
+.pt-3\.5{
+  padding-top: 0.875rem;
+}
+
+.text-left{
+  text-align: left;
+}
+
 .text-center{
   text-align: center;
+}
+
+.text-right{
+  text-align: right;
 }
 
 .font-main{
@@ -3183,6 +3211,10 @@ html{
     margin-top: 1.5rem;
   }
 
+  .md\:mt-8{
+    margin-top: 2rem;
+  }
+
   .md\:block{
     display: block;
   }
@@ -3385,6 +3417,26 @@ html{
     padding-top: 3.5rem;
   }
 
+  .md\:pb-4{
+    padding-bottom: 1rem;
+  }
+
+  .md\:pb-4\.5{
+    padding-bottom: 1.125rem;
+  }
+
+  .md\:pt-5{
+    padding-top: 1.25rem;
+  }
+
+  .md\:pt-4{
+    padding-top: 1rem;
+  }
+
+  .md\:pt-4\.5{
+    padding-top: 1.125rem;
+  }
+
   .md\:text-left{
     text-align: left;
   }
@@ -3479,6 +3531,14 @@ html{
 
   .lg\:mt-neg-4{
     margin-top: -1rem;
+  }
+
+  .lg\:mt-14{
+    margin-top: 3.5rem;
+  }
+
+  .lg\:mt-10{
+    margin-top: 2.5rem;
   }
 
   .lg\:flex{
@@ -3694,6 +3754,11 @@ html{
   .lg\:py-8{
     padding-top: 2rem;
     padding-bottom: 2rem;
+  }
+
+  .lg\:py-4{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 
   .lg\:pb-4{

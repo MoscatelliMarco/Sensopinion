@@ -87,9 +87,9 @@
 
 <nav bind:this={navbar_node} class="flex justify-center pb-2 lg:pb-4 z-40 fixed w-full">
     <div bind:this={navbar} 
-    class="max-w-6xl w-full flex justify-between shadow-sm bg-white py-5 lg:py-6 px-4 md:px-8 lg:px-12 xl:px-14 rounded-none lg:rounded-b-lg mx-0 lg:mx-6">
+    class="max-w-6xl w-full flex justify-between shadow-sm bg-white pt-4 pb-3.5 md:pt-4.5 md:pb-4 px-4 md:px-8 lg:px-12 xl:px-14 rounded-none lg:rounded-b-lg mx-0 lg:mx-6">
         <div class="flex flex-col justify-center">
-            <h2 class="text-primary-gradient font-medium text-xl">Sensopinion</h2>
+            <h2 class="text-primary-gradient font-medium text-lg md:text-xl">Sensopinion</h2>
         </div>
         <ul class="gap-10 xl:gap-12 hidden lg:flex">
             <li class="hover:font-medium text-sm flex flex-col justify-center {$page.url.pathname === '/' ? 'text-primary-gradient font-medium' : ''}">

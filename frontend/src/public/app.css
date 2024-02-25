@@ -2425,6 +2425,10 @@ html{
   gap: 2.25rem;
 }
 
+.gap-4\.5{
+  gap: 1.125rem;
+}
+
 .gap-x-1{
   -moz-column-gap: 0.25rem;
        column-gap: 0.25rem;

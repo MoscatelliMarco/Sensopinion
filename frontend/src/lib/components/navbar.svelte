@@ -88,7 +88,9 @@
 <nav bind:this={navbar_node} class="flex justify-center pb-2 lg:pb-4 z-40 fixed w-full">
     <div bind:this={navbar} 
     class="max-w-6xl w-full flex justify-between shadow-sm bg-white py-5 lg:py-6 px-4 md:px-8 lg:px-12 xl:px-14 rounded-none lg:rounded-b-lg mx-0 lg:mx-6">
-        <h2 class="text-primary-gradient font-medium text-xl">Sensopinion</h2>
+        <div class="flex flex-col justify-center">
+            <h2 class="text-primary-gradient font-medium text-xl">Sensopinion</h2>
+        </div>
         <ul class="gap-10 xl:gap-12 hidden lg:flex">
             <li class="hover:font-medium text-sm flex flex-col justify-center {$page.url.pathname === '/' ? 'text-primary-gradient font-medium' : ''}">
                 <a href="/">Home</a>
@@ -106,9 +108,16 @@
                 <a href="/info/about-us">About us</a>
             </li>
         </ul>
-        <button on:click={() => {openMenu = !openMenu}} class="block lg:hidden">
+        <!-- <button on:click={() => {openMenu = !openMenu}} class="block lg:hidden">
             <svg xmlns="http://www.w3.org/2000/svg" class="fill-black h-6" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H4ZM7 12C7 11.4477 7.44772 11 8 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13H8C7.44772 13 7 12.5523 7 12ZM13 18C13 17.4477 13.4477 17 14 17H20C20.5523 17 21 17.4477 21 18C21 18.5523 20.5523 19 20 19H14C13.4477 19 13 18.5523 13 18Z"/>
+            </svg>
+        </button> -->
+        <button class="block lg:hidden ham-menu stroke-black{openMenu ? " open" : ""}" on:click={() => {openMenu = !openMenu;}}>
+            <svg class="w-7 h-7" viewBox="0 0 100 100">
+              <path class="line top" d="M 20,30 H 80"/>
+              <path class="line middle" d="M 20,50 H 80" />
+              <path class="line bottom" d="M 20,70 H 80"/>
             </svg>
         </button>
     </div>
@@ -119,19 +128,19 @@
     class:hidden={!drawerVisible}>
     <div class={`w-full h-full bg-white fixed z-50 ${openMenu ? 'drawer-enter' : 'drawer-exit drawer-hidden'}`}>
         <ul class="flex flex-col gap-4 px-4 pt-6">
-            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md {$page.url.pathname === '/' ? 'text-primary-gradient font-medium' : ''}">
+            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/' ? 'text-primary-gradient font-medium' : ''}">
                 <a href="/">Home</a>
             </li>
-            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md {$page.url.pathname === '/screener' ? 'text-primary-gradient font-medium' : ''}">
+            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/screener' ? 'text-primary-gradient font-medium' : ''}">
                 <a href="/screener">Screener</a>
             </li>
-            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md {$page.url.pathname.includes('/categories') ? 'text-primary-gradient font-medium' : ''}">
+            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow px-4 py-3 rounded-md {$page.url.pathname.includes('/categories') ? 'text-primary-gradient font-medium' : ''}">
                 <a href="/categories">Categories</a>
             </li>
-            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md {$page.url.pathname === '/analyze_your_news' ? 'text-primary-gradient font-medium' : ''}">
+            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/analyze_your_news' ? 'text-primary-gradient font-medium' : ''}">
                 <a href="/analyze_your_news">Analyze Your News</a>
             </li>
-            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow-md px-4 py-3 rounded-md {$page.url.pathname === '/info/about-us' ? 'text-primary-gradient font-medium' : ''}">
+            <li class="hover:font-medium flex flex-col justify-center shadow-sm hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/info/about-us' ? 'text-primary-gradient font-medium' : ''}">
                 <a href="/info/about-us">About us</a>
             </li>
         </ul>
@@ -166,5 +175,31 @@
 
     .drawer-hidden {
         transform: translateX(-100%);
+    }
+
+
+    .line {
+        stroke-width: 6;
+        stroke-linecap: round;
+        transition: all 500ms;
+    }
+    .top {
+        transform-origin: 26px 40px;
+    }
+    .middle {
+        stroke-dasharray: 60 60;
+    }
+    .bottom {
+        transform-origin: 26px 60px;
+    }
+    .ham-menu.open .top {
+        transform: rotate(45deg);
+    }
+    .ham-menu.open .middle {
+        stroke-dasharray: 1 60;
+        stroke-dashoffset: -30;
+    }
+    .ham-menu.open .bottom {
+        transform: rotate(-45deg);
     }
 </style>

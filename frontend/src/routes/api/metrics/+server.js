@@ -31,7 +31,7 @@ export async function GET() {
     unsubscribe()
 
     // Download the needed part of the news articles
-    let projection = { google_news_url: 0, time_analyze: 0 }; // Exclude fields from the results
+    const projection = { google_news_url: 0, time_analyze: 0 }; // Exclude fields from the results
     let news_articles = await collection.find({}, { projection }).toArray();
 
     // If the length is the same the means that the article are the same and you can use the metrics_cache calculated in the request before (this has a small chance to not calculate the metrics properly if an article is deleted and added at the same time, but the different would be irrelevant)

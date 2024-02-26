@@ -7,23 +7,26 @@
 
 <div class="rounded-md overflow-hidden shadow-sm hover:shadow h-auto">
   <div class="flex flex-col justify-between gap-2 lg:gap-3 overflow-hidden h-full relative border">
-    <div class="absolute top-2 right-2 flex gap-1.5">
+    <div class="absolute top-2.5 right-2.5 flex gap-1.5">
       {#if "Politics" in news['categories']}
-        <a href="/categories/politics" class="bg-white rounded-md p-1 shadow-sm hover:shadow-md">
+        <a href="/categories/politics" class="bg-white rounded p-1 shadow-sm hover:shadow-md text-sm">
           ⚖️
         </a>
       {/if}
       {#if "Economy" in news['categories']}
-        <a href="/categories/economy" class="bg-white rounded-md p-1 shadow-sm hover:shadow-md">
+        <a href="/categories/economy" class="bg-white rounded p-1 shadow-sm hover:shadow-md text-sm">
           💵
         </a>
       {/if}
       {#if "Environment" in news['categories']}
-        <a href="/categories/environment" class="bg-white rounded-md p-1 shadow-sm hover:shadow-md">
+        <a href="/categories/environment" class="bg-white rounded p-1 shadow-sm hover:shadow-md text-sm">
           🍃
         </a>
       {/if}
     </div>
+    <a href="{(new URL(news['url'])).origin}" target="_blank" class="absolute top-2.5 left-2.5 flex text-white bg-black bg-opacity-40 backdrop-blur px-1.5 py-1 text-xs rounded">
+        {(new URL(news['url'])).hostname.replace('www.','')}
+    </a>
     <ImageComponentCard url={news["image"]} id={news["_id"]}/>
     <div class="px-3 lg:px-4 flex flex-col gap-1 lg:gap-1.5">
       <div class="flex justify-between gap-1 lg:gap-2">

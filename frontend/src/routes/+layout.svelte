@@ -28,7 +28,7 @@
 {#if loaded}
     <div class="flex flex-col min-h-screen bg-white text-black overflow-x-hidden">
         <Navbar />
-        <main class="flex justify-center mb-40 lg:mb-48">
+        <main class="flex justify-center mb-40 md:mb-36 lg:mb-40">
             <div class="max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-2 md:mx-4 lg:mx-6 w-full">
                 <slot></slot>
             </div>

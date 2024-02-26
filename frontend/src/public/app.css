@@ -2122,6 +2122,18 @@ html{
   margin-top: -2rem;
 }
 
+.mb-28{
+  margin-bottom: 7rem;
+}
+
+.mb-36{
+  margin-bottom: 9rem;
+}
+
+.mb-44{
+  margin-bottom: 11rem;
+}
+
 .block{
   display: block;
 }
@@ -3264,6 +3276,14 @@ html{
     margin-top: 2rem;
   }
 
+  .md\:mb-32{
+    margin-bottom: 8rem;
+  }
+
+  .md\:mb-36{
+    margin-bottom: 9rem;
+  }
+
   .md\:block{
     display: block;
   }
@@ -3578,6 +3598,14 @@ html{
     margin-top: -1rem;
   }
 
+  .lg\:mb-40{
+    margin-bottom: 10rem;
+  }
+
+  .lg\:mb-36{
+    margin-bottom: 9rem;
+  }
+
   .lg\:flex{
     display: flex;
   }
@@ -3604,6 +3632,10 @@ html{
 
   .lg\:h-56{
     height: 14rem;
+  }
+
+  .lg\:h-8{
+    height: 2rem;
   }
 
   .lg\:w-13{

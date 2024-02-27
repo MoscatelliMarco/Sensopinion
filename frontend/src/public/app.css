@@ -3284,6 +3284,10 @@ html{
     margin-bottom: 9rem;
   }
 
+  .md\:mb-40{
+    margin-bottom: 10rem;
+  }
+
   .md\:block{
     display: block;
   }

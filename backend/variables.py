@@ -22,7 +22,8 @@ black_listed_domains = [
     "youtube.com",
     "macrobusiness.com.au",
     "telegraph.co.uk",
-    "vanityfair.com"
+    "vanityfair.com",
+    "edition.cnn.com/videos"
 ]
 
 categories = ['Politics', 'Economy', 'Environment']

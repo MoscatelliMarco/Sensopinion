@@ -2075,6 +2075,11 @@ html{
   margin-bottom: 0.25rem;
 }
 
+.mx-neg-8{
+  margin-left: -2rem;
+  margin-right: -2rem;
+}
+
 .mb-1{
   margin-bottom: 0.25rem;
 }

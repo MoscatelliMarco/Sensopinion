@@ -19,6 +19,9 @@ import copy
 import nltk
 import os
 from dotenv import load_dotenv
+import requests
+from bs4 import BeautifulSoup
+import re
 
 load_dotenv()
 
@@ -39,6 +42,63 @@ categories_tokenizer = AutoTokenizer.from_pretrained(categories_model_path)
 categories_model = AutoModelForSequenceClassification.from_pretrained(categories_model_path)
 categories_classifier = pipeline("zero-shot-classification", model=categories_model, tokenizer=categories_tokenizer)
 
+# NEW FUNCTIONS
+def get_html_content(url):
+    try:
+        # Send a GET request to the URL
+        response = requests.get(url)
+        # Check if request was successful
+        if response.status_code == 200:
+            # Return the HTML content of the page
+            return response.text
+        else:
+            return None
+    except requests.exceptions.RequestException as e:
+        return None
+
+def search_div_content(html_content, classes, element_type):
+    try:
+        # Parse the HTML content
+        soup = BeautifulSoup(html_content, 'html.parser')
+        # Find the specific div element with the provided classes
+        div_element = soup.find(element_type, class_=classes)
+        if div_element:
+            # Return the content of the div element
+            return div_element.text.strip()
+        else:
+            return None
+    except Exception as e:
+        return None
+    
+def get_element_content(url, div_classes, element_type = 'div'):
+    html_content = get_html_content(url)
+    return search_div_content(html_content, div_classes, element_type)
+
+def string_to_datetime(date_string):
+    # List of datetime formats to try for parsing the date string
+    formats_to_try = [
+        '%B %d, %Y, %I:%M %p',    # Month Day, Year, Hour:Minute AM/PM
+        '%B %d, %Y %H:%M',        # Month Day, Year, Hour:Minute (24-hour)
+        '%b %d, %Y - %H:%M',      # Month, Day, Year - Hour:Minute
+        '%b %d %Y',               # Month, Day, Year
+        '%Y-%m-%d %I:%M %p',      # Year-Month-Day, Hour:Minute AM/PM
+        '%Y-%m-%d %H:%M',         # Year-Month-Day, Hour:Minute (24-hour)
+        '%Y-%m-%d',               # Year-Month-Day
+    ]
+    
+    # Iterate through the formats and try parsing the date string
+    for format_str in formats_to_try:
+        try:
+            # Try to parse the date string using the current format
+            date_time = datetime.strptime(date_string, format_str)
+            return date_time
+        except ValueError:
+            # If parsing fails, try the next format
+            continue
+    
+    # If none of the formats work, return None
+    return None
+
 def process_article(url, entries):
     article = NewsPlease.from_url(url)
 
@@ -58,27 +118,70 @@ def process_article(url, entries):
     article_date_publish = article.date_publish
     article_image = article.image_url
 
-    if not article_description:
-        logger.info(f"Article invalid no description: {article.url}")
-        return
-    if not article_text:
-        logger.info(f"Article invalid no maintext: {article.url}")
-        return
-    if not article_date_publish:
-        logger.info(f"Article invalid no date_publish: {article.url}")
-        return
-    if article_date_publish < datetime.now() - timedelta(days=int(os.environ.get("ACCEPTED_DAYS_NEWS"))):
-        logger.info(f"Article invalid date publish older than {int(os.environ.get('ACCEPTED_DAYS_NEWS'))} days: {article.url}")
-        return
-    if not article_title:
-        logger.info(f"Article invalid no title: {article.url}")
-        return
-    if not article_image:
-        logger.info(f"Article invalid no image_url: {article.url}")
-        return
-    if 'news.google.com' in url:
-        logger.info(f"Article invalid url news.google.com domain: {article.url}")
-        return
+    # Special cases handling
+    is_url_special_case = False
+
+    for url_case in ['abcnews.go.com', 'english.kyodonews.net', 'businessinsider.in']:
+        if url_case in url:
+            is_url_special_case = True
+
+    if (not is_url_special_case):
+        if not article_description:
+            logger.info(f"Article invalid no description: {article.url}")
+            return
+        if not article_text:
+            logger.info(f"Article invalid no maintext: {article.url}")
+            return
+        if not article_date_publish:
+            logger.info(f"Article invalid no date_publish: {article.url}")
+            return
+        if article_date_publish < datetime.now() - timedelta(days=int(os.environ.get("ACCEPTED_DAYS_NEWS"))):
+            logger.info(f"Article invalid date publish older than {int(os.environ.get('ACCEPTED_DAYS_NEWS'))} days: {article.url}")
+            return
+        if not article_title:
+            logger.info(f"Article invalid no title: {article.url}")
+            return
+        if not article_image:
+            logger.info(f"Article invalid no image_url: {article.url}")
+            return
+        if 'news.google.com' in url:
+            logger.info(f"Article invalid url news.google.com domain: {article.url}")
+            return 
+    else:
+        content = None;
+        if ('abcnews.go.com' in url):
+            content = get_element_content(url, "xAPpq ZdbeE  jTKbV pCRh".split()) # Classes that represent the real div containing the date the article was published
+        if ('english.kyodonews.net' in url):
+            content = get_element_content(url, "credit", element_type='p')
+            # Define the regex pattern to match the date format
+            date_pattern = r'(?P<month>\w{3})\s+(?P<day>\d{1,2}),\s+(?P<year>\d{4})\s+-\s+(?P<hour>\d{1,2}):(?P<minute>\d{2})\b'
+            
+            # Search for the date pattern in the string
+            try:
+                match = re.search(date_pattern, content)
+                content = match.group(0)
+            except:
+                logger.info(f"Cannot estrapolate data {url}")
+                return
+        if ("businessinsider.in" in url):
+            content = get_element_content(url, "Date", element_type='span')
+            content = content.split(',')[0] + content.split(',')[1]
+
+        if not content:
+            logger.info(f"Cannot find valid date_published {url}")
+            return
+        cache_datetime = string_to_datetime(content)
+
+        if cache_datetime:
+            article_date_publish = string_to_datetime(content)
+        else:
+            logger.info(f"Invalid date format {url}")
+            return
+
+    # Check later if the date is valid 
+    if article_date_publish > datetime.now():
+        logger.info(f"Article date is in the future: {article.url}")
+        return   
 
     for entry in entries:
         if article_title == entry['title']:

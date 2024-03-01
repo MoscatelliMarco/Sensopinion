@@ -2051,10 +2051,6 @@ html{
   grid-column: span 3 / span 3;
 }
 
-.m-1{
-  margin: 0.25rem;
-}
-
 .mx-0{
   margin-left: 0px;
   margin-right: 0px;
@@ -2065,19 +2061,9 @@ html{
   margin-right: 0.5rem;
 }
 
-.my-2{
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
 .my-1{
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
-}
-
-.mx-neg-8{
-  margin-left: -2rem;
-  margin-right: -2rem;
 }
 
 .mb-1{
@@ -2140,12 +2126,12 @@ html{
   margin-top: 1.5rem;
 }
 
-.mt-7{
-  margin-top: 1.75rem;
-}
-
 .mt-8{
   margin-top: 2rem;
+}
+
+.mt-9{
+  margin-top: 2.25rem;
 }
 
 .mt-auto{
@@ -2158,6 +2144,14 @@ html{
 
 .mt-neg-8{
   margin-top: -2rem;
+}
+
+.mt-13{
+  margin-top: 3.25rem;
+}
+
+.mt-7{
+  margin-top: 1.75rem;
 }
 
 .block{
@@ -2242,10 +2236,6 @@ html{
 
 .h-screen{
   height: 100vh;
-}
-
-.h-5{
-  height: 1.25rem;
 }
 
 .min-h-0{
@@ -2743,12 +2733,12 @@ html{
   fill: #0F0F0F;
 }
 
-.fill-white{
-  fill: #FEFEFE;
-}
-
 .fill-grey-1{
   fill: #616161;
+}
+
+.fill-white{
+  fill: #FEFEFE;
 }
 
 .stroke-black{
@@ -2757,10 +2747,6 @@ html{
 
 .stroke-current{
   stroke: currentColor;
-}
-
-.stroke-grey-2{
-  stroke: #969696;
 }
 
 .stroke-grey-1{
@@ -2774,6 +2760,10 @@ html{
 
 .p-0{
   padding: 0px;
+}
+
+.p-0\.25{
+  padding: 0.0625rem;
 }
 
 .p-0\.5{
@@ -2798,10 +2788,6 @@ html{
 
 .p-3{
   padding: 0.75rem;
-}
-
-.p-0\.25{
-  padding: 0.0625rem;
 }
 
 .px-0{
@@ -3175,10 +3161,6 @@ html{
   fill: #0F0F0F;
 }
 
-.hover\:stroke-grey-1:hover{
-  stroke: #616161;
-}
-
 .hover\:stroke-black:hover{
   stroke: #0F0F0F;
 }
@@ -3288,6 +3270,10 @@ html{
     margin-top: 0.375rem;
   }
 
+  .md\:mt-10{
+    margin-top: 2.5rem;
+  }
+
   .md\:mt-20{
     margin-top: 5rem;
   }
@@ -3304,8 +3290,20 @@ html{
     margin-top: 1.5rem;
   }
 
+  .md\:mt-14{
+    margin-top: 3.5rem;
+  }
+
+  .md\:mt-24{
+    margin-top: 6rem;
+  }
+
   .md\:mt-8{
     margin-top: 2rem;
+  }
+
+  .md\:mt-7{
+    margin-top: 1.75rem;
   }
 
   .md\:block{
@@ -3590,10 +3588,6 @@ html{
     margin-bottom: 10rem;
   }
 
-  .lg\:mt-10{
-    margin-top: 2.5rem;
-  }
-
   .lg\:mt-12{
     margin-top: 3rem;
   }
@@ -3620,6 +3614,18 @@ html{
 
   .lg\:mt-neg-4{
     margin-top: -1rem;
+  }
+
+  .lg\:mt-16{
+    margin-top: 4rem;
+  }
+
+  .lg\:mt-28{
+    margin-top: 7rem;
+  }
+
+  .lg\:mt-10{
+    margin-top: 2.5rem;
   }
 
   .lg\:flex{

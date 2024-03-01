@@ -43,7 +43,7 @@
         </div>
     </div>
 {/if}
-<div class="w-full max-w-lg flex flex-col gap-2 mt-4 md:mt-6">
+<div class="w-full max-w-lg flex flex-col gap-4 mt-8 md:mt-10 lg:mt-12">
     <div class="flex justify-center font-light text-sm">
         <p>Positivity and Subjectivity</p>
     </div>
@@ -54,7 +54,7 @@
             </div>
         {/each}
     </div>
-    <div class="flex justify-center font-light text-sm mt-4 md:mt-5">
+    <div class="flex justify-center font-light text-sm mt-5 md:mt-6">
         <p>Emotions</p>
     </div>
     <div class="flex justify-center gap-2 md:gap-4 lg:gap-5">

@@ -35,9 +35,9 @@
     }} class="{timer == 0 ? "btn bg-primary-gradient shadow-md hover:shadow-lg" : " bg-primary-gradient-opacity"} h-9 min-h-0 rounded-sm text-white border-0 px-8 font-medium disabled:opacity-50 disabled:cursor-not-allowed">
         Redirect me
     </button> -->
-    <button class="btn bg-primary-gradient shadow-md hover:shadow-lg h-9 min-h-0 rounded text-white border-0 px-8 font-medium disabled:opacity-50 disabled:cursor-not-allowed">
+    <a href="{news['url']}" class="btn bg-primary-gradient shadow-md hover:shadow-lg h-9 min-h-0 rounded text-white border-0 px-8 font-medium disabled:opacity-50 disabled:cursor-not-allowed">
         Redirect me
-    </button>
+    </a>
     <div class="mt-7 md:mt-8 lg:mt-10 flex flex-col gap-1 md:gap-2 lg:gap-4">
         <NewsRadioAll data={radio_data} show_text={false}/>
     </div>

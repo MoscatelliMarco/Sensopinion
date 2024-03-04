@@ -142,7 +142,7 @@
                 </div>
             {:else}
                 <div class="w-full border border-grey-2 rounded">
-                    <input maxlength="250" name="url" type="text" bind:value={inputUrl} placeholder="Url to analyze" class="text-sm md:text-base px-2.5 py-1.5 w-full focus:border-none focus:outline-none">
+                    <input maxlength="250" name="url" type="text" bind:value={inputUrl} placeholder="Url to analyze" class="text-sm md:text-base px-2.5 py-1.5 w-full focus:border-none focus:outline-none rounded">
                 </div>
                 <div class="flex justify-center">
                     <button disabled="{inputUrl.length ? "" : "disabled"}" type="submit" class="{inputUrl.length ? "bg-primary-gradient " : "bg-primary-gradient-opacity "}text-white border-neutral rounded-b-md border-b border-x w-36 py-1.5 font-medium text-sm">

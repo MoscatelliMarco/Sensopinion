@@ -56,19 +56,6 @@ def process_article(url):
     article_date_publish = article.date_publish
     article_image = article.image_url
 
-    if not article_description:
-        logger.info(f"Article invalid no description: {article.url}")
-    if not article_text:
-        logger.info(f"Article invalid no maintext: {article.url}")
-    if not article_date_publish:
-        logger.info(f"Article invalid no date_publish: {article.url}")
-    if article_date_publish < datetime.now() - timedelta(days=int(os.environ.get("ACCEPTED_DAYS_NEWS"))):
-        logger.info(f"Article invalid date publish older than {int(os.environ.get('ACCEPTED_DAYS_NEWS'))} days: {article.url}")
-    if not article_title:
-        logger.info(f"Article invalid no title: {article.url}")
-    if not article_image:
-        logger.info(f"Article invalid no image_url: {article.url}")
-
 
     try:
         clusters = process_text(article_text)

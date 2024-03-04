@@ -202,7 +202,7 @@
                         </a>
                         <div class="flex justify-center">
                             <button on:click={show_more} data-category_type="politics" 
-                            class="btn w-28 text-xs min-h-0 h-7 xl:h-8 font-light rounded-md shadow hover:shadow-md {category_type == 'politics' ? "bg-primary-gradient-opacity shadow-md text-white font-normal" : "bg-transparent border-grey-3 text-grey-3"}">
+                            class="border w-28 text-xs min-h-0 h-7 xl:h-8 font-light rounded-md shadow hover:shadow-md {category_type == 'politics' ? "bg-primary-gradient-opacity shadow-md text-white font-normal" : "bg-transparent border-grey-3 text-grey-3"}">
                             {#if category_type == 'politics'}Show less{:else}Show more{/if}</button>
                         </div>
                         {#if category_type == 'politics'}
@@ -218,7 +218,7 @@
                         </a>
                         <div class="flex justify-center">
                             <button on:click={show_more} data-category_type="economy" 
-                            class="btn w-28 text-xs min-h-0 h-7 xl:h-8 font-light rounded-md shadow hover:shadow-md {category_type == 'economy' ? "bg-primary-gradient-opacity shadow-md text-white font-normal" : "bg-transparent border-grey-3 text-grey-3"}">
+                            class="border w-28 text-xs min-h-0 h-7 xl:h-8 font-light rounded-md shadow hover:shadow-md {category_type == 'economy' ? "bg-primary-gradient-opacity shadow-md text-white font-normal" : "bg-transparent border-grey-3 text-grey-3"}">
                             {#if category_type == 'economy'}Show less{:else}Show more{/if}</button>
                         </div>
                         {#if category_type == 'economy'}
@@ -235,7 +235,7 @@
                         <div class="flex justify-center">
                             <div class="flex justify-center">
                                 <button on:click={show_more} data-category_type="environment" 
-                                class="btn w-28 text-xs min-h-0 h-7 xl:h-8 font-light rounded-md shadow hover:shadow-md {category_type == 'environment' ? "bg-primary-gradient-opacity shadow-md text-white font-normal" : "bg-transparent border-grey-3 text-grey-3"}">
+                                class="border w-28 text-xs min-h-0 h-7 xl:h-8 font-light rounded-md shadow hover:shadow-md {category_type == 'environment' ? "bg-primary-gradient-opacity shadow-md text-white font-normal" : "bg-transparent border-grey-3 text-grey-3"}">
                                 {#if category_type == 'environment'}Show less{:else}Show more{/if}</button>
                             </div>
                         </div>

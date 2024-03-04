@@ -53,3 +53,7 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.2em !important;
     letter-spacing: -0.01em !important;
 }
+
+.btn:hover {
+    filter: brightness(1.1) !important;
+}

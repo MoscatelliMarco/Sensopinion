@@ -85,7 +85,7 @@
     $: $page, closeNavbar();
 </script>
 
-<nav bind:this={navbar_node} class="flex justify-center pb-2 lg:pb-4 z-40 fixed w-full">
+<nav bind:this={navbar_node} class="flex justify-center pb-2 lg:pb-4 z-40 fixed w-full text-grey-1">
     <div bind:this={navbar} 
     class="max-w-6xl w-full flex justify-between shadow-sm bg-white pt-4 pb-3.5 md:pt-4.5 md:pb-4 px-4 md:px-8 lg:px-12 xl:px-14 rounded-none lg:rounded-b-lg mx-0 lg:mx-6">
         <div class="flex flex-col justify-center">
@@ -123,7 +123,7 @@
     </div>
 </nav>
 <div style="height: {navbar_height}px;"></div>
-<div bind:this={drawer} class="top-0 left-0 w-full h-screen z-30"
+<div bind:this={drawer} class="top-0 left-0 w-full h-screen z-30 text-grey-1"
     class:fixed={drawerVisible}
     class:hidden={!drawerVisible}>
     <div class={`w-full h-full bg-white fixed z-50 ${openMenu ? 'drawer-enter' : 'drawer-exit drawer-hidden'}`}>

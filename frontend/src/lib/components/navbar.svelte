@@ -104,8 +104,9 @@
             <li class="hover:font-medium text-sm flex flex-col justify-center {$page.url.pathname === '/analyze_your_news' ? 'text-primary-gradient font-medium' : ''}">
                 <a href="/analyze_your_news">Analyze Your News</a>
             </li>
-            <li class="hover:font-medium text-sm flex flex-col justify-center {$page.url.pathname === '/info/about-us' ? 'text-primary-gradient font-medium' : ''}">
-                <a href="/info/about-us">About us</a>
+            <li>
+                <a class="btn bg-primary-gradient-opacity-high bg-primary-gradient-opacity-high-inter rounded text-white border shadow-sm hover:shadow px-6 min-h-0 h-8.5 font-normal text-sm"
+                 href="/login">Login</a>
             </li>
         </ul>
         <!-- <button on:click={() => {openMenu = !openMenu}} class="block lg:hidden">
@@ -143,6 +144,13 @@
             <li class="text-sm hover:font-medium flex flex-col justify-center hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/info/about-us' ? 'text-primary-gradient font-semibold shadow' : 'text-grey-1 shadow-sm'}">
                 <a href="/info/about-us">About us</a>
             </li>
+            <li class="flex justify-center gap-3 md:gap-5 mt-4">
+                <a class="btn bg-primary-gradient-opacity-high bg-primary-gradient-opacity-high-inter rounded text-white border shadow-sm hover:shadow w-28 md:w-44 min-h-0 h-8.5 font-normal text-sm"
+                 href="/login">Login</a>
+                 <a class="btn border-grey-2 rounded text-grey-2 border shadow-sm hover:shadow w-28 md:w-44 min-h-0 h-8.5 font-normal text-sm"
+                 href="/sign-up">Sign up</a>
+            </li>
+            
         </ul>
     </div>
 </div>

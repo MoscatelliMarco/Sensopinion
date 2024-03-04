@@ -4,7 +4,7 @@
     let login = true;
 </script>
 
-<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+<div class="flex min-h-full flex-col justify-center px-6 py-16 md:py-20 xl:py-24">
     <div class="flex justify-center">
         <button on:click={() => {login = true;}} class="{login ? "bg-primary-gradient-opacity text-white" : "border border-grey-2 text-grey-2"} 
         w-24 py-1.5 rounded-l text-sm">
@@ -16,12 +16,12 @@
         </button>
     </div>
   
-    <h3 class="text-center font-medium text-2xl mt-16">
+    <h3 class="text-center font-medium text-2xl mt-8">
         {login ? "Login into your account" : "Create an account"}
     </h3>
 
     {#if login}
-        <div transition:slide={{duration: 300}} class="sm:mx-auto sm:w-full sm:max-w-sm mt-8">
+        <div transition:slide={{duration: 300}} class="sm:mx-auto sm:w-full sm:max-w-sm mt-6">
             <form class="space-y-3" action="#" method="POST">
                 <div>
                     <label for="email" class="block text-sm font-medium leading-6 text-grey-1">Email address</label>
@@ -75,7 +75,7 @@
                     </div>
                 </div>
             
-                <div class="mt-3">
+                <div class="pt-3">
                     <button type="submit" class="flex w-full justify-center rounded-md bg-primary-gradient px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
                         Sign up
                     </button>

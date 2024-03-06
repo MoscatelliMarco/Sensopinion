@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { all_news } from './mongodb.js';
+import { all_news } from '$lib/server/news.js';
 
 export async function GET(event) {
   const n_load = event.url.searchParams.get("n_load") || null;

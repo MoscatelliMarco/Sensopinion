@@ -2214,6 +2214,10 @@ html{
   height: 2rem;
 }
 
+.h-8\.5{
+  height: 2.125rem;
+}
+
 .h-9{
   height: 2.25rem;
 }
@@ -2228,10 +2232,6 @@ html{
 
 .h-screen{
   height: 100vh;
-}
-
-.h-8\.5{
-  height: 2.125rem;
 }
 
 .min-h-0{
@@ -2886,9 +2886,9 @@ html{
   padding-bottom: 0.375rem;
 }
 
-.py-12{
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+.py-16{
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 .py-2{
@@ -2919,16 +2919,6 @@ html{
 .py-7{
   padding-top: 1.75rem;
   padding-bottom: 1.75rem;
-}
-
-.py-24{
-  padding-top: 6rem;
-  padding-bottom: 6rem;
-}
-
-.py-16{
-  padding-top: 4rem;
-  padding-bottom: 4rem;
 }
 
 .pb-0{
@@ -3450,16 +3440,16 @@ html{
     width: 10rem;
   }
 
+  .md\:w-44{
+    width: 11rem;
+  }
+
   .md\:w-auto{
     width: auto;
   }
 
   .md\:w-full{
     width: 100%;
-  }
-
-  .md\:w-44{
-    width: 11rem;
   }
 
   .md\:max-w-3xl{
@@ -3607,14 +3597,14 @@ html{
     padding-bottom: 0.625rem;
   }
 
-  .md\:py-5{
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
-  }
-
   .md\:py-20{
     padding-top: 5rem;
     padding-bottom: 5rem;
+  }
+
+  .md\:py-5{
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
   }
 
   .md\:pb-2{
@@ -3931,11 +3921,6 @@ html{
     padding-right: 1.5rem;
   }
 
-  .lg\:px-8{
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-
   .lg\:py-1{
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
@@ -3959,11 +3944,6 @@ html{
   .lg\:py-8{
     padding-top: 2rem;
     padding-bottom: 2rem;
-  }
-
-  .lg\:py-24{
-    padding-top: 6rem;
-    padding-bottom: 6rem;
   }
 
   .lg\:pb-4{

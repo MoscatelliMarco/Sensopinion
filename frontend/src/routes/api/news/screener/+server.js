@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { screener_news } from '../mongodb.js';
+import { screener_news } from '$lib/server/news.js';
 
 export async function GET(event) {
   const politics = event.url.searchParams.get("politics");

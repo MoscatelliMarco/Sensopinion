@@ -3,19 +3,13 @@ import { MongoClient  } from 'mongodb';
 import { json } from '@sveltejs/kit';
 import { globalStore } from '../../../stores.js';
 
-const client = new MongoClient(import.meta.env.VITE_MONGO_CLIENT_URL)
+const client = new MongoClient(import.meta.env.VITE_MONGO_CLIENT_URI)
 let db;
 
 await client.connect();
 db = client.db('news_database');
 const collection = db.collection('news_collection')
 db.collection('news_collection').createIndex({ "time_analyze": 1 }, { expireAfterSeconds: 604800 });
-
-function sanitizeStringForMongoDB(inputString) {
-    // Replace or escape special MongoDB characters
-    let sanitizedString = inputString.replace('$', '\\$').replace('.', '\\.');
-    return sanitizedString;
-}
 
 // Store current length collection so doesn't have to do the math every time
 let current_len_collection = undefined;

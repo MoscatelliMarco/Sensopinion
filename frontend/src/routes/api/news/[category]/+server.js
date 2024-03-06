@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { categories_news } from '../mongodb.js';
+import { categories_news } from '$lib/server/news.js';
 
 export async function GET(event) {
     const category = event.params.category || null;

@@ -1,8 +1,8 @@
 // src/routes/api/news.js
 import { MongoClient, ObjectId } from 'mongodb';
-import { globalStore } from '../../../stores';
+import { globalStore } from '../../stores';
 
-const client = new MongoClient(import.meta.env.VITE_MONGO_CLIENT_URL)
+const client = new MongoClient(import.meta.env.VITE_MONGO_CLIENT_URI)
 let db;
 
 await client.connect();
@@ -15,7 +15,7 @@ const projection = { google_news_url: 0, time_analyze: 0 }; // Exclude fields fr
 function sanitizeStringForMongoDB(inputString) {
   try {
     // Replace or escape special MongoDB characters
-    let sanitizedString = inputString.replace('$', '\\$').replace('.', '\\.');
+    let sanitizedString = inputString.replaceAll('$', '\\$').replace('.', '\\.');
     return sanitizedString;
   } catch (e) {
     return null;

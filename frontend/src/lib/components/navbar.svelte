@@ -3,6 +3,9 @@
     let openMenu = false;
     let originalScrollY;
     import { page } from '$app/stores';
+    import Icon from '@iconify/svelte';
+
+    export let user;
 
     // Create variable for navbar height
     let navbar_node;
@@ -104,10 +107,22 @@
             <li class="hover:font-medium text-sm flex flex-col justify-center {$page.url.pathname === '/analyze_your_news' ? 'text-primary-gradient font-medium' : ''}">
                 <a href="/analyze_your_news">Analyze Your News</a>
             </li>
-            <li>
-                <a class="btn bg-primary-gradient-opacity-high bg-primary-gradient-opacity-high-inter rounded text-white border shadow-sm hover:shadow px-8 min-h-0 h-8.5 font-normal text-sm"
-                 href="/login">Login</a>
-            </li>
+            {#if user}
+                <a href="/user" class="p-0.5">
+                    <div class="text-grey-1 ml-1 mb-0.25">
+                        {#if $page.url.pathname.includes("/user")}
+                            <Icon icon="mdi:account" class="h-5.5 w-5.5"/>
+                        {:else}
+                            <Icon icon="mdi:account-outline" class="h-5.5 w-5.5"/>
+                        {/if}
+                    </div>
+                </a>
+            {:else}
+                <li>
+                    <a class="btn bg-primary-gradient-opacity-high bg-primary-gradient-opacity-high-inter rounded text-white border shadow-sm hover:shadow px-8 min-h-0 h-8.5 font-normal text-sm"
+                    href="/login">Login</a>
+                </li>
+            {/if}
         </ul>
         <button class="block lg:hidden ham-menu stroke-black{openMenu ? " open" : ""}" on:click={() => {openMenu = !openMenu;}}>
             <svg class="w-7 h-7" viewBox="0 0 100 100">
@@ -139,13 +154,18 @@
             <li class="text-sm hover:font-medium flex flex-col justify-center hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/info/about-us' ? 'text-primary-gradient font-semibold shadow' : 'text-grey-1 shadow-sm'}">
                 <a href="/info/about-us">About us</a>
             </li>
-            <li class="flex justify-center gap-3 md:gap-5 mt-4">
-                <a class="btn bg-primary-gradient-opacity-high bg-primary-gradient-opacity-high-inter rounded text-white border shadow-sm hover:shadow w-28 md:w-44 min-h-0 h-8.5 font-normal text-sm"
-                 href="/login">Login</a>
-                 <a class="btn border-grey-2 rounded text-grey-2 border shadow-sm hover:shadow w-28 md:w-44 min-h-0 h-8.5 font-normal text-sm"
-                 href="/sign-up">Sign up</a>
+            {#if user}
+            <li class="text-sm hover:font-medium flex flex-col justify-center hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/user' ? 'text-primary-gradient font-semibold shadow' : 'text-grey-1 shadow-sm'}">
+                <a href="/user">Account info</a>
             </li>
-            
+            {:else}
+                <li class="flex justify-center gap-3 md:gap-5 mt-4">
+                    <a class="btn bg-primary-gradient-opacity-high bg-primary-gradient-opacity-high-inter rounded text-white border shadow-sm hover:shadow w-28 md:w-44 min-h-0 h-8.5 font-normal text-sm"
+                    href="/login">Login</a>
+                    <a class="btn border-grey-2 rounded text-grey-2 border shadow-sm hover:shadow w-28 md:w-44 min-h-0 h-8.5 font-normal text-sm"
+                    href="/register">Sign up</a>
+                </li>
+            {/if}
         </ul>
     </div>
 </div>

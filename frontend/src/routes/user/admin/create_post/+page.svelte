@@ -1,6 +1,6 @@
 <script>
     import * as htmlToImage from 'html-to-image';
-    import MostXNews from "../../../../lib/items/admin/most_x_news.svelte";
+    import MostXNews from "$lib/items/admin/most_x_news.svelte";
 
     let html_post;
     let post_type_value;

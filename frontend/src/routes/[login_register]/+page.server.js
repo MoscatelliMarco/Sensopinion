@@ -1,5 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { userSchema } from "$lib/server/schemas";
+import { userSchema, userSchemaLogin } from "$lib/utils/schemas";
 import { collection_users } from "$lib/server/mongo_adapter";
 
 // Create user and authentication
@@ -42,11 +42,11 @@ export const actions = {
 		const username = await form_data.get('username');
 		const email = await form_data.get('email');
 		const password = await form_data.get('password');
+		const confirmPassword = await form_data.get('confirm-password');
 
-		const result = userSchema.validate({firstName: firstName, lastName: lastName, username: username, email: email, password: password});
+		const result = userSchema.validate({firstName: firstName, lastName: lastName, username: username, email: email, password: password, confirmPassword: confirmPassword});
 		if (result.error) {
-			console.log(result.error)
-			return fail(400, { error: result.message })
+			return fail(400, { error: result.error.details[0].message })
 		}
 
 		const userId = generateId(15);
@@ -55,7 +55,7 @@ export const actions = {
 		const userExists = await doesUserExists(username, email);
 		if (userExists) {
 			// TODO add request throttling
-			return fail(409, { error: "User already existing" });
+			return fail(409, { error: "Username or email already existing" });
 		}
 
 		// Sanitization not needed because not accepting $ as input inside Joi schema
@@ -86,9 +86,13 @@ export const actions = {
 
 		// Get the credentials
 		const form_data = await request.formData();
-		const email_username = await form_data.get('email_username');
-
+		const email_username = await form_data.get('email-username');
 		const password = await form_data.get('password');
+
+		const result = userSchemaLogin.validate({emailUsername: email_username, password: password});
+		if (result.error) {
+			return fail(400, { error: result.error.details[0].message })
+		}
 
 		const userExists = await doesUserExistsLogin(email_username);
 		if (!userExists) {

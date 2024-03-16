@@ -1,6 +1,6 @@
 <script>
     import { globalStore } from "../../../stores";
-    import { isEquivalent } from "../../../public/dictEquivalent"
+    import { isEquivalent } from "$lib/utils/dictEquivalent";
     import { onMount, onDestroy } from "svelte";
     import NewsDisplay from "$lib/sections/categories/[category]/+page/news_display.svelte"
     import GridRadialProgress from "$lib/items/grid_radial_progress.svelte"

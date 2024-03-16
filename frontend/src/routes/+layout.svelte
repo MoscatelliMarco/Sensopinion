@@ -3,8 +3,8 @@
     import { loadedStore } from '../stores';
     import Navbar from "$lib/components/navbar.svelte";
     import Footer from "$lib/components/footer.svelte";
-    import "../public/app.css"
-    import "../public/global.css"
+    import "$lib/css/app.css"
+    import "$lib/css/global.css"
 
     export let data;
 

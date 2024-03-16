@@ -5,7 +5,7 @@
     const user = data['props']['user'];
 </script>
 
-<div class="flex flex-col gap-8">
+<div class="flex flex-col gap-8 mt-8">
     <div class="grid grid-cols-2 w-64 items-end">
         <p class="text-grey-2 text-sm font-medium mb-0.25">First name</p>
         <p class="text-lg text-grey-1">{user['firstName']}</p>
@@ -17,9 +17,14 @@
         <p class="text-lg text-grey-1">{user['email']}</p>
 
         <p class="text-grey-2 text-sm font-medium mb-0.25">Date creation</p>
-        <p class="text-lg text-grey-1">{user['dateCreated']?.toLocaleDateString(undefined, { day: 'numeric', month: 'numeric', year: 'numeric' })}</p>
+        <p class="text-lg text-grey-1">{user['dateCreated'].toLocaleDateString(undefined, { day: 'numeric', month: 'numeric', year: 'numeric' })}</p>
     </div>
-    <div>
+    <div class="flex gap-4">
+        {#if user.isAdmin}
+            <a href="/user/admin" class="border-info border rounded-md text-sm px-3 py-1.5 text-info">
+                Admin panel
+            </a>
+        {/if}
         <button class="border-error border rounded-md text-sm px-3 py-1.5 text-error" onclick="signOutModal.showModal()">
             Sign out
         </button>

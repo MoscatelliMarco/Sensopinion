@@ -16,7 +16,8 @@ export const lucia = new Lucia(adapter, {
             lastName: attributes.lastName,
             username: attributes.username,
             email: attributes.email,
-            isAdmin: attributes.isAdmin
+            isAdmin: attributes.isAdmin,
+            dateCreated: attributes.dateCreated
         }
     }
 })

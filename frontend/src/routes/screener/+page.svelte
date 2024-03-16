@@ -8,7 +8,7 @@
     import { onMount, onDestroy } from 'svelte';
     import { browser } from "$app/environment";
     import { pushState } from "$app/navigation";
-    import { isEquivalent } from '../../public/dictEquivalent';
+    import { isEquivalent } from "$lib/utils/dictEquivalent";
 
     // Get news_articles from props
     export let data;

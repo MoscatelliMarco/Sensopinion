@@ -3,7 +3,7 @@ import { error }from "@sveltejs/kit";
 export async function GET({ params }) {
     const { imageUrl, code } = params;
 
-    if (code !== import.meta.env.VITE_ADMIN_CODE) {
+    if (code != import.meta.env.VITE_ADMIN_CORS_CODE) {
       throw new error(404, 'Not found');
     }
  

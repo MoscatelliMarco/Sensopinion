@@ -1,8 +1,20 @@
 <script>
     import { enhance } from "$app/forms";
+    import { flashMessageStore } from "../../stores";
 
     export let data;
     const user = data['props']['user'];
+
+    async function handleSubmitSignOut() {
+        let intervalId;
+        function flashInterval(intervalId) {
+            if (window.location.pathname === '/') {
+                flashMessageStore.set("Goodbye, we hope to see you soon again!");
+                clearInterval(intervalId);
+            }
+        }
+        intervalId = setInterval(() => {flashInterval(intervalId)}, 100)
+    }
 </script>
 
 <div class="flex flex-col gap-8 mt-8">
@@ -20,7 +32,7 @@
         <p class="text-lg text-grey-1">{user['dateCreated'].toLocaleDateString(undefined, { day: 'numeric', month: 'numeric', year: 'numeric' })}</p>
     </div>
     <div class="flex gap-4">
-        {#if user.isAdmin}
+        {#if user.admin}
             <a href="/user/admin" class="border-info border rounded-md text-sm px-3 py-1.5 text-info">
                 Admin panel
             </a>
@@ -31,13 +43,13 @@
     </div>
     <dialog id="signOutModal" class="modal">
         <div class="modal-box">
-            <form class="flex flex-col gap-5" method="POST" action="?/signOut" use:enhance>
+            <form use:enhance on:submit={handleSubmitSignOut} class="flex flex-col gap-5" method="POST" action="?/signOut">
                 <p class="text-center">Are you sure you want to sign out?</p>
                 <div class="flex gap-4 w-full">
                     <button on:click={() => {
                         document.querySelector("#close-signout-modal").click();
                     }} type="button" class="py-1 w-full text-white bg-error rounded-md">Cancel</button>
-                    <button class="border-error border rounded-md w-full text-sm py-1 text-error">Confirm</button>
+                    <button type="submit" class="border-error border rounded-md w-full text-sm py-1 text-error">Confirm</button>
                 </div>
             </form>
         </div>

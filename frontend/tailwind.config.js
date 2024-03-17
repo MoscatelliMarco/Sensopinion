@@ -12,6 +12,7 @@ module.exports = {
         main: {
           blue: "rgb(33, 135, 219)",
           purple: "rgb(112, 46, 219)",
+          "info-dark": "#2A81B1",
           "grey-1": "#616161",
           "grey-2": "#969696",
           "grey-3": "#CACACA",
@@ -31,6 +32,7 @@ module.exports = {
       colors: {
         blue: "rgb(33, 135, 219)",
         purple: "rgb(112, 46, 219)",
+        "info-dark": "#2A81B1",
         "grey-1": "#616161",
         "grey-2": "#969696",
         "grey-3": "#CACACA",

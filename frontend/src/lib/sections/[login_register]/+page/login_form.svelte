@@ -3,6 +3,8 @@
     import { slide } from "svelte/transition";
     import { userSchemaLogin } from "$lib/utils/schemas";
     import { deserialize } from '$app/forms';
+    import { goto } from '$app/navigation';
+    import { flashMessageStore } from "../../../../stores";
 
     let emailUsername;
     let password;
@@ -36,6 +38,15 @@
                         error = ""
                     }
                 }, 4000)
+            } else {
+                let intervalId;
+                function flashInterval(intervalId) {
+                    if (window.location.pathname === '/') {
+                        flashMessageStore.set("Welcome back, we are happy to have you here again");
+                        clearInterval(intervalId);
+                    }
+                }
+                intervalId = setInterval(() => {flashInterval(intervalId)}, 100)
             }
         }
     }

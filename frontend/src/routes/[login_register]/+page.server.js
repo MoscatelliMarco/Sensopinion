@@ -31,6 +31,7 @@ export async function load({ locals }) {
 
 export const actions = {
 	register: async ({ cookies, request, params }) => {
+		// TODO add request throttling
         if (params.login_register != 'login' && params.login_register != 'register') {
             return fail(400, { error: "Bad request" });
         }
@@ -54,7 +55,6 @@ export const actions = {
 
 		const userExists = await doesUserExists(username, email);
 		if (userExists) {
-			// TODO add request throttling
 			return fail(409, { error: "Username or email already existing" });
 		}
 
@@ -67,7 +67,8 @@ export const actions = {
 			email: email,
 			hashedPassword: hashedPassword,
 			dateCreated: new Date(),
-			isAdmin: false
+			admin: false,
+			verified: false
 		})
 		const session = await lucia.createSession(userId, {});
 		const sessionCookie = lucia.createSessionCookie(session.id);
@@ -76,10 +77,10 @@ export const actions = {
 			...sessionCookie.attributes
 		});
 
-		// TODO add message check email for validation
 		return redirect(307, '/');
 	},
 	login: async ({ cookies, request, params }) => {
+		// TODO add request throttling
 		if (params.login_register != 'login' && params.login_register != 'register') {
             return fail(400, { error: "Bad request" });
         }
@@ -96,14 +97,13 @@ export const actions = {
 
 		const userExists = await doesUserExistsLogin(email_username);
 		if (!userExists) {
-			// TODO add request throttling
-			return fail(409, { error: "User does not exist" });
+			return fail(409, { error: "Incorrect username/email or password" });
 		}
 
 		const validPassword = await new Argon2id().verify(userExists.hashedPassword, password);
 		if (!validPassword) {
 			return fail(400, {
-				message: "Incorrect username/email or password"
+				error: "Incorrect username/email or password"
 			});
 		}
 		const session = await lucia.createSession(userExists._id, {});
@@ -113,7 +113,6 @@ export const actions = {
 			...sessionCookie.attributes
 		});
 
-		// TODO add message welcome back
 		return redirect(307, '/');
 	}
 };

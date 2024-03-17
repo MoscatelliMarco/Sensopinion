@@ -12,8 +12,6 @@ export const actions = {
 			path: ".",
 			...sessionCookie.attributes
 		});
-
-        // TODO show signout message correctly
 		redirect(302, "/");
     }
 }

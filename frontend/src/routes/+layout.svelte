@@ -3,6 +3,7 @@
     import { loadedStore } from '../stores';
     import Navbar from "$lib/components/navbar.svelte";
     import Footer from "$lib/components/footer.svelte";
+    import FlashMessage from '$lib/items/flash_message.svelte';
     import "$lib/css/app.css"
     import "$lib/css/global.css"
 
@@ -30,7 +31,8 @@
     <div class="flex flex-col min-h-screen bg-white text-black overflow-x-hidden">
         <Navbar user={data['props']['user']} />
         <main class="flex justify-center mb-40 md:mb-36 lg:mb-40">
-            <div class="max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-2 md:mx-4 lg:mx-6 w-full">
+            <div class="max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-6xl px-1 md:px-4 lg:px-6 w-full">
+                <FlashMessage />
                 <slot></slot>
             </div>
         </main>

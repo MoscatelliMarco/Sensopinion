@@ -10,7 +10,7 @@
 </script>
 
 {#if message}
-    <div transition:slide={{duration: 250}} class="pt-2">
+    <div transition:slide={{duration: 300}} class="pt-2">
         <div class="flex items-center justify-between gap-2 bg-info bg-opacity-20 border border-info px-4 py-2.5 rounded text-info-dark">
             <p>{message}</p>
             <button on:click={() => {message = "";}} class="flex-col justify-center">

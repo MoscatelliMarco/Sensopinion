@@ -65,6 +65,7 @@ export const actions = {
 			lastName: lastName,
 			username: username,
 			email: email,
+			history: [],
 			hashedPassword: hashedPassword,
 			dateCreated: new Date(),
 			admin: false,

@@ -14,47 +14,47 @@
     let password;
     let confirmPassword;
 
-    let error = "";
-    async function handleSubmit(event) {
-        event.preventDefault();
+    // let error = "";
+    // async function handleSubmit(event) {
+    //     event.preventDefault();
 
-        const resultSchema = userSchema.validate({firstName: firstName, lastName: lastName, username: username, email: email, password: password, confirmPassword: confirmPassword})
-        if (resultSchema.error) {
-            error = resultSchema.error.details[0].message;
-            let cache_error = error;
-            setTimeout(() => {
-                if (cache_error == error) {
-                    error = ""
-                }
-            }, 4000)
-        } else {
-            const data = new FormData(event.currentTarget);
-            const response = await fetch(event.currentTarget.action, {
-                method: 'POST',
-                body: data
-            });
-            const result = deserialize(await response.text());
-            if (result.type == 'failure') {
-                error = result.data.error;
+    //     const resultSchema = userSchema.validate({firstName: firstName, lastName: lastName, username: username, email: email, password: password, confirmPassword: confirmPassword})
+    //     if (resultSchema.error) {
+    //         error = resultSchema.error.details[0].message;
+    //         let cache_error = error;
+    //         setTimeout(() => {
+    //             if (cache_error == error) {
+    //                 error = ""
+    //             }
+    //         }, 4000)
+    //     } else {
+    //         const data = new FormData(event.currentTarget);
+    //         const response = await fetch(event.currentTarget.action, {
+    //             method: 'POST',
+    //             body: data
+    //         });
+    //         const result = deserialize(await response.text());
+    //         if (result.type == 'failure') {
+    //             error = result.data.error;
 
-                let cache_error = error;
-                setTimeout(() => {
-                    if (cache_error == error) {
-                        error = ""
-                    }
-                }, 4000)
-            } else {
-                let intervalId;
-                function flashInterval(intervalId) {
-                    if (window.location.pathname === '/') {
-                        flashMessageStore.set("Welcome to Sensopinion, check your email to verify your account")
-                        clearInterval(intervalId);
-                    }
-                }
-                intervalId = setInterval(() => {flashInterval(intervalId)}, 100)
-            }
-        }
-    }
+    //             let cache_error = error;
+    //             setTimeout(() => {
+    //                 if (cache_error == error) {
+    //                     error = ""
+    //                 }
+    //             }, 4000)
+    //         } else {
+    //             let intervalId;
+    //             function flashInterval(intervalId) {
+    //                 if (window.location.pathname === '/') {
+    //                     flashMessageStore.set("Welcome to Sensopinion, check your email to verify your account")
+    //                     clearInterval(intervalId);
+    //                 }
+    //             }
+    //             intervalId = setInterval(() => {flashInterval(intervalId)}, 100)
+    //         }
+    //     }
+    // }
 </script>
 
 <div transition:slide={{duration: 300}} class="sm:mx-auto sm:w-full sm:max-w-sm mt-8">

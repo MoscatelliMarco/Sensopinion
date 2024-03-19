@@ -43,10 +43,13 @@
 </script>
 
 <div class="rounded inline-block border border-grey-1 text-grey-1 px-5 py-1.5 mt-2">
-    <select bind:value={current_page} class="px-3 focus:outline-none">
-        <option selected value="info">info</option>
-        <option value="history">history</option>
-    </select>
+    <div class="flex gap-2 px-3 items-end">
+        <p class="text-grey-2 text-sm">Visiting</p>
+        <select bind:value={current_page} class="focus:outline-none font-medium pr-1">
+            <option selected value="info">info</option>
+            <option value="history">history</option>
+        </select>
+    </div>
 </div>
 
 <div class="mt-6">

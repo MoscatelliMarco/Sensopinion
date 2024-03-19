@@ -284,7 +284,7 @@
                 </div>
             </div>
         </div>
-        <div bind:this={up_buttons} class="block lg:hidden z-10">
+        <div style="box-shadow: 5px 0px 0px 0px #FEFEFE, -5px 0px 0px 0px #FEFEFE;" bind:this={up_buttons} class="block lg:hidden z-10 relative">
             <div bind:this={up_buttons_child} class="flex justify-between p-2 pt-4 pb-2.5 bg-white">
                 <div class="flex gap-4">
                     <button on:click={() => {filterShow = !filterShow; filterActive = !filterActive; sortActive = false; sortShow = false; if(!filterActive && !sortActive) {firstOpen = true} else {setTimeout(() => {firstOpen = false}, 25)}}}>
@@ -307,16 +307,18 @@
                 </div>
             </div>
             {#if (filterShow || sortShow)}
-                <div transition:slide={{duration: 150}} class="bg-white pb-0 md:pb-2 relative">
-                    {#if filterShow}
-                        <div>
-                            <FilterSide dict_params={dict_params}/>
-                        </div>
-                    {:else if sortShow}
-                        <div>
-                            <SortSide ascending={ascending} changeOrder={() => {ascending = !ascending}} dict_params={dict_params} />
-                        </div>
-                    {/if}
+                <div style="box-shadow: 5px 0px 0px 0px #FEFEFE, -5px 0px 0px 0px #FEFEFE;" class="absolute w-full">
+                    <div transition:slide={{duration: 150}} class="bg-white pb-0 md:pb-2 relative">
+                        {#if filterShow}
+                            <div>
+                                <FilterSide dict_params={dict_params}/>
+                            </div>
+                        {:else if sortShow}
+                            <div>
+                                <SortSide ascending={ascending} changeOrder={() => {ascending = !ascending}} dict_params={dict_params} />
+                            </div>
+                        {/if}
+                    </div>
                 </div>
             {/if}
         </div>

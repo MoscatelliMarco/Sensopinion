@@ -3,6 +3,8 @@
     import { onMount } from "svelte";
     import LoginForm from "$lib/sections/[login_register]/+page/login_form.svelte";
     import RegisterForm from "$lib/sections/[login_register]/+page/register_form.svelte";
+    import { enhance } from "$app/forms";
+    export let form;
 
     let login;
     if (window.location.href.includes("login")) {
@@ -48,9 +50,9 @@
     </h3>
 
     {#if login}
-        <LoginForm />
+        <LoginForm form={form} />
     {:else}
-        <RegisterForm />
+        <RegisterForm form={form} />
     {/if}
 
   </div>

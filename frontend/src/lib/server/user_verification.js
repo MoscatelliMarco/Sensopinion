@@ -9,7 +9,9 @@ const db = client.db('users');
 const collection_verification_token = db.collection('verification_tokens');
 const collection_delete_token = db.collection('verification_tokens');
 const collection_users = db.collection('users');
-collection_verification_token.createIndex({ "created_at": 1 }, { expireAfterSeconds: 10 * 60 });
+await collection_verification_token.createIndex({ "created_at": 1 }, { expireAfterSeconds: 10 * 60 });
+await collection.createIndex({ email: 1 }, { unique: true });
+await collection.createIndex({ username: 1 }, { unique: true });
 
 
 async function createEmailVerificationToken(userId, email) {

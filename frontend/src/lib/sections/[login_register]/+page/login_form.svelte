@@ -3,8 +3,9 @@
     import { slide } from "svelte/transition";
     import { userSchemaLogin } from "$lib/utils/schemas";
     import { deserialize } from '$app/forms';
-    import { goto } from '$app/navigation';
     import { flashMessageStore } from "../../../../stores";
+
+    export let form;
 
     let emailUsername;
     let password;
@@ -80,7 +81,7 @@
         </div>
 
         <div class="flex justify-center mx-4">
-            <p class="text-center text-error font-medium text-sm">{error}</p>
+            <p class="text-center text-error font-medium text-sm">{form ? form.error : ""}</p>
         </div>
     </form>
 </div>

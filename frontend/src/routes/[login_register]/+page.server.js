@@ -60,8 +60,6 @@ export const actions = {
 		}
 
 		// Sanitization not needed because not accepting $ as input inside Joi schema
-		// TODO don't know why but this is running two times
-		console.log("inserting")
 		try {
 			await collection_users.insertOne({
 				_id: userId,

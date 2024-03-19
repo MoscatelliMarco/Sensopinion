@@ -5,6 +5,8 @@
     import { deserialize } from '$app/forms';
     import { flashMessageStore } from "../../../../stores";
 
+    export let form;
+
     let firstName;
     let lastName;
     let username;
@@ -56,7 +58,7 @@
 </script>
 
 <div transition:slide={{duration: 300}} class="sm:mx-auto sm:w-full sm:max-w-sm mt-8">
-    <form on:submit={handleSubmit} class="space-y-3" action="?/register" method="POST" use:enhance>
+    <form class="space-y-3" action="?/register" method="POST" use:enhance>
         <div class="flex gap-3">
             <div class="w-full">
                 <label for="first-name" class="block text-sm font-medium leading-6 text-grey-1">First name</label>
@@ -112,7 +114,7 @@
         </div>
 
         <div class="flex justify-center mx-4">
-            <p class="text-center text-error font-medium text-sm">{error}</p>
+            <p class="text-center text-error font-medium text-sm">{form ? form.error : ""}</p>
         </div>
     </form>
 </div>

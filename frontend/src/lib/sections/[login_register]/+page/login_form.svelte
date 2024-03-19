@@ -54,7 +54,7 @@
 </script>
 
 <div transition:slide={{duration: 300}} class="sm:mx-auto sm:w-full sm:max-w-sm mt-6">
-    <form class="space-y-3" action="?/login" method="POST" use:enhance on:submit={handleSubmit}>
+    <form class="space-y-3" action="?/login" method="POST" use:enhance>
         <div>
             <label for="email-username" class="block text-sm font-medium leading-6 text-grey-1">Email address or username</label>
             <div class="mt-1">

@@ -2,7 +2,7 @@
     import { flashMessageStore } from "../../stores";
     import { slide } from "svelte/transition";
 
-    let message = "";
+    export let message = "";
     $: if ($flashMessageStore) {
         message = $flashMessageStore;
         flashMessageStore.set("");

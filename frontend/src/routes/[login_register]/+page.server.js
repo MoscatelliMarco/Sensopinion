@@ -87,10 +87,10 @@ export const actions = {
 			path: ".",
 			...sessionCookie.attributes
 		});
-
-		return redirect(307, '/');
+		
+		return redirect(307, '/register/redirect');
 	},
-	login: async ({ cookies, request, params }) => {
+	login: async ({ cookies, request, params, locals }) => {
 		// TODO add request throttling
 		if (params.login_register != 'login' && params.login_register != 'register') {
             return fail(400, { error: "Bad request" });
@@ -123,8 +123,8 @@ export const actions = {
 			path: ".",
 			...sessionCookie.attributes
 		});
-
-		return redirect(307, '/');
+		
+		return redirect(307, '/login/redirect');
 	}
 };
 

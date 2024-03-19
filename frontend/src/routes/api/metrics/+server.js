@@ -9,7 +9,7 @@ let db;
 await client.connect();
 db = client.db('news_database');
 const collection = db.collection('news_collection')
-db.collection('news_collection').createIndex({ "time_analyze": 1 }, { expireAfterSeconds: 604800 });
+db.collection('news_collection').createIndex({ "date_published": 1 }, { expireAfterSeconds: 10 * 24 * 60 * 60 });
 
 // Store current length collection so doesn't have to do the math every time
 let current_len_collection = undefined;

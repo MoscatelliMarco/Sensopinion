@@ -52,7 +52,7 @@
     </div>
 </div>
 
-<div class="mt-6">
+<div class="mt-8">
     {#if current_page == "info"}
         <Info user={user} />
     {:else if current_page == 'history'}

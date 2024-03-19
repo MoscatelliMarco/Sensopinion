@@ -8,7 +8,7 @@ let db;
 await client.connect();
 db = client.db('news_database');
 const collection = db.collection('news_collection')
-db.collection('news_collection').createIndex({ "time_analyze": 1 }, { expireAfterSeconds: 604800 });
+collection.createIndex({ "date_published": 1 }, { expireAfterSeconds: 10 * 24 * 60 * 60 });
 
 const projection = { google_news_url: 0, time_analyze: 0 }; // Exclude fields from the results
 

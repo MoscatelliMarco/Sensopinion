@@ -1,6 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { userSchema, userSchemaLogin } from "$lib/utils/schemas";
 import { collection_users } from "$lib/server/mongo_adapter";
+// import { sendEmailVerification } from '$lib/server/user_verification.js';
 
 // Create user and authentication
 import { lucia } from "$lib/server/auth";
@@ -25,12 +26,12 @@ async function doesUserExistsLogin(email_username){
 	return null;
 }
 
-export async function load({ locals }) {
-	if (locals.user) redirect(302, "/");
+export async function load({ locals, params }) {
+	if (locals.user && (params.login_register == "login" || params.login_register == "register")) redirect(302, "/");
 }
 
 export const actions = {
-	register: async ({ cookies, request, params }) => {
+	register: async ({ cookies, request, params, url }) => {
 		// TODO add request throttling
         if (params.login_register != 'login' && params.login_register != 'register') {
             return fail(400, { error: "Bad request" });
@@ -59,18 +60,29 @@ export const actions = {
 		}
 
 		// Sanitization not needed because not accepting $ as input inside Joi schema
-		await collection_users.insertOne({
-			_id: userId,
-			firstName: firstName,
-			lastName: lastName,
-			username: username,
-			email: email,
-			history: [],
-			hashedPassword: hashedPassword,
-			dateCreated: new Date(),
-			admin: false,
-			verified: false
-		})
+		// TODO don't know why but this is running two times
+		console.log("inserting")
+		try {
+			await collection_users.insertOne({
+				_id: userId,
+				firstName: firstName,
+				lastName: lastName,
+				username: username,
+				email: email,
+				history: [],
+				hashedPassword: hashedPassword,
+				dateCreated: new Date(),
+				admin: false,
+				verified: false
+			})
+		} catch(e) {
+			return fail(409, { error: "We had an internal server error, try again in a few seconds" });
+		}
+
+		// Send verification email
+		// await sendEmailVerification(`${url.protocol}//${url.host}`, userId, email)
+
+		// Create lucia session
 		const session = await lucia.createSession(userId, {});
 		const sessionCookie = lucia.createSessionCookie(session.id);
 		cookies.set(sessionCookie.name, sessionCookie.value, {

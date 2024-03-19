@@ -3,7 +3,6 @@
     import { slide } from "svelte/transition";
     import { userSchema } from "$lib/utils/schemas";
     import { deserialize } from '$app/forms';
-    import { goto } from '$app/navigation';
     import { flashMessageStore } from "../../../../stores";
 
     let firstName;
@@ -46,7 +45,7 @@
                 let intervalId;
                 function flashInterval(intervalId) {
                     if (window.location.pathname === '/') {
-                        flashMessageStore.set("Welcome to Sensopinion, check your email to verify your identity")
+                        flashMessageStore.set("Welcome to Sensopinion, check your email to verify your account")
                         clearInterval(intervalId);
                     }
                 }

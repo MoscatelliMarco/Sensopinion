@@ -1,9 +1,9 @@
 <script>
     import { enhance } from "$app/forms";
     import { slide } from "svelte/transition";
-    import { userSchema } from "$lib/utils/schemas";
-    import { deserialize } from '$app/forms';
-    import { flashMessageStore } from "../../../../stores";
+    // import { userSchema } from "$lib/utils/schemas";
+    // import { deserialize } from '$app/forms';
+    // import { flashMessageStore } from "../../../../stores";
 
     export let form;
 

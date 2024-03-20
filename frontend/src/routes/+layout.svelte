@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import { loadedStore } from '../stores';
+    import { loadedStore, userStore } from '../stores';
     import Navbar from "$lib/components/navbar.svelte";
     import Footer from "$lib/components/footer.svelte";
     import FlashMessage from '$lib/items/flash_message.svelte';
@@ -25,11 +25,20 @@
     $: if(page_loaded && store_loaded) {
         loaded = page_loaded && store_loaded
     }
+
+    $: if((data['props']['user'] || !data['props']['user']) && page_loaded) {
+        userStore.update(store => {
+            store.user = data['props']['user'] ? data['props']['user'] : null;
+            store.session = data['props']['session'] ? data['props']['session'] : null;
+
+            return store;
+        })
+    }
 </script>
 
 {#if loaded}
     <div class="flex flex-col min-h-screen bg-white text-black overflow-x-hidden">
-        <Navbar user={data['props']['user']} />
+        <Navbar />
         <main class="flex justify-center mb-40 md:mb-36 lg:mb-40">
             <div class="max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-6xl px-2 md:px-4 lg:px-6 w-full">
                 <FlashMessage />

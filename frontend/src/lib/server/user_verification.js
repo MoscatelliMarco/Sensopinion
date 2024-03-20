@@ -7,21 +7,21 @@ const client = new MongoClient(import.meta.env.VITE_MONGO_CLIENT_URI)
 await client.connect();
 const db = client.db('users');
 const collection_verification_token = db.collection('verification_tokens');
-const collection_delete_token = db.collection('verification_tokens');
+const collection_delete_token = db.collection('delete_tokens');
 const collection_users = db.collection('users');
+
 await collection_verification_token.createIndex({ "created_at": 1 }, { expireAfterSeconds: 10 * 60 });
-await collection.createIndex({ email: 1 }, { unique: true });
-await collection.createIndex({ username: 1 }, { unique: true });
+await collection_users.createIndex({ email: 1 }, { unique: true });
+await collection_users.createIndex({ username: 1 }, { unique: true });
 
 
 async function createEmailVerificationToken(userId, email) {
     // Delete all the previous token for that specific user
     await collection_verification_token.deleteMany({ user_id: userId });
-    await collection_delete_token.deleteMany({ user_id: userId });
 
     const verification_token = generateId(40);
     await collection_verification_token.insertOne({
-        id: verification_token,
+        _id: verification_token,
         user_id: userId,
         email: email,
         created_at: new Date()
@@ -29,23 +29,23 @@ async function createEmailVerificationToken(userId, email) {
 
     // Delete tokens are needed in case the account was created with the wrong email
     // Delete tokens are going to be removed from the database right after the user verify
-    const delete_token = generateId(60);
-    await collection_delete_token.insertOne({
-        id: delete_token,
-        user_id: userId,
-        email: email
-    })
+    // Create token only if no token for the same user exists
+    const alredy_existing_delete_token = await collection_delete_token.findOne({user_id: userId});
+    let delete_token = alredy_existing_delete_token?._id;
+    if (!alredy_existing_delete_token) {
+        delete_token = generateId(60);
+        await collection_delete_token.insertOne({
+            _id: delete_token,
+            user_id: userId,
+            email: email
+        })
+    }
 
-    return verification_token;
+    return {verification_token: verification_token, delete_token: delete_token};
 }
 
-console.log({
-    user: import.meta.env.VITE_EMAIL,
-    pass: import.meta.env.VITE_EMAIL_PASSWORD
-})
-
 const transporter = nodemailer.createTransport({
-    service: "icloud",
+    service: "gmail",
     auth: {
         user: import.meta.env.VITE_EMAIL,
         pass: import.meta.env.VITE_EMAIL_PASSWORD
@@ -53,8 +53,9 @@ const transporter = nodemailer.createTransport({
 })
 
 export async function sendEmailVerification(baseUrlPage, userId, email) {
-    const verificationToken = await createEmailVerificationToken(userId, email);
-    const verificationLink = baseUrlPage + "/user-verification/" + verificationToken;
+    const { verification_token, delete_token } = await createEmailVerificationToken(userId, email);
+    const verificationLink = baseUrlPage + "/user-verification/" + verification_token;
+    const deleteLink = baseUrlPage + "/user-deletion/" + delete_token;
 
     try {
         // Send mail with defined transport object
@@ -67,21 +68,46 @@ export async function sendEmailVerification(baseUrlPage, userId, email) {
                 <div>
                     <a href="${verificationLink}">Verify Account</a>
                 </div>
+                <p>Click on the button below to delete your account:</p>
+                <div>
+                    <a href="${deleteLink}">Delete Account</a>
+                </div>
             `
         });
         console.log('Email sent: %s', info.messageId);
+        return true;
     } catch (error) {
         console.error('Error sending email:', error);
+        return false;
     }
 }
 
 export async function verifyUser(tokenId) {
     try {
-        const token = await collection_token.findOne({ _id: tokenId });
+        const token = await collection_verification_token.findOne({ _id: tokenId });
         const userId = token.user_id;
         const user = await collection_users.updateOne({ _id: userId }, { $set: { verified: true } })
 
-        if (!user) {
+        if (user.matchedCount) {
+            // Delete verification and delete token from the database
+            await collection_verification_token.deleteMany({ user_id: userId });
+            await collection_delete_token.deleteMany({ user_id: userId });
+
+            return true;
+        }
+        return false;
+    } catch (e) {
+        return false;
+    }
+}
+
+export async function deleteUser(tokenId) {
+    try {
+        const token = await collection_delete_token.findOne({ _id: tokenId });
+        const userId = token.user_id;
+        const user = await collection_users.deleteOne({ _id: userId });
+
+        if (user.deletedCount) {
             // Delete verification and delete token from the database
             await collection_verification_token.deleteMany({ user_id: userId });
             await collection_delete_token.deleteMany({ user_id: userId });

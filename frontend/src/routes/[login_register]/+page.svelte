@@ -3,7 +3,6 @@
     import { onMount } from "svelte";
     import LoginForm from "$lib/sections/[login_register]/+page/login_form.svelte";
     import RegisterForm from "$lib/sections/[login_register]/+page/register_form.svelte";
-    import { enhance } from "$app/forms";
     export let form;
 
     let login;

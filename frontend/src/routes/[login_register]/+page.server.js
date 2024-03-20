@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { userSchema, userSchemaLogin } from "$lib/utils/schemas";
 import { collection_users } from "$lib/server/mongo_adapter";
-// import { sendEmailVerification } from '$lib/server/user_verification.js';
+import { sendEmailVerification } from '$lib/server/user_verification.js';
 
 // Create user and authentication
 import { lucia } from "$lib/server/auth";
@@ -74,11 +74,17 @@ export const actions = {
 				verified: false
 			})
 		} catch(e) {
-			return fail(409, { error: "We had an internal server error, try again in a few seconds" });
+			return fail(500, { error: "We had an internal server error, try again in a few seconds" });
 		}
 
 		// Send verification email
-		// await sendEmailVerification(`${url.protocol}//${url.host}`, userId, email)
+		const emailSentSuccess = await sendEmailVerification(`${url.protocol}//${url.host}`, userId, email);
+		
+		// Delete account if email couldn't be created
+		if (!emailSentSuccess) {
+			await collection_users.deleteOne({_id: userId});
+			return fail(500, { error: "We had an internal server error, try again later" })
+		}
 
 		// Create lucia session
 		const session = await lucia.createSession(userId, {});
@@ -90,7 +96,7 @@ export const actions = {
 		
 		return redirect(307, '/register/redirect');
 	},
-	login: async ({ cookies, request, params, locals }) => {
+	login: async ({ cookies, request, params }) => {
 		// TODO add request throttling
 		if (params.login_register != 'login' && params.login_register != 'register') {
             return fail(400, { error: "Bad request" });

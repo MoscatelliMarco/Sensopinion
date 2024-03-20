@@ -4,8 +4,7 @@
     let originalScrollY;
     import { page } from '$app/stores';
     import Icon from '@iconify/svelte';
-
-    export let user;
+    import { userStore } from "../../stores";
 
     // Create variable for navbar height
     let navbar_node;
@@ -107,7 +106,7 @@
             <li class="hover:font-medium text-sm flex flex-col justify-center {$page.url.pathname === '/analyze_your_news' ? 'text-primary-gradient font-medium' : ''}">
                 <a href="/analyze_your_news">Analyze Your News</a>
             </li>
-            {#if user}
+            {#if $userStore.user}
                 <a href="/user" class="p-0.5">
                     <div class="text-grey-1 ml-1 mb-0.25">
                         {#if $page.url.pathname.includes("/user")}
@@ -154,7 +153,7 @@
             <li class="text-sm hover:font-medium flex flex-col justify-center hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/info/about-us' ? 'text-primary-gradient font-semibold shadow' : 'text-grey-1 shadow-sm'}">
                 <a href="/info/about-us">About us</a>
             </li>
-            {#if user}
+            {#if $userStore.user}
             <li class="text-sm hover:font-medium flex flex-col justify-center hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/user' ? 'text-primary-gradient font-semibold shadow' : 'text-grey-1 shadow-sm'}">
                 <a href="/user">Account info</a>
             </li>

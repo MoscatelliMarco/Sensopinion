@@ -62,3 +62,8 @@ export const globalStore = writable({
 });
 
 export const flashMessageStore = writable("");
+
+export const userStore = writable({
+  user: null,
+  session: null
+})

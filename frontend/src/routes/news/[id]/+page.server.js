@@ -1,11 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { MongoClient, ObjectId } from 'mongodb';
-
-const client = new MongoClient(import.meta.env.VITE_MONGO_CLIENT_URI)
-
-await client.connect();
-const db = client.db('users');
-const collection = db.collection('users')
+import { collection_users } from "$lib/server/mongodb_collections";
 
 
 // This runs on the server during SSR and on the client after navigation
@@ -25,7 +19,7 @@ export async function load({ fetch, params, locals }) {
             // Search for the document with the provided elementId
             if (!locals.user.history) {
                 // If 'history' field doesn't exist, create it with an array containing historyId
-                await collection.updateOne({ _id: locals.user.id }, { $set: { history: [{date: new Date(), news_id: params.id}] } });
+                await collection_users.updateOne({ _id: locals.user.id }, { $set: { history: [{date: new Date(), news_id: params.id}] } });
             } else {
                 // If 'history' field exists
                 const { history } = locals.user;
@@ -35,7 +29,7 @@ export async function load({ fetch, params, locals }) {
                     if (updatedHistory.length > 50) {
                         updatedHistory = updatedHistory.slice(0, 50);
                     }
-                    await collection.updateOne({ _id: locals.user.id }, { $set: { history: updatedHistory } });
+                    await collection_users.updateOne({ _id: locals.user.id }, { $set: { history: updatedHistory } });
                 }
             }
         }

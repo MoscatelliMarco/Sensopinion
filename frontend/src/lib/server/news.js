@@ -1,14 +1,6 @@
-// src/routes/api/news.js
-import { MongoClient, ObjectId } from 'mongodb';
+import { collection_news } from "$lib/server/mongodb_collections";
+import { ObjectId } from 'mongodb';
 import { globalStore } from '../../stores';
-
-const client = new MongoClient(import.meta.env.VITE_MONGO_CLIENT_URI)
-let db;
-
-await client.connect();
-db = client.db('news_database');
-const collection = db.collection('news_collection')
-collection.createIndex({ "date_published": 1 }, { expireAfterSeconds: 10 * 24 * 60 * 60 });
 
 const projection = { google_news_url: 0, time_analyze: 0 }; // Exclude fields from the results
 
@@ -46,9 +38,9 @@ export async function all_news(n_load = null, skip = 0, sort_by = 'date_publishe
 
         let news;
         if (n_load !== null) {
-            news = await collection.find({}, { projection }).sort(sort_criteria).skip(parseInt(skip)).limit(parseInt(n_load)).toArray();
+            news = await collection_news.find({}, { projection }).sort(sort_criteria).skip(parseInt(skip)).limit(parseInt(n_load)).toArray();
         } else {
-            news = await collection.find({}, { projection }).sort(sort_criteria).skip(parseInt(skip)).toArray();
+            news = await collection_news.find({}, { projection }).sort(sort_criteria).skip(parseInt(skip)).toArray();
         }
 
         return news;
@@ -66,7 +58,7 @@ export async function one_news(factor, value) {
 
     try {
         value = factor == "_id" ? new ObjectId(value) : value; // Convert value to object _id if factor == _id
-        const news = await collection.find({[factor]: value}, { projection }).toArray();
+        const news = await collection_news.find({[factor]: value}, { projection }).toArray();
 
         return news;
     } catch (e) {
@@ -152,7 +144,7 @@ export async function screener_news(politics, economy, environment, n_load = 9, 
 
     try {
         // Execute the query with limit, skip, sorting, and ordering
-        const news = await collection.find(query, { projection })
+        const news = await collection_news.find(query, { projection })
         .limit(parseInt(n_load))
         .skip(parseInt(skip))
         .sort({ [sort_by]: order === 'descending' ? -1 : 1 })
@@ -230,7 +222,7 @@ export async function categories_news(category, subcategories, n_load = 9, skip 
 
     try {
         // Execute the query with limit, skip, sorting, and ordering
-        const news = await collection.find(query, { projection })
+        const news = await collection_news.find(query, { projection })
         .limit(parseInt(n_load))
         .skip(parseInt(skip))
         .sort({ [sort_by]: order === 'descending' ? -1 : 1 })

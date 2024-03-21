@@ -1,19 +1,6 @@
+import { collection_users, collection_verification_token, collection_delete_token } from "$lib/server/mongodb_collections";
 import { generateId } from "lucia";
-import { MongoClient } from 'mongodb';
 import nodemailer from 'nodemailer';
-
-const client = new MongoClient(import.meta.env.VITE_MONGO_CLIENT_URI)
-
-await client.connect();
-const db = client.db('users');
-const collection_verification_token = db.collection('verification_tokens');
-const collection_delete_token = db.collection('delete_tokens');
-const collection_users = db.collection('users');
-
-await collection_verification_token.createIndex({ "created_at": 1 }, { expireAfterSeconds: 10 * 60 });
-await collection_users.createIndex({ email: 1 }, { unique: true });
-await collection_users.createIndex({ username: 1 }, { unique: true });
-
 
 async function createEmailVerificationToken(userId, email) {
     // Delete all the previous token for that specific user

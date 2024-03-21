@@ -1,56 +1,23 @@
 <script>
     import { enhance } from "$app/forms";
-    import { slide } from "svelte/transition";
-    // import { userSchemaLogin } from "$lib/utils/schemas";
-    // import { deserialize } from '$app/forms';
-    // import { flashMessageStore } from "../../../../stores";
+    import { slide, fade } from "svelte/transition";
+    import { userSchemaLogin } from "$lib/utils/schemas";
 
     export let form;
 
     let emailUsername;
     let password;
 
-    // let error = "";
-    // async function handleSubmit(event) {
-    //     event.preventDefault();
-
-    //     const resultSchema = userSchemaLogin.validate({emailUsername: emailUsername, password: password})
-    //     if (resultSchema.error) {
-    //         error = resultSchema.error.details[0].message;
-    //         let cache_error = error;
-    //         setTimeout(() => {
-    //             if (cache_error == error) {
-    //                 error = ""
-    //             }
-    //         }, 4000)
-    //     } else {
-    //         const data = new FormData(event.currentTarget);
-    //         const response = await fetch(event.currentTarget.action, {
-    //             method: 'POST',
-    //             body: data
-    //         });
-    //         const result = deserialize(await response.text());
-    //         if (result.type == 'failure') {
-    //             error = result.data.error;
-
-    //             let cache_error = error;
-    //             setTimeout(() => {
-    //                 if (cache_error == error) {
-    //                     error = ""
-    //                 }
-    //             }, 4000)
-    //         } else {
-    //             let intervalId;
-    //             function flashInterval(intervalId) {
-    //                 if (window.location.pathname === '/') {
-    //                     flashMessageStore.set("Welcome back, we are happy to have you here again");
-    //                     clearInterval(intervalId);
-    //                 }
-    //             }
-    //             intervalId = setInterval(() => {flashInterval(intervalId)}, 100)
-    //         }
-    //     }
-    // }
+    let error = "";
+    let submit_button;
+    function verifyInput() {
+        const resultSchema = userSchemaLogin.validate({emailUsername: emailUsername, password: password});
+        if (resultSchema.error) {
+            error = resultSchema.error.details[0].message;
+        } else {
+            submit_button.click();
+        }
+    }
 </script>
 
 <div transition:slide={{duration: 300}} class="sm:mx-auto sm:w-full sm:max-w-sm mt-6">
@@ -75,13 +42,17 @@
         </div>
     
         <div class="pt-3">
-            <button type="submit" class="flex w-full justify-center rounded-md bg-primary-gradient px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
+            <button on:click={verifyInput} type="submit" class="flex w-full justify-center rounded-md bg-primary-gradient px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
                 Sign in
             </button>
         </div>
 
-        <div class="flex justify-center mx-4">
-            <p class="text-center text-error font-medium text-sm">{form ? form.error : ""}</p>
-        </div>
+        <button bind:this={submit_button} aria-hidden="true" class="hidden" type="submit"></button>
+
+        {#if error || form?.error}
+            <div transition:slide={{duration: 150}} class="flex justify-center mx-4">
+                <p transition:fade={{duration: 200}} class="text-center text-error font-medium text-sm">{error ? error : (form ? form.error : "")}</p>
+            </div>
+        {/if}
     </form>
 </div>

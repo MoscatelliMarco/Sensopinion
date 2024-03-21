@@ -24,3 +24,13 @@ export const collection_sessions = db_users.collection('sessions')
 await collection_verification_token.createIndex({ "created_at": 1 }, { expireAfterSeconds: 10 * 60 });
 await collection_users.createIndex({ email: 1 }, { unique: true });
 await collection_users.createIndex({ username: 1 }, { unique: true });
+
+// RATE LIMITING
+
+const db_rate_limiting = client.db('rate_limiting');
+export const collection_login_limiting = db_rate_limiting.collection("login_limiting");
+export const collection_register_limiting = db_rate_limiting.collection("register_limiting");
+export const collection_verifylink_limiting = db_rate_limiting.collection("verifylink_limiting");
+await collection_login_limiting.createIndex({ "created_at": 1 }, { expireAfterSeconds: 5 * 60 });
+await collection_register_limiting.createIndex({ "created_at": 1 }, { expireAfterSeconds: 10 * 60 });
+await collection_verifylink_limiting.createIndex({ "created_at": 1 }, { expireAfterSeconds: 5 * 60 });

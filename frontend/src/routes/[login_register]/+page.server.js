@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { userSchema, userSchemaLogin } from "$lib/utils/schemas";
-import { collection_users } from "$lib/server/mongo_adapter";
+import { collection_users, collection_register_limiting, collection_login_limiting } from "$lib/server/mongodb_collections";
 import { sendEmailVerification } from '$lib/server/user_verification.js';
 
 // Create user and authentication
@@ -31,8 +31,7 @@ export async function load({ locals, params }) {
 }
 
 export const actions = {
-	register: async ({ cookies, request, params, url }) => {
-		// TODO add request throttling
+	register: async ({ cookies, params, url, request, getClientAddress }) => {
         if (params.login_register != 'login' && params.login_register != 'register') {
             return fail(400, { error: "Bad request" });
         }
@@ -51,7 +50,18 @@ export const actions = {
 			return fail(400, { error: result.error.details[0].message })
 		}
 
-		const userId = generateId(15);
+		// Rate limiting
+		const ip = getClientAddress();
+		const ipCounts = await collection_register_limiting.countDocuments({ip: { $eq: ip }});
+		if (ipCounts + 1 > import.meta.env.VITE_REGISTER_LIMITING) {
+			return fail(429, { error: "You are registering too many accounts, try again later" })
+		}
+		await collection_register_limiting.insertOne({
+			ip: ip,
+			date_created: new Date()
+		})
+
+		const userId = generateId(25);
 		const hashedPassword = await new Argon2id().hash(password);
 
 		const userExists = await doesUserExists(username, email);
@@ -96,8 +106,7 @@ export const actions = {
 		
 		return redirect(307, '/register/redirect');
 	},
-	login: async ({ cookies, request, params }) => {
-		// TODO add request throttling
+	login: async ({ cookies, request, params, getClientAddress }) => {
 		if (params.login_register != 'login' && params.login_register != 'register') {
             return fail(400, { error: "Bad request" });
         }
@@ -112,16 +121,40 @@ export const actions = {
 			return fail(400, { error: result.error.details[0].message })
 		}
 
+		// Rate limiting on login and do it only if the login FAILS
+		const ip = getClientAddress();
+		const ipCounts = await collection_login_limiting.countDocuments({ip: { $eq: ip }});
 		const userExists = await doesUserExistsLogin(email_username);
 		if (!userExists) {
+			// If the login fails add ip to the db
+			if (ipCounts + 1 > import.meta.env.VITE_LOGIN_LIMITING) {
+				return fail(429, { error: "You are making too many attempts, try again later" })
+			}
+			await collection_login_limiting.insertOne({
+				ip: ip,
+				date_created: new Date()
+			})
+
 			return fail(409, { error: "Incorrect username/email or password" });
 		}
 
 		const validPassword = await new Argon2id().verify(userExists.hashedPassword, password);
 		if (!validPassword) {
+			// If the login fails add ip to the db
+			if (ipCounts + 1 > import.meta.env.VITE_LOGIN_LIMITING) {
+				return fail(429, { error: "You are making too many attempts, try again later" })
+			}
+			await collection_login_limiting.insertOne({
+				ip: ip,
+				date_created: new Date()
+			})
+
 			return fail(400, {
 				error: "Incorrect username/email or password"
 			});
+		}
+		if (ipCounts + 1 > import.meta.env.VITE_LOGIN_LIMITING) {
+			return fail(429, { error: "You are making too many attempts, try again later" })
 		}
 		const session = await lucia.createSession(userExists._id, {});
 		const sessionCookie = lucia.createSessionCookie(session.id);

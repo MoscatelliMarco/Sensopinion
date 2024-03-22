@@ -37,7 +37,7 @@
 </script>
 
 {#if loaded}
-    <div class="flex flex-col min-h-screen bg-white text-black overflow-x-hidden">
+    <div class="font-main flex flex-col min-h-screen bg-white text-black overflow-x-hidden">
         <Navbar />
         <main class="flex justify-center mb-40 md:mb-36 lg:mb-40">
             <div class="max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-6xl px-2 md:px-4 lg:px-6 w-full">
@@ -48,7 +48,7 @@
         <Footer />
     </div>
 {:else}
-    <div class="bg-white flex justify-center items-center h-screen">
+    <div class="font-main bg-white flex justify-center items-center h-screen">
         <span class="loading loading-infinity w-10 md:w-12 lg:w-13"></span>
     </div>
 {/if}

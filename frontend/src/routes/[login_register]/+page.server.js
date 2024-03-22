@@ -109,7 +109,7 @@ export const actions = {
 			path: ".",
 			...sessionCookie.attributes
 		});
-		
+
 		return redirect(307, '/register/redirect');
 	},
 	login: async ({ cookies, request, params, getClientAddress }) => {
@@ -168,7 +168,7 @@ export const actions = {
 			path: ".",
 			...sessionCookie.attributes
 		});
-		
+
 		return redirect(307, '/login/redirect');
 	}
 };

@@ -51,14 +51,59 @@ export async function sendEmailVerification(baseUrlPage, userId, email) {
             to: email,
             subject: 'Verify Your Sensopinion Account',
             html: `
-                <p>Click on the button below to verify your account:</p>
-                <div>
-                    <a href="${verificationLink}">Verify Account</a>
+            <!doctype html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <script src="https://cdn.tailwindcss.com"></script>
+                <style>
+                    body {
+                        font-family: 'Roboto', sans-serif; /* Specify Roboto as the font family */
+                    }
+                    p {
+                        line-height: 1.4em !important;
+                    }
+            
+                    h1, h2, h3, h4, h5, h6 {
+                        line-height: 1.2em !important;
+                        letter-spacing: -0.01em !important;
+                    }
+            
+                    .bg-primary-gradient {
+                        background: linear-gradient(to right, rgb(33, 135, 219), rgb(112, 46, 219));
+                    }
+                    .text-primary-gradient {
+                        /* Define the gradient */
+                        background-image: linear-gradient(to right, rgb(33, 135, 219), rgb(112, 46, 219));
+            
+                        /* Set the text color to transparent */
+                        color: transparent;
+            
+                        /* Clip the background to the text */
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        
+                        /* Ensuring text is displayed */
+                        -webkit-text-fill-color: transparent; 
+                    }
+                </style>
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+            </head>
+            <body class="flex justify-center bg-gray-100 text-center">
+                <div class="my-16 mx-4 md:mx-8 lg:mx-12 max-w-md md:max-w-xl w-full">
+                    <div class="w-full h-full bg-white flex flex-col justify-center items-center gap-6 px-4 md:px-7 py-6 lg:py-10">
+                        <h1 class="text-primary-gradient font-medium text-3xl">Sensopinion</h1>
+                        <svg class="h-20 p-4 border-4 border-gray-300 rounded-full fill-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2zm-2 0l-8 5l-8-5zm0 12H4V8l8 5l8-5z"/></svg>
+                        <h3 class="font-medium text-gray-500 text-lg">Verify your email</h3>
+                        <p class="text-gray-700 text-sm max-w-sm">Verify your Sensopinion account to access unlimited features on our platform</p>
+                        <button class="bg-primary-gradient text-white px-8 py-2 rounded">
+                            Verify your account
+                        </button>
+                    </div>
                 </div>
-                <p>Click on the button below to delete your account:</p>
-                <div>
-                    <a href="${deleteLink}">Delete Account</a>
-                </div>
+            </body>
+            </html>
             `
         });
         return true;

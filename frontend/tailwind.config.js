@@ -3,7 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   content: [
     './src/**/*.svelte', 
-    './src/**/*.html'
+    // './src/**/*.html' removed this one so I can create .html with tailwind without changing the main css size
   ],
   plugins: [require('daisyui')],
   daisyui: {

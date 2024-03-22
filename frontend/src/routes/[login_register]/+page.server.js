@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { userSchema, userSchemaLogin } from "$lib/utils/schemas";
-import { collection_users, collection_register_limiting, collection_login_limiting } from "$lib/server/mongodb_collections";
+import { collection_users, collection_register_limiting, collection_login_limiting, collection_verifylink_limiting } from "$lib/server/mongodb_collections";
 import { sendEmailVerification } from '$lib/server/user_verification.js';
 
 // Create user and authentication
@@ -95,6 +95,12 @@ export const actions = {
 			await collection_users.deleteOne({_id: userId});
 			return fail(500, { error: "We had an internal server error, try again later" })
 		}
+
+		// Add rate limiting verify link
+		await collection_verifylink_limiting.insertOne({
+			email: email,
+			date_created: new Date()
+		})
 
 		// Create lucia session
 		const session = await lucia.createSession(userId, {});

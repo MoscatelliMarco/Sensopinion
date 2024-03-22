@@ -8,19 +8,19 @@
     export let form;
 
     $: if (form?.success) {
-        // goto("/");
-        // let intervalId;
-        // function flashInterval(intervalId) {
-        //     if (window.location.pathname === '/') {
-        //         flashMessageStore.set("We sent another authentication email, check your inbox");
-        //         clearInterval(intervalId);
-        //     }
-        // }
-        // intervalId = setInterval(() => {flashInterval(intervalId)}, 100)
+        goto("/");
+        let intervalId;
+        function flashInterval(intervalId) {
+            if (window.location.pathname === '/') {
+                flashMessageStore.set("We sent another authentication email, check your inbox");
+                clearInterval(intervalId);
+            }
+        }
+        intervalId = setInterval(() => {flashInterval(intervalId)}, 100)
     }
 </script>
 
-<div class="mt-16 text-center">
+<div class="mt-20 text-center">
     {#if is_verified}
         <div class="flex flex-col gap-2 justify-center items-center">
             <p class="text-primary-gradient text-2xl font-semibold">Congratulations!</p>
@@ -33,12 +33,12 @@
             </p>
         </div>
         {#if $userStore.user && !$userStore.user.verified}
-            <form class="flex flex-col items-center gap-1 mt-10" action="#" method="POST" use:enhance>
+            <form class="flex flex-col items-center gap-1 mt-8" action="#" method="POST" use:enhance>
                 <p class="text-center text-grey-1 font-medium">Want another code?</p>
                 <button class="px-8 py-2 bg-primary-gradient-opacity text-white rounded font-semibold">Send another code</button>
             </form>
-            <div class="flex justify-center mx-4">
-                <p class="text-center text-error font-medium text-sm">{form?.error ? form.error : ""}</p>
+            <div class="flex justify-center mx-4 mt-4">
+                <p class="text-center text-error font-medium text-sm max-w-sm">{form?.error ? form.error : ""}</p>
             </div>
         {/if}
     {/if}

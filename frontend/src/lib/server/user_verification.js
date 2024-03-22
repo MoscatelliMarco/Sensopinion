@@ -61,10 +61,8 @@ export async function sendEmailVerification(baseUrlPage, userId, email) {
                 </div>
             `
         });
-        console.log('Email sent: %s', info.messageId);
         return true;
     } catch (error) {
-        console.error('Error sending email:', error);
         return false;
     }
 }

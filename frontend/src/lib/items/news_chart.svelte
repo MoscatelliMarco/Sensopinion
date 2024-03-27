@@ -9,6 +9,11 @@
     export let cake_chart_colors;
     export let emotion_analyze;
 
+    // Handle if value == null
+    if (value === null) {
+        value = 0;
+    }
+
     let size;
     let thickness;
     let font_weight;

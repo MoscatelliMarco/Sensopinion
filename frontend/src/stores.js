@@ -60,3 +60,10 @@ export const globalStore = writable({
       return (x - stretch_constant) / (1 - stretch_constant * 2)
     }
 });
+
+export const flashMessageStore = writable("");
+
+export const userStore = writable({
+  user: null,
+  session: null
+})

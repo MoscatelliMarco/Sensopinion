@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { one_news } from '../mongodb.js';
+import { one_news } from '$lib/server/news.js';
 
 export async function GET(event) {
   const factor = event.url.searchParams.get("factor");

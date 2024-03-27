@@ -198,7 +198,7 @@
                     <div class="flex flex-col justify-center gap-3 md:gap-4 w-full items-center">
                         <a href="/categories/politics" class="flex flex-col gap-3 md:gap-5 lg:gap-6">
                             <h4 class="text-center text-lg xl:text-xl text-grey-1">politics</h4>
-                            <NewsChart name="politics" dimension='medium' value={metrics['politics'][factor]} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
+                            <NewsChart name="politics" dimension='medium' value={metrics['politics'] ? metrics['politics'][factor] : 0} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
                         <div class="flex justify-center">
                             <button on:click={show_more} data-category_type="politics" 
@@ -214,7 +214,7 @@
                     <div class="flex flex-col justify-center gap-3 md:gap-4 w-full items-center">
                         <a href="/categories/economy" class="flex flex-col gap-3 md:gap-5 lg:gap-6">
                             <h4 class="text-center text-lg xl:text-xl text-grey-1">economy</h4>
-                            <NewsChart name="economy" dimension='medium' value={metrics['economy'][factor]} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
+                            <NewsChart name="economy" dimension='medium' value={metrics['economy'] ? metrics['economy'][factor] : 0} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
                         <div class="flex justify-center">
                             <button on:click={show_more} data-category_type="economy" 
@@ -230,7 +230,7 @@
                     <div class="flex flex-col justify-center gap-3 md:gap-4 w-full items-center">
                         <a href="/categories/environment" class="flex flex-col gap-3 md:gap-5 lg:gap-6">
                             <h4 class="text-center text-lg xl:text-xl text-grey-1">environment</h4>
-                            <NewsChart name="environment" dimension='medium' value={metrics['environment'][factor]} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
+                            <NewsChart name="environment" dimension='medium' value={metrics['environment'] ? metrics['environment'][factor] : 0} emotion_analyze={emotion_analyze} cake_chart_colors={cake_chart_colors}/>
                         </a>
                         <div class="flex justify-center">
                             <div class="flex justify-center">

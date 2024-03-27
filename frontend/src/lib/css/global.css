@@ -28,6 +28,16 @@
     background: linear-gradient(to right, rgb(33, 135, 219, 0.8), rgb(112, 46, 219, 0.8));
 }
 
+.bg-primary-gradient-opacity-high {
+    background: linear-gradient(to right, rgb(33, 135, 219, 0.8), rgb(112, 46, 219, 0.8));
+}
+.bg-primary-gradient-opacity-high-inter:hover {
+    background: linear-gradient(to right, rgb(33, 135, 219, 0.9), rgb(112, 46, 219, 0.9));
+}
+.bg-primary-gradient-opacity-high-inter:focus {
+    background: linear-gradient(to right, rgb(33, 135, 219, 0.9), rgb(112, 46, 219, 0.9));
+}
+
 circle {
     fill: none;
     stroke: url(#GradientColor);

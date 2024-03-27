@@ -1,4 +1,4 @@
-import { globalStore, loadedStore } from "../../../../stores";
+import { globalStore, loadedStore } from "../../../../stores.js";
 
 // This runs on the server during SSR and on the client after navigation
 export async function load({ fetch }) {

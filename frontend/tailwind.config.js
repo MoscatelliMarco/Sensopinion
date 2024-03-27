@@ -3,7 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   content: [
     './src/**/*.svelte', 
-    './src/**/*.html'
+    // './src/**/*.html' removed this one so I can create .html with tailwind without changing the main css size
   ],
   plugins: [require('daisyui')],
   daisyui: {
@@ -12,6 +12,7 @@ module.exports = {
         main: {
           blue: "rgb(33, 135, 219)",
           purple: "rgb(112, 46, 219)",
+          "info-dark": "#2A81B1",
           "grey-1": "#616161",
           "grey-2": "#969696",
           "grey-3": "#CACACA",
@@ -31,6 +32,7 @@ module.exports = {
       colors: {
         blue: "rgb(33, 135, 219)",
         purple: "rgb(112, 46, 219)",
+        "info-dark": "#2A81B1",
         "grey-1": "#616161",
         "grey-2": "#969696",
         "grey-3": "#CACACA",
@@ -57,7 +59,9 @@ module.exports = {
         "neg-8": "-2rem",
         "0.25": "0.0625rem",
         "4.5": "1.125rem",
+        "5.5": "1.375rem",
         "6.5": "1.625rem",
+        "8.5": "2.125rem",
         "13": "3.25rem",
         "18": "4.5rem",
         "38": "9.5rem",

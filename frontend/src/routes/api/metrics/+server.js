@@ -1,22 +1,6 @@
-// src/routes/api/news.js
-import { MongoClient  } from 'mongodb';
+import { collection_news } from "$lib/server/mongodb_collections";
 import { json } from '@sveltejs/kit';
 import { globalStore } from '../../../stores.js';
-
-const client = new MongoClient(import.meta.env.VITE_MONGO_CLIENT_URL)
-let db;
-
-await client.connect();
-db = client.db('news_database');
-const collection = db.collection('news_collection')
-db.collection('news_collection').createIndex({ "time_analyze": 1 }, { expireAfterSeconds: 604800 });
-
-function sanitizeStringForMongoDB(inputString) {
-    // Replace or escape special MongoDB characters
-    let sanitizedString = inputString.replace('$', '\\$').replace('.', '\\.');
-    return sanitizedString;
-}
-
 // Store current length collection so doesn't have to do the math every time
 let current_len_collection = undefined;
 let metrics_cache = {};
@@ -32,7 +16,7 @@ export async function GET() {
 
     // Download the needed part of the news articles
     const projection = { google_news_url: 0, time_analyze: 0 }; // Exclude fields from the results
-    let news_articles = await collection.find({}, { projection }).toArray();
+    let news_articles = await collection_news.find({}, { projection }).toArray();
 
     // If the length is the same the means that the article are the same and you can use the metrics_cache calculated in the request before (this has a small chance to not calculate the metrics properly if an article is deleted and added at the same time, but the different would be irrelevant)
     if (news_articles.length === current_len_collection) {
@@ -55,6 +39,11 @@ export async function GET() {
     }
 
     for (let emotion of ['anger', 'disgust', 'fear', 'neutral', 'sadness', 'surprise', 'happiness']) {
+        metrics['all']['emotions'][emotion] = {
+            'numerator': 0,
+            'denominator': 0
+        }
+
         for (let news of news_articles) {
             if (emotion in metrics['all']['emotions']) {
                 metrics['all']['emotions'][emotion]['numerator'] += news['emotions'][emotion]
@@ -92,8 +81,14 @@ export async function GET() {
                 }
             }
         }
+     
         for (let metric in metrics) {
-            metrics[metric]['emotions'][emotion] = Math.round(metrics[metric]['emotions'][emotion]['numerator'] / metrics[metric]['emotions'][emotion]['denominator'] * 1000) / 10
+            // Handle if denominator == 0
+            if (metrics[metric]['emotions'][emotion]['denominator'] == 0) {
+                metrics[metric]['emotions'][emotion] = 0;
+            } else {
+                metrics[metric]['emotions'][emotion] = Math.round(metrics[metric]['emotions'][emotion]['numerator'] / metrics[metric]['emotions'][emotion]['denominator'] * 1000) / 10
+            }
         }
     }
     for (let news of news_articles) {

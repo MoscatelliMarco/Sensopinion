@@ -3,6 +3,8 @@
     let openMenu = false;
     let originalScrollY;
     import { page } from '$app/stores';
+    import Icon from '@iconify/svelte';
+    import { userStore } from "../../stores";
 
     // Create variable for navbar height
     let navbar_node;
@@ -104,15 +106,23 @@
             <li class="hover:font-medium text-sm flex flex-col justify-center {$page.url.pathname === '/analyze_your_news' ? 'text-primary-gradient font-medium' : ''}">
                 <a href="/analyze_your_news">Analyze Your News</a>
             </li>
-            <li class="hover:font-medium text-sm flex flex-col justify-center {$page.url.pathname === '/info/about-us' ? 'text-primary-gradient font-medium' : ''}">
-                <a href="/info/about-us">About us</a>
-            </li>
+            {#if $userStore.user}
+                <a href="/user" class="p-0.5">
+                    <div class="text-grey-1 ml-1 mb-0.25">
+                        {#if $page.url.pathname.includes("/user")}
+                            <Icon icon="mdi:account" class="h-5.5 w-5.5"/>
+                        {:else}
+                            <Icon icon="mdi:account-outline" class="h-5.5 w-5.5"/>
+                        {/if}
+                    </div>
+                </a>
+            {:else}
+                <li>
+                    <a class="btn bg-primary-gradient-opacity-high bg-primary-gradient-opacity-high-inter rounded text-white border shadow-sm hover:shadow px-8 min-h-0 h-8.5 font-normal text-sm"
+                    href="/login">Login</a>
+                </li>
+            {/if}
         </ul>
-        <!-- <button on:click={() => {openMenu = !openMenu}} class="block lg:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" class="fill-black h-6" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H4ZM7 12C7 11.4477 7.44772 11 8 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13H8C7.44772 13 7 12.5523 7 12ZM13 18C13 17.4477 13.4477 17 14 17H20C20.5523 17 21 17.4477 21 18C21 18.5523 20.5523 19 20 19H14C13.4477 19 13 18.5523 13 18Z"/>
-            </svg>
-        </button> -->
         <button class="block lg:hidden ham-menu stroke-black{openMenu ? " open" : ""}" on:click={() => {openMenu = !openMenu;}}>
             <svg class="w-7 h-7" viewBox="0 0 100 100">
               <path class="line top" d="M 20,30 H 80"/>
@@ -143,6 +153,18 @@
             <li class="text-sm hover:font-medium flex flex-col justify-center hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/info/about-us' ? 'text-primary-gradient font-semibold shadow' : 'text-grey-1 shadow-sm'}">
                 <a href="/info/about-us">About us</a>
             </li>
+            {#if $userStore.user}
+            <li class="text-sm hover:font-medium flex flex-col justify-center hover:shadow px-4 py-3 rounded-md {$page.url.pathname === '/user' ? 'text-primary-gradient font-semibold shadow' : 'text-grey-1 shadow-sm'}">
+                <a href="/user">Account info</a>
+            </li>
+            {:else}
+                <li class="flex justify-center gap-3 md:gap-5 mt-4">
+                    <a class="btn bg-primary-gradient-opacity-high bg-primary-gradient-opacity-high-inter rounded text-white border shadow-sm hover:shadow w-28 md:w-44 min-h-0 h-8.5 font-normal text-sm"
+                    href="/login">Login</a>
+                    <a class="btn border-grey-2 rounded text-grey-2 border shadow-sm hover:shadow w-28 md:w-44 min-h-0 h-8.5 font-normal text-sm"
+                    href="/register">Sign up</a>
+                </li>
+            {/if}
         </ul>
     </div>
 </div>

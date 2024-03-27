@@ -14,10 +14,11 @@ class DBClient():
         client = MongoClient(mongo_connection_string)
         db = client['news_database']
         self.collection = db['news_collection']
-        try:
-            self.collection.create_index([("date_published", 1)], expireAfterSeconds=60 * 60 * 24 * accepted_days_news)  # 7 days in seconds
-        except Exception as e:
-            logger.error("Error creating index for date_published")
+        # ADD ONLY IN PRODUCTION
+        # try:
+        #     self.collection.create_index([("date_published", 1)], expireAfterSeconds=60 * 60 * 24 * accepted_days_news)  # 7 days in seconds
+        # except Exception as e:
+        #     logger.error("Error creating index for date_published")
         logger.info("Connected to the database")
 
     def fetch_news(self):

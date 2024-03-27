@@ -10,7 +10,8 @@ const db_news = client.db('news_database');
 
 export const collection_news = db_news.collection('news_collection')
 
-await collection_news.createIndex({ "date_published": 1 }, { expireAfterSeconds: 10 * 24 * 60 * 60 });
+// ACTIVATE ONLY IN PRODUCTION
+// await collection_news.createIndex({ "date_published": 1 }, { expireAfterSeconds: 10 * 24 * 60 * 60 });
 
 // USERS
 
